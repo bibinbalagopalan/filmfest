@@ -1,0 +1,156 @@
+---
+// src/components/GallerySection.astro
+
+const photos = [
+  {
+    src: "https://i.ibb.co/mC4H1MgK/1.jpg",
+    alt: "Festival archives moment 1",
+    span: "col-span-1 md:col-span-2 row-span-2 aspect-[4/3] md:aspect-auto",
+  },
+  {
+    src: "https://i.ibb.co/KxHxmk1T/2.jpg",
+    alt: "Festival archives moment 2",
+    span: "col-span-1 aspect-[4/3]",
+  },
+  {
+    src: "https://i.ibb.co/TBTCTz1z/3.jpg",
+    alt: "Festival archives moment 3",
+    span: "col-span-1 aspect-[4/3]",
+  },
+  {
+    src: "https://i.ibb.co/JwZj6Tdk/4.jpg",
+    alt: "Festival archives moment 4",
+    span: "col-span-1 md:col-span-2 aspect-[16/9]",
+  },
+  {
+    src: "https://i.ibb.co/hRBb5YNy/5.jpg",
+    alt: "Festival archives moment 5",
+    span: "col-span-1 aspect-[4/3]",
+  },
+  {
+    src: "https://i.ibb.co/Qj8VWR5G/6.jpg",
+    alt: "Festival archives moment 6",
+    span: "col-span-1 aspect-[4/3]",
+  },
+  {
+    src: "https://i.ibb.co/WNkXQhPH/7.jpg",
+    alt: "Festival archives moment 7",
+    span: "col-span-1 md:col-span-2 aspect-[16/9]",
+  },
+  {
+    src: "https://i.ibb.co/B53kxjGZ/8.jpg",
+    alt: "Festival archives moment 8",
+    span: "col-span-1 aspect-[4/3]",
+  },
+  {
+    src: "https://i.ibb.co/tp8Hh3Vg/9.jpg",
+    alt: "Festival archives moment 9",
+    span: "col-span-1 aspect-[4/3]",
+  },
+  {
+    src: "https://i.ibb.co/4g9Y6xp5/10.jpg",
+    alt: "Festival archives moment 10",
+    span: "col-span-1 md:col-span-2 aspect-[16/9]",
+  },
+];
+---
+
+<section
+  class="w-full bg-white text-zinc-950 border-b border-zinc-900 py-20 sm:py-28 px-6 sm:px-12"
+>
+  <div class="max-w-6xl mx-auto space-y-12 sm:space-y-16">
+    <!-- Editorial Header -->
+    <div
+      class="border-b-2 border-zinc-950 pb-6 flex flex-col md:flex-row md:items-baseline justify-between gap-4"
+    >
+      <h2
+        class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-zinc-950"
+      >
+        Frames &amp; Moments
+      </h2>
+      <p class="font-mono text-sm uppercase tracking-widest text-zinc-600">
+        Glimpses From Season 02
+      </p>
+    </div>
+
+    <!-- Editorial Mosaic Grid (Full Color) -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+      {
+        photos.map((photo) => (
+          <button
+            type="button"
+            class={`relative overflow-hidden bg-zinc-100 border border-zinc-950 cursor-pointer focus:outline-none transition-transform duration-200 hover:scale-[1.01] ${photo.span}`}
+            onclick={`openLightbox('${photo.src}')`}
+            aria-label="View enlarged photograph"
+          >
+            <img
+              src={photo.src}
+              alt={photo.alt}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div
+    id="lightbox-modal"
+    class="fixed inset-0 z-50 bg-zinc-950/90 hidden items-center justify-center p-4 sm:p-8 backdrop-blur-xs"
+    onclick="closeLightbox(event)"
+  >
+    <div class="relative max-w-5xl max-h-[90vh] flex flex-col items-end">
+      <button
+        type="button"
+        onclick="closeLightboxDirect()"
+        class="mb-3 text-white font-mono text-xs font-bold uppercase tracking-widest bg-zinc-900 border border-zinc-700 px-3 py-1.5 hover:bg-white hover:text-zinc-950 transition-colors cursor-pointer"
+      >
+        Close [ESC]
+      </button>
+      <img
+        id="lightbox-image"
+        src=""
+        alt="Expanded photograph"
+        class="max-w-full max-h-[80vh] object-contain border border-zinc-700 bg-black shadow-2xl"
+      />
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  function openLightbox(src) {
+    const modal = document.getElementById("lightbox-modal");
+    const image = document.getElementById("lightbox-image");
+    if (modal && image) {
+      image.src = src;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      document.body.style.overflow = "hidden";
+    }
+  }
+
+  function closeLightboxDirect() {
+    const modal = document.getElementById("lightbox-modal");
+    const image = document.getElementById("lightbox-image");
+    if (modal && image) {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      image.src = "";
+      document.body.style.overflow = "";
+    }
+  }
+
+  function closeLightbox(event) {
+    if (event.target.id === "lightbox-modal") {
+      closeLightboxDirect();
+    }
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeLightboxDirect();
+    }
+  });
+</script>

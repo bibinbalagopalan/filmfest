@@ -1,0 +1,300 @@
+---
+// src/components/Navbar.astro
+
+interface DropdownItem {
+  label: string;
+  href: string;
+}
+
+interface NavItem {
+  label: string;
+  href?: string;
+  dropdown?: DropdownItem[];
+}
+
+const navItems: NavItem[] = [
+  {
+    label: "About",
+    dropdown: [
+      { label: "About PSFF", href: "/about" },
+      { label: "Drishtidosham Chalachithravedi", href: "/drishtidosham" },
+      { label: "The Team", href: "/team" }
+    ]
+  },
+  {
+    label: "Awards",
+    dropdown: [
+      { label: "Best Short Film", href: "/awards#best-film" },
+      { label: "Best Director", href: "/awards#best-director" },
+      { label: "Best Cinematographer", href: "/awards#best-cinematographer" },
+      { label: "Best Popular Short Film", href: "/awards#popular-film" }
+    ]
+  },
+  {
+    label: "Previous Seasons",
+    dropdown: [
+      { label: "Season 01 (2024)", href: "/seasons/01" },
+      { label: "Season 02 (2025)", href: "/seasons/02" }
+    ]
+  },
+  {
+    label: "Festival",
+    dropdown: [
+      { label: "News", href: "/#dispatches" },
+      { label: "Jury", href: "/#jury" },
+      { label: "Venue", href: "/venue" },
+      { label: "Schedule", href: "/schedule" },
+      { label: "Rules & Regulations", href: "/rules" }
+    ]
+  },
+  {
+    label: "Contact",
+    href: "/contact"
+  }
+];
+---
+
+<!-- Top Utility & Social Ribbon -->
+<header class="w-full bg-[#161616] text-zinc-300 border-b border-zinc-800 text-[11px] font-mono tracking-wider z-50 select-none">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 py-2.5 flex items-center justify-between">
+    
+    <!-- Utility Quick Icons -->
+    <div class="flex items-center gap-5 sm:gap-6">
+      <a href="/sitemap" class="text-zinc-400 hover:text-white transition-colors" title="Sitemap" aria-label="Sitemap">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+        </svg>
+      </a>
+
+      <a href="/pwa" class="text-zinc-400 hover:text-white transition-colors" title="PWA" aria-label="PWA">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+      </a>
+
+      <a href="/accessibility" class="text-zinc-400 hover:text-white transition-colors" title="Accessibility" aria-label="Accessibility">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+      </a>
+
+      <a href="/downloads" class="text-zinc-400 hover:text-white transition-colors" title="Downloads" aria-label="Downloads">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+      </a>
+
+      <a href="/contact" class="text-zinc-400 hover:text-white transition-colors sm:hidden" title="Contact" aria-label="Contact">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Social Media Icons -->
+    <div class="flex items-center gap-4 sm:gap-5">
+      <a 
+        href="https://www.instagram.com/drishtidosham__filmsociety/" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="text-zinc-400 hover:text-white transition-colors"
+        title="Instagram"
+        aria-label="Instagram"
+      >
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </a>
+
+      <a 
+        href="https://www.facebook.com/pazhassilibrary" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="text-zinc-400 hover:text-white transition-colors"
+        title="Facebook"
+        aria-label="Facebook"
+      >
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</header>
+
+<!-- Main Navigation Bar -->
+<nav class="sticky top-0 w-full bg-[#F6F4EE] text-[#161616] border-b-2 border-[#161616] z-40 selection:bg-[#D9381E] selection:text-[#F6F4EE]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between h-20">
+    
+    <!-- Crisp Festival Logo with Prominent Season Stamp -->
+    <a href="/" class="group flex items-center gap-3 focus:outline-none" aria-label="Pazhassi Film Fest">
+      <span class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616] group-hover:text-[#D9381E] transition-colors duration-200">
+        PSFF 
+      </span>
+
+      <!-- High-Visibility Season 03 Pill / Stamp -->
+      <span class="inline-flex items-center justify-center font-mono text-[11px] sm:text-xs font-black uppercase tracking-wider text-[#F6F4EE] bg-[#161616] px-2.5 py-1 border border-[#161616] group-hover:bg-[#D9381E] group-hover:border-[#D9381E] group-hover:-translate-y-0.5 group-hover:shadow-[2px_2px_0px_0px_#161616] transition-all duration-200">
+        Season 03
+      </span>
+    </a>
+
+    <!-- Desktop Navigation Items -->
+    <div class="hidden xl:flex items-center gap-1 text-xs font-bold uppercase tracking-wider font-mono h-full">
+      {navItems.map((item) => (
+        <div class="relative group h-full flex items-center">
+          {item.dropdown ? (
+            <button
+              type="button"
+              class="px-3.5 py-2 inline-flex items-center gap-1.5 text-[#161616] hover:text-[#D9381E] transition-colors focus:outline-none cursor-pointer"
+            >
+              <span>{item.label}</span>
+              <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-zinc-500 group-hover:text-[#D9381E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          ) : (
+            <a
+              href={item.href}
+              class="px-3.5 py-2 text-[#161616] hover:text-[#D9381E] transition-colors"
+            >
+              {item.label}
+            </a>
+          )}
+
+          <!-- Dropdown Menu -->
+          {item.dropdown && (
+            <div class="absolute top-[80%] left-0 hidden group-hover:block bg-[#F6F4EE] border-2 border-[#161616] shadow-[4px_4px_0px_0px_#161616] min-w-[240px] z-50 py-1.5 animate-in fade-in slide-in-from-top-1 duration-150">
+              {item.dropdown.map((sub) => (
+                <a
+                  href={sub.href}
+                  class="block px-4 py-2.5 text-xs font-mono font-bold uppercase tracking-wider text-[#161616] hover:bg-[#161616] hover:text-[#F6F4EE] transition-colors"
+                >
+                  {sub.label}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+
+      <!-- Submit Call to Action Button -->
+      <div class="pl-4 flex items-center">
+        <a
+          href="/submit"
+          class="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-mono font-black uppercase tracking-widest text-[#F6F4EE] bg-[#161616] border-2 border-[#161616] shadow-[3px_3px_0px_0px_#D9381E] hover:bg-[#D9381E] hover:border-[#D9381E] hover:shadow-[3px_3px_0px_0px_#161616] hover:-translate-y-0.5 transition-all duration-150"
+        >
+          <span>Submit Your Entry</span>
+          <span class="font-sans text-sm">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Hamburger Button -->
+    <div class="xl:hidden flex items-center">
+      <button
+        id="menu-toggle-btn"
+        type="button"
+        class="p-2.5 border-2 border-[#161616] bg-transparent hover:bg-[#161616] hover:text-[#F6F4EE] shadow-[3px_3px_0px_0px_#161616] active:shadow-none active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer focus:outline-none"
+        aria-label="Toggle Navigation Menu"
+        aria-expanded="false"
+      >
+        <div class="w-5 h-4 relative flex flex-col justify-between">
+          <span class="bar bar-top w-full h-0.5 bg-current transition-all duration-300 origin-left"></span>
+          <span class="bar bar-mid w-full h-0.5 bg-current transition-all duration-200"></span>
+          <span class="bar bar-bot w-full h-0.5 bg-current transition-all duration-300 origin-left"></span>
+        </div>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div
+    id="mobile-drawer"
+    class="xl:hidden hidden border-t-2 border-[#161616] bg-[#F6F4EE] max-h-[85vh] overflow-y-auto font-mono text-xs uppercase font-bold"
+  >
+    <div class="p-6 space-y-5">
+      
+      {navItems.map((item) => (
+        <div class="border-b border-zinc-300 pb-3.5">
+          {item.dropdown ? (
+            <div class="space-y-2.5">
+              <span class="block text-[11px] text-[#D9381E] font-bold tracking-widest">
+                {item.label}
+              </span>
+              <div class="pl-2 space-y-2">
+                {item.dropdown.map((sub) => (
+                  <a
+                    href={sub.href}
+                    class="block text-[#161616] hover:text-[#D9381E] text-xs font-bold transition-colors mobile-link"
+                  >
+                    &bull; {sub.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <a
+              href={item.href}
+              class="block text-[#161616] hover:text-[#D9381E] text-xs font-bold transition-colors mobile-link"
+            >
+              {item.label}
+            </a>
+          )}
+        </div>
+      ))}
+
+      <!-- Mobile CTA Button -->
+      <div class="pt-2">
+        <a
+          href="/submit"
+          class="w-full text-center block py-3.5 text-xs font-mono font-black uppercase tracking-widest text-[#F6F4EE] bg-[#161616] border-2 border-[#161616] shadow-[3px_3px_0px_0px_#D9381E] hover:bg-[#D9381E] transition-colors"
+        >
+          Submit Your Entry &rarr;
+        </a>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Toggle Logic -->
+<script is:inline>
+  const toggleBtn = document.getElementById('menu-toggle-btn');
+  const drawer = document.getElementById('mobile-drawer');
+  const topBar = document.querySelector('.bar-top');
+  const midBar = document.querySelector('.bar-mid');
+  const botBar = document.querySelector('.bar-bot');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  let isOpen = false;
+
+  function toggleMenu() {
+    isOpen = !isOpen;
+    if (!toggleBtn || !drawer) return;
+
+    toggleBtn.setAttribute('aria-expanded', isOpen.toString());
+
+    if (isOpen) {
+      drawer.classList.remove('hidden');
+      topBar?.classList.add('rotate-45', 'translate-x-0.5', '-translate-y-0.5');
+      midBar?.classList.add('opacity-0');
+      botBar?.classList.add('-rotate-45', 'translate-x-0.5', 'translate-y-0.5');
+    } else {
+      drawer.classList.add('hidden');
+      topBar?.classList.remove('rotate-45', 'translate-x-0.5', '-translate-y-0.5');
+      midBar?.classList.remove('opacity-0');
+      botBar?.classList.remove('-rotate-45', 'translate-x-0.5', 'translate-y-0.5');
+    }
+  }
+
+  toggleBtn?.addEventListener('click', toggleMenu);
+
+  mobileLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      if (isOpen) toggleMenu();
+    });
+  });
+</script>

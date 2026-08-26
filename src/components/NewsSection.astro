@@ -1,0 +1,96 @@
+---
+// src/components/NewsSection.astro
+
+const newsFiles = import.meta.glob<{
+  frontmatter: {
+    title: string;
+    publishDate: string;
+    summary: string;
+    tag?: string;
+    image?: string;
+    order?: number;
+  };
+}>('../content/news/*.md', { eager: true });
+
+const sortedNews = Object.entries(newsFiles)
+  .map(([path, file]) => {
+    const slug = path.split('/').pop()?.replace('.md', '') || '';
+    return {
+      slug,
+      ...file.frontmatter,
+    };
+  })
+  .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+---
+
+<section class="w-full bg-white text-zinc-950 border-b border-zinc-200 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#4338ca] selection:text-white">
+  <div class="max-w-6xl mx-auto space-y-12 sm:space-y-16">
+    
+    <!-- Direct Section Header (Matching Design Pattern) -->
+    <div class="border-b-2 border-zinc-950 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950">
+        Festival Updates
+      </h2>
+      <p class="font-mono text-xs uppercase tracking-wider text-zinc-500">
+        Official News &amp; Bulletins
+      </p>
+    </div>
+
+    <!-- 3-Column Profile / Article Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 items-start">
+      {sortedNews.map((item) => (
+        <article class="space-y-5 flex flex-col justify-between">
+          
+          <!-- Image Frame -->
+          {item.image && (
+            <a href={`/news/${item.slug}`} class="block group">
+              <div class="relative border-2 border-zinc-950 aspect-[16/10] bg-zinc-100 overflow-hidden shadow-[6px_6px_0px_0px_#18181b]">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div class="absolute bottom-3 left-3 bg-zinc-950 text-white font-mono text-[11px] font-bold px-2.5 py-1 uppercase tracking-wider">
+                  {item.tag || "Dispatch"}
+                </div>
+              </div>
+            </a>
+          )}
+
+          <!-- Content Details -->
+          <div class="space-y-3 pt-1">
+            <div class="border-b border-zinc-200 pb-3">
+              <span class="block font-mono text-xs text-zinc-500 uppercase tracking-wider mb-1">
+                {item.publishDate}
+              </span>
+              <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-zinc-950 leading-snug hover:text-[#4338ca] transition-colors">
+                <a href={`/news/${item.slug}`}>
+                  {item.title}
+                </a>
+              </h3>
+            </div>
+
+            <!-- Summary Body -->
+            <p class="text-sm text-zinc-700 leading-relaxed font-normal">
+              {item.summary}
+            </p>
+
+            <!-- Inline Link Action -->
+            <div class="pt-2">
+              <a
+                href={`/news/${item.slug}`}
+                class="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-[#4338ca] hover:text-zinc-950 transition-colors"
+              >
+                <span>Read More</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,91 @@
+---
+// src/components/PreviousSeasonSection.astro
+
+const winners = [
+  {
+    award: "Best Film & Popular Film",
+    film: "Kanam",
+    image: "https://i.ibb.co/YTKSmkLj/Best-Film.jpg",
+    credits: [
+      { label: "Direction", value: "Mridul S" },
+      { label: "Cinematography", value: "Anil Babu" }
+    ]
+  },
+  {
+    award: "Best Director",
+    film: "Ura",
+    image: "https://i.ibb.co/Z9jWDCD/Best-Directer.jpg",
+    credits: [
+      { label: "Direction", value: "Sruthil Mathew" }
+    ]
+  },
+  {
+    award: "Best Cinematographer",
+    film: "Golden Love",
+    image: "https://i.ibb.co/j9qTM6wM/Best-Cinematographer.jpg",
+    credits: [
+      { label: "Cinematography", value: "Nijo Abraham" }
+    ]
+  }
+];
+---
+
+<section class="w-full bg-white text-zinc-950 border-b border-zinc-900 py-20 sm:py-28 px-6 sm:px-12">
+  <div class="max-w-6xl mx-auto space-y-16 sm:space-y-20">
+    
+    <!-- Editorial Masthead Header -->
+    <div class="border-b-2 border-zinc-950 pb-6 flex flex-col md:flex-row md:items-baseline justify-between gap-4">
+      <h2 class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-zinc-950">
+        Season 02 Winners
+      </h2>
+      <p class="font-mono text-sm uppercase tracking-widest text-zinc-600">
+        Festival Retrospective
+      </p>
+    </div>
+
+    <!-- Winners Display -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-10 items-start">
+      {winners.map((item, idx) => (
+        <article class="space-y-6 flex flex-col justify-between">
+          
+          <!-- Image Frame -->
+          <div class="w-full aspect-[4/5] bg-zinc-100 border border-zinc-950 overflow-hidden">
+            <img
+              src={item.image}
+              alt={`${item.film} - ${item.award}`}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Narrative Winner Block -->
+          <div class="space-y-4">
+            
+            <!-- Category Title -->
+            <p class="text-xs font-mono font-bold uppercase tracking-widest text-[#4338ca]">
+              {item.award}
+            </p>
+
+            <!-- Prominent Film Title -->
+            <h3 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-zinc-950 leading-none">
+              {item.film}
+            </h3>
+
+            <!-- Credits Details -->
+            <div class="pt-4 border-t border-zinc-200 space-y-1.5 font-mono text-xs sm:text-sm">
+              {item.credits.map((c) => (
+                <div class="flex items-baseline justify-between gap-2">
+                  <span class="text-zinc-500 uppercase tracking-wider">{c.label}</span>
+                  <span class="font-bold text-zinc-950">{c.value}</span>
+                </div>
+              ))}
+            </div>
+
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>

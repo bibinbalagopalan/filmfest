@@ -1,45 +1,51 @@
 ---
 // src/layouts/Layout.astro
 import "../styles/global.css";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
   title?: string;
+  description?: string;
 }
 
-const { title = "3rd Pazhassi Short Film Festival | Mananthavady" } =
-  Astro.props;
+const {
+  title = "3rd Pazhassi Short Film Festival 2026 | Mananthavady",
+  description = "Official portal of the 3rd Pazhassi Short Film Festival (PSFF Season 03), organized by Drishtidosham Chalachithravedi and Pazhassi Raja Smaraka Granthalayam in collaboration with Mananthavady Municipality.",
+} = Astro.props;
 ---
 
 <!doctype html>
 <html
   lang="en"
-  class="bg-[#F6F4EE] text-[#161616] antialiased selection:bg-[#D9381E] selection:text-[#F6F4EE]"
+  class="bg-[#F6F4EE] text-[#161616] antialiased selection:bg-[#D9381E] selection:text-[#F6F4EE] scroll-smooth"
 >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Favicon & Identity -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Cultural / Print Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Malayalam:wght@400;700;900&family=Syne:wght@700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700;800&family=Noto+Sans+Malayalam:wght@400;700;900&family=Noto+Serif+Malayalam:wght@400;600;700;900&family=Syne:wght@700;800;900&display=swap"
       rel="stylesheet"
     />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@400;600;700;900&display=swap"
-      rel="stylesheet"
-    />
     <style>
       :root {
         --font-display: "Syne", sans-serif;
         --font-editorial: "Instrument Serif", Georgia, serif;
         --font-mono: "JetBrains Mono", monospace;
         --font-malayalam: "Noto Sans Malayalam", sans-serif;
+        --font-malayalam-serif: "Noto Serif Malayalam", serif;
       }
       .font-display {
         font-family: var(--font-display);
@@ -53,6 +59,9 @@ const { title = "3rd Pazhassi Short Film Festival | Mananthavady" } =
       .font-ml {
         font-family: var(--font-malayalam);
       }
+      .font-ml-serif {
+        font-family: var(--font-malayalam-serif);
+      }
 
       /* Physical Paper Grain Texture */
       .paper-grain {
@@ -60,7 +69,13 @@ const { title = "3rd Pazhassi Short Film Festival | Mananthavady" } =
       }
     </style>
   </head>
-  <body class="min-h-screen bg-[#F6F4EE] paper-grain">
-    <slot />
+  <body
+    class="min-h-screen bg-[#F6F4EE] text-[#161616] paper-grain flex flex-col justify-between"
+  >
+    <Navbar />
+    <main class="flex-grow">
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>
