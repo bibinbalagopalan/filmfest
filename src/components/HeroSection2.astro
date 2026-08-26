@@ -1,0 +1,134 @@
+---
+// src/components/HeroSection.astro
+---
+
+<section
+  class="w-full bg-white text-zinc-900 border-b border-zinc-200 py-12 sm:py-20 px-6 sm:px-12 selection:bg-[#4338ca] selection:text-white"
+>
+  <div class="max-w-6xl mx-auto">
+    <!-- Top Row: Organizers Bar -->
+    <div
+      class="border-b border-zinc-200 pb-4 mb-12 sm:mb-16 flex flex-wrap items-center justify-between text-xs font-mono tracking-tight text-zinc-500 uppercase"
+    >
+      <span
+        >Drishtidosham Film Society &bull; Mananthavady Municipality &bull;
+        Pazhassi Raja Smaraka Grandhalayam</span
+      >
+      <span>Mananthavady, Wayanad</span>
+    </div>
+
+    <!-- Main Grid: Edition Lockup + Content Block -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
+      <!-- Left Column: Edition Lockup & Festival Title (Inspired by the IFFK 31 lockup) -->
+      <div class="lg:col-span-5 space-y-6">
+        <!-- Big Number Lockup -->
+        <div class="flex items-center gap-3">
+          <span
+            class="text-7xl sm:text-9xl font-black tracking-tighter text-[#4338ca] leading-none select-none"
+          >
+            03
+          </span>
+          <div class="h-16 w-px bg-zinc-300 mx-1"></div>
+          <div class="flex flex-col justify-center">
+            <span
+              class="text-xs font-mono font-bold tracking-widest uppercase text-zinc-400"
+              >Season</span
+            >
+            <span
+              class="text-xl sm:text-2xl font-black uppercase tracking-tight text-zinc-900 leading-none"
+              >PSFF</span
+            >
+          </div>
+        </div>
+
+        <!-- Festival Title -->
+        <div class="space-y-1">
+          <h1
+            class="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-zinc-900 leading-snug"
+          >
+            Pazhassi Short<br />Film Festival
+          </h1>
+          <p class="text-sm font-medium text-zinc-600">
+            28 November 2026 &bull; Mananthavady
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column: Graph Accent Banner + Submission Details -->
+      <div class="lg:col-span-7 space-y-8 lg:pl-6">
+        <!-- Graph Paper Textured Banner with Pixel / Monospace Display -->
+        <div
+          class="relative w-full border border-[#4338ca]/30 bg-[#f8f9ff] p-5 sm:p-7 overflow-hidden rounded-sm"
+        >
+          <!-- Graph Grid Pattern -->
+          <div
+            class="absolute inset-0 opacity-15 pointer-events-none"
+            style="background-image: linear-gradient(to right, #4338ca 1px, transparent 1px), linear-gradient(to bottom, #4338ca 1px, transparent 1px); background-size: 8px 8px;"
+          >
+          </div>
+
+          <div class="relative z-10">
+            <span
+              class="text-3xl sm:text-5xl font-black tracking-tight text-[#4338ca] uppercase block font-mono"
+            >
+              Entries Open Now
+            </span>
+          </div>
+        </div>
+
+        <!-- Structured Details Block -->
+        <div class="space-y-6 pt-2">
+          <div>
+            <p
+              class="text-base sm:text-lg text-zinc-800 leading-relaxed font-normal"
+            >
+              Short films completed between <strong
+                class="text-zinc-950 font-bold">01 September 2025</strong
+              > and <strong class="text-zinc-950 font-bold"
+                >31 August 2026</strong
+              > are eligible to apply.
+            </p>
+          </div>
+
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-zinc-200"
+          >
+            <div>
+              <span class="block text-xs font-mono uppercase text-zinc-500 mb-1"
+                >Entry Submission Period</span
+              >
+              <p class="text-base font-bold text-[#4338ca]">
+                28 August &mdash; 30 September 2026
+              </p>
+            </div>
+
+            <div>
+              <span class="block text-xs font-mono uppercase text-zinc-500 mb-1"
+                >Total Run Time</span
+              >
+              <p class="text-base font-bold text-zinc-900">
+                Should Not Exceed 30 Minutes
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="pt-4 flex flex-wrap items-center gap-4">
+          <a
+            href="#submit-entry"
+            class="inline-flex items-center justify-center px-8 py-3.5 bg-[#4338ca] hover:bg-[#3730a3] text-white text-sm font-semibold tracking-wide uppercase transition-colors duration-150"
+          >
+            Submit Your Entry
+          </a>
+          <a
+            href="#guidelines"
+            class="inline-flex items-center justify-center px-6 py-3.5 border border-zinc-300 hover:border-zinc-900 text-zinc-700 hover:text-zinc-900 text-sm font-medium transition-colors"
+          >
+            Full Guidelines
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,60 @@
+---
+// src/layouts/Layout.astro
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+}
+
+const { title = "3rd Pazhassi Short Film Festival | Mananthavady" } =
+  Astro.props;
+---
+
+<!doctype html>
+<html
+  lang="en"
+  class="bg-[#F6F4EE] text-[#161616] antialiased selection:bg-[#D9381E] selection:text-[#F6F4EE]"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+
+    <!-- Cultural / Print Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Malayalam:wght@400;700;900&family=Syne:wght@700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --font-display: "Syne", sans-serif;
+        --font-editorial: "Instrument Serif", Georgia, serif;
+        --font-mono: "JetBrains Mono", monospace;
+        --font-malayalam: "Noto Sans Malayalam", sans-serif;
+      }
+      .font-display {
+        font-family: var(--font-display);
+      }
+      .font-editorial {
+        font-family: var(--font-editorial);
+      }
+      .font-mono-custom {
+        font-family: var(--font-mono);
+      }
+      .font-ml {
+        font-family: var(--font-malayalam);
+      }
+
+      /* Physical Paper Grain Texture */
+      .paper-grain {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-[#F6F4EE] paper-grain">
+    <slot />
+  </body>
+</html>
