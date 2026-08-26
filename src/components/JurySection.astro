@@ -1,0 +1,120 @@
+---
+// src/components/JurySection.astro
+
+const juries = [
+  {
+    name: "Sherry Govindan",
+    role: "Chief Jury",
+    designation: "Filmmaker",
+    image: "https://i.ibb.co/j9nP0PKK/director-1311202512-56-01.jpg",
+    isPlaceholder: false,
+    highlights: [
+      "National Film Award (2011) — Special Mention for Best Director",
+      "Kerala State Film Award (2011) — Best Debut Director",
+      "Jury Member — International Film Festival of Kerala (IFFK)",
+      "Selection Jury Member — 49th Kerala State Film Awards",
+      "Former Executive Member — Kerala State Chalachitra Academy"
+    ],
+    bio: "Sherry Govindan is an acclaimed Indian filmmaker whose cinematic works have earned prominent state and national recognition, making him a deeply respected voice in Malayalam independent cinema."
+  },
+  {
+    name: "Arjun K",
+    role: "Jury Member",
+    designation: "Filmmaker & Film Critic",
+    image: "https://i.ibb.co/mrhXq0PB/0e8b1e52-f84a-476e-8204-badc6373b8ef.jpg",
+    isPlaceholder: false,
+    highlights: [
+      "Director — K-Pop (2025)",
+      "Director — Dialogues on Emancipation (2023)",
+      "Festival Programmer — Independent & Experimental Film Festival of Kerala",
+      "Film History Faculty — New Wave Film School",
+      "Published Critic — Chalachitra Sameeksha & Drishyathalam"
+    ],
+    bio: "Arjun K is a Kerala-based filmmaker and critic whose work bridges fiction, documentary, and experimental cinema. Rooted in history, memory, and philosophical inquiry, his films challenge narrative conventions while maintaining sharp socio-political relevance."
+  },
+  {
+    name: "To Be Announced",
+    role: "Jury Member",
+    designation: "Filmmaker / Critic",
+    image: "",
+    isPlaceholder: true,
+    highlights: [
+      "Distinguished filmmaker / industry professional",
+      "Evaluation committee member for official selections"
+    ],
+    bio: "The third member of the evaluation committee will be officially announced alongside the publication of the final competitive shortlist."
+  }
+];
+---
+
+<section class="w-full bg-white text-zinc-950 border-b border-zinc-200 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#4338ca] selection:text-white">
+  <div class="max-w-6xl mx-auto space-y-12 sm:space-y-16">
+    
+    <!-- Direct Section Header -->
+    <div class="border-b-2 border-zinc-950 pb-4">
+      <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950">
+        Jury
+      </h2>
+    </div>
+
+    <!-- Three-Column Profile Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 items-start">
+      {juries.map((jury) => (
+        <article class="space-y-6">
+          
+          <!-- Image Frame -->
+          <div class={`relative border-2 border-zinc-950 aspect-[4/5] overflow-hidden shadow-[6px_6px_0px_0px_#18181b] ${jury.isPlaceholder ? 'bg-zinc-100 flex items-center justify-center border-dashed' : 'bg-zinc-100'}`}>
+            {jury.isPlaceholder ? (
+              <div class="flex flex-col items-center justify-center p-6 text-center font-mono text-zinc-400">
+                <span class="text-4xl font-light mb-2">?</span>
+                <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Announcement Pending</span>
+              </div>
+            ) : (
+              <img
+                src={jury.image}
+                alt={jury.name}
+                class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-300"
+                loading="lazy"
+              />
+            )}
+            
+            <div class="absolute bottom-3 left-3 bg-zinc-950 text-white font-mono text-[11px] font-bold px-2.5 py-1 uppercase tracking-wider">
+              {jury.role}
+            </div>
+          </div>
+
+          <!-- Name & Role -->
+          <div class="space-y-3 pt-1">
+            <div class="border-b border-zinc-200 pb-3">
+              <h3 class={`text-xl sm:text-2xl font-black uppercase tracking-tight ${jury.isPlaceholder ? 'text-zinc-500' : 'text-zinc-950'}`}>
+                {jury.name}
+              </h3>
+              <p class="font-mono text-xs uppercase tracking-wider text-[#4338ca] font-bold mt-1">
+                {jury.designation}
+              </p>
+            </div>
+
+            <!-- Bio -->
+            <p class="text-sm text-zinc-700 leading-relaxed">
+              {jury.bio}
+            </p>
+
+            <!-- Key Highlights -->
+            <div class="pt-2">
+              <div class="border-l-2 border-zinc-950 pl-3.5 py-0.5 space-y-2">
+                {jury.highlights.map((item) => (
+                  <div class={`text-xs font-mono font-medium leading-snug ${jury.isPlaceholder ? 'text-zinc-500 italic' : 'text-zinc-900'}`}>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>

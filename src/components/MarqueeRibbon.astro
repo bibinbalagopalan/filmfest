@@ -1,0 +1,64 @@
+---
+// src/components/AnnouncementMarquee.astro
+
+const announcements = [
+  "Entries are being invited for: Best Short Film",
+  "Best Director",
+  "Best Cinematographer",
+  "Best Popular Short Film",
+  "Submission Deadline: 30 September 2026",
+  "Screening: 28 November 2026 at Mananthavady",
+];
+---
+
+<div
+  class="w-full bg-[#4338ca] text-white border-y border-zinc-950 overflow-hidden py-3 select-none flex items-center"
+>
+  <!-- Fixed Label -->
+  <div
+    class="z-10 bg-[#4338ca] pl-6 pr-4 shrink-0 font-mono text-xs font-black uppercase tracking-widest flex items-center gap-2.5 shadow-[8px_0px_12px_#4338ca]"
+  >
+    <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+    <span class="text-white">Announcements:</span>
+  </div>
+
+  <!-- Scrolling Marquee Content -->
+  <div class="marquee-track flex whitespace-nowrap overflow-hidden">
+    {
+      [...Array(2)].map(() => (
+        <div class="marquee-content flex items-center gap-6 shrink-0 pl-4 font-mono text-xs uppercase tracking-wider font-semibold">
+          {announcements.map((item) => (
+            <div class="flex items-center gap-6">
+              <span class="text-white">{item}</span>
+              <span class="text-indigo-300 font-normal">&bull;</span>
+            </div>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .marquee-track {
+    display: flex;
+    width: 100%;
+  }
+
+  .marquee-content {
+    animation: scroll-left 25s linear infinite;
+  }
+
+  .marquee-track:hover .marquee-content {
+    animation-play-state: paused;
+  }
+
+  @keyframes scroll-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+</style>
