@@ -1,0 +1,195 @@
+---
+// src/pages/awards/best-cinematographer.astro
+import Layout from "../../layouts/Layout.astro";
+
+const criteria = [
+  {
+    title: "Framing, Composition & Aspect Grammar",
+    points: "30",
+    desc: "Visual balance, spatial depth, camera placement, and intentional framing choices.",
+  },
+  {
+    title: "Lighting Design & Mood",
+    points: "30",
+    desc: "Contrast ratios, natural and artificial light control, and tonal atmosphere.",
+  },
+  {
+    title: "Camera Movement & Dynamics",
+    points: "20",
+    desc: "Tracking, panning, handheld control, and how movement serves the scene's intent.",
+  },
+  {
+    title: "Color Palette & Visual Consistency",
+    points: "20",
+    desc: "Color harmony, exposure management, and overall visual continuity across scenes.",
+  },
+];
+
+const winners = [
+  {
+    season: "Season 02 (2025)",
+    cinematographer: "Nijo Abraham",
+    film: "Golden Love",
+    note: "Award category introduced in Season 02",
+    images: [
+      {
+        src: "https://i.ibb.co/j9qTM6wM/Best-Cinematographer.jpg",
+        alt: "Nijo Abraham - Best Cinematographer for Golden Love",
+      },
+    ],
+  },
+];
+---
+
+<Layout title="Best Cinematographer | PSFF Season 03">
+  <div class="w-full border-b border-zinc-900 py-16 sm:py-24 px-6 sm:px-12">
+    <div class="max-w-6xl mx-auto space-y-16 sm:space-y-20">
+      
+      <!-- Header -->
+      <header class="border-b-2 border-[#161616] pb-8 space-y-3">
+        <div class="font-mono text-xs uppercase tracking-wider text-zinc-500">
+          <a href="/" class="hover:text-[#D9381E]">&larr; Home</a> / Awards
+        </div>
+        <h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#161616]">
+          Best Cinematographer
+        </h1>
+        <p class="font-mono text-sm sm:text-base text-zinc-700">
+          Awarded for visual craft, lighting control, and camera work that defines the film's atmosphere.
+        </p>
+      </header>
+
+      <!-- Prize Summary -->
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 shadow-[5px_5px_0px_0px_#D9381E] space-y-2">
+          <span class="font-mono text-xs uppercase tracking-wider text-[#D9381E] font-bold block">
+            Cash Award
+          </span>
+          <p class="text-5xl sm:text-6xl font-black text-white">
+            ₹10,000
+          </p>
+        </div>
+
+        <div class="border-2 border-[#161616] bg-[#F6F4EE] p-8 shadow-[5px_5px_0px_0px_#161616] space-y-2 flex flex-col justify-center">
+          <span class="font-mono text-xs uppercase tracking-wider text-zinc-500 font-bold block">
+            Award Includes
+          </span>
+          <p class="text-2xl sm:text-3xl font-black uppercase text-[#161616]">
+            Official Trophy + Citation
+          </p>
+        </div>
+      </section>
+
+      <!-- Scoring Rubrics -->
+      <section class="space-y-6">
+        <div class="border-b-2 border-[#161616] pb-3">
+          <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]">
+            Jury Scoring Rubric (100 Marks)
+          </h2>
+        </div>
+
+        <div class="border-2 border-[#161616] bg-[#F6F4EE] divide-y-2 divide-[#161616] shadow-[5px_5px_0px_0px_#161616]">
+          {criteria.map((item, idx) => (
+            <div class="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="space-y-1">
+                <div class="flex items-center gap-2.5 font-mono">
+                  <span class="text-xs font-bold text-[#D9381E]">0{idx + 1}.</span>
+                  <h3 class="text-base sm:text-lg font-black uppercase text-[#161616]">
+                    {item.title}
+                  </h3>
+                </div>
+                <p class="text-sm text-zinc-700 font-mono pl-6">
+                  {item.desc}
+                </p>
+              </div>
+
+              <div class="pl-6 sm:pl-0 font-mono text-right flex sm:flex-col items-baseline justify-between">
+                <span class="text-2xl sm:text-3xl font-black text-[#161616]">
+                  {item.points}
+                </span>
+                <span class="text-[11px] text-zinc-500 uppercase">
+                  Marks
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Previous Winners -->
+      <section class="space-y-8">
+        <div class="border-b-2 border-[#161616] pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+          <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]">
+            Previous Winners
+          </h2>
+          <span class="font-mono text-xs uppercase text-zinc-500">
+            Introduced in Season 02
+          </span>
+        </div>
+
+        <div class="space-y-10">
+          {winners.map((item) => (
+            <article class="border-2 border-[#161616] bg-[#F6F4EE] p-6 sm:p-8 shadow-[5px_5px_0px_0px_#161616] space-y-6">
+              
+              <!-- Header -->
+              <div class="border-b border-zinc-300 pb-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+                <div>
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="font-mono text-xs font-bold uppercase text-[#D9381E]">
+                      {item.season}
+                    </span>
+                    <span class="font-mono text-[10px] uppercase bg-zinc-200 text-zinc-700 px-2 py-0.5">
+                      Inaugural Winner
+                    </span>
+                  </div>
+                  <h3 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-[#161616]">
+                    {item.cinematographer}
+                  </h3>
+                </div>
+
+                <div class="font-mono text-sm text-[#161616]">
+                  <span class="text-zinc-500 uppercase">For the Film:</span>{" "}
+                  <strong>{item.film}</strong>
+                </div>
+              </div>
+
+              <!-- Full-Fit Single Photo Container -->
+              <div class="w-full">
+                {item.images.map((img) => (
+                  <div class="border-2 border-[#161616] h-[360px] sm:h-[480px] bg-[#161616] p-2 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      class="w-full h-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Submission CTA -->
+      <div class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div>
+          <h3 class="text-xl sm:text-2xl font-black uppercase text-white">
+            Submit for Season 03
+          </h3>
+          <p class="font-mono text-xs text-zinc-400 mt-1">
+            Open for entries completed between Sep 2025 and Aug 2026. Runtime under 30 minutes.
+          </p>
+        </div>
+
+        <a
+          href="/submit"
+          class="inline-block px-6 py-3 text-xs font-mono font-black uppercase tracking-wider text-[#161616] bg-[#F6F4EE] hover:bg-[#D9381E] hover:text-white transition-all shadow-[3px_3px_0px_0px_#D9381E]"
+        >
+          Submit Film &rarr;
+        </a>
+      </div>
+
+    </div>
+  </div>
+</Layout>

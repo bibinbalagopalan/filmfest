@@ -1,0 +1,218 @@
+---
+// src/pages/news/index.astro
+import Layout from "../../layouts/Layout.astro";
+
+// Load all markdown files from the content directory
+const newsFiles = import.meta.glob<{
+  frontmatter: {
+    title: string;
+    publishDate: string;
+    summary: string;
+    tag?: string;
+    image?: string;
+    order?: number;
+  };
+}>("../../content/news/*.md", { eager: true });
+
+const allNews = Object.entries(newsFiles)
+  .map(([path, file]) => {
+    const slug = path.split("/").pop()?.replace(".md", "") || "";
+    return {
+      slug,
+      ...file.frontmatter,
+    };
+  })
+  .sort(
+    (a, b) =>
+      new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime(),
+  );
+
+const featuredArticle = allNews[0];
+const standardArticles = allNews.slice(1);
+---
+
+<Layout title="Dispatches & News | PSFF Season 03">
+  <div
+    class="w-full border-b border-zinc-900 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]"
+  >
+    <div class="max-w-6xl mx-auto space-y-16 sm:space-y-20">
+      <!-- Editorial Page Masthead -->
+      <header class="border-b-2 border-[#161616] pb-8 space-y-4">
+        <div
+          class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-500"
+        >
+          <a href="/" class="hover:text-[#D9381E] transition-colors"
+            >&larr; Home</a
+          >
+          <span>&bull;</span>
+          <span class="text-[#D9381E] font-bold">Press & Bulletins</span>
+          <span>&bull;</span>
+          <span>Season 03</span>
+        </div>
+
+        <h1
+          class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#161616] leading-none"
+        >
+          Festival Dispatches
+        </h1>
+        <p
+          class="font-mono text-sm sm:text-base text-zinc-700 max-w-3xl leading-relaxed"
+        >
+          Official announcements, schedule updates, screening rosters, and press
+          releases for the 3rd Pazhassi Short Film Festival.
+        </p>
+      </header>
+
+      <!-- Featured Lead Story (If available) -->
+      {
+        featuredArticle && (
+          <section class="space-y-4">
+            <div class="border-b-2 border-[#161616] pb-2 flex items-baseline justify-between">
+              <span class="font-mono text-xs font-bold uppercase tracking-widest text-[#D9381E]">
+                Lead Story
+              </span>
+              <span class="font-mono text-xs text-zinc-500 uppercase">
+                Latest Release
+              </span>
+            </div>
+
+            <article class="border-2 border-[#161616] bg-[#F6F4EE] shadow-[6px_6px_0px_0px_#161616] overflow-hidden">
+              <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+                {featuredArticle.image && (
+                  <div class="lg:col-span-7 bg-[#161616] h-[280px] sm:h-[400px] border-b-2 lg:border-b-0 lg:border-r-2 border-[#161616] p-2 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={featuredArticle.image}
+                      alt={featuredArticle.title}
+                      class="w-full h-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+
+                <div
+                  class={`${featuredArticle.image ? "lg:col-span-5" : "lg:col-span-12"} p-6 sm:p-10 flex flex-col justify-between space-y-6`}
+                >
+                  <div class="space-y-4">
+                    <div class="flex items-center gap-3 font-mono text-xs text-zinc-500 uppercase">
+                      <span class="text-[#D9381E] font-bold">
+                        {featuredArticle.tag || "Bulletin"}
+                      </span>
+                      <span>&bull;</span>
+                      <span>{featuredArticle.publishDate}</span>
+                    </div>
+
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#161616] leading-tight hover:text-[#D9381E] transition-colors">
+                      <a href={`/news/${featuredArticle.slug}`}>
+                        {featuredArticle.title}
+                      </a>
+                    </h2>
+
+                    <p class="font-mono text-xs sm:text-sm text-zinc-700 leading-relaxed">
+                      {featuredArticle.summary}
+                    </p>
+                  </div>
+
+                  <div class="pt-4 border-t border-zinc-300">
+                    <a
+                      href={`/news/${featuredArticle.slug}`}
+                      class="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-[#161616] hover:text-[#D9381E] transition-colors"
+                    >
+                      <span>Read Complete Dispatch</span>
+                      <span>&rarr;</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </section>
+        )
+      }
+
+      <!-- Remaining Dispatches Grid -->
+      {
+        standardArticles.length > 0 && (
+          <section class="space-y-6">
+            <div class="border-b-2 border-[#161616] pb-2">
+              <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]">
+                All Announcements
+              </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+              {standardArticles.map((article) => (
+                <article class="border-2 border-[#161616] bg-[#F6F4EE] shadow-[5px_5px_0px_0px_#161616] p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                  <div class="space-y-4">
+                    {article.image && (
+                      <div class="border-2 border-[#161616] h-52 bg-[#161616] p-2 flex items-center justify-center overflow-hidden mb-4">
+                        <img
+                          src={article.image}
+                          alt={article.title}
+                          class="w-full h-full object-contain"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+
+                    <div class="flex items-center gap-3 font-mono text-xs text-zinc-500 uppercase">
+                      <span class="text-[#D9381E] font-bold">
+                        {article.tag || "Update"}
+                      </span>
+                      <span>&bull;</span>
+                      <span>{article.publishDate}</span>
+                    </div>
+
+                    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#161616] leading-snug hover:text-[#D9381E] transition-colors">
+                      <a href={`/news/${article.slug}`}>{article.title}</a>
+                    </h3>
+
+                    <p class="font-mono text-xs sm:text-sm text-zinc-700 leading-relaxed">
+                      {article.summary}
+                    </p>
+                  </div>
+
+                  <div class="pt-4 border-t border-zinc-300">
+                    <a
+                      href={`/news/${article.slug}`}
+                      class="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-[#161616] hover:text-[#D9381E] transition-colors"
+                    >
+                      <span>Read Dispatch</span>
+                      <span>&rarr;</span>
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      <!-- Media & Communications Contact -->
+      <section
+        class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 sm:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6"
+      >
+        <div class="space-y-1">
+          <span
+            class="font-mono text-xs uppercase tracking-widest text-[#D9381E] font-bold block"
+          >
+            Media & Communications Desk
+          </span>
+          <h3
+            class="text-xl sm:text-2xl font-black uppercase tracking-tight text-white"
+          >
+            Press Inquiries & Information
+          </h3>
+          <p class="font-mono text-xs text-zinc-400">
+            For press accreditation, interview requests, and official releases.
+          </p>
+        </div>
+
+        <a
+          href="/contact"
+          class="inline-block px-6 py-3 text-xs font-mono font-black uppercase tracking-wider text-[#161616] bg-[#F6F4EE] hover:bg-[#D9381E] hover:text-white transition-all shadow-[3px_3px_0px_0px_#D9381E]"
+        >
+          Contact Press Team &rarr;
+        </a>
+      </section>
+    </div>
+  </div>
+</Layout>

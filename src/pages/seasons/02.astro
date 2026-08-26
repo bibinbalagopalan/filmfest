@@ -1,0 +1,277 @@
+---
+// src/pages/seasons/02.astro
+import Layout from "../../layouts/Layout.astro";
+
+const festivalFacts = [
+  { label: "Edition", value: "Season 02 (2025)" },
+  { label: "Date", value: "29 November 2025" },
+  { label: "Venue", value: "Varna Theatre & Outdoor LED Arena, Mananthavady" },
+  { label: "Inaugurated by", value: "Ajayan Chalissery (Kerala State Award Winner - Manjummel Boys)" },
+  { label: "Jury Chairman", value: "Santhosh Mandoor (Writer & Director)" },
+  { label: "Total Submissions", value: "55 Short Films" },
+  { label: "Official Screenings", value: "10 Short Films" },
+];
+
+const winners = [
+  {
+    category: "Best Short Film",
+    film: "Kanam",
+    recipient: "Directed by Mridul S",
+    prize: "₹25,000 Cash Prize & Trophy",
+    sponsor: "Endowed by Rishi Group, Bangalore",
+    images: [
+      { src: "https://i.ibb.co/YTKSmkLj/Best-Film.jpg", alt: "Kanam - Best Film Presentation" },
+      { src: "https://i.ibb.co/4g9Y6xp5/10.jpg", alt: "Kanam Team on Stage" },
+    ],
+  },
+  {
+    category: "Best Popular Short Film",
+    film: "Kanam",
+    recipient: "Directed by Mridul S",
+    prize: "₹10,000 Cash Prize & Trophy",
+    sponsor: "Endowed by Inox Agencies, Mananthavady (Voted via Electronic Voting)",
+    images: [
+      { src: "https://i.ibb.co/JwZj6Tdk/4.jpg", alt: "Varna Theatre Audience & Screening" },
+    ],
+  },
+  {
+    category: "Best Director",
+    film: "Ura",
+    recipient: "Sruthil Mathew",
+    prize: "₹15,000 Cash Prize & Trophy",
+    sponsor: "Endowed by Nilgiri Arts & Science College, Thaloor",
+    images: [
+      { src: "https://i.ibb.co/ksZcnnhr/Best-Director-URA-Sruthil-Mathew.jpg", alt: "Sruthil Mathew - Director of Ura" },
+      { src: "https://i.ibb.co/Z9jWDCD/Best-Directer.jpg", alt: "Best Director Award Presentation" },
+    ],
+  },
+  {
+    category: "Best Cinematographer",
+    film: "Golden Love",
+    recipient: "Nijo Abraham",
+    prize: "₹10,000 Cash Prize & Trophy",
+    sponsor: "Category Introduced in Season 02",
+    images: [
+      { src: "https://i.ibb.co/j9qTM6wM/Best-Cinematographer.jpg", alt: "Nijo Abraham - Best Cinematographer" },
+    ],
+  },
+];
+
+const specialMentions = [
+  { title: "Tta", type: "Jury Special Mention" },
+  { title: "Treesa", type: "Jury Special Mention" },
+  { title: "Timeless", type: "Jury Special Mention" },
+];
+
+const festivalDignitaries = [
+  "Ajayan Chalissery (Chief Guest & Inaugurator)",
+  "Santhosh Mandoor (Jury Chairman)",
+  "P. C. Sanath (Patron, Drishtidosham Chalachithravedi)",
+  "Pradeep Mangalassery (Advisor, Drishtidosham)",
+  "Babu Philip (President, Spandanam Charitable Trust)",
+  "Neethu Vincent (President, Pazhassi Smaraka Granthalayam)",
+  "Thomas Sevior (Secretary, Pazhassi Smaraka Granthalayam)",
+  "A. Ayoob (Joint Secretary, Pazhassi Smaraka Granthalayam)",
+  "K. P. Sunith (Convenor, Drishtidosham Chalachithravedi)",
+  "E. V. Arun (Joint Convenor, Drishtidosham)",
+  "A. Ajaykumar",
+];
+
+const seasonMoments = [
+  { src: "https://i.ibb.co/mC4H1MgK/1.jpg", alt: "Season 02 Moment 1" },
+  { src: "https://i.ibb.co/KxHxmk1T/2.jpg", alt: "Season 02 Moment 2" },
+  { src: "https://i.ibb.co/TBTCTz1z/3.jpg", alt: "Season 02 Moment 3" },
+  { src: "https://i.ibb.co/hRBb5YNy/5.jpg", alt: "Season 02 Moment 5" },
+  { src: "https://i.ibb.co/Qj8VWR5G/6.jpg", alt: "Season 02 Moment 6" },
+  { src: "https://i.ibb.co/WNkXQhPH/7.jpg", alt: "Season 02 Moment 7" },
+  { src: "https://i.ibb.co/B53kxjGZ/8.jpg", alt: "Season 02 Moment 8" },
+  { src: "https://i.ibb.co/tp8Hh3Vg/9.jpg", alt: "Season 02 Moment 9" },
+];
+---
+
+<Layout title="Season 02 Retrospective (2025) | PSFF">
+  <div class="w-full border-b border-zinc-900 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]">
+    <div class="max-w-6xl mx-auto space-y-16 sm:space-y-20">
+      
+      <!-- Page Header -->
+      <header class="border-b-2 border-[#161616] pb-8 space-y-4">
+        <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-500">
+          <a href="/" class="hover:text-[#D9381E] transition-colors">&larr; Back to Festival</a>
+          <span>&bull;</span>
+          <span class="text-[#D9381E] font-bold">Archives</span>
+          <span>&bull;</span>
+          <span>2025 Edition</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#161616] leading-none">
+          Season 02 (2025)
+        </h1>
+        <p class="font-mono text-sm sm:text-base text-zinc-700 max-w-3xl leading-relaxed">
+          Held on 29 November 2025 at Varna Theatre, Mananthavady, in commemoration of Pazhassi Day. Organized jointly by Mananthavady Municipality, Pazhassi Raja Smaraka Granthalayam, and Drishtidosham Chalachithravedi.
+        </p>
+      </header>
+
+      <!-- Key Festival Facts Table -->
+      <section class="border-2 border-[#161616] bg-[#F6F4EE] shadow-[5px_5px_0px_0px_#161616]">
+        <div class="p-6 border-b-2 border-[#161616] bg-[#161616] text-[#F6F4EE]">
+          <h2 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-white font-mono">
+            Festival Overview &amp; Key Milestones
+          </h2>
+        </div>
+        <div class="divide-y border-zinc-300 font-mono text-xs sm:text-sm">
+          {festivalFacts.map((fact) => (
+            <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <span class="text-zinc-500 uppercase tracking-wider font-semibold">{fact.label}</span>
+              <span class="font-bold text-[#161616] sm:text-right">{fact.value}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Award Winners Roster -->
+      <section class="space-y-8">
+        <div class="border-b-2 border-[#161616] pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+          <h2 class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#161616]">
+            Season 02 Award Laureates
+          </h2>
+          <span class="font-mono text-xs uppercase text-zinc-500 font-bold">
+            Jury &amp; Audience Verdict
+          </span>
+        </div>
+
+        <div class="space-y-12">
+          {winners.map((item) => (
+            <article class="border-2 border-[#161616] bg-[#F6F4EE] p-6 sm:p-8 shadow-[6px_6px_0px_0px_#161616] space-y-6">
+              
+              <!-- Winner Header -->
+              <div class="border-b border-zinc-300 pb-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-3">
+                <div>
+                  <span class="font-mono text-xs font-black uppercase tracking-widest text-[#D9381E] block mb-1">
+                    {item.category}
+                  </span>
+                  <h3 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-[#161616]">
+                    {item.film}
+                  </h3>
+                  <p class="font-mono text-sm font-bold text-zinc-800 mt-1">
+                    {item.recipient}
+                  </p>
+                </div>
+
+                <div class="font-mono text-right sm:text-right space-y-1">
+                  <div class="text-base sm:text-lg font-black text-[#161616]">
+                    {item.prize}
+                  </div>
+                  <div class="text-xs text-zinc-500">
+                    {item.sponsor}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Full-Fit Presentation Photos -->
+              <div class={`grid gap-4 ${item.images.length > 1 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
+                {item.images.map((img) => (
+                  <div class="border-2 border-[#161616] h-[340px] sm:h-[420px] bg-[#161616] p-2 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      class="w-full h-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Jury Special Mentions -->
+      <section class="space-y-6">
+        <div class="border-b-2 border-[#161616] pb-3">
+          <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]">
+            Jury Special Mentions
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {specialMentions.map((item, idx) => (
+            <div class="border-2 border-[#161616] bg-[#F6F4EE] p-6 shadow-[4px_4px_0px_0px_#161616] space-y-2">
+              <span class="font-mono text-xs font-bold text-[#D9381E] block">0{idx + 1}</span>
+              <h3 class="text-2xl font-black uppercase text-[#161616] tracking-tight">
+                {item.title}
+              </h3>
+              <p class="font-mono text-xs text-zinc-500 uppercase">
+                {item.type}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- On-Ground Festival Photography Grid -->
+      <section class="space-y-6">
+        <div class="border-b-2 border-[#161616] pb-3 flex items-baseline justify-between">
+          <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]">
+            Festival Glimpses &amp; Public Screenings
+          </h2>
+          <span class="font-mono text-xs uppercase text-zinc-500">
+            Varna Theatre Arena
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {seasonMoments.map((photo) => (
+            <div class="border-2 border-[#161616] aspect-[4/3] bg-[#161616] p-1.5 overflow-hidden shadow-[3px_3px_0px_0px_#161616]">
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Dignitaries & Speakers Roster -->
+      <section class="space-y-6">
+        <div class="border-b-2 border-[#161616] pb-3">
+          <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]">
+            Dignitaries &amp; Festival Leadership
+          </h2>
+        </div>
+
+        <div class="border-2 border-[#161616] bg-[#F6F4EE] p-6 sm:p-8 shadow-[5px_5px_0px_0px_#161616]">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs sm:text-sm">
+            {festivalDignitaries.map((person, idx) => (
+              <div class="flex items-center gap-3 border-l-2 border-[#161616] pl-3 py-1 text-zinc-800">
+                <span class="font-bold text-[#D9381E]">{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}.</span>
+                <span class="font-bold text-[#161616]">{person}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Navigation Link to Season 01 -->
+      <div class="border-t-2 border-[#161616] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
+        <a
+          href="/seasons/01"
+          class="inline-flex items-center gap-2 font-bold uppercase tracking-wider text-[#161616] hover:text-[#D9381E] transition-colors"
+        >
+          <span>&larr; View Season 01 Archive (2024)</span>
+        </a>
+
+        <a
+          href="/submit"
+          class="inline-flex items-center gap-2 px-6 py-3 font-black uppercase tracking-widest text-[#F6F4EE] bg-[#161616] shadow-[3px_3px_0px_0px_#D9381E] hover:bg-[#D9381E] transition-all"
+        >
+          <span>Enter Season 03</span>
+          <span>&rarr;</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</Layout>

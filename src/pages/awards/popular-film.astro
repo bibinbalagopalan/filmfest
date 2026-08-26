@@ -1,0 +1,207 @@
+---
+// src/pages/awards/best-popular-short-film.astro
+import Layout from "../../layouts/Layout.astro";
+
+const votingSteps = [
+  {
+    step: "01",
+    title: "Official Screenings",
+    desc: "All shortlisted official selections are screened publicly at the festival venue in Mananthavady.",
+  },
+  {
+    step: "02",
+    title: "Audience Electronic Voting",
+    desc: "Audience members cast their votes using the on-ground electronic voting system introduced in Season 02.",
+  },
+  {
+    step: "03",
+    title: "Live Tabulation",
+    desc: "Votes are automatically verified and tallied immediately following the final screening session.",
+  },
+  {
+    step: "04",
+    title: "Award Announcement",
+    desc: "The film with the highest verified audience votes receives the Popular Film award at the closing ceremony.",
+  },
+];
+
+const winners = [
+  {
+    season: "Season 02 (2025)",
+    film: "Kanam",
+    director: "Mridul S",
+    note: "First winner decided via the on-site electronic voting system",
+    images: [
+      {
+        src: "https://i.ibb.co/YTKSmkLj/Best-Film.jpg",
+        alt: "Kanam - Award Presentation",
+      },
+      {
+        src: "https://i.ibb.co/JwZj6Tdk/4.jpg",
+        alt: "Kanam - Festival Screening & Audience Moment",
+      },
+    ],
+  },
+  {
+    season: "Season 01 (2024)",
+    film: "Chudalamadan",
+    director: "Atul Raj",
+    note: "Inaugural season popular choice winner",
+    images: [
+      {
+        src: "https://i.ibb.co/sdk9byBD/Popular-Film-Chudalamadan.jpg",
+        alt: "Chudalamadan - Atul Raj receiving Popular Film Award",
+      },
+      {
+        src: "https://i.ibb.co/5W8FkDVp/Popular-Film-CHUDALAMADEN-Poster.png",
+        alt: "Chudalamadan Official Poster",
+      },
+    ],
+  },
+];
+---
+
+<Layout title="Best Popular Short Film | PSFF Season 03">
+  <div class="w-full border-b border-zinc-900 py-16 sm:py-24 px-6 sm:px-12">
+    <div class="max-w-6xl mx-auto space-y-16 sm:space-y-20">
+      
+      <!-- Header -->
+      <header class="border-b-2 border-[#161616] pb-8 space-y-3">
+        <div class="font-mono text-xs uppercase tracking-wider text-zinc-500">
+          <a href="/" class="hover:text-[#D9381E]">&larr; Home</a> / Awards
+        </div>
+        <h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#161616]">
+          Best Popular Short Film
+        </h1>
+        <p class="font-mono text-sm sm:text-base text-zinc-700">
+          Decided directly by the festival audience through on-venue voting during public screenings.
+        </p>
+      </header>
+
+      <!-- Prize Summary -->
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 shadow-[5px_5px_0px_0px_#D9381E] space-y-2">
+          <span class="font-mono text-xs uppercase tracking-wider text-[#D9381E] font-bold block">
+            Cash Award
+          </span>
+          <p class="text-5xl sm:text-6xl font-black text-white">
+            ₹10,000
+          </p>
+        </div>
+
+        <div class="border-2 border-[#161616] bg-[#F6F4EE] p-8 shadow-[5px_5px_0px_0px_#161616] space-y-2 flex flex-col justify-center">
+          <span class="font-mono text-xs uppercase tracking-wider text-zinc-500 font-bold block">
+            Award Includes
+          </span>
+          <p class="text-2xl sm:text-3xl font-black uppercase text-[#161616]">
+            Official Trophy + Citation
+          </p>
+        </div>
+      </section>
+
+      <!-- Voting Process -->
+      <section class="space-y-6">
+        <div class="border-b-2 border-[#161616] pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+          <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]">
+            Audience Voting Mechanism
+          </h2>
+          <span class="font-mono text-xs uppercase text-zinc-500 font-bold">
+            Electronic Voting
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {votingSteps.map((item) => (
+            <div class="border-2 border-[#161616] bg-[#F6F4EE] p-6 shadow-[4px_4px_0px_0px_#161616] flex flex-col justify-between space-y-4">
+              <span class="font-mono text-2xl font-black text-[#D9381E]">
+                {item.step}
+              </span>
+              <div class="space-y-1.5">
+                <h3 class="font-mono text-base font-black uppercase text-[#161616]">
+                  {item.title}
+                </h3>
+                <p class="text-xs sm:text-sm text-zinc-700 font-mono">
+                  {item.desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Previous Winners -->
+      <section class="space-y-8">
+        <div class="border-b-2 border-[#161616] pb-3">
+          <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]">
+            Previous Winners
+          </h2>
+        </div>
+
+        <div class="space-y-10">
+          {winners.map((item) => (
+            <article class="border-2 border-[#161616] bg-[#F6F4EE] p-6 sm:p-8 shadow-[5px_5px_0px_0px_#161616] space-y-6">
+              
+              <!-- Header -->
+              <div class="border-b border-zinc-300 pb-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+                <div>
+                  <span class="font-mono text-xs font-bold uppercase text-[#D9381E] block mb-1">
+                    {item.season}
+                  </span>
+                  <h3 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-[#161616]">
+                    {item.film}
+                  </h3>
+                </div>
+
+                <div class="font-mono text-sm text-[#161616]">
+                  <span class="text-zinc-500 uppercase">Director:</span>{" "}
+                  <strong>{item.director}</strong>
+                </div>
+              </div>
+
+              <!-- Full-Fit Images Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {item.images.map((img) => (
+                  <div class="border-2 border-[#161616] h-[340px] sm:h-[420px] bg-[#161616] p-2 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      class="w-full h-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div class="pt-2 border-t border-zinc-200">
+                <span class="font-mono text-xs text-zinc-500">
+                  {item.note}
+                </span>
+              </div>
+
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- Submission CTA -->
+      <div class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div>
+          <h3 class="text-xl sm:text-2xl font-black uppercase text-white">
+            Submit for Season 03
+          </h3>
+          <p class="font-mono text-xs text-zinc-400 mt-1">
+            All official selections compete for the Popular Film award during festival screenings.
+          </p>
+        </div>
+
+        <a
+          href="/submit"
+          class="inline-block px-6 py-3 text-xs font-mono font-black uppercase tracking-wider text-[#161616] bg-[#F6F4EE] hover:bg-[#D9381E] hover:text-white transition-all shadow-[3px_3px_0px_0px_#D9381E]"
+        >
+          Submit Film &rarr;
+        </a>
+      </div>
+
+    </div>
+  </div>
+</Layout>
