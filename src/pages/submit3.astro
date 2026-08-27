@@ -13,7 +13,7 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
   >
     <div class="max-w-5xl mx-auto space-y-12">
       <!-- Page Header -->
-      <header class="border-b-2 border-[#161616] pb-6 space-y-4">
+      <header class="border-b-2 border-[#161616] pb-6 space-y-2">
         <div
           class="flex items-center gap-3 font-mono text-xs uppercase tracking-wider text-zinc-500"
         >
@@ -21,25 +21,18 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
             >&larr; Home</a
           > / Submissions
         </div>
-
-        <div>
-          <h1
-            class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#161616]"
-          >
-            Submit Your Film
-          </h1>
-          <p class="font-mono text-xs sm:text-sm text-zinc-700 mt-1">
-            Official Entry Portal for the 3rd Pazhassi Short Film Festival (PSFF
-            Season 03).
-          </p>
-        </div>
+        <h1
+          class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#161616]"
+        >
+          Submit Your Film
+        </h1>
+        <p class="font-mono text-xs sm:text-sm text-zinc-700">
+          Official Entry Portal for the 3rd Pazhassi Short Film Festival (PSFF
+          Season 03).
+        </p>
       </header>
 
-      <form
-        id="festival-submission-form"
-        class="space-y-10 font-mono text-xs"
-        enctype="multipart/form-data"
-      >
+      <form id="festival-submission-form" class="space-y-10 font-mono text-xs">
         <!-- SECTION 1: ENTRY FEE PAYMENT & COMPACT QR SCAN -->
         <section
           class="border-2 border-[#161616] bg-[#F6F4EE] p-5 sm:p-6 shadow-[5px_5px_0px_0px_#161616] space-y-4"
@@ -64,7 +57,7 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
           <div
             class="flex flex-col sm:flex-row items-center sm:items-start gap-6 pt-2"
           >
-            <!-- Compact QR Card (Strictly 140px) -->
+            <!-- Compact QR Card (Strictly Screen-Fitted) -->
             <div
               class="w-[180px] shrink-0 border-2 border-[#161616] bg-white p-3 text-center space-y-2 shadow-[3px_3px_0px_0px_#161616]"
             >
@@ -1106,7 +1099,7 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
         <!-- STATUS DISPLAY NOTIFICATION -->
         <div
           id="submission-status"
-          class="hidden p-6 font-mono text-xs font-bold border-2 space-y-3"
+          class="hidden p-5 font-mono text-xs font-bold border-2 space-y-2"
         >
         </div>
 
@@ -1124,14 +1117,20 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
 </Layout>
 
 <script>
-  import { createClient } from "@supabase/supabase-js";
+  // Live Google Apps Script Web App Endpoint
+  const GOOGLE_SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbzlpKoDdRHCr2z538jkI8yQdge-1uTZVIVXrV752BW91vUO4j5lzSDoghih5K7s41QN/exec";
 
-  const SUPABASE_URL = "https://hhsxninbpcnubcgfunjv.supabase.co";
-  const SUPABASE_ANON_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhoc3huaW5icGNudWJjZ2Z1bmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4MjcxNDIsImV4cCI6MjEwMzQwMzE0Mn0.gsoHCXxlR-nDGzmKcOczs2mb0h2Bqcuqm-QvEiqNHbA";
+  // Helper to convert file to Base64
+  const fileToBase64 = (file: File): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
 
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
+  // Copy UPI ID helper
   const copyBtn = document.getElementById("copy-upi-btn");
   const upiText = document.getElementById("upi-text")?.innerText.trim();
 
@@ -1143,9 +1142,12 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
       setTimeout(() => {
         copyBtn.innerText = "Copy";
       }, 2000);
-    } catch {}
+    } catch {
+      // Fallback
+    }
   });
 
+  // Form submission handler
   const form = document.getElementById(
     "festival-submission-form",
   ) as HTMLFormElement;
@@ -1160,146 +1162,118 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
     if (!statusBox || !submitBtn) return;
 
     submitBtn.disabled = true;
-    submitBtn.innerText = "Processing Submission & Uploading Receipt...";
+    submitBtn.innerText = "Uploading Receipt & Submitting Entry...";
     statusBox.classList.add("hidden");
-    statusBox.className = "p-6 font-mono text-xs font-bold border-2 space-y-3";
+    statusBox.className = "p-5 font-mono text-xs font-bold border-2 space-y-2";
 
     try {
       const formData = new FormData(form);
       const randomSuffix = Math.floor(1000 + Math.random() * 9000);
       const entry_number = `PSFF26-${randomSuffix}`;
 
-      // 1. Upload Payment Screenshot to Supabase Storage Bucket
-      let paymentScreenshotUrl = "";
+      // Convert payment screenshot to Base64
       const fileInput = document.getElementById(
         "payment_screenshot",
       ) as HTMLInputElement;
+      let screenshotBase64 = "";
+      let screenshotFileName = "";
+      let screenshotMimeType = "";
 
       if (fileInput?.files && fileInput.files[0]) {
         const file = fileInput.files[0];
-        const fileExt = file.name.split(".").pop()?.toLowerCase() || "png";
-        const cleanFileName = `${entry_number}_receipt.${fileExt}`.replace(
-          /[^a-zA-Z0-9._-]/g,
-          "_",
-        );
-
-        const { error: uploadError } = await supabase.storage
-          .from("receipts")
-          .upload(cleanFileName, file, {
-            cacheControl: "3600",
-            upsert: true,
-            contentType: file.type || "image/png",
-          });
-
-        if (uploadError) {
-          throw new Error(`Receipt upload failed: ${uploadError.message}`);
-        }
-
-        const { data: publicUrlData } = supabase.storage
-          .from("receipts")
-          .getPublicUrl(cleanFileName);
-
-        paymentScreenshotUrl = publicUrlData.publicUrl;
+        screenshotBase64 = await fileToBase64(file);
+        screenshotFileName = file.name;
+        screenshotMimeType = file.type;
       }
 
-      // 2. Insert Film Record into Submissions Table
-      const { error: insertError } = await supabase.from("submissions").insert([
-        {
-          entry_number,
-          payment_ref: formData.get("payment_ref")?.toString().trim(),
-          payment_screenshot_url: paymentScreenshotUrl,
-          film_title: formData.get("film_title")?.toString().trim(),
-          genre: formData.get("genre")?.toString().trim(),
-          film_language: formData.get("film_language")?.toString().trim(),
-          country_of_origin:
-            formData.get("country_of_origin")?.toString().trim() || "India",
-          duration_minutes: parseInt(
-            formData.get("duration_minutes")?.toString() || "0",
-            10,
-          ),
-          year_of_production: parseInt(
-            formData.get("year_of_production")?.toString() || "2026",
-            10,
-          ),
-          premiere_status:
-            formData.get("premiere_status")?.toString().trim() || "None",
-          poster_url: formData.get("poster_url")?.toString().trim(),
-          synopsis: formData.get("synopsis")?.toString().trim(),
-          screener_url: formData.get("screener_url")?.toString().trim(),
-          screener_password:
-            formData.get("screener_password")?.toString().trim() || "None",
-          subtitles_available: formData
-            .get("subtitles_available")
-            ?.toString()
-            .trim(),
-          subtitle_language: formData
-            .get("subtitle_language")
-            ?.toString()
-            .trim(),
-          aspect_ratio: formData.get("aspect_ratio")?.toString().trim(),
-          resolution_format: formData
-            .get("resolution_format")
-            ?.toString()
-            .trim(),
-          director_full_name: formData
-            .get("director_full_name")
-            ?.toString()
-            .trim(),
-          director_pro_name: formData
-            .get("director_pro_name")
-            ?.toString()
-            .trim(),
-          director_email: formData.get("director_email")?.toString().trim(),
-          director_phone: formData.get("director_phone")?.toString().trim(),
-          director_location: formData
-            .get("director_location")
-            ?.toString()
-            .trim(),
-          director_bio: formData.get("director_bio")?.toString().trim(),
-          production_company: formData
-            .get("production_company")
-            ?.toString()
-            .trim(),
-          producer_name: formData.get("producer_name")?.toString().trim(),
-          producer_email: formData.get("producer_email")?.toString().trim(),
-          producer_phone: formData.get("producer_phone")?.toString().trim(),
-          producer_country: formData.get("producer_country")?.toString().trim(),
-          dop_full_name: formData.get("dop_full_name")?.toString().trim(),
-          dop_pro_name: formData.get("dop_pro_name")?.toString().trim(),
-          dop_email: formData.get("dop_email")?.toString().trim(),
-          dop_phone: formData.get("dop_phone")?.toString().trim(),
-          dop_location: formData.get("dop_location")?.toString().trim(),
-          dop_bio: formData.get("dop_bio")?.toString().trim(),
-          camera_specs: formData.get("camera_specs")?.toString().trim(),
-          crew_writer: formData.get("crew_writer")?.toString().trim(),
-          crew_editor: formData.get("crew_editor")?.toString().trim(),
-          crew_composer: formData.get("crew_composer")?.toString().trim(),
-          crew_sound: formData.get("crew_sound")?.toString().trim(),
-          crew_art: formData.get("crew_art")?.toString().trim(),
-          crew_costume: formData.get("crew_costume")?.toString().trim(),
-          crew_cast: formData.get("crew_cast")?.toString().trim(),
-          rights_holder_name: formData
-            .get("rights_holder_name")
-            ?.toString()
-            .trim(),
-          legal_confirmations: {
-            accuracy: formData.get("legal_accuracy") === "on",
-            rights: formData.get("legal_rights") === "on",
-            music: formData.get("legal_music_footage") === "on",
-            participants: formData.get("legal_participants") === "on",
-            screening: formData.get("legal_screening") === "on",
-            promo: formData.get("legal_promo") === "on",
-            photos: formData.get("legal_photos") === "on",
-            rules: formData.get("legal_rules") === "on",
-            infringement: formData.get("legal_infringement") === "on",
-          },
+      // Construct clean payload for Google Sheet
+      const payload = {
+        entry_number,
+        payment_ref: formData.get("payment_ref")?.toString().trim(),
+        screenshotBase64,
+        screenshotFileName,
+        screenshotMimeType,
+        film_title: formData.get("film_title")?.toString().trim(),
+        genre: formData.get("genre")?.toString().trim(),
+        film_language: formData.get("film_language")?.toString().trim(),
+        country_of_origin:
+          formData.get("country_of_origin")?.toString().trim() || "India",
+        duration_minutes: formData.get("duration_minutes")?.toString().trim(),
+        year_of_production: formData
+          .get("year_of_production")
+          ?.toString()
+          .trim(),
+        premiere_status: formData.get("premiere_status")?.toString().trim(),
+        poster_url: formData.get("poster_url")?.toString().trim(),
+        synopsis: formData.get("synopsis")?.toString().trim(),
+        screener_url: formData.get("screener_url")?.toString().trim(),
+        screener_password: formData.get("screener_password")?.toString().trim(),
+        subtitles_available: formData
+          .get("subtitles_available")
+          ?.toString()
+          .trim(),
+        subtitle_language: formData.get("subtitle_language")?.toString().trim(),
+        aspect_ratio: formData.get("aspect_ratio")?.toString().trim(),
+        resolution_format: formData.get("resolution_format")?.toString().trim(),
+        director_full_name: formData
+          .get("director_full_name")
+          ?.toString()
+          .trim(),
+        director_pro_name: formData.get("director_pro_name")?.toString().trim(),
+        director_email: formData.get("director_email")?.toString().trim(),
+        director_phone: formData.get("director_phone")?.toString().trim(),
+        director_location: formData.get("director_location")?.toString().trim(),
+        director_bio: formData.get("director_bio")?.toString().trim(),
+        production_company: formData
+          .get("production_company")
+          ?.toString()
+          .trim(),
+        producer_name: formData.get("producer_name")?.toString().trim(),
+        producer_email: formData.get("producer_email")?.toString().trim(),
+        producer_phone: formData.get("producer_phone")?.toString().trim(),
+        producer_country: formData.get("producer_country")?.toString().trim(),
+        dop_full_name: formData.get("dop_full_name")?.toString().trim(),
+        dop_pro_name: formData.get("dop_pro_name")?.toString().trim(),
+        dop_email: formData.get("dop_email")?.toString().trim(),
+        dop_phone: formData.get("dop_phone")?.toString().trim(),
+        dop_location: formData.get("dop_location")?.toString().trim(),
+        dop_bio: formData.get("dop_bio")?.toString().trim(),
+        camera_specs: formData.get("camera_specs")?.toString().trim(),
+        crew_writer: formData.get("crew_writer")?.toString().trim(),
+        crew_editor: formData.get("crew_editor")?.toString().trim(),
+        crew_composer: formData.get("crew_composer")?.toString().trim(),
+        crew_sound: formData.get("crew_sound")?.toString().trim(),
+        crew_art: formData.get("crew_art")?.toString().trim(),
+        crew_costume: formData.get("crew_costume")?.toString().trim(),
+        crew_cast: formData.get("crew_cast")?.toString().trim(),
+        rights_holder_name: formData
+          .get("rights_holder_name")
+          ?.toString()
+          .trim(),
+        legal_confirmations: {
+          accuracy: formData.get("legal_accuracy") === "on",
+          rights: formData.get("legal_rights") === "on",
+          music: formData.get("legal_music_footage") === "on",
+          participants: formData.get("legal_participants") === "on",
+          screening: formData.get("legal_screening") === "on",
+          promo: formData.get("legal_promo") === "on",
+          photos: formData.get("legal_photos") === "on",
+          rules: formData.get("legal_rules") === "on",
+          infringement: formData.get("legal_infringement") === "on",
         },
-      ]);
+      };
 
-      if (insertError) {
-        throw new Error(insertError.message);
-      }
+      // Direct submission with no-cors to avoid browser CORS/Redirect errors
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify(payload),
+      });
 
+      // Show instant confirmation
       statusBox.classList.remove("hidden");
       statusBox.classList.add(
         "bg-green-100",
@@ -1307,15 +1281,12 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
         "text-green-950",
       );
       statusBox.innerHTML = `
-        <div class="text-sm sm:text-base font-black uppercase text-green-900">✓ Official Entry Successfully Received</div>
-        <div class="text-xs">Your Tracking Reference: <span class="bg-[#161616] text-white px-2 py-0.5 font-bold tracking-wider">${entry_number}</span></div>
-        <div class="font-normal pt-1 text-zinc-700 leading-relaxed">
-          Thank you for submitting your film to the 3rd Pazhassi Short Film Festival. Our selection committee is reviewing your screening materials and will contact you via your registered email address regarding selection results.
-        </div>
+        <div class="text-sm font-black uppercase text-green-900">✓ Entry Successfully Registered!</div>
+        <div>Your official Entry Tracking ID is: <span class="bg-[#161616] text-white px-2 py-0.5 font-bold">${entry_number}</span></div>
+        <div class="font-normal pt-1">Your payment receipt and film details have been recorded into our Google Sheet. Our team will verify the payment and screener credentials.</div>
       `;
       form.reset();
-      submitBtn.innerText = "Entry Submitted Successfully";
-      statusBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      submitBtn.innerText = "Entry Registered";
     } catch (err: any) {
       statusBox.classList.remove("hidden");
       statusBox.classList.add(
@@ -1323,7 +1294,7 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
         "border-[#D9381E]",
         "text-[#D9381E]",
       );
-      statusBox.innerHTML = `<div>✕ Submission Failed: ${err.message || "Please check your network and entry details."}</div>`;
+      statusBox.innerHTML = `<div>✕ Error: ${err.message || "Check your connection and try again."}</div>`;
       submitBtn.disabled = false;
       submitBtn.innerText = "Confirm & Submit Entry Form →";
     }
