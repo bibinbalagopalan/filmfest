@@ -1,0 +1,1473 @@
+---
+// src/pages/admin.astro
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Convener Command Center | PSFF Season 03">
+  <!-- Scoped CSS to hide public navbar & footer -->
+  <style is:global>
+    header:not(#dashboard-view header),
+    nav,
+    footer {
+      display: none !important;
+    }
+  </style>
+
+  <div
+    class="w-full min-h-screen bg-[#F6F4EE] font-mono text-[#161616] p-4 sm:p-8 selection:bg-[#D9381E] selection:text-[#F6F4EE]"
+  >
+    <!-- 1. LOGIN SCREEN -->
+    <div
+      id="login-view"
+      class="max-w-md mx-auto my-20 bg-white border-2 border-[#161616] p-6 sm:p-8 shadow-[6px_6px_0px_0px_#161616] space-y-6"
+    >
+      <div class="border-b-2 border-[#161616] pb-4">
+        <span
+          class="text-[10px] font-black uppercase text-[#D9381E] tracking-widest"
+          >PSFF Season 03</span
+        >
+        <h1
+          class="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#161616] mt-1"
+        >
+          Convener Login
+        </h1>
+        <p class="text-xs text-zinc-600 mt-1">
+          Sign in with your convener credentials.
+        </p>
+      </div>
+
+      <form id="login-form" class="space-y-4 text-xs">
+        <div class="space-y-1.5">
+          <label
+            for="admin-email"
+            class="block font-bold uppercase tracking-wider"
+            >Email Address</label
+          >
+          <input
+            type="email"
+            id="admin-email"
+            required
+            autocomplete="email"
+            placeholder="convener@psff.in"
+            class="w-full bg-[#F6F4EE] border-2 border-[#161616] p-2.5 focus:outline-none focus:border-[#D9381E]"
+          />
+        </div>
+        <div class="space-y-1.5">
+          <label
+            for="admin-password"
+            class="block font-bold uppercase tracking-wider">Password</label
+          >
+          <input
+            type="password"
+            id="admin-password"
+            required
+            autocomplete="current-password"
+            placeholder="••••••••"
+            class="w-full bg-[#F6F4EE] border-2 border-[#161616] p-2.5 focus:outline-none focus:border-[#D9381E]"
+          />
+        </div>
+        <div
+          id="login-error"
+          class="hidden p-3 bg-red-100 border border-[#D9381E] text-[#D9381E] font-bold text-[11px]"
+        >
+        </div>
+        <button
+          type="submit"
+          id="login-btn"
+          class="w-full py-3 font-black uppercase tracking-widest text-[#F6F4EE] bg-[#161616] border-2 border-[#161616] hover:bg-[#D9381E] hover:border-[#D9381E] transition-colors cursor-pointer shadow-[3px_3px_0px_0px_#D9381E]"
+        >
+          Authenticate &rarr;
+        </button>
+      </form>
+    </div>
+
+    <!-- 2. CONVENER MASTER DASHBOARD -->
+    <div id="dashboard-view" class="hidden max-w-7xl mx-auto space-y-6">
+      <!-- Top Navigation Header -->
+      <header
+        class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-[#161616] pb-4 bg-white p-4 sm:p-6 border-2 shadow-[4px_4px_0px_0px_#161616]"
+      >
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"
+            ></span>
+            <span class="text-[10px] font-bold uppercase text-zinc-500"
+              >PSFF Season 03</span
+            >
+          </div>
+          <h1
+            class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616] mt-0.5"
+          >
+            Control Panel
+          </h1>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Primary Module Tabs -->
+          <div
+            class="flex border-2 border-[#161616] p-0.5 bg-[#F6F4EE] overflow-x-auto"
+          >
+            <button
+              type="button"
+              data-tab="tab-submissions"
+              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase bg-[#161616] text-white"
+              >1. Submissions</button
+            >
+            <button
+              type="button"
+              data-tab="tab-jury"
+              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#161616] hover:bg-zinc-200"
+              >2. Jury Roster</button
+            >
+            <button
+              type="button"
+              data-tab="tab-progress"
+              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#161616] hover:bg-zinc-200"
+              >3. Progress Grid</button
+            >
+            <button
+              type="button"
+              data-tab="tab-matrix"
+              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#161616] hover:bg-zinc-200"
+              >4. Score Matrix</button
+            >
+            <button
+              type="button"
+              data-tab="tab-leaderboard"
+              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#161616] hover:bg-zinc-200 bg-amber-200/50"
+              >🏆 5. Shortlist Ranks</button
+            >
+          </div>
+          <button
+            type="button"
+            id="logout-btn"
+            class="px-3 py-2 text-[11px] font-bold uppercase tracking-wider bg-[#D9381E] text-white border-2 border-[#161616] hover:bg-black transition-colors cursor-pointer"
+          >
+            Sign Out
+          </button>
+        </div>
+      </header>
+
+      <!-- TAB 1: SUBMISSIONS & VERIFICATION -->
+      <section id="tab-submissions" class="tab-pane space-y-6">
+        <!-- Metrics Bar -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div
+            class="bg-white border-2 border-[#161616] p-4 shadow-[3px_3px_0px_0px_#161616]"
+          >
+            <span class="text-[10px] uppercase font-bold text-zinc-500"
+              >Total Registered</span
+            >
+            <div
+              id="stat-total"
+              class="text-2xl sm:text-3xl font-black text-[#161616] mt-1"
+            >
+              0
+            </div>
+          </div>
+          <div
+            class="bg-white border-2 border-[#161616] p-4 shadow-[3px_3px_0px_0px_#161616]"
+          >
+            <span class="text-[10px] uppercase font-bold text-amber-600"
+              >Pending Review</span
+            >
+            <div
+              id="stat-pending"
+              class="text-2xl sm:text-3xl font-black text-amber-600 mt-1"
+            >
+              0
+            </div>
+          </div>
+          <div
+            class="bg-white border-2 border-[#161616] p-4 shadow-[3px_3px_0px_0px_#161616]"
+          >
+            <span class="text-[10px] uppercase font-bold text-emerald-600"
+              >Accepted (To Jury)</span
+            >
+            <div
+              id="stat-accepted"
+              class="text-2xl sm:text-3xl font-black text-emerald-600 mt-1"
+            >
+              0
+            </div>
+          </div>
+          <div
+            class="bg-white border-2 border-[#161616] p-4 shadow-[3px_3px_0px_0px_#161616]"
+          >
+            <span class="text-[10px] uppercase font-bold text-[#D9381E]"
+              >Rejected</span
+            >
+            <div
+              id="stat-rejected"
+              class="text-2xl sm:text-3xl font-black text-[#D9381E] mt-1"
+            >
+              0
+            </div>
+          </div>
+        </div>
+
+        <!-- Search Toolbar -->
+        <div
+          class="bg-white border-2 border-[#161616] p-4 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between shadow-[3px_3px_0px_0px_#161616]"
+        >
+          <input
+            type="text"
+            id="submission-search"
+            placeholder="Search by Title, Entry ID, Director, or UTR..."
+            class="w-full sm:w-96 bg-[#F6F4EE] border-2 border-[#161616] p-2.5 text-xs focus:outline-none focus:border-[#D9381E]"
+          />
+          <div class="flex items-center gap-2">
+            <select
+              id="submission-filter"
+              class="bg-[#F6F4EE] border-2 border-[#161616] p-2.5 text-xs font-bold uppercase focus:outline-none focus:border-[#D9381E]"
+            >
+              <option value="ALL">All Statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="Accepted">Accepted</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+            <button
+              type="button"
+              id="export-submissions-csv"
+              class="px-3 py-2.5 bg-[#161616] text-white text-xs font-bold uppercase hover:bg-[#D9381E] transition-colors cursor-pointer"
+              >Export Submissions CSV</button
+            >
+          </div>
+        </div>
+
+        <!-- Submissions Table -->
+        <div
+          class="bg-white border-2 border-[#161616] shadow-[4px_4px_0px_0px_#161616] overflow-x-auto"
+        >
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr
+                class="bg-[#161616] text-[#F6F4EE] uppercase tracking-wider text-[10px]"
+              >
+                <th class="p-3 border-r border-zinc-700">Entry ID</th>
+                <th class="p-3 border-r border-zinc-700">Film Title</th>
+                <th class="p-3 border-r border-zinc-700">Director</th>
+                <th class="p-3 border-r border-zinc-700">Language / Min</th>
+                <th class="p-3 border-r border-zinc-700">UTR / Ref</th>
+                <th class="p-3 border-r border-zinc-700">Receipt</th>
+                <th class="p-3 border-r border-zinc-700">Status</th>
+                <th class="p-3 text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="submissions-tbody" class="divide-y divide-zinc-200">
+              <tr
+                ><td colspan="8" class="p-8 text-center text-zinc-500 font-bold"
+                  >Loading registrations...</td
+                ></tr
+              >
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 2: JURY ROSTER -->
+      <section id="tab-jury" class="tab-pane hidden space-y-6">
+        <div
+          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-4 border-2 border-[#161616] shadow-[3px_3px_0px_0px_#161616]"
+        >
+          <div>
+            <h3 class="text-base font-black uppercase text-[#161616]">
+              Active Jury Members
+            </h3>
+            <p class="text-xs text-zinc-500">
+              Every active jury member evaluates every accepted short film.
+            </p>
+          </div>
+          <button
+            type="button"
+            id="open-add-jury-btn"
+            class="px-4 py-2.5 bg-[#D9381E] text-white text-xs font-black uppercase border-2 border-[#161616] hover:bg-black transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#161616]"
+          >
+            + Add New Jury Member
+          </button>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-6"
+          id="jury-cards-container"
+        >
+        </div>
+      </section>
+
+      <!-- TAB 3: SINGLE-GLANCE JURY VS MOVIE PROGRESS GRID -->
+      <section id="tab-progress" class="tab-pane hidden space-y-6">
+        <div
+          class="bg-white p-4 border-2 border-[#161616] shadow-[3px_3px_0px_0px_#161616] space-y-1"
+        >
+          <h3 class="text-base font-black uppercase text-[#161616]">
+            Jury Evaluation Progress Grid
+          </h3>
+          <p class="text-xs text-zinc-600 leading-relaxed">
+            Single-glance view of each jury member against all competition short
+            films. Incomplete evaluations are highlighted in red/amber.
+          </p>
+        </div>
+
+        <div
+          class="bg-white border-2 border-[#161616] shadow-[4px_4px_0px_0px_#161616] overflow-x-auto"
+        >
+          <table class="w-full text-left text-xs border-collapse">
+            <thead id="progress-grid-thead"></thead>
+            <tbody id="progress-grid-tbody" class="divide-y divide-zinc-200">
+              <tr
+                ><td class="p-8 text-center text-zinc-500 font-bold"
+                  >Aggregating progress grid...</td
+                ></tr
+              >
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 4: CROSS-JURY SCORE MATRIX & TOTALS CSV EXPORT -->
+      <section id="tab-matrix" class="tab-pane hidden space-y-6">
+        <div
+          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-4 border-2 border-[#161616] shadow-[3px_3px_0px_0px_#161616]"
+        >
+          <div>
+            <h3 class="text-base font-black uppercase text-[#161616]">
+              Cross-Jury Score Matrix
+            </h3>
+            <p class="text-xs text-zinc-500">
+              Detailed criterion breakdown per movie. Use the CSV button to
+              export jury totals and averages.
+            </p>
+          </div>
+          <button
+            type="button"
+            id="export-matrix-csv"
+            class="px-4 py-2.5 bg-[#D9381E] text-white text-xs font-black uppercase border-2 border-[#161616] hover:bg-black transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#161616] flex items-center gap-2"
+          >
+            <span>📥</span> Export Score Summary CSV
+          </button>
+        </div>
+
+        <div id="matrix-container" class="space-y-6"></div>
+      </section>
+
+      <!-- TAB 5: SHORTLIST LEADERBOARD (RANKED BY AVERAGE SCORE) -->
+      <section id="tab-leaderboard" class="tab-pane hidden space-y-6">
+        <div
+          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-4 border-2 border-[#161616] shadow-[3px_3px_0px_0px_#161616]"
+        >
+          <div>
+            <h3 class="text-base font-black uppercase text-[#161616]">
+              Official Competition Shortlist &amp; Ranks
+            </h3>
+            <p class="text-xs text-zinc-500">
+              Films ranked automatically in descending order based on average
+              jury marks.
+            </p>
+          </div>
+          <button
+            type="button"
+            id="export-leaderboard-csv"
+            class="px-4 py-2.5 bg-[#161616] text-white text-xs font-black uppercase hover:bg-[#D9381E] transition-colors cursor-pointer border-2 border-[#161616] shadow-[2px_2px_0px_0px_#D9381E]"
+          >
+            Export Shortlist CSV
+          </button>
+        </div>
+
+        <div
+          class="bg-white border-2 border-[#161616] shadow-[4px_4px_0px_0px_#161616] overflow-x-auto"
+        >
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr
+                class="bg-[#161616] text-[#F6F4EE] uppercase tracking-wider text-[10px]"
+              >
+                <th class="p-3 border-r border-zinc-700 text-center w-16"
+                  >Rank</th
+                >
+                <th class="p-3 border-r border-zinc-700">Entry ID</th>
+                <th class="p-3 border-r border-zinc-700">Film Title</th>
+                <th class="p-3 border-r border-zinc-700">Director</th>
+                <th class="p-3 border-r border-zinc-700">Language / Min</th>
+                <th class="p-3 border-r border-zinc-700 text-center"
+                  >Completed Juries</th
+                >
+                <th
+                  class="p-3 border-r border-zinc-700 text-center bg-[#D9381E] text-white"
+                  >Average Score</th
+                >
+                <th class="p-3 text-center">Verdict</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-tbody" class="divide-y divide-zinc-200">
+              <tr
+                ><td colspan="8" class="p-8 text-center text-zinc-500 font-bold"
+                  >Computing leaderboard ranks...</td
+                ></tr
+              >
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- ADD JURY MODAL -->
+    <div
+      id="add-jury-modal"
+      class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white border-2 border-[#161616] w-full max-w-sm p-6 shadow-[6px_6px_0px_0px_#161616] space-y-4 font-mono text-xs"
+      >
+        <div
+          class="flex items-center justify-between border-b border-zinc-200 pb-2"
+        >
+          <h3 class="font-black uppercase text-sm">Add Jury Member</h3>
+          <button
+            type="button"
+            id="close-add-jury-modal"
+            class="text-lg font-black cursor-pointer hover:text-[#D9381E]"
+            >✕</button
+          >
+        </div>
+        <form id="add-jury-form" class="space-y-3">
+          <div class="space-y-1">
+            <label class="block font-bold uppercase">Full Name</label>
+            <input
+              type="text"
+              id="new-jury-name"
+              required
+              placeholder="e.g. Priyadarshan"
+              class="w-full bg-[#F6F4EE] border-2 border-[#161616] p-2 focus:outline-none focus:border-[#D9381E]"
+            />
+          </div>
+          <div class="space-y-1">
+            <label class="block font-bold uppercase">Email Address</label>
+            <input
+              type="email"
+              id="new-jury-email"
+              required
+              placeholder="jury1@psff.in"
+              class="w-full bg-[#F6F4EE] border-2 border-[#161616] p-2 focus:outline-none focus:border-[#D9381E]"
+            />
+          </div>
+          <div class="space-y-1">
+            <label class="block font-bold uppercase">Temporary Password</label>
+            <input
+              type="password"
+              id="new-jury-pwd"
+              required
+              minlength="6"
+              placeholder="At least 6 chars"
+              class="w-full bg-[#F6F4EE] border-2 border-[#161616] p-2 focus:outline-none focus:border-[#D9381E]"
+            />
+          </div>
+          <div
+            id="add-jury-msg"
+            class="hidden p-2 text-[11px] font-bold border"
+          >
+          </div>
+          <button
+            type="submit"
+            id="create-jury-submit-btn"
+            class="w-full py-2.5 font-bold uppercase bg-[#161616] text-white hover:bg-[#D9381E] transition-colors cursor-pointer"
+          >
+            Create Jury Account
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- SUBMISSION DOSSIER MODAL -->
+    <div
+      id="detail-modal"
+      class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-[#F6F4EE] border-2 border-[#161616] w-full max-w-4xl max-h-[90vh] flex flex-col shadow-[8px_8px_0px_0px_#161616] text-xs font-mono"
+      >
+        <div
+          class="p-4 bg-[#161616] text-white flex items-center justify-between border-b-2 border-[#161616]"
+        >
+          <div class="flex items-center gap-3">
+            <span
+              id="modal-entry-id"
+              class="px-2 py-0.5 bg-[#D9381E] font-black text-xs"
+              >PSFF26-XXXX</span
+            >
+            <h3
+              id="modal-title"
+              class="text-base font-black uppercase truncate max-w-md"
+            >
+              Film Details
+            </h3>
+          </div>
+          <button
+            type="button"
+            id="close-modal-btn"
+            class="text-white hover:text-[#D9381E] text-lg font-black cursor-pointer"
+            >✕</button
+          >
+        </div>
+        <div class="p-6 overflow-y-auto space-y-6 flex-1" id="modal-body"></div>
+        <div
+          class="p-4 bg-white border-t-2 border-[#161616] flex flex-wrap items-center justify-between gap-3"
+        >
+          <div class="flex items-center gap-2">
+            <span class="font-bold uppercase text-[11px]">Current Status:</span>
+            <span
+              id="modal-current-status"
+              class="px-2 py-1 font-black text-[10px] uppercase">Pending</span
+            >
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              id="modal-accept-btn"
+              class="px-4 py-2 bg-emerald-600 text-white font-black uppercase hover:bg-emerald-700 transition-colors cursor-pointer border border-[#161616]"
+            >
+              Accept &amp; Send to All Juries
+            </button>
+            <button
+              type="button"
+              id="modal-reject-btn"
+              class="px-4 py-2 bg-[#D9381E] text-white font-black uppercase hover:bg-black transition-colors cursor-pointer border border-[#161616]"
+            >
+              Reject Entry
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { createClient } from "@supabase/supabase-js";
+
+  const SUPABASE_URL = "https://hhsxninbpcnubcgfunjv.supabase.co";
+  const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhoc3huaW5icGNudWJjZ2Z1bmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4MjcxNDIsImV4cCI6MjEwMzQwMzE0Mn0.gsoHCXxlR-nDGzmKcOczs2mb0h2Bqcuqm-QvEiqNHbA";
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const CRITERIA = [
+    { key: "score_concept", label: "Concept", max: 10 },
+    { key: "score_originality", label: "Originality", max: 10 },
+    { key: "score_screenplay", label: "Screenplay", max: 15 },
+    { key: "score_direction", label: "Direction", max: 15 },
+    { key: "score_characterization", label: "Performances", max: 10 },
+    { key: "score_cinematography", label: "Cinematography", max: 10 },
+    { key: "score_editing", label: "Editing", max: 10 },
+    { key: "score_sound", label: "Sound", max: 8 },
+    { key: "score_production_design", label: "Production Design", max: 4 },
+    { key: "score_music", label: "Music", max: 3 },
+    { key: "score_thematic_depth", label: "Thematic Depth", max: 5 },
+    { key: "score_impact", label: "Impact", max: 10 },
+  ];
+
+  let currentSubmissions: any[] = [];
+  let currentJuryMembers: any[] = [];
+  let currentEvaluations: any[] = [];
+  let activeSelectedFilm: any = null;
+
+  const loginView = document.getElementById("login-view");
+  const dashboardView = document.getElementById("dashboard-view");
+  const loginForm = document.getElementById("login-form") as HTMLFormElement;
+  const loginError = document.getElementById("login-error");
+  const loginBtn = document.getElementById("login-btn") as HTMLButtonElement;
+  const logoutBtn = document.getElementById("logout-btn");
+
+  // Tab navigation
+  document.querySelectorAll(".admin-tab-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const targetTab = (e.currentTarget as HTMLElement).getAttribute(
+        "data-tab",
+      );
+      document.querySelectorAll(".admin-tab-btn").forEach((b) => {
+        b.className =
+          "admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#161616] hover:bg-zinc-200";
+      });
+      (e.currentTarget as HTMLElement).className =
+        "admin-tab-btn px-3 py-1.5 text-xs font-black uppercase bg-[#161616] text-white";
+      document
+        .querySelectorAll(".tab-pane")
+        .forEach((pane) => pane.classList.add("hidden"));
+      document.getElementById(targetTab!)?.classList.remove("hidden");
+    });
+  });
+
+  const checkAdminSession = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (session) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", session.user.id)
+        .single();
+
+      if (
+        profile &&
+        (profile.role === "admin" || session.user.email === "convener@psff.in")
+      ) {
+        loginView?.classList.add("hidden");
+        dashboardView?.classList.remove("hidden");
+        await fetchAllData();
+      } else {
+        await supabase.auth.signOut();
+        loginView?.classList.remove("hidden");
+        dashboardView?.classList.add("hidden");
+        if (loginError) {
+          loginError.innerText =
+            "Restricted: Only convener@psff.in can access this portal.";
+          loginError.classList.remove("hidden");
+        }
+      }
+    } else {
+      loginView?.classList.remove("hidden");
+      dashboardView?.classList.add("hidden");
+    }
+  };
+
+  loginForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    loginBtn.disabled = true;
+    loginBtn.innerText = "Authenticating...";
+    loginError?.classList.add("hidden");
+
+    const email = (
+      document.getElementById("admin-email") as HTMLInputElement
+    ).value.trim();
+    const password = (
+      document.getElementById("admin-password") as HTMLInputElement
+    ).value;
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      loginError!.innerText = error.message;
+      loginError!.classList.remove("hidden");
+      loginBtn.disabled = false;
+      loginBtn.innerText = "Authenticate →";
+    } else {
+      await checkAdminSession();
+      loginBtn.disabled = false;
+      loginBtn.innerText = "Authenticate →";
+    }
+  });
+
+  logoutBtn?.addEventListener("click", async () => {
+    await supabase.auth.signOut();
+    location.reload();
+  });
+
+  const fetchAllData = async () => {
+    const [subsRes, juryRes, evalsRes] = await Promise.all([
+      supabase
+        .from("submissions")
+        .select("*")
+        .order("created_at", { ascending: false }),
+      supabase.from("profiles").select("*").eq("role", "jury"),
+      supabase.from("evaluations").select("*"),
+    ]);
+
+    currentSubmissions = subsRes.data || [];
+    currentJuryMembers = juryRes.data || [];
+    currentEvaluations = evalsRes.data || [];
+
+    updateMetrics();
+    renderSubmissionsTable();
+    renderJuryRoster();
+    renderSingleGlanceProgressGrid();
+    renderScoreMatrix();
+    renderLeaderboard();
+  };
+
+  const updateMetrics = () => {
+    document.getElementById("stat-total")!.innerText =
+      currentSubmissions.length.toString();
+    document.getElementById("stat-pending")!.innerText = currentSubmissions
+      .filter((s) => (s.status || "Pending") === "Pending")
+      .length.toString();
+    document.getElementById("stat-accepted")!.innerText = currentSubmissions
+      .filter((s) => s.status === "Accepted")
+      .length.toString();
+    document.getElementById("stat-rejected")!.innerText = currentSubmissions
+      .filter((s) => s.status === "Rejected")
+      .length.toString();
+  };
+
+  // TAB 1: SUBMISSIONS REVIEW
+  const renderSubmissionsTable = () => {
+    const tbody = document.getElementById("submissions-tbody");
+    if (!tbody) return;
+
+    const query =
+      (document.getElementById("submission-search") as HTMLInputElement)?.value
+        .toLowerCase()
+        .trim() || "";
+    const filter =
+      (document.getElementById("submission-filter") as HTMLSelectElement)
+        ?.value || "ALL";
+
+    const filtered = currentSubmissions.filter((item) => {
+      const matchStatus =
+        filter === "ALL" || (item.status || "Pending") === filter;
+      const matchSearch =
+        !query ||
+        item.entry_number?.toLowerCase().includes(query) ||
+        item.film_title?.toLowerCase().includes(query) ||
+        item.director_full_name?.toLowerCase().includes(query) ||
+        item.payment_ref?.toLowerCase().includes(query);
+      return matchStatus && matchSearch;
+    });
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" class="p-8 text-center text-zinc-500 font-bold">No submissions found.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = filtered
+      .map((item) => {
+        const status = item.status || "Pending";
+        let badge = "bg-amber-100 text-amber-900 border border-amber-300";
+        if (status === "Accepted")
+          badge = "bg-emerald-100 text-emerald-900 border border-emerald-300";
+        if (status === "Rejected")
+          badge = "bg-red-100 text-red-900 border border-red-300";
+
+        return `
+        <tr class="hover:bg-zinc-50 transition-colors">
+          <td class="p-3 font-bold border-r border-zinc-200 select-all">${item.entry_number}</td>
+          <td class="p-3 font-black text-[#161616] border-r border-zinc-200">
+            <div class="truncate max-w-[180px]">${item.film_title}</div>
+            <span class="text-[10px] text-zinc-500 font-normal">${item.genre || "N/A"}</span>
+          </td>
+          <td class="p-3 border-r border-zinc-200 font-bold">${item.director_full_name}</td>
+          <td class="p-3 border-r border-zinc-200 text-zinc-700">${item.film_language} (${item.duration_minutes}m)</td>
+          <td class="p-3 border-r border-zinc-200 font-mono text-[11px] select-all">${item.payment_ref}</td>
+          <td class="p-3 border-r border-zinc-200 text-center">
+            ${item.payment_screenshot_url ? `<a href="${item.payment_screenshot_url}" target="_blank" class="px-2 py-1 bg-zinc-200 hover:bg-[#161616] hover:text-white font-bold text-[10px] uppercase">View</a>` : `<span class="text-zinc-400">None</span>`}
+          </td>
+          <td class="p-3 border-r border-zinc-200">
+            <span class="px-2 py-0.5 text-[10px] font-black uppercase ${badge}">${status}</span>
+          </td>
+          <td class="p-3 text-center">
+            <button type="button" data-entry="${item.entry_number}" class="open-sub-btn px-3 py-1.5 bg-[#161616] text-white hover:bg-[#D9381E] font-bold text-[10px] uppercase transition-colors cursor-pointer">
+              Open File &rarr;
+            </button>
+          </td>
+        </tr>
+      `;
+      })
+      .join("");
+
+    document.querySelectorAll(".open-sub-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const id = (e.currentTarget as HTMLElement).getAttribute("data-entry");
+        const film = currentSubmissions.find((s) => s.entry_number === id);
+        if (film) openSubmissionModal(film);
+      });
+    });
+  };
+
+  const openSubmissionModal = (film: any) => {
+    activeSelectedFilm = film;
+    document.getElementById("modal-entry-id")!.innerText = film.entry_number;
+    document.getElementById("modal-title")!.innerText = film.film_title;
+    document.getElementById("modal-current-status")!.innerText =
+      film.status || "Pending";
+
+    document.getElementById("modal-body")!.innerHTML = `
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="space-y-4">
+          <div class="border-2 border-[#161616] bg-white p-2">
+            <span class="text-[9px] uppercase font-bold text-zinc-500 block mb-1">Official Poster</span>
+            <img src="${film.poster_url}" alt="Poster" class="w-full aspect-2/3 object-cover border" onerror="this.src=''"/>
+          </div>
+          <div class="border-2 border-[#161616] bg-white p-3 space-y-1 text-xs">
+            <strong>UTR:</strong> <code class="select-all font-bold">${film.payment_ref}</code>
+            ${film.payment_screenshot_url ? `<a href="${film.payment_screenshot_url}" target="_blank" class="block text-center py-1 bg-zinc-200 hover:bg-black hover:text-white font-bold uppercase text-[10px] mt-2">Inspect Receipt Image</a>` : ""}
+          </div>
+        </div>
+        <div class="md:col-span-2 space-y-4">
+          <div class="bg-white border-2 border-[#161616] p-4 space-y-2 text-xs">
+            <h4 class="font-black uppercase text-[#D9381E] border-b pb-1">Synopsis & Screener</h4>
+            <p class="leading-relaxed bg-zinc-50 p-2.5 border">${film.synopsis || "N/A"}</p>
+            <div class="pt-2">
+              <a href="${film.screener_url}" target="_blank" class="inline-block px-3 py-1.5 bg-[#161616] text-white font-black uppercase text-xs hover:bg-[#D9381E]">Open Screener Link &rarr;</a>
+              ${film.screener_password ? `<span class="ml-2 font-bold">Password: <code>${film.screener_password}</code></span>` : ""}
+            </div>
+          </div>
+          <div class="bg-white border-2 border-[#161616] p-4 text-xs space-y-1">
+            <h4 class="font-black uppercase text-[#D9381E] border-b pb-1">Director / Producer Details</h4>
+            <div><strong>Director:</strong> ${film.director_full_name} (${film.director_email} | ${film.director_phone})</div>
+            <div><strong>Producer:</strong> ${film.producer_name} (${film.producer_email})</div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("detail-modal")?.classList.remove("hidden");
+  };
+
+  const updateSubmissionStatus = async (newStatus: "Accepted" | "Rejected") => {
+    if (!activeSelectedFilm) return;
+    const { error } = await supabase
+      .from("submissions")
+      .update({ status: newStatus })
+      .eq("id", activeSelectedFilm.id);
+    if (!error) {
+      activeSelectedFilm.status = newStatus;
+      document.getElementById("detail-modal")?.classList.add("hidden");
+      await fetchAllData();
+    }
+  };
+
+  document
+    .getElementById("modal-accept-btn")
+    ?.addEventListener("click", () => updateSubmissionStatus("Accepted"));
+  document
+    .getElementById("modal-reject-btn")
+    ?.addEventListener("click", () => updateSubmissionStatus("Rejected"));
+  document
+    .getElementById("close-modal-btn")
+    ?.addEventListener("click", () =>
+      document.getElementById("detail-modal")?.classList.add("hidden"),
+    );
+
+  // TAB 2: JURY ROSTER
+  const renderJuryRoster = () => {
+    const container = document.getElementById("jury-cards-container");
+    if (!container) return;
+
+    if (currentJuryMembers.length === 0) {
+      container.innerHTML = `<div class="col-span-3 p-8 text-center text-zinc-500 font-bold bg-white border-2 border-[#161616]">No jury members created yet. Click "+ Add New Jury Member" above.</div>`;
+      return;
+    }
+
+    const acceptedFilmsCount = currentSubmissions.filter(
+      (s) => s.status === "Accepted",
+    ).length;
+
+    container.innerHTML = currentJuryMembers
+      .map((jury) => {
+        const evals = currentEvaluations.filter(
+          (e) => e.jury_id === jury.id && e.is_submitted,
+        );
+        const completionRate =
+          acceptedFilmsCount > 0
+            ? Math.round((evals.length / acceptedFilmsCount) * 100)
+            : 0;
+
+        return `
+        <div class="bg-white border-2 border-[#161616] p-5 shadow-[4px_4px_0px_0px_#161616] space-y-4">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="text-[10px] font-bold uppercase text-zinc-500">Juror Account</span>
+              <h4 class="text-base font-black uppercase text-[#161616]">${jury.full_name}</h4>
+              <span class="text-xs text-zinc-600">${jury.email}</span>
+            </div>
+            <span class="px-2 py-0.5 text-[9px] font-black uppercase ${jury.is_active ? "bg-emerald-100 text-emerald-900 border border-emerald-300" : "bg-red-100 text-red-900 border border-red-300"}">
+              ${jury.is_active ? "Active" : "Deactivated"}
+            </span>
+          </div>
+
+          <div class="bg-[#F6F4EE] p-3 border border-zinc-300 space-y-2 text-xs">
+            <div class="flex justify-between font-bold">
+              <span>Evaluation Progress:</span>
+              <span>${evals.length} / ${acceptedFilmsCount} Films (${completionRate}%)</span>
+            </div>
+            <div class="w-full bg-zinc-200 h-1.5 overflow-hidden">
+              <div class="bg-[#D9381E] h-full" style="width: ${completionRate}%"></div>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-zinc-200 flex justify-end">
+            <button type="button" data-jury-id="${jury.id}" data-active="${jury.is_active}" class="toggle-active-btn px-3 py-2 bg-zinc-200 hover:bg-black hover:text-white font-bold uppercase text-[10px] transition-colors cursor-pointer">
+              ${jury.is_active ? "Deactivate Access" : "Activate Access"}
+            </button>
+          </div>
+        </div>
+      `;
+      })
+      .join("");
+
+    document.querySelectorAll(".toggle-active-btn").forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        const juryId = (e.currentTarget as HTMLElement).getAttribute(
+          "data-jury-id",
+        );
+        const currentActive =
+          (e.currentTarget as HTMLElement).getAttribute("data-active") ===
+          "true";
+        await supabase
+          .from("profiles")
+          .update({ is_active: !currentActive })
+          .eq("id", juryId);
+        await fetchAllData();
+      });
+    });
+  };
+
+  // Add Jury Member
+  document
+    .getElementById("open-add-jury-btn")
+    ?.addEventListener("click", () =>
+      document.getElementById("add-jury-modal")?.classList.remove("hidden"),
+    );
+  document
+    .getElementById("close-add-jury-modal")
+    ?.addEventListener("click", () =>
+      document.getElementById("add-jury-modal")?.classList.add("hidden"),
+    );
+
+  document
+    .getElementById("add-jury-form")
+    ?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fullName = (
+        document.getElementById("new-jury-name") as HTMLInputElement
+      ).value.trim();
+      const email = (
+        document.getElementById("new-jury-email") as HTMLInputElement
+      ).value.trim();
+      const password = (
+        document.getElementById("new-jury-pwd") as HTMLInputElement
+      ).value;
+      const msg = document.getElementById("add-jury-msg")!;
+      const submitBtn = document.getElementById(
+        "create-jury-submit-btn",
+      ) as HTMLButtonElement;
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Creating Account...";
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { full_name: fullName, role: "jury" } },
+      });
+
+      if (error) {
+        msg.className =
+          "p-2 text-[11px] font-bold border bg-red-100 border-[#D9381E] text-[#D9381E]";
+        msg.innerText = error.message;
+        msg.classList.remove("hidden");
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Create Jury Account";
+      } else {
+        if (data.user) {
+          await supabase.from("profiles").upsert({
+            id: data.user.id,
+            email: email,
+            full_name: fullName,
+            role: "jury",
+            is_active: true,
+          });
+        }
+
+        msg.className =
+          "p-2 text-[11px] font-bold border bg-green-100 border-green-800 text-green-950";
+        msg.innerText = "Jury account created successfully!";
+        msg.classList.remove("hidden");
+
+        setTimeout(async () => {
+          document.getElementById("add-jury-modal")?.classList.add("hidden");
+          (document.getElementById("add-jury-form") as HTMLFormElement).reset();
+          msg.classList.add("hidden");
+          submitBtn.disabled = false;
+          submitBtn.innerText = "Create Jury Account";
+          await fetchAllData();
+        }, 1200);
+      }
+    });
+
+  // TAB 3: SINGLE-GLANCE JURY VS MOVIE MATRIX GRID
+  const renderSingleGlanceProgressGrid = () => {
+    const thead = document.getElementById("progress-grid-thead");
+    const tbody = document.getElementById("progress-grid-tbody");
+    if (!thead || !tbody) return;
+
+    const acceptedFilms = currentSubmissions.filter(
+      (s) => s.status === "Accepted",
+    );
+
+    if (acceptedFilms.length === 0 || currentJuryMembers.length === 0) {
+      thead.innerHTML = "";
+      tbody.innerHTML = `<tr><td class="p-8 text-center text-zinc-500 font-bold">No accepted competition films or jury members found.</td></tr>`;
+      return;
+    }
+
+    // Build Table Header: Jury Member | [Film 1] | [Film 2] ... | Overall Completed
+    thead.innerHTML = `
+      <tr class="bg-[#161616] text-[#F6F4EE] uppercase tracking-wider text-[10px]">
+        <th class="p-3 border-r border-zinc-700 min-w-[180px]">Jury Member</th>
+        ${acceptedFilms
+          .map(
+            (film) => `
+          <th class="p-3 border-r border-zinc-700 text-center min-w-[140px]">
+            <div class="truncate max-w-[130px] font-black">${film.film_title}</div>
+            <span class="text-[9px] text-zinc-400 font-normal font-mono">${film.entry_number}</span>
+          </th>
+        `,
+          )
+          .join("")}
+        <th class="p-3 text-center bg-[#D9381E] text-white min-w-[120px]">Completed</th>
+      </tr>
+    `;
+
+    const evalMap = new Map(
+      currentEvaluations.map((e) => [`${e.submission_id}_${e.jury_id}`, e]),
+    );
+
+    // Build Rows for each Jury Member
+    tbody.innerHTML = currentJuryMembers
+      .map((jury) => {
+        let completedCount = 0;
+
+        const movieCells = acceptedFilms
+          .map((film) => {
+            const ev = evalMap.get(`${film.id}_${jury.id}`);
+            const isCompleted = ev?.is_submitted;
+            const isInProgress =
+              ev && !isCompleted && ev.status === "In Progress";
+
+            if (isCompleted) {
+              completedCount++;
+              return `
+            <td class="p-2.5 border-r border-zinc-200 text-center bg-emerald-50/60">
+              <div class="font-black text-xs text-emerald-950">${ev.total_score} / 100</div>
+              <div class="flex items-center justify-center gap-1 mt-1">
+                <span class="text-[9px] uppercase font-bold text-emerald-700">✓ Done</span>
+                <button type="button" data-eval-id="${ev.id}" class="reopen-eval-btn px-1 text-[8px] uppercase bg-zinc-200 hover:bg-[#D9381E] hover:text-white font-bold transition-colors cursor-pointer border" title="Unlock score for juror">Reopen</button>
+              </div>
+            </td>
+          `;
+            }
+
+            if (isInProgress) {
+              const draftScore =
+                ev.total_score !== undefined ? `${ev.total_score}/100` : "";
+              return `
+            <td class="p-2.5 border-r border-zinc-200 text-center bg-amber-50/60">
+              <span class="px-1.5 py-0.5 text-[9px] font-black uppercase bg-amber-200 text-amber-950 border border-amber-400">
+                Incomplete
+              </span>
+              ${draftScore ? `<div class="text-[9px] text-amber-800 font-bold mt-1">Draft: ${draftScore}</div>` : ""}
+            </td>
+          `;
+            }
+
+            return `
+          <td class="p-2.5 border-r border-zinc-200 text-center bg-red-50/40">
+            <span class="px-1.5 py-0.5 text-[9px] font-black uppercase bg-red-100 text-red-900 border border-red-300">
+              Incomplete
+            </span>
+          </td>
+        `;
+          })
+          .join("");
+
+        const completionPct = Math.round(
+          (completedCount / acceptedFilms.length) * 100,
+        );
+
+        return `
+        <tr class="hover:bg-zinc-50 transition-colors">
+          <td class="p-3 font-black border-r border-zinc-200 text-[#161616]">
+            <div>${jury.full_name}</div>
+            <span class="text-[10px] text-zinc-500 font-normal">${jury.email}</span>
+          </td>
+          ${movieCells}
+          <td class="p-3 font-black text-center bg-zinc-100">
+            <div class="text-xs ${completedCount === acceptedFilms.length ? "text-emerald-700" : "text-[#D9381E]"}">
+              ${completedCount} / ${acceptedFilms.length}
+            </div>
+            <div class="text-[9px] text-zinc-500 font-normal">(${completionPct}%)</div>
+          </td>
+        </tr>
+      `;
+      })
+      .join("");
+
+    document.querySelectorAll(".reopen-eval-btn").forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        const evalId = (e.currentTarget as HTMLElement).getAttribute(
+          "data-eval-id",
+        );
+        const confirmReopen = confirm(
+          "Unlock and reopen this evaluation for the juror?",
+        );
+        if (confirmReopen) {
+          await supabase
+            .from("evaluations")
+            .update({ is_submitted: false, status: "In Progress" })
+            .eq("id", evalId);
+          await fetchAllData();
+        }
+      });
+    });
+  };
+
+  // TAB 4: SIDE-BY-SIDE CRITERION SCORE MATRIX
+  const renderScoreMatrix = () => {
+    const container = document.getElementById("matrix-container");
+    if (!container) return;
+
+    const acceptedFilms = currentSubmissions.filter(
+      (s) => s.status === "Accepted",
+    );
+    if (acceptedFilms.length === 0 || currentJuryMembers.length === 0) {
+      container.innerHTML = `<div class="bg-white border-2 border-[#161616] p-8 text-center text-zinc-500 font-bold">No accepted competition films to display.</div>`;
+      return;
+    }
+
+    const evalMap = new Map(
+      currentEvaluations.map((e) => [`${e.submission_id}_${e.jury_id}`, e]),
+    );
+
+    container.innerHTML = acceptedFilms
+      .map((film) => {
+        const filmEvals = currentEvaluations.filter(
+          (e) => e.submission_id === film.id && e.is_submitted,
+        );
+
+        return `
+        <div class="bg-white border-2 border-[#161616] p-5 shadow-[4px_4px_0px_0px_#161616] space-y-4">
+          <div class="flex flex-col sm:flex-row justify-between sm:items-baseline gap-2 border-b-2 border-[#161616] pb-2">
+            <div>
+              <span class="text-[10px] font-black uppercase text-[#D9381E] tracking-widest">${film.entry_number}</span>
+              <h4 class="text-lg font-black uppercase text-[#161616]">${film.film_title}</h4>
+              <span class="text-xs text-zinc-600">Director: ${film.director_full_name} | ${film.duration_minutes} Mins</span>
+            </div>
+            <div class="text-xs font-bold text-zinc-700">
+              Evaluations Submitted: <span class="font-black text-[#161616]">${filmEvals.length} / ${currentJuryMembers.length}</span>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-[#F6F4EE] border-b-2 border-[#161616] text-[10px] uppercase">
+                  <th class="p-2.5 border-r border-zinc-300">Rubric Criterion</th>
+                  ${currentJuryMembers.map((j) => `<th class="p-2.5 border-r border-zinc-300">${j.full_name}</th>`).join("")}
+                  <th class="p-2.5 font-black bg-zinc-200">Criterion Average</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200">
+                ${CRITERIA.map((c) => {
+                  let sum = 0;
+                  let count = 0;
+
+                  const scoresCols = currentJuryMembers
+                    .map((j) => {
+                      const ev = evalMap.get(`${film.id}_${j.id}`);
+                      const val = ev && ev.is_submitted ? ev[c.key] : null;
+                      if (val !== null && val !== undefined) {
+                        sum += val;
+                        count++;
+                        return `<td class="p-2.5 border-r border-zinc-200 font-bold">${val} / ${c.max}</td>`;
+                      }
+                      return `<td class="p-2.5 border-r border-zinc-200 text-zinc-400 font-mono">—</td>`;
+                    })
+                    .join("");
+
+                  const avg = count > 0 ? (sum / count).toFixed(1) : "—";
+
+                  return `
+                    <tr>
+                      <td class="p-2.5 border-r border-zinc-200 font-black text-zinc-800">${c.label} (${c.max})</td>
+                      ${scoresCols}
+                      <td class="p-2.5 font-black bg-zinc-100">${avg}</td>
+                    </tr>
+                  `;
+                }).join("")}
+                
+                <tr class="bg-[#161616] text-white font-black">
+                  <td class="p-2.5 border-r border-zinc-700 uppercase">TOTAL / 100</td>
+                  ${currentJuryMembers
+                    .map((j) => {
+                      const ev = evalMap.get(`${film.id}_${j.id}`);
+                      return `<td class="p-2.5 border-r border-zinc-700">${ev && ev.is_submitted && ev.total_score !== undefined ? `${ev.total_score}` : "—"}</td>`;
+                    })
+                    .join("")}
+                  <td class="p-2.5 bg-[#D9381E] text-white">
+                    ${(() => {
+                      if (filmEvals.length === 0) return "—";
+                      const totalSum = filmEvals.reduce(
+                        (acc, curr) => acc + (curr.total_score || 0),
+                        0,
+                      );
+                      return (totalSum / filmEvals.length).toFixed(1);
+                    })()}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+      })
+      .join("");
+  };
+
+  // TAB 5: LEADERBOARD & SHORTLISTING RANKS
+  const renderLeaderboard = () => {
+    const tbody = document.getElementById("leaderboard-tbody");
+    if (!tbody) return;
+
+    const acceptedFilms = currentSubmissions.filter(
+      (s) => s.status === "Accepted",
+    );
+
+    if (acceptedFilms.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" class="p-8 text-center text-zinc-500 font-bold">No accepted competition films to rank.</td></tr>`;
+      return;
+    }
+
+    const evalMap = new Map(
+      currentEvaluations.map((e) => [`${e.submission_id}_${e.jury_id}`, e]),
+    );
+
+    // Compute average score per film
+    const rankedFilms = acceptedFilms.map((film) => {
+      const filmEvals = currentEvaluations.filter(
+        (e) => e.submission_id === film.id && e.is_submitted,
+      );
+      let avg = 0;
+      if (filmEvals.length > 0) {
+        const sum = filmEvals.reduce(
+          (acc, curr) => acc + (curr.total_score || 0),
+          0,
+        );
+        avg = sum / filmEvals.length;
+      }
+      return {
+        ...film,
+        evalCount: filmEvals.length,
+        averageScore: avg,
+      };
+    });
+
+    // Sort descending by average score
+    rankedFilms.sort((a, b) => b.averageScore - a.averageScore);
+
+    tbody.innerHTML = rankedFilms
+      .map((film, index) => {
+        const rank = index + 1;
+        let rankBadge = `<span class="font-black text-sm text-zinc-700">${rank}</span>`;
+
+        if (rank === 1)
+          rankBadge = `<span class="px-2 py-0.5 bg-amber-400 text-black font-black text-xs rounded-xs shadow-xs">🥇 1st</span>`;
+        else if (rank === 2)
+          rankBadge = `<span class="px-2 py-0.5 bg-zinc-300 text-black font-black text-xs rounded-xs shadow-xs">🥈 2nd</span>`;
+        else if (rank === 3)
+          rankBadge = `<span class="px-2 py-0.5 bg-amber-700 text-white font-black text-xs rounded-xs shadow-xs">🥉 3rd</span>`;
+
+        return `
+        <tr class="hover:bg-zinc-50 transition-colors ${rank <= 3 ? "bg-amber-50/30" : ""}">
+          <td class="p-3 border-r border-zinc-200 text-center font-black">${rankBadge}</td>
+          <td class="p-3 border-r border-zinc-200 font-bold select-all">${film.entry_number}</td>
+          <td class="p-3 font-black text-[#161616] border-r border-zinc-200">
+            <div class="truncate max-w-[200px]">${film.film_title}</div>
+            <span class="text-[10px] text-zinc-500 font-normal">${film.genre || "Short Film"}</span>
+          </td>
+          <td class="p-3 border-r border-zinc-200 font-bold">${film.director_full_name}</td>
+          <td class="p-3 border-r border-zinc-200 text-zinc-700">${film.film_language} (${film.duration_minutes}m)</td>
+          <td class="p-3 border-r border-zinc-200 text-center font-bold">
+            ${film.evalCount} / ${currentJuryMembers.length}
+          </td>
+          <td class="p-3 border-r border-zinc-200 text-center font-black text-base ${film.evalCount > 0 ? "text-[#D9381E]" : "text-zinc-400"}">
+            ${film.evalCount > 0 ? film.averageScore.toFixed(2) : "—"}
+          </td>
+          <td class="p-3 text-center">
+            ${
+              film.evalCount === currentJuryMembers.length &&
+              currentJuryMembers.length > 0
+                ? `<span class="px-2 py-0.5 bg-emerald-100 text-emerald-950 font-black text-[10px] uppercase border border-emerald-400">Ready for Award</span>`
+                : `<span class="px-2 py-0.5 bg-amber-100 text-amber-900 font-bold text-[10px] uppercase border border-amber-300">In Review</span>`
+            }
+          </td>
+        </tr>
+      `;
+      })
+      .join("");
+  };
+
+  // CSV EXPORT 1: MATRIX CSV (Movie rows x Jury Total Score columns + Average)
+  document
+    .getElementById("export-matrix-csv")
+    ?.addEventListener("click", () => {
+      const acceptedFilms = currentSubmissions.filter(
+        (s) => s.status === "Accepted",
+      );
+      if (acceptedFilms.length === 0 || currentJuryMembers.length === 0) {
+        return alert("No evaluated competition data to export.");
+      }
+
+      const evalMap = new Map(
+        currentEvaluations.map((e) => [`${e.submission_id}_${e.jury_id}`, e]),
+      );
+
+      // Header: Entry ID, Film Title, Director, [Jury 1], [Jury 2] ..., Average Score, Completed Juries
+      const headers = [
+        "Entry ID",
+        "Film Title",
+        "Director",
+        "Language",
+        "Duration (Mins)",
+        ...currentJuryMembers.map((j) => `"${j.full_name} (Total / 100)"`),
+        "Average Score",
+        "Completed Juries",
+      ];
+
+      const rows = acceptedFilms.map((film) => {
+        const filmEvals = currentEvaluations.filter(
+          (e) => e.submission_id === film.id && e.is_submitted,
+        );
+
+        const jurorScores = currentJuryMembers.map((j) => {
+          const ev = evalMap.get(`${film.id}_${j.id}`);
+          return ev && ev.is_submitted && ev.total_score !== undefined
+            ? ev.total_score
+            : "Incomplete";
+        });
+
+        let avg = "";
+        if (filmEvals.length > 0) {
+          const totalSum = filmEvals.reduce(
+            (acc, curr) => acc + (curr.total_score || 0),
+            0,
+          );
+          avg = (totalSum / filmEvals.length).toFixed(2);
+        }
+
+        return [
+          `"${film.entry_number}"`,
+          `"${(film.film_title || "").replace(/"/g, '""')}"`,
+          `"${(film.director_full_name || "").replace(/"/g, '""')}"`,
+          `"${film.film_language || ""}"`,
+          `"${film.duration_minutes || ""}"`,
+          ...jurorScores,
+          `"${avg}"`,
+          `"${filmEvals.length} / ${currentJuryMembers.length}"`,
+        ].join(",");
+      });
+
+      const csvContent =
+        "data:text/csv;charset=utf-8," +
+        [headers.join(","), ...rows].join("\n");
+      const link = document.createElement("a");
+      link.href = encodeURI(csvContent);
+      link.download = `PSFF2026_Jury_Score_Summary_${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+    });
+
+  // CSV EXPORT 2: LEADERBOARD SHORTLIST CSV (Ranked by Average Score)
+  document
+    .getElementById("export-leaderboard-csv")
+    ?.addEventListener("click", () => {
+      const acceptedFilms = currentSubmissions.filter(
+        (s) => s.status === "Accepted",
+      );
+      if (acceptedFilms.length === 0) return alert("No films to export.");
+
+      const rankedFilms = acceptedFilms.map((film) => {
+        const filmEvals = currentEvaluations.filter(
+          (e) => e.submission_id === film.id && e.is_submitted,
+        );
+        let avg = 0;
+        if (filmEvals.length > 0) {
+          const sum = filmEvals.reduce(
+            (acc, curr) => acc + (curr.total_score || 0),
+            0,
+          );
+          avg = sum / filmEvals.length;
+        }
+        return { ...film, evalCount: filmEvals.length, averageScore: avg };
+      });
+
+      rankedFilms.sort((a, b) => b.averageScore - a.averageScore);
+
+      const headers = [
+        "Rank",
+        "Entry ID",
+        "Film Title",
+        "Director",
+        "Language",
+        "Runtime (Min)",
+        "Average Score (/100)",
+        "Completed Juries",
+      ];
+      const rows = rankedFilms.map((f, i) =>
+        [
+          i + 1,
+          `"${f.entry_number}"`,
+          `"${(f.film_title || "").replace(/"/g, '""')}"`,
+          `"${(f.director_full_name || "").replace(/"/g, '""')}"`,
+          `"${f.film_language || ""}"`,
+          `"${f.duration_minutes || ""}"`,
+          f.evalCount > 0 ? f.averageScore.toFixed(2) : "N/A",
+          `"${f.evalCount} / ${currentJuryMembers.length}"`,
+        ].join(","),
+      );
+
+      const csvContent =
+        "data:text/csv;charset=utf-8," +
+        [headers.join(","), ...rows].join("\n");
+      const link = document.createElement("a");
+      link.href = encodeURI(csvContent);
+      link.download = `PSFF2026_Leaderboard_Shortlist_${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+    });
+
+  // Search & Filter Listeners for Tab 1
+  document
+    .getElementById("submission-search")
+    ?.addEventListener("input", renderSubmissionsTable);
+  document
+    .getElementById("submission-filter")
+    ?.addEventListener("change", renderSubmissionsTable);
+
+  // Submissions CSV Export
+  document
+    .getElementById("export-submissions-csv")
+    ?.addEventListener("click", () => {
+      if (currentSubmissions.length === 0)
+        return alert("No submissions to export.");
+      const headers = [
+        "Entry ID",
+        "Status",
+        "Title",
+        "Genre",
+        "Director",
+        "Email",
+        "Phone",
+        "UTR",
+      ];
+      const rows = currentSubmissions.map((s) => [
+        `"${s.entry_number}"`,
+        `"${s.status || "Pending"}"`,
+        `"${s.film_title}"`,
+        `"${s.genre}"`,
+        `"${s.director_full_name}"`,
+        `"${s.director_email}"`,
+        `"${s.director_phone}"`,
+        `"${s.payment_ref}"`,
+      ]);
+      const csvContent =
+        "data:text/csv;charset=utf-8," +
+        [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
+      const link = document.createElement("a");
+      link.href = encodeURI(csvContent);
+      link.download = `PSFF2026_Submissions_${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+    });
+
+  checkAdminSession();
+</script>

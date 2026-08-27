@@ -1,0 +1,1291 @@
+---
+// src/pages/juries.astro
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Jury Screening Room | PSFF Season 03">
+  <style is:global>
+    header:not(#jury-workspace-header),
+    nav,
+    footer {
+      display: none !important;
+    }
+  </style>
+
+  <div
+    class="w-full min-h-screen bg-[#0E0E10] text-[#E4E4E7] font-mono selection:bg-[#D9381E] selection:text-white"
+  >
+    <!-- 1. LOGIN VIEW -->
+    <div id="auth-guard" class="max-w-md mx-auto py-24 px-6 space-y-6">
+      <div
+        class="bg-[#18181B] border-2 border-zinc-800 p-8 shadow-[6px_6px_0px_0px_#D9381E] space-y-6"
+      >
+        <div class="border-b border-zinc-800 pb-4">
+          <span
+            class="text-[10px] font-black uppercase text-[#D9381E] tracking-widest"
+            >Jury Portal</span
+          >
+          <h1 class="text-2xl font-black uppercase text-white mt-1">
+            Official Screening Room
+          </h1>
+          <p class="text-xs text-zinc-400 mt-1">
+            Sign in with your jury credentials.
+          </p>
+        </div>
+        <form id="jury-login-form" class="space-y-4 text-xs">
+          <div class="space-y-1.5">
+            <label class="block font-bold uppercase text-zinc-400"
+              >Email Address</label
+            >
+            <input
+              type="email"
+              id="jury-email"
+              required
+              class="w-full bg-[#0E0E10] border border-zinc-700 p-2.5 text-white focus:outline-none focus:border-[#D9381E]"
+              placeholder="jury@psff.in"
+            />
+          </div>
+          <div class="space-y-1.5">
+            <label class="block font-bold uppercase text-zinc-400"
+              >Password</label
+            >
+            <input
+              type="password"
+              id="jury-pwd"
+              required
+              class="w-full bg-[#0E0E10] border border-zinc-700 p-2.5 text-white focus:outline-none focus:border-[#D9381E]"
+              placeholder="••••••••"
+            />
+          </div>
+          <div
+            id="auth-err"
+            class="hidden p-3 bg-red-950/80 border border-red-800 text-red-300 text-[11px] font-bold"
+          >
+          </div>
+          <button
+            type="submit"
+            id="jury-auth-btn"
+            class="w-full py-3 bg-[#D9381E] hover:bg-[#b52a14] text-white font-black uppercase tracking-wider transition-colors cursor-pointer"
+          >
+            Enter Screening Room &rarr;
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 2. MAIN WORKSPACE -->
+    <div id="jury-workspace" class="hidden min-h-screen flex flex-col">
+      <!-- Top Workspace Header -->
+      <header
+        id="jury-workspace-header"
+        class="bg-[#18181B] border-b border-zinc-800 px-6 py-3.5 flex flex-wrap items-center justify-between gap-4 shrink-0"
+      >
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"
+            ></span>
+            <span class="text-xs font-black uppercase tracking-wider text-white"
+              >PSFF Season 03</span
+            >
+          </div>
+          <span class="text-zinc-600">|</span>
+          <span id="jury-display-name" class="text-xs font-bold text-zinc-300"
+            >Juror</span
+          >
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button
+            type="button"
+            id="back-to-table-btn"
+            class="hidden px-3 py-1.5 text-[11px] font-bold uppercase bg-zinc-800 hover:bg-zinc-700 text-white transition-colors cursor-pointer border border-zinc-700"
+          >
+            &larr; Film Queue Table
+          </button>
+          <span
+            id="autosave-indicator"
+            class="hidden text-[11px] font-bold text-zinc-500 items-center gap-1.5 sm:flex"
+          >
+            <span class="inline-block w-2 h-2 rounded-full bg-zinc-600"></span> All
+            changes saved
+          </span>
+          <button
+            type="button"
+            id="jury-signout-btn"
+            class="px-3 py-1.5 text-[11px] font-bold uppercase bg-[#D9381E] text-white hover:bg-black transition-colors cursor-pointer"
+          >
+            Sign Out
+          </button>
+        </div>
+      </header>
+
+      <!-- VIEW A: MASTER FILMS TABLE -->
+      <main
+        id="table-view"
+        class="p-6 max-w-7xl mx-auto w-full space-y-6 flex-1"
+      >
+        <!-- Summary Metric Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-[#18181B] border border-zinc-800 p-4">
+            <span class="text-[10px] uppercase font-bold text-zinc-400"
+              >Assigned Competition Films</span
+            >
+            <div
+              id="stat-total-assigned"
+              class="text-2xl font-black text-white mt-1"
+            >
+              0
+            </div>
+          </div>
+          <div class="bg-[#18181B] border border-zinc-800 p-4">
+            <span class="text-[10px] uppercase font-bold text-emerald-500"
+              >Evaluations Completed &amp; Locked</span
+            >
+            <div
+              id="stat-completed"
+              class="text-2xl font-black text-emerald-500 mt-1"
+            >
+              0
+            </div>
+          </div>
+          <div class="bg-[#18181B] border border-zinc-800 p-4">
+            <span class="text-[10px] uppercase font-bold text-amber-500"
+              >Pending Evaluation</span
+            >
+            <div
+              id="stat-pending"
+              class="text-2xl font-black text-amber-500 mt-1"
+            >
+              0
+            </div>
+          </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div
+          class="bg-[#18181B] border border-zinc-800 p-4 flex items-center justify-between gap-4"
+        >
+          <input
+            type="text"
+            id="jury-table-search"
+            placeholder="Search assigned films by Title, Director, or Language..."
+            class="w-full sm:w-96 bg-[#0E0E10] border border-zinc-700 p-2 text-xs text-white focus:outline-none focus:border-[#D9381E]"
+          />
+          <span class="text-xs text-zinc-500 font-bold hidden sm:inline"
+            >Official PSFF 2026 Jury Queue</span
+          >
+        </div>
+
+        <!-- Master Films Table -->
+        <div class="bg-[#18181B] border border-zinc-800 overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr
+                class="bg-[#0E0E10] text-zinc-400 uppercase tracking-wider text-[10px] border-b border-zinc-800"
+              >
+                <th class="p-3.5 border-r border-zinc-800">Entry ID</th>
+                <th class="p-3.5 border-r border-zinc-800">Film Title</th>
+                <th class="p-3.5 border-r border-zinc-800">Director</th>
+                <th class="p-3.5 border-r border-zinc-800">Genre / Language</th>
+                <th class="p-3.5 border-r border-zinc-800">Runtime</th>
+                <th class="p-3.5 border-r border-zinc-800">Evaluation Status</th
+                >
+                <th class="p-3.5 border-r border-zinc-800">Score / 100</th>
+                <th class="p-3.5 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody id="jury-movies-tbody" class="divide-y divide-zinc-800">
+              <tr>
+                <td colspan="8" class="p-8 text-center text-zinc-500 font-bold">
+                  Loading competition films...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+
+      <!-- VIEW B: SINGLE FILM SCREENING & 12-CRITERIA EVALUATION -->
+      <main
+        id="evaluation-view"
+        class="hidden flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-hidden"
+      >
+        <!-- Left: Video Stream & Dossier -->
+        <div
+          class="lg:col-span-7 p-6 space-y-5 border-r border-zinc-800 overflow-y-auto max-h-[calc(100vh-60px)]"
+        >
+          <button
+            type="button"
+            id="eval-back-btn"
+            class="px-3 py-1.5 text-xs font-black uppercase tracking-wider bg-zinc-800 hover:bg-zinc-700 text-white transition-colors cursor-pointer flex items-center gap-2"
+          >
+            &larr; Return to Films Table
+          </button>
+
+          <!-- Video Stream Frame -->
+          <div
+            class="bg-black border-2 border-zinc-800 aspect-video relative flex items-center justify-center overflow-hidden shadow-xl"
+          >
+            <div id="player-placeholder" class="text-center p-6 space-y-2">
+              <span class="text-zinc-600 text-3xl">▶</span>
+              <p class="text-xs text-zinc-400 font-bold">
+                Loading film stream...
+              </p>
+            </div>
+            <iframe
+              id="video-frame"
+              class="hidden w-full h-full"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>
+
+          <!-- Active Film Dossier -->
+          <div class="bg-[#18181B] border border-zinc-800 p-5 space-y-3">
+            <div
+              class="flex items-baseline justify-between gap-2 border-b border-zinc-800 pb-2"
+            >
+              <div>
+                <h2
+                  id="film-meta-title"
+                  class="text-lg font-black uppercase text-white"
+                >
+                  Film Title
+                </h2>
+                <p id="film-meta-sub" class="text-xs text-zinc-400">
+                  Director: -- | Malayalam | 14 Mins
+                </p>
+              </div>
+              <span
+                id="film-meta-tracking"
+                class="text-[10px] px-2 py-0.5 bg-zinc-800 text-zinc-300 font-black"
+                >PSFF26-XXXX</span
+              >
+            </div>
+            <p
+              id="film-meta-synopsis"
+              class="text-xs text-zinc-300 leading-relaxed bg-[#0E0E10] p-3 border border-zinc-800/80"
+            >
+              Synopsis will appear here.
+            </p>
+            <div
+              id="screener-credentials"
+              class="hidden p-2.5 bg-zinc-900 border border-zinc-800 text-xs text-zinc-300 flex items-center justify-between"
+            >
+              <span
+                >Screener Password: <code
+                  id="screener-pwd-text"
+                  class="font-bold text-white select-all">None</code
+                ></span
+              >
+              <a
+                id="external-screener-link"
+                href="#"
+                target="_blank"
+                class="px-2 py-1 bg-zinc-800 hover:bg-[#D9381E] text-white text-[10px] font-bold uppercase transition-colors"
+              >
+                Open in Vimeo / YouTube &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: 12-Criterion Rubric -->
+        <div
+          class="lg:col-span-5 p-6 bg-[#141416] space-y-6 overflow-y-auto max-h-[calc(100vh-60px)]"
+        >
+          <!-- Sticky Header -->
+          <div
+            class="bg-[#18181B] border-2 border-zinc-800 p-4 sticky top-0 z-20 shadow-lg space-y-3"
+          >
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-zinc-400"
+                  >Total Score</span
+                >
+                <div class="flex items-baseline gap-1 mt-0.5">
+                  <span
+                    id="live-total-score"
+                    class="text-3xl font-black text-white">0</span
+                  >
+                  <span class="text-xs font-bold text-zinc-500">/ 100</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span
+                  id="eval-status-pill"
+                  class="inline-block px-2 py-0.5 text-[10px] font-black uppercase bg-zinc-800 text-zinc-400 border border-zinc-700"
+                  >Draft</span
+                >
+                <div
+                  id="rubric-progress-text"
+                  class="text-xs font-black text-[#D9381E] mt-1"
+                >
+                  0 / 12 Criteria
+                </div>
+              </div>
+            </div>
+            <div
+              class="w-full bg-[#0E0E10] h-2 border border-zinc-800 overflow-hidden"
+            >
+              <div
+                id="rubric-progress-bar"
+                class="h-full bg-[#D9381E] transition-all duration-300 w-0"
+              >
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="locked-notice"
+            class="hidden p-3 bg-emerald-950/80 border border-emerald-800 text-emerald-300 text-xs font-bold"
+          >
+            ✓ Evaluation submitted and locked. You can review your scores below.
+            Contact the Convener to request edits.
+          </div>
+
+          <!-- 12 Rubric Criteria Form -->
+          <form id="rubric-form" class="space-y-4">
+            <div class="bg-[#18181B] border border-zinc-800 p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-black uppercase text-white">
+                    1. Concept / Premise
+                  </h4>
+                  <span class="text-[10px] text-zinc-500"
+                    >Strength, clarity, and depth of core premise</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    type="number"
+                    name="score_concept"
+                    min="0"
+                    max="10"
+                    placeholder="—"
+                    class="rubric-input w-14 bg-[#0E0E10] border border-zinc-700 p-1.5 text-center text-sm font-black text-white focus:border-[#D9381E] focus:outline-none"
+                  />
+                  <span class="text-[10px] text-zinc-500 font-bold">/ 10</span>
+                </div>
+              </div>
+              <input
+                type="text"
+                name="note_concept"
+                placeholder="Optional notes on concept..."
+                class="w-full bg-[#0E0E10] border border-zinc-800 p-2 text-[11px] text-zinc-300 focus:outline-none focus:border-zinc-600"
+              />
+            </div>
+
+            <div class="bg-[#18181B] border border-zinc-800 p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-black uppercase text-white">
+                    2. Originality
+                  </h4>
+                  <span class="text-[10px] text-zinc-500"
+                    >Freshness of perspective and unique voice</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    type="number"
+                    name="score_originality"
+                    min="0"
+                    max="10"
+                    placeholder="—"
+                    class="rubric-input w-14 bg-[#0E0E10] border border-zinc-700 p-1.5 text-center text-sm font-black text-white focus:border-[#D9381E] focus:outline-none"
+                  />
+                  <span class="text-[10px] text-zinc-500 font-bold">/ 10</span>
+                </div>
+              </div>
+              <input
+                type="text"
+                name="note_originality"
+                placeholder="Optional notes on originality..."
+                class="w-full bg-[#0E0E10] border border-zinc-800 p-2 text-[11px] text-zinc-300 focus:outline-none focus:border-zinc-600"
+              />
+            </div>
+
+            <div class="bg-[#18181B] border border-zinc-800 p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-black uppercase text-white">
+                    3. Screenplay / Structure
+                  </h4>
+                  <span class="text-[10px] text-zinc-500"
+                    >Dialogue, scene transitions, and narrative economy</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    type="number"
+                    name="score_screenplay"
+                    min="0"
+                    max="15"
+                    placeholder="—"
+                    class="rubric-input w-14 bg-[#0E0E10] border border-zinc-700 p-1.5 text-center text-sm font-black text-white focus:border-[#D9381E] focus:outline-none"
+                  />
+                  <span class="text-[10px] text-zinc-500 font-bold">/ 15</span>
+                </div>
+              </div>
+              <input
+                type="text"
+                name="note_screenplay"
+                placeholder="Optional notes on screenplay..."
+                class="w-full bg-[#0E0E10] border border-zinc-800 p-2 text-[11px] text-zinc-300 focus:outline-none focus:border-zinc-600"
+              />
+            </div>
+
+            <div class="bg-[#18181B] border border-zinc-800 p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-black uppercase text-white">
+                    4. Direction
+                  </h4>
+                  <span class="text-[10px] text-zinc-500"
+                    >Directorial control, tone balance, and vision</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    type="number"
+                    name="score_direction"
+                    min="0"
+                    max="15"
+                    placeholder="—"
+                    class="rubric-input w-14 bg-[#0E0E10] border border-zinc-700 p-1.5 text-center text-sm font-black text-white focus:border-[#D9381E] focus:outline-none"
+                  />
+                  <span class="text-[10px] text-zinc-500 font-bold">/ 15</span>
+                </div>
+              </div>
+              <input
+                type="text"
+                name="note_direction"
+                placeholder="Optional notes on direction..."
+                class="w-full bg-[#0E0E10] border border-zinc-800 p-2 text-[11px] text-zinc-300 focus:outline-none focus:border-zinc-600"
+              />
+            </div>
+
+            <div class="bg-[#18181B] border border-zinc-800 p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-black uppercase text-white">
+                    5. Characterization &amp; Acting
+                  </h4>
+                  <span class="text-[10px] text-zinc-500"
+                    >Authenticity, emotional weight, and performance</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    type="number"
+                    name="score_characterization"
+                    min="0"
+                    max="10"
+                    placeholder="—"
+                    class="rubric-input w-14 bg-[#0E0E10] border border-zinc-700 p-1.5 text-center text-sm font-black text-white focus:border-[#D9381E] focus:outline-none"
+                  />
+                  <span class="text-[10px] text-zinc-500 font-bold">/ 10</span>
+                </div>
+              </div>
+              <input
+                type="text"
+                name="note_characterization"
+                placeholder="Optional notes on acting..."
+                class="w-full bg-[#0E0E10] border border-zinc-800 p-2 text-[11px] text-zinc-300 focus:outline-none focus:border-zinc-600"
+              />
+            </div>
+
+            <div class="bg-[#18181B] border border-zinc-800 p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-black uppercase text-white">
+                    6. Cinematography
+                  </h4>
+                  <span class="text-[10px] text-zinc-500"
+                    >Framing, camera movement, and lighting design</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    type="number"
+                    name="score_cinematography"
+                    min="0"
+                    max="10"
+                    placeholder="—"
+                    class="rubric-input w-14 bg-[#0E0E10] border border-zinc-700 p-1.5 text-center text-sm font-black text-white focus:border-[#D9381E] focus:outline-none"
+                  />
+                  <span class="text-[10px] text-zinc-500 font-bold">/ 10</span>
+                </div>
+              </div>
+              <input
+                type="text"
+                name="note_cinematography"
+                placeholder="Optional notes on cinematography..."
+                class="w-full bg-[#0E0E10] border border-zinc-800 p-2 text-[11px] text-zinc-300 focus:outline-none focus:border-zinc-600"
+              />
+            </div>
+
+            <div class="bg-[#18181B] border border-zinc-800 p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-black uppercase text-white">
+                    7. Editing &amp; Pacing
+                  </h4>
+                  <span class="text-[10px] text-zinc-500"
+                    >Rhythm, narrative continuity, and cut timing</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    type="number"
+                    name="score_editing"
+                    min="0"
+                    max="10"
+                    placeholder="—"
+                    class="rubric-input w-14 bg-[#0E0E10] border border-zinc-700 p-1.5 text-center text-sm font-black text-white focus:border-[#D9381E] focus:outline-none"
+                  />
+                  <span class="text-[10px] text-zinc-500 font-bold">/ 10</span>
+                </div>
+              </div>
+              <input
+                type="text"
+                name="note_editing"
+                placeholder="Optional notes on editing..."
+                class="w-full bg-[#0E0E10] border border-zinc-800 p-2 text-[11px] text-zinc-300 focus:outline-none focus:border-zinc-600"
+              />
+            </div>
+
+            <div class="bg-[#18181B] border border-zinc-800 p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-black uppercase text-white">
+                    8. Sound Design &amp; Foley
+                  </h4>
+                  <span class="text-[10px] text-zinc-500"
+                    >Dialogue clarity, foley, and sound mixing</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    type="number"
+                    name="score_sound"
+                    min="0"
+                    max="8"
+                    placeholder="—"
+                    class="rubric-input w-14 bg-[#0E0E10] border border-zinc-700 p-1.5 text-center text-sm font-black text-white focus:border-[#D9381E] focus:outline-none"
+                  />
+                  <span class="text-[10px] text-zinc-500 font-bold">/ 8</span>
+                </div>
+              </div>
+              <input
+                type="text"
+                name="note_sound"
+                placeholder="Optional notes on sound design..."
+                class="w-full bg-[#0E0E10] border border-zinc-800 p-2 text-[11px] text-zinc-300 focus:outline-none focus:border-zinc-600"
+              />
+            </div>
+
+            <div class="bg-[#18181B] border border-zinc-800 p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-black uppercase text-white">
+                    9. Production Design
+                  </h4>
+                  <span class="text-[10px] text-zinc-500"
+                    >Locations, sets, props, and costumes</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    type="number"
+                    name="score_production_design"
+                    min="0"
+                    max="4"
+                    placeholder="—"
+                    class="rubric-input w-14 bg-[#0E0E10] border border-zinc-700 p-1.5 text-center text-sm font-black text-white focus:border-[#D9381E] focus:outline-none"
+                  />
+                  <span class="text-[10px] text-zinc-500 font-bold">/ 4</span>
+                </div>
+              </div>
+              <input
+                type="text"
+                name="note_production_design"
+                placeholder="Optional notes on art/costumes..."
+                class="w-full bg-[#0E0E10] border border-zinc-800 p-2 text-[11px] text-zinc-300 focus:outline-none focus:border-zinc-600"
+              />
+            </div>
+
+            <div class="bg-[#18181B] border border-zinc-800 p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-black uppercase text-white">
+                    10. Music &amp; Score
+                  </h4>
+                  <span class="text-[10px] text-zinc-500"
+                    >Musical score, integration, and atmosphere</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    type="number"
+                    name="score_music"
+                    min="0"
+                    max="3"
+                    placeholder="—"
+                    class="rubric-input w-14 bg-[#0E0E10] border border-zinc-700 p-1.5 text-center text-sm font-black text-white focus:border-[#D9381E] focus:outline-none"
+                  />
+                  <span class="text-[10px] text-zinc-500 font-bold">/ 3</span>
+                </div>
+              </div>
+              <input
+                type="text"
+                name="note_music"
+                placeholder="Optional notes on music..."
+                class="w-full bg-[#0E0E10] border border-zinc-800 p-2 text-[11px] text-zinc-300 focus:outline-none focus:border-zinc-600"
+              />
+            </div>
+
+            <div class="bg-[#18181B] border border-zinc-800 p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-black uppercase text-white">
+                    11. Thematic Depth
+                  </h4>
+                  <span class="text-[10px] text-zinc-500"
+                    >Human insight, cultural depth, and relevance</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    type="number"
+                    name="score_thematic_depth"
+                    min="0"
+                    max="5"
+                    placeholder="—"
+                    class="rubric-input w-14 bg-[#0E0E10] border border-zinc-700 p-1.5 text-center text-sm font-black text-white focus:border-[#D9381E] focus:outline-none"
+                  />
+                  <span class="text-[10px] text-zinc-500 font-bold">/ 5</span>
+                </div>
+              </div>
+              <input
+                type="text"
+                name="note_thematic_depth"
+                placeholder="Optional notes on thematic depth..."
+                class="w-full bg-[#0E0E10] border border-zinc-800 p-2 text-[11px] text-zinc-300 focus:outline-none focus:border-zinc-600"
+              />
+            </div>
+
+            <div class="bg-[#18181B] border border-zinc-800 p-4 space-y-2">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-black uppercase text-white">
+                    12. Overall Impact
+                  </h4>
+                  <span class="text-[10px] text-zinc-500"
+                    >Lasting emotional and cinematic memorability</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    type="number"
+                    name="score_impact"
+                    min="0"
+                    max="10"
+                    placeholder="—"
+                    class="rubric-input w-14 bg-[#0E0E10] border border-zinc-700 p-1.5 text-center text-sm font-black text-white focus:border-[#D9381E] focus:outline-none"
+                  />
+                  <span class="text-[10px] text-zinc-500 font-bold">/ 10</span>
+                </div>
+              </div>
+              <input
+                type="text"
+                name="note_impact"
+                placeholder="Optional notes on overall impact..."
+                class="w-full bg-[#0E0E10] border border-zinc-800 p-2 text-[11px] text-zinc-300 focus:outline-none focus:border-zinc-600"
+              />
+            </div>
+
+            <div class="bg-[#18181B] border border-zinc-800 p-4 space-y-2">
+              <label class="block text-xs font-black uppercase text-white"
+                >General Evaluation Notes / Juror Remarks</label
+              >
+              <textarea
+                name="general_feedback"
+                rows="3"
+                placeholder="Overall critique and award recommendations..."
+                class="w-full bg-[#0E0E10] border border-zinc-800 p-2 text-xs text-zinc-300 focus:outline-none focus:border-zinc-600"
+              ></textarea>
+            </div>
+
+            <div id="submit-block" class="pt-2 space-y-2">
+              <button
+                type="button"
+                id="submit-eval-btn"
+                class="w-full py-3.5 bg-[#D9381E] hover:bg-[#b52a14] text-white font-black uppercase text-xs tracking-wider transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Submit &amp; Lock Evaluation &rarr;
+              </button>
+              <p class="text-[10px] text-zinc-500 text-center">
+                Draft is automatically saved. Once locked, only the Convener can
+                reopen scoring.
+              </p>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { createClient } from "@supabase/supabase-js";
+
+  const SUPABASE_URL = "https://hhsxninbpcnubcgfunjv.supabase.co";
+  const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhoc3huaW5icGNudWJjZ2Z1bmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4MjcxNDIsImV4cCI6MjEwMzQwMzE0Mn0.gsoHCXxlR-nDGzmKcOczs2mb0h2Bqcuqm-QvEiqNHbA";
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const CRITERIA_KEYS = [
+    { key: "score_concept", max: 10 },
+    { key: "score_originality", max: 10 },
+    { key: "score_screenplay", max: 15 },
+    { key: "score_direction", max: 15 },
+    { key: "score_characterization", max: 10 },
+    { key: "score_cinematography", max: 10 },
+    { key: "score_editing", max: 10 },
+    { key: "score_sound", max: 8 },
+    { key: "score_production_design", max: 4 },
+    { key: "score_music", max: 3 },
+    { key: "score_thematic_depth", max: 5 },
+    { key: "score_impact", max: 10 },
+  ];
+
+  let currentJuror: any = null;
+  let competitionFilms: any[] = [];
+  let jurorEvaluations: any[] = [];
+  let currentMovie: any = null;
+  let currentEvaluation: any = null;
+  let autosaveTimer: any = null;
+
+  const authGuard = document.getElementById("auth-guard");
+  const workspace = document.getElementById("jury-workspace");
+  const tableView = document.getElementById("table-view");
+  const evalView = document.getElementById("evaluation-view");
+  const loginForm = document.getElementById(
+    "jury-login-form",
+  ) as HTMLFormElement;
+  const authErr = document.getElementById("auth-err");
+  const backToTableBtn = document.getElementById("back-to-table-btn");
+  const evalBackBtn = document.getElementById("eval-back-btn");
+  const rubricForm = document.getElementById("rubric-form") as HTMLFormElement;
+  const submitEvalBtn = document.getElementById(
+    "submit-eval-btn",
+  ) as HTMLButtonElement;
+  const autosaveIndicator = document.getElementById("autosave-indicator");
+  const lockedNotice = document.getElementById("locked-notice");
+  const submitBlock = document.getElementById("submit-block");
+
+  // Check Active Session
+  const initJurySession = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (session) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", session.user.id)
+        .single();
+
+      if (profile && profile.is_active) {
+        currentJuror = profile;
+        document.getElementById("jury-display-name")!.innerText =
+          profile.full_name;
+        authGuard?.classList.add("hidden");
+        workspace?.classList.remove("hidden");
+        showTableView();
+        await loadAllAcceptedMovies();
+      } else {
+        await supabase.auth.signOut();
+        showAuthErr("Account is deactivated or invalid.");
+      }
+    } else {
+      authGuard?.classList.remove("hidden");
+      workspace?.classList.add("hidden");
+    }
+  };
+
+  const showAuthErr = (msg: string) => {
+    if (authErr) {
+      authErr.innerText = msg;
+      authErr.classList.remove("hidden");
+    }
+  };
+
+  loginForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    authErr?.classList.add("hidden");
+    const email = (
+      document.getElementById("jury-email") as HTMLInputElement
+    ).value.trim();
+    const password = (document.getElementById("jury-pwd") as HTMLInputElement)
+      .value;
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) {
+      showAuthErr(error.message);
+    } else {
+      await initJurySession();
+    }
+  });
+
+  document
+    .getElementById("jury-signout-btn")
+    ?.addEventListener("click", async () => {
+      await supabase.auth.signOut();
+      location.reload();
+    });
+
+  // View Switchers
+  const showTableView = () => {
+    tableView?.classList.remove("hidden");
+    evalView?.classList.add("hidden");
+    backToTableBtn?.classList.add("hidden");
+    autosaveIndicator?.classList.add("hidden");
+
+    // Stop video playback when returning to table
+    const videoFrame = document.getElementById(
+      "video-frame",
+    ) as HTMLIFrameElement;
+    if (videoFrame) videoFrame.src = "";
+  };
+
+  const showEvaluationView = () => {
+    tableView?.classList.add("hidden");
+    evalView?.classList.remove("hidden");
+    backToTableBtn?.classList.remove("hidden");
+    autosaveIndicator?.classList.remove("hidden");
+  };
+
+  backToTableBtn?.addEventListener("click", () => {
+    showTableView();
+    loadAllAcceptedMovies();
+  });
+
+  evalBackBtn?.addEventListener("click", () => {
+    showTableView();
+    loadAllAcceptedMovies();
+  });
+
+  // Load Accepted Films & Juror Evals
+  const loadAllAcceptedMovies = async () => {
+    const [filmsRes, evalsRes] = await Promise.all([
+      supabase
+        .from("submissions")
+        .select("*")
+        .eq("status", "Accepted")
+        .order("created_at", { ascending: true }),
+      supabase.from("evaluations").select("*").eq("jury_id", currentJuror.id),
+    ]);
+
+    competitionFilms = filmsRes.data || [];
+    jurorEvaluations = evalsRes.data || [];
+
+    updateTableMetrics();
+    renderMoviesTable();
+  };
+
+  const updateTableMetrics = () => {
+    const total = competitionFilms.length;
+    const completed = jurorEvaluations.filter((e) => e.is_submitted).length;
+    const pending = total - completed;
+
+    document.getElementById("stat-total-assigned")!.innerText =
+      total.toString();
+    document.getElementById("stat-completed")!.innerText = completed.toString();
+    document.getElementById("stat-pending")!.innerText = pending.toString();
+  };
+
+  // Render Master Table
+  const renderMoviesTable = () => {
+    const tbody = document.getElementById("jury-movies-tbody");
+    if (!tbody) return;
+
+    const query =
+      (document.getElementById("jury-table-search") as HTMLInputElement)?.value
+        .toLowerCase()
+        .trim() || "";
+    const evalMap = new Map(jurorEvaluations.map((e) => [e.submission_id, e]));
+
+    const filtered = competitionFilms.filter((f) => {
+      return (
+        !query ||
+        f.film_title?.toLowerCase().includes(query) ||
+        f.director_full_name?.toLowerCase().includes(query) ||
+        f.film_language?.toLowerCase().includes(query) ||
+        f.entry_number?.toLowerCase().includes(query)
+      );
+    });
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" class="p-8 text-center text-zinc-500 font-bold">No competition films found.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = filtered
+      .map((movie) => {
+        const evaluation = evalMap.get(movie.id);
+        const isCompleted = evaluation?.is_submitted;
+        const isInProgress =
+          evaluation && !isCompleted && evaluation.status === "In Progress";
+
+        let badge = `<span class="px-2 py-0.5 text-[9px] font-black uppercase bg-zinc-800 text-zinc-400 border border-zinc-700">Not Started</span>`;
+        if (isCompleted) {
+          badge = `<span class="px-2 py-0.5 text-[9px] font-black uppercase bg-emerald-950 text-emerald-400 border border-emerald-800">✓ Completed</span>`;
+        } else if (isInProgress) {
+          badge = `<span class="px-2 py-0.5 text-[9px] font-black uppercase bg-amber-950 text-amber-400 border border-amber-800">In Progress</span>`;
+        }
+
+        return `
+        <tr class="hover:bg-zinc-900/60 transition-colors">
+          <td class="p-3.5 font-bold border-r border-zinc-800 text-zinc-400 select-all">${movie.entry_number}</td>
+          <td class="p-3.5 font-black text-white border-r border-zinc-800">
+            <div class="truncate max-w-[200px]">${movie.film_title}</div>
+            <span class="text-[10px] text-zinc-500 font-normal">${movie.genre || "Short Film"}</span>
+          </td>
+          <td class="p-3.5 border-r border-zinc-800 font-bold text-zinc-300">${movie.director_full_name}</td>
+          <td class="p-3.5 border-r border-zinc-800 text-zinc-400">${movie.film_language}</td>
+          <td class="p-3.5 border-r border-zinc-800 text-zinc-400">${movie.duration_minutes} Mins</td>
+          <td class="p-3.5 border-r border-zinc-800">${badge}</td>
+          <td class="p-3.5 border-r border-zinc-800 font-black text-sm ${isCompleted ? "text-emerald-400" : "text-zinc-500"}">
+            ${isCompleted && evaluation.total_score !== undefined ? `${evaluation.total_score} / 100` : "—"}
+          </td>
+          <td class="p-3.5 text-center">
+            <button
+              type="button"
+              data-id="${movie.id}"
+              class="open-eval-btn px-3 py-1.5 ${isCompleted ? "bg-zinc-800 hover:bg-zinc-700 text-zinc-300" : "bg-[#D9381E] hover:bg-[#b52a14] text-white"} font-black text-[10px] uppercase transition-colors cursor-pointer"
+            >
+              ${isCompleted ? "View Submitted 🔒" : "Evaluate Film →"}
+            </button>
+          </td>
+        </tr>
+      `;
+      })
+      .join("");
+
+    document.querySelectorAll(".open-eval-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const id = parseInt(
+          (e.currentTarget as HTMLElement).getAttribute("data-id") || "0",
+          10,
+        );
+        openEvaluationScreen(id);
+      });
+    });
+  };
+
+  // Open Evaluation Screen
+  const openEvaluationScreen = async (submissionId: number) => {
+    currentMovie = competitionFilms.find((m) => m.id === submissionId);
+    if (!currentMovie) return;
+
+    showEvaluationView();
+
+    // Populate Dossier Metadata
+    document.getElementById("film-meta-title")!.innerText =
+      currentMovie.film_title;
+    document.getElementById("film-meta-sub")!.innerText =
+      `Director: ${currentMovie.director_full_name} | ${currentMovie.film_language} | ${currentMovie.duration_minutes} Mins`;
+    document.getElementById("film-meta-tracking")!.innerText =
+      currentMovie.entry_number;
+    document.getElementById("film-meta-synopsis")!.innerText =
+      currentMovie.synopsis || "No synopsis recorded.";
+
+    const credsBox = document.getElementById("screener-credentials");
+    const screenerPwdText = document.getElementById("screener-pwd-text");
+    const externalLink = document.getElementById(
+      "external-screener-link",
+    ) as HTMLAnchorElement;
+
+    if (
+      currentMovie.screener_password &&
+      currentMovie.screener_password !== "None"
+    ) {
+      screenerPwdText!.innerText = currentMovie.screener_password;
+      externalLink.href = currentMovie.screener_url;
+      credsBox?.classList.remove("hidden");
+    } else {
+      credsBox?.classList.add("hidden");
+    }
+
+    // Embed Video Stream
+    const videoFrame = document.getElementById(
+      "video-frame",
+    ) as HTMLIFrameElement;
+    const playerPlaceholder = document.getElementById("player-placeholder");
+    const screenerUrl = currentMovie.screener_url || "";
+
+    if (screenerUrl) {
+      let embedUrl = screenerUrl;
+      if (screenerUrl.includes("vimeo.com")) {
+        const idMatch = screenerUrl.match(/vimeo\.com\/(\d+)/);
+        if (idMatch)
+          embedUrl = `https://player.vimeo.com/video/${idMatch[1]}?autoplay=0`;
+      } else if (
+        screenerUrl.includes("youtube.com") ||
+        screenerUrl.includes("youtu.be")
+      ) {
+        const ytMatch = screenerUrl.match(
+          /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/,
+        );
+        if (ytMatch) embedUrl = `https://www.youtube.com/embed/${ytMatch[1]}`;
+      }
+
+      videoFrame.src = embedUrl;
+      videoFrame.classList.remove("hidden");
+      playerPlaceholder?.classList.add("hidden");
+    }
+
+    await loadEvaluation(currentMovie.id);
+  };
+
+  // Fetch or initialize evaluation row
+  const loadEvaluation = async (submissionId: number) => {
+    let { data: evalData } = await supabase
+      .from("evaluations")
+      .select("*")
+      .eq("submission_id", submissionId)
+      .eq("jury_id", currentJuror.id)
+      .maybeSingle();
+
+    if (!evalData) {
+      const { data: newEval } = await supabase
+        .from("evaluations")
+        .insert([
+          {
+            submission_id: submissionId,
+            jury_id: currentJuror.id,
+            status: "In Progress",
+            started_at: new Date().toISOString(),
+          },
+        ])
+        .select()
+        .single();
+
+      evalData = newEval;
+    }
+
+    currentEvaluation = evalData;
+    populateRubricForm(currentEvaluation);
+  };
+
+  // Populate & Enforce Lock
+  const populateRubricForm = (evaluation: any) => {
+    rubricForm.reset();
+    const isLocked = evaluation.is_submitted;
+    const notes = evaluation.criterion_notes || {};
+
+    const statusPill = document.getElementById("eval-status-pill")!;
+    if (isLocked) {
+      statusPill.innerText = "Locked";
+      statusPill.className =
+        "inline-block px-2 py-0.5 text-[10px] font-black uppercase bg-emerald-950 text-emerald-400 border border-emerald-800";
+      lockedNotice?.classList.remove("hidden");
+      submitBlock?.classList.add("hidden");
+    } else {
+      statusPill.innerText = "Draft";
+      statusPill.className =
+        "inline-block px-2 py-0.5 text-[10px] font-black uppercase bg-amber-950 text-amber-400 border border-amber-800";
+      lockedNotice?.classList.add("hidden");
+      submitBlock?.classList.remove("hidden");
+    }
+
+    CRITERIA_KEYS.forEach(({ key }) => {
+      const val = evaluation[key];
+      const input = rubricForm.elements.namedItem(key) as HTMLInputElement;
+      if (input) {
+        input.value = val !== null && val !== undefined ? val.toString() : "";
+        input.disabled = isLocked;
+      }
+
+      const noteKey = "note_" + key.replace("score_", "");
+      const noteInput = rubricForm.elements.namedItem(
+        noteKey,
+      ) as HTMLInputElement;
+      if (noteInput) {
+        noteInput.value = notes[noteKey] || "";
+        noteInput.disabled = isLocked;
+      }
+    });
+
+    const generalFeedback = rubricForm.elements.namedItem(
+      "general_feedback",
+    ) as HTMLTextAreaElement;
+    if (generalFeedback) {
+      generalFeedback.value = evaluation.general_feedback || "";
+      generalFeedback.disabled = isLocked;
+    }
+
+    recalcScores();
+  };
+
+  // Recalculate Totals
+  const recalcScores = () => {
+    let total = 0;
+    let scoredCount = 0;
+
+    CRITERIA_KEYS.forEach(({ key, max }) => {
+      const input = rubricForm.elements.namedItem(key) as HTMLInputElement;
+      const rawVal = input?.value?.trim();
+
+      if (rawVal !== "" && rawVal !== undefined) {
+        let num = parseInt(rawVal, 10);
+        if (isNaN(num)) num = 0;
+        if (num > max) {
+          num = max;
+          input.value = max.toString();
+        }
+        if (num < 0) {
+          num = 0;
+          input.value = "0";
+        }
+        total += num;
+        scoredCount++;
+      }
+    });
+
+    document.getElementById("live-total-score")!.innerText = total.toString();
+    document.getElementById("rubric-progress-text")!.innerText =
+      `${scoredCount} / 12 Criteria`;
+
+    const percentage = Math.round((scoredCount / 12) * 100);
+    document.getElementById("rubric-progress-bar")!.style.width =
+      `${percentage}%`;
+
+    return { total, scoredCount };
+  };
+
+  // Debounced Autosave (1.5 Seconds)
+  const triggerAutosave = () => {
+    if (!currentEvaluation || currentEvaluation.is_submitted) return;
+
+    if (autosaveIndicator) {
+      autosaveIndicator.innerHTML = `<span class="inline-block w-2 h-2 rounded-full bg-amber-500 animate-spin"></span> Autosaving draft...`;
+    }
+
+    clearTimeout(autosaveTimer);
+    autosaveTimer = setTimeout(async () => {
+      await saveDraft();
+    }, 1500);
+  };
+
+  const saveDraft = async () => {
+    if (!currentEvaluation || currentEvaluation.is_submitted) return;
+
+    const payload: any = {
+      last_saved_at: new Date().toISOString(),
+      status: "In Progress",
+    };
+
+    const criterionNotes: any = {};
+
+    CRITERIA_KEYS.forEach(({ key }) => {
+      const input = rubricForm.elements.namedItem(key) as HTMLInputElement;
+      const rawVal = input?.value?.trim();
+      payload[key] =
+        rawVal === "" || rawVal === undefined ? null : parseInt(rawVal, 10);
+
+      const noteKey = "note_" + key.replace("score_", "");
+      const noteInput = rubricForm.elements.namedItem(
+        noteKey,
+      ) as HTMLInputElement;
+      if (noteInput && noteInput.value.trim()) {
+        criterionNotes[noteKey] = noteInput.value.trim();
+      }
+    });
+
+    payload.criterion_notes = criterionNotes;
+    const generalFeedback = rubricForm.elements.namedItem(
+      "general_feedback",
+    ) as HTMLTextAreaElement;
+    payload.general_feedback = generalFeedback
+      ? generalFeedback.value.trim()
+      : null;
+
+    const { error } = await supabase
+      .from("evaluations")
+      .update(payload)
+      .eq("id", currentEvaluation.id);
+
+    if (!error && autosaveIndicator) {
+      autosaveIndicator.innerHTML = `<span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span> Draft saved (${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })})`;
+    }
+  };
+
+  rubricForm?.addEventListener("input", () => {
+    recalcScores();
+    triggerAutosave();
+  });
+
+  // Final Submit
+  submitEvalBtn?.addEventListener("click", async () => {
+    const { total, scoredCount } = recalcScores();
+
+    if (scoredCount < 12) {
+      const missingCriteria: string[] = [];
+      CRITERIA_KEYS.forEach(({ key }, idx) => {
+        const input = rubricForm.elements.namedItem(key) as HTMLInputElement;
+        if (!input || input.value.trim() === "") {
+          missingCriteria.push(
+            `Criterion #${idx + 1} (${key.replace("score_", "").toUpperCase()})`,
+          );
+        }
+      });
+
+      alert(
+        `Cannot submit evaluation.\n\nYou have completed ${scoredCount} of 12 required criteria.\nPlease score the missing criteria:\n- ` +
+          missingCriteria.join("\n- "),
+      );
+      return;
+    }
+
+    const confirmSubmit = confirm(
+      `FINAL CONFIRMATION:\n\nFilm: ${currentMovie.film_title}\nTotal Score: ${total} / 100\n\nOnce submitted, your marks are permanently locked and cannot be edited unless the Convener reopens the file.\n\nProceed to submit?`,
+    );
+
+    if (!confirmSubmit) return;
+
+    await saveDraft();
+
+    const { error } = await supabase
+      .from("evaluations")
+      .update({
+        is_submitted: true,
+        status: "Completed",
+        submitted_at: new Date().toISOString(),
+      })
+      .eq("id", currentEvaluation.id);
+
+    if (error) {
+      alert("Error finalizing evaluation: " + error.message);
+    } else {
+      currentEvaluation.is_submitted = true;
+      currentEvaluation.total_score = total;
+      populateRubricForm(currentEvaluation);
+      alert(
+        `Evaluation successfully submitted and locked for "${currentMovie.film_title}". Total Score: ${total}/100.`,
+      );
+    }
+  });
+
+  document
+    .getElementById("jury-table-search")
+    ?.addEventListener("input", renderMoviesTable);
+
+  initJurySession();
+</script>
