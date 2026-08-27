@@ -56,44 +56,19 @@ const navItems: NavItem[] = [
 
 <!-- Top Utility & Social Ribbon -->
 <header class="w-full bg-[#161616] text-zinc-300 border-b border-zinc-800 text-[11px] font-mono tracking-wider z-50 select-none">
-  <div class="max-w-7xl mx-auto px-4 sm:px-8 py-2.5 flex items-center justify-between">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 py-2.5 flex items-center justify-between gap-4">
     
-    <!-- Utility Quick Icons -->
-    <div class="flex items-center gap-5 sm:gap-6">
-      <a href="/sitemap" class="text-zinc-400 hover:text-white transition-colors" title="Sitemap" aria-label="Sitemap">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
-        </svg>
-      </a>
+    <!-- Utility Quick Icons & Date-Time Clock -->
+    <div class="flex items-center gap-4 sm:gap-6">
 
-      <a href="/pwa" class="text-zinc-400 hover:text-white transition-colors" title="PWA" aria-label="PWA">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-        </svg>
-      </a>
-
-      <a href="/accessibility" class="text-zinc-400 hover:text-white transition-colors" title="Accessibility" aria-label="Accessibility">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-        </svg>
-      </a>
-
-      <a href="/downloads" class="text-zinc-400 hover:text-white transition-colors" title="Downloads" aria-label="Downloads">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-        </svg>
-      </a>
-
-      <a href="/contact" class="text-zinc-400 hover:text-white transition-colors sm:hidden" title="Contact" aria-label="Contact">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-      </a>
+      <!-- Date and Time Display -->
+      <div class="flex items-center gap-2 text-zinc-400 border-l border-zinc-700 pl-4 sm:pl-6 text-[10px] sm:text-[11px] font-bold tracking-normal uppercase">
+        <span id="header-datetime">Loading date & time...</span>
+      </div>
     </div>
 
     <!-- Social Media Icons -->
-    <div class="flex items-center gap-4 sm:gap-5">
+    <div class="flex items-center gap-4 sm:gap-5 shrink-0">
       <a 
         href="https://www.instagram.com/drishtidosham__filmsociety/" 
         target="_blank" 
@@ -260,8 +235,35 @@ const navItems: NavItem[] = [
   </div>
 </nav>
 
-<!-- Mobile Toggle Logic -->
+<!-- Date/Time & Mobile Toggle Logic -->
 <script is:inline>
+  // Live Date and Time Clock
+  function updateDateTime() {
+    const el = document.getElementById('header-datetime');
+    if (!el) return;
+    const now = new Date();
+    
+    const formattedDate = now.toLocaleDateString('en-GB', {
+      weekday: 'short',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    });
+
+    const formattedTime = now.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+
+    el.textContent = `${formattedDate} • ${formattedTime}`;
+  }
+
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
+
+  // Mobile Drawer Toggle
   const toggleBtn = document.getElementById('menu-toggle-btn');
   const drawer = document.getElementById('mobile-drawer');
   const topBar = document.querySelector('.bar-top');
