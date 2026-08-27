@@ -1,0 +1,263 @@
+---
+// src/pages/about.astro
+import Layout from "../layouts/Layout.astro";
+
+const festivalEditions = [
+  {
+    edition: "Season 01",
+    year: "2024",
+    title: "Inaugural Edition",
+    desc: "Launched the Pazhassi Short Film Festival at Veena - Varna Theatre, providing an uncompromised theatrical platform for independent short filmmakers across Kerala.",
+  },
+  {
+    edition: "Season 02",
+    year: "2025",
+    title: "Second Edition",
+    desc: "Expanded state-wide competition categories, public screenings, and open forums with jury members, filmmakers, and local cinephiles.",
+  },
+  {
+    edition: "Season 03",
+    year: "2026",
+    title: "Current Edition",
+    desc: "Featuring structured 12-criterion jury evaluations, ₹50,000+ in total prize pool, and dedicated awards for direction, cinematography, and performance.",
+  },
+];
+
+const pillars = [
+  {
+    tag: "01 / ROOTS",
+    title: "Library Movement Heritage",
+    desc: "Formed under the aegis of the historic Pazhassi Raja Smaraka Granthalayam, continuing Kerala's grassroots library and cultural discourse traditions in Mananthavady.",
+  },
+  {
+    tag: "02 / WORLD CINEMA",
+    title: "Parallel & Classic Screenings",
+    desc: "Introducing landmark European, Asian, Latin American, and Indian parallel cinema classics to local audiences with interactive open discussions.",
+  },
+  {
+    tag: "03 / FESTIVAL PLATFORM",
+    title: "Pazhassi Short Film Festival",
+    desc: "Organizing an annual theatrical short film competition that celebrates independent artistic vision, craft, and authentic storytelling.",
+  },
+];
+---
+
+<Layout title="About Us | Drishtidosham Chalachithravedi">
+  <div
+    class="w-full border-b border-zinc-900 py-12 sm:py-20 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]"
+  >
+    <div class="max-w-5xl mx-auto space-y-16 sm:space-y-20">
+      <!-- Masthead -->
+      <header class="border-b-2 border-[#161616] pb-8 space-y-4">
+        <div
+          class="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-zinc-500"
+        >
+          <a href="/" class="hover:text-[#D9381E] transition-colors"
+            >&larr; Home</a
+          >
+          <span>/</span>
+          <span>About Drishtidosham</span>
+        </div>
+
+        <h1
+          class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#161616] leading-none"
+        >
+          Drishtidosham <br class="hidden sm:inline" />
+          <span class="text-[#D9381E]">Chalachithravedi</span>
+        </h1>
+
+        <p
+          class="font-mono text-xs sm:text-sm text-zinc-700 leading-relaxed max-w-3xl pt-2"
+        >
+          The film society wing of Pazhassi Raja Smaraka Granthalayam,
+          Mananthavady — introducing world cinema classics to local audiences
+          and organizing the annual Pazhassi Short Film Festival (PSFF).
+        </p>
+      </header>
+
+      <!-- Origin & Collective Overview -->
+      <section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        <div class="md:col-span-5 space-y-4 font-mono">
+          <div
+            class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-6 shadow-[5px_5px_0px_0px_#D9381E] space-y-3"
+          >
+            <span
+              class="text-[10px] font-bold uppercase tracking-widest text-[#D9381E]"
+              >Parent Institution</span
+            >
+            <h2
+              class="text-xl sm:text-2xl font-black uppercase tracking-tight text-white"
+            >
+              Pazhassi Raja Smaraka Granthalayam
+            </h2>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              Mananthavady, Wayanad, Kerala
+            </p>
+          </div>
+
+          <div
+            class="border-2 border-[#161616] bg-white p-5 space-y-2 text-xs text-zinc-700 shadow-[3px_3px_0px_0px_#161616]"
+          >
+            <span class="font-bold text-[#161616] uppercase block"
+              >Key Activities</span
+            >
+            <ul class="space-y-1.5 list-disc list-inside text-zinc-600">
+              <li>World Cinema &amp; Classic Film Screenings</li>
+              <li>Post-Screening Critical Open Discussions</li>
+              <li>Pazhassi Short Film Festival (PSFF)</li>
+              <li>Community Cinephilia &amp; Film Appreciation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="md:col-span-7 space-y-5 font-mono text-xs leading-relaxed text-zinc-800"
+        >
+          <div
+            class="flex items-center gap-2 text-[#D9381E] font-bold uppercase tracking-wider text-[11px] pb-1 border-b border-zinc-300"
+          >
+            <span>01</span>
+            <span>&bull;</span>
+            <span>About the Collective</span>
+          </div>
+
+          <p class="text-sm font-bold text-[#161616]">
+            Drishtidosham Chalachithravedi functions as the cinema collective of
+            the Pazhassi Raja Smaraka Granthalayam in Mananthavady.
+          </p>
+
+          <p>
+            The society was founded to introduce audiences in Mananthavady and
+            surrounding regions to classic, artistic, and parallel traditions of
+            world cinema. Through curated screenings and post-show discussions,
+            Drishtidosham nurtures film literacy and critical appreciation as an
+            extension of the library's cultural and social role.
+          </p>
+
+          <p>
+            In 2024, Drishtidosham launched the inaugural <strong
+              >Pazhassi Short Film Festival (PSFF)</strong
+            > to create an authentic, competitive big-screen showcase for independent
+            short filmmakers. After successfully concluding Season 01 (2024) and Season
+            02 (2025), the collective is currently hosting Season 03 (2026).
+          </p>
+        </div>
+      </section>
+
+      <!-- Key Pillars -->
+      <section class="space-y-4 font-mono text-xs">
+        <div
+          class="flex items-center gap-2 text-[#D9381E] font-bold uppercase tracking-wider text-[11px] pb-1 border-b border-zinc-300"
+        >
+          <span>02</span>
+          <span>&bull;</span>
+          <span>Core Objectives</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {
+            pillars.map((item) => (
+              <div class="border-2 border-[#161616] bg-white p-6 shadow-[4px_4px_0px_0px_#161616] space-y-3 flex flex-col justify-between">
+                <div class="space-y-2">
+                  <span class="text-[10px] font-black uppercase tracking-wider text-[#D9381E] block">
+                    {item.tag}
+                  </span>
+                  <h3 class="text-base font-black uppercase tracking-tight text-[#161616]">
+                    {item.title}
+                  </h3>
+                  <p class="text-zinc-600 leading-relaxed text-[11px] pt-1">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Festival Editions Table -->
+      <section class="space-y-3 font-mono text-xs">
+        <div
+          class="flex items-center gap-2 text-[#D9381E] font-bold uppercase tracking-wider text-[11px] pb-1 border-b border-zinc-300"
+        >
+          <span>03</span>
+          <span>&bull;</span>
+          <span>Pazhassi Short Film Festival Editions</span>
+        </div>
+
+        <div
+          class="border-2 border-[#161616] bg-white shadow-[4px_4px_0px_0px_#161616] overflow-x-auto"
+        >
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr
+                class="bg-[#161616] text-[#F6F4EE] uppercase tracking-wider text-[10px] border-b-2 border-[#161616]"
+              >
+                <th class="p-3.5 border-r border-zinc-700 w-32 text-center"
+                  >Edition</th
+                >
+                <th class="p-3.5 border-r border-zinc-700 sm:w-1/4">Focus</th>
+                <th class="p-3.5">Highlights &amp; Summary</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y-2 divide-[#161616]">
+              {
+                festivalEditions.map((item) => (
+                  <tr class="hover:bg-[#F6F4EE] transition-colors">
+                    <td class="p-3.5 border-r-2 border-[#161616] font-black text-center bg-[#F6F4EE]/40">
+                      <div class="text-[#D9381E] text-xs uppercase">
+                        {item.edition}
+                      </div>
+                      <div class="text-[10px] text-zinc-500 font-normal">
+                        {item.year}
+                      </div>
+                    </td>
+                    <td class="p-3.5 border-r-2 border-[#161616] font-black uppercase text-[#161616] tracking-tight">
+                      {item.title}
+                    </td>
+                    <td class="p-3.5 font-bold text-zinc-700 leading-relaxed text-[11px]">
+                      {item.desc}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Footer Banner -->
+      <div
+        class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-[5px_5px_0px_0px_#D9381E] font-mono"
+      >
+        <div class="space-y-1">
+          <span
+            class="text-[10px] uppercase font-bold text-[#D9381E] tracking-widest block"
+            >Screening Venue</span
+          >
+          <h3 class="text-xl sm:text-2xl font-black uppercase text-white">
+            Veena - Varna Theatre, Mananthavady
+          </h3>
+          <p class="text-xs text-zinc-400">
+            Pazhassi Short Film Festival Season 03 &bull; Wayanad, Kerala
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="/team"
+            class="px-4 py-2 text-xs font-black uppercase tracking-wider text-[#161616] bg-[#F6F4EE] hover:bg-[#D9381E] hover:text-white transition-all shadow-[2px_2px_0px_0px_#D9381E]"
+          >
+            Festival Team &rarr;
+          </a>
+          <a
+            href="/submit"
+            class="px-4 py-2 text-xs font-black uppercase tracking-wider text-white border-2 border-white hover:bg-white hover:text-black transition-all"
+          >
+            Submit Film
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

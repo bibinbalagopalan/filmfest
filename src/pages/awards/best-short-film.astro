@@ -4,29 +4,64 @@ import Layout from "../../layouts/Layout.astro";
 
 const criteria = [
   {
-    title: "Story & Screenplay",
-    points: "25",
-    desc: "Original idea, writing clarity, pacing, and structure.",
+    title: "Concept / Premise",
+    points: "10",
+    desc: "Strength, clarity, and depth of the core premise.",
+  },
+  {
+    title: "Originality",
+    points: "10",
+    desc: "Freshness of perspective and unique cinematic voice.",
+  },
+  {
+    title: "Screenplay / Structure",
+    points: "15",
+    desc: "Dialogue, scene transitions, and narrative economy.",
   },
   {
     title: "Direction",
-    points: "25",
-    desc: "Visual storytelling, performances, and overall control.",
-  },
-  {
-    title: "Camera & Lighting",
-    points: "20",
-    desc: "Composition, lighting choices, and visual consistency.",
-  },
-  {
-    title: "Editing & Sound",
     points: "15",
-    desc: "Cut pacing, continuity, sound mixing, and score.",
+    desc: "Directorial vision, control of tone, and execution.",
   },
   {
-    title: "Overall Impact",
-    points: "15",
-    desc: "Originality and how well the film works as a whole.",
+    title: "Characterization & Performances",
+    points: "10",
+    desc: "Authenticity, emotional nuance, casting, and acting.",
+  },
+  {
+    title: "Cinematography / Visual Language",
+    points: "10",
+    desc: "Framing, lighting, camera movement, and visual mood.",
+  },
+  {
+    title: "Editing / Pacing",
+    points: "10",
+    desc: "Rhythm, temporal flow, and dramatic cuts.",
+  },
+  {
+    title: "Sound Design / Sound Recording",
+    points: "8",
+    desc: "Atmosphere, dialogue clarity, foley, and sound mixing.",
+  },
+  {
+    title: "Production Design / Locations / Costume",
+    points: "4",
+    desc: "Sets, location realism, props, and costume design.",
+  },
+  {
+    title: "Music / Background Score",
+    points: "3",
+    desc: "Original composition, atmosphere, and emotional integration.",
+  },
+  {
+    title: "Thematic Depth / Social Insight",
+    points: "5",
+    desc: "Social resonance, philosophical depth, and human insight.",
+  },
+  {
+    title: "Emotional / Intellectual Impact",
+    points: "10",
+    desc: "Lasting impression, cinematic punch, and memorability.",
   },
 ];
 
@@ -55,19 +90,19 @@ const winners = [
 ---
 
 <Layout title="Best Short Film | PSFF Season 03">
-  <div class="w-full border-b border-zinc-900 py-16 sm:py-24 px-6 sm:px-12">
+  <div class="w-full border-b border-zinc-900 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]">
     <div class="max-w-6xl mx-auto space-y-16 sm:space-y-20">
       
       <!-- Header -->
       <header class="border-b-2 border-[#161616] pb-8 space-y-3">
         <div class="font-mono text-xs uppercase tracking-wider text-zinc-500">
-          <a href="/" class="hover:text-[#D9381E]">&larr; Home</a> / Awards
+          <a href="/" class="hover:text-[#D9381E] transition-colors">&larr; Home</a> / Awards
         </div>
         <h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#161616]">
           Best Short Film
         </h1>
         <p class="font-mono text-sm sm:text-base text-zinc-700">
-          Selected by the main jury based on individual scoring rubrics.
+          Selected by the official jury based on the 12-criterion scoring rubric.
         </p>
       </header>
 
@@ -94,33 +129,37 @@ const winners = [
 
       <!-- Scoring Rubrics -->
       <section class="space-y-6">
-        <div class="border-b-2 border-[#161616] pb-3">
+        <div class="border-b-2 border-[#161616] pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
           <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]">
             Jury Scoring Rubric (100 Marks)
           </h2>
+          <span class="font-mono text-xs font-bold uppercase text-[#D9381E]">
+          </span>
         </div>
 
         <div class="border-2 border-[#161616] bg-[#F6F4EE] divide-y-2 divide-[#161616] shadow-[5px_5px_0px_0px_#161616]">
           {criteria.map((item, idx) => (
-            <div class="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div class="space-y-1">
                 <div class="flex items-center gap-2.5 font-mono">
-                  <span class="text-xs font-bold text-[#D9381E]">0{idx + 1}.</span>
+                  <span class="text-xs font-bold text-[#D9381E]">
+                    {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}.
+                  </span>
                   <h3 class="text-base sm:text-lg font-black uppercase text-[#161616]">
                     {item.title}
                   </h3>
                 </div>
-                <p class="text-sm text-zinc-700 font-mono pl-6">
+                <p class="text-xs sm:text-sm text-zinc-700 font-mono pl-6">
                   {item.desc}
                 </p>
               </div>
 
-              <div class="pl-6 sm:pl-0 font-mono text-right flex sm:flex-col items-baseline justify-between">
+              <div class="pl-6 sm:pl-0 font-mono text-right flex sm:flex-col items-baseline justify-between shrink-0">
                 <span class="text-2xl sm:text-3xl font-black text-[#161616]">
                   {item.points}
                 </span>
-                <span class="text-[11px] text-zinc-500 uppercase">
-                  Marks
+                <span class="text-[10px] text-zinc-500 uppercase font-bold">
+                  Max Marks
                 </span>
               </div>
             </div>
@@ -185,13 +224,13 @@ const winners = [
       </section>
 
       <!-- Submission CTA -->
-      <div class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      <div class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-[5px_5px_0px_0px_#D9381E]">
         <div>
           <h3 class="text-xl sm:text-2xl font-black uppercase text-white">
             Submit for Season 03
           </h3>
           <p class="font-mono text-xs text-zinc-400 mt-1">
-            Films completed between Sep 2025 and Aug 2026. Runtime under 30 minutes.
+            Films completed between Sep 2025 and Aug 2026. Runtime under 20 minutes.
           </p>
         </div>
 
