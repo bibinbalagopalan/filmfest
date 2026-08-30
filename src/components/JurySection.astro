@@ -3,6 +3,7 @@
 
 const juries = [
   {
+    slug: "sherry-govindan",
     name: "Sherry Govindan",
     role: "Jury Chairman",
     designation: "Filmmaker",
@@ -18,101 +19,123 @@ const juries = [
     bio: "Sherry Govindan is an acclaimed Indian filmmaker whose cinematic works have earned prominent state and national recognition, making him a deeply respected voice in Malayalam independent cinema."
   },
   {
+    slug: "arjun-k",
     name: "Arjun K",
     role: "Jury Member",
     designation: "Filmmaker & Film Critic",
     image: "https://i.ibb.co/mrhXq0PB/0e8b1e52-f84a-476e-8204-badc6373b8ef.jpg",
     isPlaceholder: false,
     highlights: [
-      "Director — K-Pop (2025) - 13th ARKIPELJakarta International Documentary & Experimental Film Festival (2026)",
+      "Director — K-Pop (2025) - 13th ARKIPEL Jakarta International Documentary & Experimental Film Festival (2026)",
       "Director — Dialogues on Emancipation (2023)",
       "Festival Programmer — Independent & Experimental Film Festival of Kerala",
       "Film History Faculty — New Wave Film School",
-      "Published Critic — Chalachitra Sameeksha & Drishyathalam",
+      "Published Critic — Chalachitra Sameeksha & Drishyathalam"
     ],
     bio: "Arjun K is a Kerala-based filmmaker and critic whose work bridges fiction, documentary, and experimental cinema. Rooted in history, memory, and philosophical inquiry, his films challenge narrative conventions while maintaining sharp socio-political relevance."
   },
   {
+    slug: "sanath-pc",
     name: "Sanath PC",
     role: "Festival Patron",
-    designation: " Visual Effects Designer, Coordinator and Supervisor",
+    designation: "Visual Effects Designer, Coordinator and Supervisor",
     image: "https://i.ibb.co/HDbc53tc/28-BGMSANATH2.jpg",
     isPlaceholder: false,
     highlights: [
       "Distinguished industry professional",
       "Evaluation committee member for official selections",
       "Co-Founder of the Visual effects company Firefly Creative Studio",
-      "Member of the Academy of Motion Picture Arts and Sciences in the Visual Effects category.",
-      " National Film Award for Best Special Effects (2004)"
+      "Member of the Academy of Motion Picture Arts and Sciences in the Visual Effects category",
+      "National Film Award for Best Special Effects (2004)"
     ],
-    bio: "Sanath Pilleri Chelleri professionally credited as P. C. Sanath is an Indian visual effects designer, coordinator and supervisor known for his works primarily in Telugu, Tamil and Malayalam cinema. Sanath is Co-Founder of the Visual effects company Firefly Creative Studio. Sanath is the Member of the Academy of Motion Picture Arts and Sciences in the Visual Effects category."
+    bio: "Sanath Pilleri Chelleri professionally credited as P. C. Sanath is an Indian visual effects designer, coordinator and supervisor known for his works primarily in Telugu, Tamil and Malayalam cinema. Sanath is Co-Founder of the Visual effects company Firefly Creative Studio. Sanath is a Member of the Academy of Motion Picture Arts and Sciences in the Visual Effects category."
   }
 ];
 ---
 
-<section class="w-full bg-white text-zinc-950 border-b border-zinc-200 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#4338ca] selection:text-white">
+<section id="jury" class="w-full bg-white text-zinc-950 border-b border-zinc-200 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#4338ca] selection:text-white">
   <div class="max-w-6xl mx-auto space-y-12 sm:space-y-16">
     
     <!-- Direct Section Header -->
-    <div class="border-b-2 border-zinc-950 pb-4">
+    <div class="border-b-2 border-zinc-950 pb-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
       <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950">
-        Jury
+        Jury &amp; Patrons
       </h2>
+      <span class="font-mono text-xs uppercase tracking-wider text-zinc-500 font-bold">
+        Season 03 Panel
+      </span>
     </div>
 
     <!-- Three-Column Profile Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 items-start">
       {juries.map((jury) => (
-        <article class="space-y-6">
+        <article class="space-y-6 flex flex-col justify-between h-full group">
           
-          <!-- Image Frame -->
-          <div class={`relative border-2 border-zinc-950 aspect-[4/5] overflow-hidden shadow-[6px_6px_0px_0px_#18181b] ${jury.isPlaceholder ? 'bg-zinc-100 flex items-center justify-center border-dashed' : 'bg-zinc-100'}`}>
-            {jury.isPlaceholder ? (
-              <div class="flex flex-col items-center justify-center p-6 text-center font-mono text-zinc-400">
-                <span class="text-4xl font-light mb-2">?</span>
-                <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Announcement Pending</span>
+          <div class="space-y-6">
+            <!-- Clickable Image Frame -->
+            <a 
+              href={jury.slug ? `/jury/${jury.slug}` : "#"} 
+              class={`block relative border-2 border-zinc-950 aspect-[4/5] overflow-hidden shadow-[6px_6px_0px_0px_#18181b] group-hover:shadow-[6px_6px_0px_0px_#4338ca] transition-all ${jury.isPlaceholder ? 'bg-zinc-100 flex items-center justify-center border-dashed' : 'bg-zinc-100'}`}
+            >
+              {jury.isPlaceholder ? (
+                <div class="flex flex-col items-center justify-center p-6 text-center font-mono text-zinc-400">
+                  <span class="text-4xl font-light mb-2">?</span>
+                  <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Announcement Pending</span>
+                </div>
+              ) : (
+                <img
+                  src={jury.image}
+                  alt={jury.name}
+                  class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300"
+                  loading="lazy"
+                />
+              )}
+              
+              <div class="absolute bottom-3 left-3 bg-zinc-950 text-white font-mono text-[11px] font-bold px-2.5 py-1 uppercase tracking-wider">
+                {jury.role}
               </div>
-            ) : (
-              <img
-                src={jury.image}
-                alt={jury.name}
-                class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-300"
-                loading="lazy"
-              />
-            )}
-            
-            <div class="absolute bottom-3 left-3 bg-zinc-950 text-white font-mono text-[11px] font-bold px-2.5 py-1 uppercase tracking-wider">
-              {jury.role}
+            </a>
+
+            <!-- Name & Role -->
+            <div class="space-y-3 pt-1">
+              <div class="border-b border-zinc-200 pb-3">
+                <h3 class={`text-xl sm:text-2xl font-black uppercase tracking-tight ${jury.isPlaceholder ? 'text-zinc-500' : 'text-zinc-950 group-hover:text-[#4338ca] transition-colors'}`}>
+                  <a href={jury.slug ? `/jury/${jury.slug}` : "#"}>
+                    {jury.name}
+                  </a>
+                </h3>
+                <p class="font-mono text-xs uppercase tracking-wider text-[#4338ca] font-bold mt-1">
+                  {jury.designation}
+                </p>
+              </div>
+
+              <!-- Bio -->
+              <p class="text-sm text-zinc-700 leading-relaxed line-clamp-3">
+                {jury.bio}
+              </p>
+
+              <!-- Key Highlights (Top 3 on overview) -->
+              <div class="pt-2">
+                <div class="border-l-2 border-zinc-950 pl-3.5 py-0.5 space-y-1.5">
+                  {jury.highlights.slice(0, 3).map((item) => (
+                    <div class={`text-xs font-mono font-medium leading-snug truncate ${jury.isPlaceholder ? 'text-zinc-500 italic' : 'text-zinc-900'}`}>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Name & Role -->
-          <div class="space-y-3 pt-1">
-            <div class="border-b border-zinc-200 pb-3">
-              <h3 class={`text-xl sm:text-2xl font-black uppercase tracking-tight ${jury.isPlaceholder ? 'text-zinc-500' : 'text-zinc-950'}`}>
-                {jury.name}
-              </h3>
-              <p class="font-mono text-xs uppercase tracking-wider text-[#4338ca] font-bold mt-1">
-                {jury.designation}
-              </p>
-            </div>
-
-            <!-- Bio -->
-            <p class="text-sm text-zinc-700 leading-relaxed">
-              {jury.bio}
-            </p>
-
-            <!-- Key Highlights -->
-            <div class="pt-2">
-              <div class="border-l-2 border-zinc-950 pl-3.5 py-0.5 space-y-2">
-                {jury.highlights.map((item) => (
-                  <div class={`text-xs font-mono font-medium leading-snug ${jury.isPlaceholder ? 'text-zinc-500 italic' : 'text-zinc-900'}`}>
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-
+          <!-- Direct Link to Profile -->
+          <div class="pt-4 border-t border-zinc-200">
+            <a
+              href={`/jury/${jury.slug}`}
+              class="inline-flex items-center justify-between w-full font-mono text-xs font-black uppercase tracking-wider text-zinc-950 group-hover:text-[#4338ca] transition-colors"
+            >
+              <span>View Full Profile</span>
+              <span>&rarr;</span>
+            </a>
           </div>
 
         </article>

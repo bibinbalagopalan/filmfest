@@ -4,6 +4,7 @@ import Layout from "../layouts/Layout.astro";
 
 const mainJuries = [
   {
+    slug: "sherry-govindan",
     name: "Sherry Govindan",
     role: "Chief Jury",
     designation: "Filmmaker",
@@ -19,6 +20,7 @@ const mainJuries = [
     bio: "Sherry Govindan is an Indian filmmaker whose works have received prominent state and national honours. Known for his independent cinematic practice, he leads the evaluation committee for Season 03.",
   },
   {
+    slug: "arjun-k",
     name: "Arjun K",
     role: "Jury Member",
     designation: "Filmmaker & Film Critic",
@@ -34,17 +36,18 @@ const mainJuries = [
     bio: "Arjun K is a filmmaker and writer working across fiction, documentary, and experimental forms. He contributes regularly to contemporary film theory and programming in Kerala.",
   },
   {
+    slug: "sanath-pc",
     name: "Sanath PC",
     role: "Festival Patron",
-    designation: " Visual Effects Designer, Coordinator and Supervisor",
+    designation: "Visual Effects Designer, Coordinator and Supervisor",
     image: "https://i.ibb.co/HDbc53tc/28-BGMSANATH2.jpg",
     isPlaceholder: false,
     highlights: [
       "Distinguished industry professional",
       "Evaluation committee member for official selections",
       "Co-Founder of the Visual effects company Firefly Creative Studio",
-      "Member of the Academy of Motion Picture Arts and Sciences in the Visual Effects category.",
-      " National Film Award for Best Special Effects (2004)"
+      "Member of the Academy of Motion Picture Arts and Sciences in the Visual Effects category",
+      "National Film Award for Best Special Effects (2004)",
     ],
     bio: "Sanath Pilleri Chelleri professionally credited as P. C. Sanath is an Indian visual effects designer, coordinator and supervisor known for his works primarily in Telugu, Tamil and Malayalam cinema. Sanath is Co-Founder of the Visual effects company Firefly Creative Studio. Sanath is the Member of the Academy of Motion Picture Arts and Sciences in the Visual Effects category.",
   },
@@ -101,57 +104,75 @@ const screeningPanel = [
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 items-start">
           {mainJuries.map((jury) => (
-            <article class="border-2 border-[#161616] bg-[#F6F4EE] p-6 shadow-[5px_5px_0px_0px_#161616] space-y-6 flex flex-col justify-between">
+            <article class="border-2 border-[#161616] bg-[#F6F4EE] p-6 shadow-[5px_5px_0px_0px_#161616] hover:shadow-[5px_5px_0px_0px_#D9381E] space-y-6 flex flex-col justify-between h-full group transition-all">
               
-              <!-- Image / Placeholder -->
-              <div class={`relative border-2 border-[#161616] h-[340px] bg-[#161616] p-1.5 flex items-center justify-center overflow-hidden ${jury.isPlaceholder ? 'border-dashed bg-zinc-100' : ''}`}>
-                {jury.isPlaceholder ? (
-                  <div class="flex flex-col items-center justify-center p-6 text-center font-mono text-zinc-400">
-                    <span class="text-5xl font-light mb-2">?</span>
-                    <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Announcement Pending</span>
-                  </div>
-                ) : (
-                  <img
-                    src={jury.image}
-                    alt={jury.name}
-                    class="w-full h-full object-contain"
-                    loading="lazy"
-                  />
-                )}
+              <div class="space-y-6">
+                <!-- Clickable Image / Placeholder Frame -->
+                <a
+                  href={`/jury/${jury.slug}`}
+                  class={`block relative border-2 border-[#161616] h-[340px] bg-[#161616] p-1.5 overflow-hidden ${jury.isPlaceholder ? 'border-dashed bg-zinc-100 flex items-center justify-center' : ''}`}
+                >
+                  {jury.isPlaceholder ? (
+                    <div class="flex flex-col items-center justify-center p-6 text-center font-mono text-zinc-400">
+                      <span class="text-5xl font-light mb-2">?</span>
+                      <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">Announcement Pending</span>
+                    </div>
+                  ) : (
+                    <img
+                      src={jury.image}
+                      alt={jury.name}
+                      class="w-full h-full object-contain filter grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300"
+                      loading="lazy"
+                    />
+                  )}
 
-                <div class="absolute bottom-3 left-3 bg-[#161616] text-[#F6F4EE] border border-zinc-700 font-mono text-[11px] font-bold px-2.5 py-1 uppercase tracking-wider">
-                  {jury.role}
+                  <div class="absolute bottom-3 left-3 bg-[#161616] text-[#F6F4EE] border border-zinc-700 font-mono text-[11px] font-bold px-2.5 py-1 uppercase tracking-wider">
+                    {jury.role}
+                  </div>
+                </a>
+
+                <!-- Profile Details -->
+                <div class="space-y-4">
+                  <div class="border-b border-zinc-300 pb-3">
+                    <h3 class={`text-xl sm:text-2xl font-black uppercase tracking-tight ${jury.isPlaceholder ? 'text-zinc-500' : 'text-[#161616] group-hover:text-[#D9381E] transition-colors'}`}>
+                      <a href={`/jury/${jury.slug}`}>
+                        {jury.name}
+                      </a>
+                    </h3>
+                    <p class="font-mono text-xs uppercase tracking-wider text-[#D9381E] font-bold mt-1">
+                      {jury.designation}
+                    </p>
+                  </div>
+
+                  <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed font-mono line-clamp-3">
+                    {jury.bio}
+                  </p>
+
+                  <!-- Key Highlights (Top 3) -->
+                  <div class="pt-2">
+                    <span class="block font-mono text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-2">
+                      Key Highlights
+                    </span>
+                    <div class="border-l-2 border-[#161616] pl-3 py-0.5 space-y-1.5">
+                      {jury.highlights.slice(0, 3).map((item) => (
+                        <div class={`text-xs font-mono leading-snug truncate ${jury.isPlaceholder ? 'text-zinc-500 italic' : 'text-zinc-900 font-medium'}`}>
+                          &bull; {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <!-- Profile Details -->
-              <div class="space-y-4">
-                <div class="border-b border-zinc-300 pb-3">
-                  <h3 class={`text-xl sm:text-2xl font-black uppercase tracking-tight ${jury.isPlaceholder ? 'text-zinc-500' : 'text-[#161616]'}`}>
-                    {jury.name}
-                  </h3>
-                  <p class="font-mono text-xs uppercase tracking-wider text-[#D9381E] font-bold mt-1">
-                    {jury.designation}
-                  </p>
-                </div>
-
-                <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed font-mono">
-                  {jury.bio}
-                </p>
-
-                <!-- Key Highlights -->
-                <div class="pt-2">
-                  <span class="block font-mono text-[10px] uppercase tracking-widest text-zinc-500 font-bold mb-2">
-                    Key Highlights
-                  </span>
-                  <div class="border-l-2 border-[#161616] pl-3 py-0.5 space-y-1.5">
-                    {jury.highlights.map((item) => (
-                      <div class={`text-xs font-mono leading-snug ${jury.isPlaceholder ? 'text-zinc-500 italic' : 'text-zinc-900 font-medium'}`}>
-                        &bull; {item}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              <!-- Dedicated Profile Link Button -->
+              <div class="pt-4 border-t border-zinc-300">
+                <a
+                  href={`/jury/${jury.slug}`}
+                  class="inline-flex items-center justify-between w-full font-mono text-xs font-black uppercase tracking-wider text-[#161616] group-hover:text-[#D9381E] transition-colors"
+                >
+                  <span>Read Full Profile</span>
+                  <span>&rarr;</span>
+                </a>
               </div>
 
             </article>
@@ -196,13 +217,13 @@ const screeningPanel = [
       </section>
 
       <!-- Submission Info Callout -->
-      <div class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 sm:p-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      <div class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 sm:p-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-[5px_5px_0px_0px_#D9381E]">
         <div class="space-y-1">
           <h3 class="text-xl sm:text-2xl font-black uppercase text-white">
             Submit Your Film for Evaluation
           </h3>
           <p class="font-mono text-xs text-zinc-400">
-            
+            Films under 20 minutes completed between Sep 2025 and Aug 2026.
           </p>
         </div>
 

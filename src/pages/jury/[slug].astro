@@ -1,0 +1,180 @@
+---
+// src/pages/jury/[slug].astro
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const juries = [
+    {
+      slug: "sherry-govindan",
+      name: "Sherry Govindan",
+      role: "Jury Chairman",
+      designation: "Filmmaker",
+      image: "https://i.ibb.co/j9nP0PKK/director-1311202512-56-01.jpg",
+      isPlaceholder: false,
+      highlights: [
+        "National Film Award (2011) — Special Mention for Best Director",
+        "Kerala State Film Award (2011) — Best Debut Director",
+        "Jury Member — International Film Festival of Kerala (IFFK)",
+        "Selection Jury Member — 49th Kerala State Film Awards",
+        "Former Executive Member — Kerala State Chalachitra Academy",
+      ],
+      bio: "Sherry Govindan is an acclaimed Indian filmmaker whose cinematic works have earned prominent state and national recognition, making him a deeply respected voice in Malayalam independent cinema.",
+    },
+    {
+      slug: "arjun-k",
+      name: "Arjun K",
+      role: "Jury Member",
+      designation: "Filmmaker & Film Critic",
+      image:
+        "https://i.ibb.co/mrhXq0PB/0e8b1e52-f84a-476e-8204-badc6373b8ef.jpg",
+      isPlaceholder: false,
+      highlights: [
+        "Director — K-Pop (2025) - 13th ARKIPEL Jakarta International Documentary & Experimental Film Festival (2026)",
+        "Director — Dialogues on Emancipation (2023)",
+        "Festival Programmer — Independent & Experimental Film Festival of Kerala",
+        "Film History Faculty — New Wave Film School",
+        "Published Critic — Chalachitra Sameeksha & Drishyathalam",
+      ],
+      bio: "Arjun K is a Kerala-based filmmaker and critic whose work bridges fiction, documentary, and experimental cinema. Rooted in history, memory, and philosophical inquiry, his films challenge narrative conventions while maintaining sharp socio-political relevance.",
+    },
+    {
+      slug: "sanath-pc",
+      name: "Sanath PC",
+      role: "Festival Patron",
+      designation: "Visual Effects Designer, Coordinator and Supervisor",
+      image: "https://i.ibb.co/HDbc53tc/28-BGMSANATH2.jpg",
+      isPlaceholder: false,
+      highlights: [
+        "Distinguished industry professional",
+        "Evaluation committee member for official selections",
+        "Co-Founder of the Visual effects company Firefly Creative Studio",
+        "Member of the Academy of Motion Picture Arts and Sciences in the Visual Effects category",
+        "National Film Award for Best Special Effects (2004)",
+      ],
+      bio: "Sanath Pilleri Chelleri professionally credited as P. C. Sanath is an Indian visual effects designer, coordinator and supervisor known for his works primarily in Telugu, Tamil and Malayalam cinema. Sanath is Co-Founder of the Visual effects company Firefly Creative Studio. Sanath is a Member of the Academy of Motion Picture Arts and Sciences in the Visual Effects category.",
+    },
+  ];
+
+  return juries.map((jury) => ({
+    params: { slug: jury.slug },
+    props: { jury },
+  }));
+}
+
+const { jury } = Astro.props;
+---
+
+<Layout title={`${jury.name} | ${jury.role} | PSFF Season 03`}>
+  <div
+    class="w-full bg-white text-zinc-950 border-b border-zinc-200 py-12 sm:py-20 px-6 sm:px-12 selection:bg-[#4338ca] selection:text-white"
+  >
+    <div class="max-w-4xl mx-auto space-y-10 sm:space-y-14">
+      <!-- Breadcrumb Navigation -->
+      <nav
+        class="font-mono text-xs uppercase tracking-widest text-zinc-500 flex items-center gap-2 border-b border-zinc-200 pb-4"
+      >
+        <a href="/" class="hover:text-[#4338ca] transition-colors"
+          >&larr; Home</a
+        >
+        <span>/</span>
+        <a href="/jury" class="hover:text-[#4338ca] transition-colors"
+          >Jury &amp; Patrons</a
+        >
+        <span>/</span>
+        <span class="text-[#4338ca] font-bold">{jury.name}</span>
+      </nav>
+
+      <!-- Profile Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <!-- Portrait Column -->
+        <div class="md:col-span-5 space-y-4">
+          <div
+            class="relative border-2 border-zinc-950 aspect-[4/5] overflow-hidden shadow-[8px_8px_0px_0px_#18181b] bg-zinc-100"
+          >
+            <img
+              src={jury.image}
+              alt={jury.name}
+              class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-300"
+              loading="eager"
+            />
+            <div
+              class="absolute bottom-3 left-3 bg-zinc-950 text-white font-mono text-[11px] font-bold px-3 py-1 uppercase tracking-wider"
+            >
+              {jury.role}
+            </div>
+          </div>
+        </div>
+
+        <!-- Details Column -->
+        <div class="md:col-span-7 space-y-6">
+          <div class="border-b border-zinc-200 pb-4 space-y-1">
+            <span
+              class="font-mono text-xs font-bold uppercase tracking-widest text-[#4338ca] block"
+            >
+              PSFF Season 03 &bull; Profile
+            </span>
+            <h1
+              class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950"
+            >
+              {jury.name}
+            </h1>
+            <p
+              class="font-mono text-sm uppercase tracking-wider text-zinc-600 font-bold pt-1"
+            >
+              {jury.designation}
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h2
+              class="font-mono text-xs uppercase font-bold tracking-wider text-zinc-400"
+            >
+              Biography
+            </h2>
+            <p
+              class="text-base sm:text-lg text-zinc-800 leading-relaxed font-serif"
+            >
+              {jury.bio}
+            </p>
+          </div>
+
+          <!-- Career Highlights & Recognition -->
+          <div class="space-y-3 pt-2">
+            <h2
+              class="font-mono text-xs uppercase font-bold tracking-wider text-zinc-400"
+            >
+              Key Career Milestones &amp; Accolades
+            </h2>
+            <div class="border-l-2 border-zinc-950 pl-4 py-1 space-y-2.5">
+              {
+                jury.highlights.map((item) => (
+                  <div class="text-xs sm:text-sm font-mono font-medium text-zinc-900 leading-relaxed">
+                    &bull; {item}
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Footer -->
+      <footer
+        class="border-t border-zinc-200 pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs"
+      >
+        <a
+          href="/#jury"
+          class="font-bold text-zinc-950 hover:text-[#4338ca] transition-colors underline underline-offset-4"
+        >
+          &larr; Return to Festival Jury Section
+        </a>
+        <a
+          href="/submit"
+          class="font-bold text-white bg-zinc-950 hover:bg-[#4338ca] px-4 py-2 uppercase tracking-wider transition-colors shadow-[2px_2px_0px_0px_#4338ca]"
+        >
+          Submit Your Film &rarr;
+        </a>
+      </footer>
+    </div>
+  </div>
+</Layout>
