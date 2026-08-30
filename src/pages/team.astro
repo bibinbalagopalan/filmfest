@@ -4,46 +4,7 @@ import Layout from "../layouts/Layout.astro";
 
 const directorate = [
   { role: "Festival Director", name: "Sunith KP" },
-  { role: "Festival Convenor", name: "Bibin Balagopal" },
-  { role: "General Committee", name: "Sunith KP, Bibin Balagopal, Vishnu K" },
-];
-
-const workingTeams = [
-  {
-    area: "Programme & Registration",
-    convenor: "A. Ajaykumar",
-    team: "Convenors of all Committees, Vishnu V, Athira",
-  },
-  {
-    area: "Finance & Accounts",
-    convenor: "Thomas Sevior",
-    team: "Prasad VK, Shajan Jose",
-  },
-  {
-    area: "Publicity & Venue Decor",
-    convenor: "Latheesh Prabhakar",
-    team: "Manoj, Aji Colonia",
-  },
-  {
-    area: "Stage & Infrastructure",
-    convenor: "Fr. Jomon",
-    team: "Jithin MC",
-  },
-  {
-    area: "Guest Reception & Hospitality",
-    convenor: "Dr. Mridulal",
-    team: "Shabitha Teacher, Neethu Vincent, Laya Latheesh, Vijisha, Ayoob",
-  },
-  {
-    area: "Food & Catering",
-    convenor: "Jayaprakash",
-    team: "Amal Prashanth, Anurag VM, Anu Vinod SJ, Abhilash, Rajesh Kambetty",
-  },
-  {
-    area: "Trophies & Mementos",
-    convenor: "Sooraj H",
-    team: "Jishnu Karunakara, Swetha, Saritha Jacob, Nazar",
-  },
+  { role: "Festival Convenor", name: "Bibin Balagopal, Vishnu K" },
 ];
 ---
 
@@ -81,14 +42,6 @@ const workingTeams = [
       <!-- Table 1: Core Coordination -->
       <section class="space-y-3 font-mono text-xs">
         <div
-          class="flex items-center gap-2 text-[#D9381E] font-bold uppercase tracking-wider text-[11px] pb-1"
-        >
-          <span>01</span>
-          <span>&bull;</span>
-          <span>Core Coordination &amp; Directorate</span>
-        </div>
-
-        <div
           class="border-2 border-[#161616] bg-white shadow-[4px_4px_0px_0px_#161616] overflow-x-auto"
         >
           <table class="w-full text-left border-collapse">
@@ -111,59 +64,6 @@ const workingTeams = [
                     </td>
                     <td class="p-3.5 font-black text-sm sm:text-base text-[#161616] uppercase tracking-tight">
                       {item.name}
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- Table 2: Working Committees -->
-      <section class="space-y-3 font-mono text-xs">
-        <div
-          class="flex items-center gap-2 text-[#D9381E] font-bold uppercase tracking-wider text-[11px] pb-1"
-        >
-          <span>02</span>
-          <span>&bull;</span>
-          <span>Departmental Responsibilities &amp; Teams</span>
-        </div>
-
-        <div
-          class="border-2 border-[#161616] bg-white shadow-[4px_4px_0px_0px_#161616] overflow-x-auto"
-        >
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr
-                class="bg-[#161616] text-[#F6F4EE] uppercase tracking-wider text-[10px] border-b-2 border-[#161616]"
-              >
-                <th class="p-3.5 border-r border-zinc-700 w-12 text-center"
-                  >#</th
-                >
-                <th class="p-3.5 border-r border-zinc-700 sm:w-1/4"
-                  >Department</th
-                >
-                <th class="p-3.5 border-r border-zinc-700 sm:w-1/4">Convenor</th
-                >
-                <th class="p-3.5">Team Members</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y-2 divide-[#161616]">
-              {
-                workingTeams.map((team, idx) => (
-                  <tr class="hover:bg-[#F6F4EE] transition-colors">
-                    <td class="p-3.5 border-r-2 border-[#161616] font-bold text-[#D9381E] text-center text-[11px] bg-[#F6F4EE]/40">
-                      {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
-                    </td>
-                    <td class="p-3.5 border-r-2 border-[#161616] font-black uppercase text-[#161616] tracking-tight">
-                      {team.area}
-                    </td>
-                    <td class="p-3.5 border-r-2 border-[#161616] font-black uppercase text-[#D9381E]">
-                      {team.convenor}
-                    </td>
-                    <td class="p-3.5 font-bold text-zinc-800 leading-relaxed text-[11px]">
-                      {team.team}
                     </td>
                   </tr>
                 ))
