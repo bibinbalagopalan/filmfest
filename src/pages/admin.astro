@@ -3,7 +3,7 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Convener Command Center | PSFF Season 03">
+<Layout title="Control Panel | PSFF Season 03">
   <!-- Scoped CSS to hide public navbar & footer -->
   <style is:global>
     header:not(#dashboard-view header),
@@ -80,7 +80,7 @@ import Layout from "../layouts/Layout.astro";
     </div>
 
     <!-- 2. CONVENER MASTER DASHBOARD -->
-    <div id="dashboard-view" class="hidden max-w-7xl mx-auto space-y-6">
+    <div id="dashboard-view" class="hidden max-w-full mx-auto space-y-6">
       <!-- Top Navigation Header -->
       <header
         class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-[#161616] pb-4 bg-white p-4 sm:p-6 border-2 shadow-[4px_4px_0px_0px_#161616]"
@@ -146,7 +146,7 @@ import Layout from "../layouts/Layout.astro";
         </div>
       </header>
 
-      <!-- TAB 1: SUBMISSIONS & VERIFICATION -->
+      <!-- TAB 1: SUBMISSIONS & COMPREHENSIVE DOSSIER TABLE -->
       <section id="tab-submissions" class="tab-pane space-y-6">
         <!-- Metrics Bar -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -204,17 +204,17 @@ import Layout from "../layouts/Layout.astro";
           </div>
         </div>
 
-        <!-- Search Toolbar -->
+        <!-- Search Toolbar & Import/Export Actions -->
         <div
-          class="bg-white border-2 border-[#161616] p-4 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between shadow-[3px_3px_0px_0px_#161616]"
+          class="bg-white border-2 border-[#161616] p-4 flex flex-col lg:flex-row gap-3 items-stretch lg:items-center justify-between shadow-[3px_3px_0px_0px_#161616]"
         >
           <input
             type="text"
             id="submission-search"
-            placeholder="Search by Title, Entry ID, Director, or UTR..."
-            class="w-full sm:w-96 bg-[#F6F4EE] border-2 border-[#161616] p-2.5 text-xs focus:outline-none focus:border-[#D9381E]"
+            placeholder="Search across all fields: Title, Director, DoP, Producer, Writer, Cast, UTR, City..."
+            class="w-full lg:w-[480px] bg-[#F6F4EE] border-2 border-[#161616] p-2.5 text-xs focus:outline-none focus:border-[#D9381E]"
           />
-          <div class="flex items-center gap-2">
+          <div class="flex flex-wrap items-center gap-2">
             <select
               id="submission-filter"
               class="bg-[#F6F4EE] border-2 border-[#161616] p-2.5 text-xs font-bold uppercase focus:outline-none focus:border-[#D9381E]"
@@ -224,38 +224,88 @@ import Layout from "../layouts/Layout.astro";
               <option value="Accepted">Accepted</option>
               <option value="Rejected">Rejected</option>
             </select>
+
+            <!-- Import CSV / JSON Trigger -->
+            <label
+              for="import-submissions-file"
+              class="px-3 py-2.5 bg-zinc-200 text-[#161616] border-2 border-[#161616] text-xs font-bold uppercase hover:bg-zinc-300 transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#161616] flex items-center gap-1.5"
+            >
+              <span>📥</span> Import (CSV/JSON)
+            </label>
+            <input
+              type="file"
+              id="import-submissions-file"
+              accept=".csv, .json"
+              class="hidden"
+            />
+
+            <!-- Complete Export CSV -->
             <button
               type="button"
               id="export-submissions-csv"
-              class="px-3 py-2.5 bg-[#161616] text-white text-xs font-bold uppercase hover:bg-[#D9381E] transition-colors cursor-pointer"
-              >Export Submissions CSV</button
+              class="px-3 py-2.5 bg-[#161616] text-white text-xs font-bold uppercase hover:bg-[#D9381E] transition-colors cursor-pointer border-2 border-[#161616] shadow-[2px_2px_0px_0px_#D9381E] flex items-center gap-1.5"
             >
+              <span>📤</span> Export Full Dossier CSV
+            </button>
           </div>
         </div>
 
-        <!-- Submissions Table -->
+        <!-- Complete Submissions Table with All Columns & Delete Action -->
         <div
-          class="bg-white border-2 border-[#161616] shadow-[4px_4px_0px_0px_#161616] overflow-x-auto"
+          class="bg-white border-2 border-[#161616] shadow-[4px_4px_0px_0px_#161616] overflow-x-auto max-h-[75vh]"
         >
-          <table class="w-full text-left text-xs border-collapse">
-            <thead>
+          <table
+            class="w-full text-left text-[11px] border-collapse whitespace-nowrap"
+          >
+            <thead class="sticky top-0 z-20">
               <tr
                 class="bg-[#161616] text-[#F6F4EE] uppercase tracking-wider text-[10px]"
               >
+                <th
+                  class="p-3 border-r border-zinc-700 sticky left-0 bg-[#161616] z-30"
+                  >Status / Controls</th
+                >
                 <th class="p-3 border-r border-zinc-700">Entry ID</th>
                 <th class="p-3 border-r border-zinc-700">Film Title</th>
+                <th class="p-3 border-r border-zinc-700">Genre</th>
+                <th class="p-3 border-r border-zinc-700">Language</th>
+                <th class="p-3 border-r border-zinc-700">Duration</th>
+                <th class="p-3 border-r border-zinc-700">Year / Origin</th>
+                <th class="p-3 border-r border-zinc-700">Premiere</th>
+                <th class="p-3 border-r border-zinc-700">Screener Link</th>
+                <th class="p-3 border-r border-zinc-700">Screener Pwd</th>
+                <th class="p-3 border-r border-zinc-700">Subtitles</th>
+                <th class="p-3 border-r border-zinc-700">Aspect / Format</th>
                 <th class="p-3 border-r border-zinc-700">Director</th>
-                <th class="p-3 border-r border-zinc-700">Language / Min</th>
+                <th class="p-3 border-r border-zinc-700">Director Contact</th>
+                <th class="p-3 border-r border-zinc-700">Director Location</th>
+                <th class="p-3 border-r border-zinc-700">Producer / Banner</th>
+                <th class="p-3 border-r border-zinc-700">Producer Contact</th>
+                <th class="p-3 border-r border-zinc-700"
+                  >Cinematographer (DoP)</th
+                >
+                <th class="p-3 border-r border-zinc-700">DoP Contact</th>
+                <th class="p-3 border-r border-zinc-700"
+                  >Camera / Lighting Specs</th
+                >
+                <th class="p-3 border-r border-zinc-700">Writer(s)</th>
+                <th class="p-3 border-r border-zinc-700">Editor</th>
+                <th class="p-3 border-r border-zinc-700">Sound / Music</th>
+                <th class="p-3 border-r border-zinc-700">Art / Costume</th>
+                <th class="p-3 border-r border-zinc-700">Lead Cast</th>
+                <th class="p-3 border-r border-zinc-700">Rights Holder</th>
                 <th class="p-3 border-r border-zinc-700">UTR / Ref</th>
-                <th class="p-3 border-r border-zinc-700">Receipt</th>
-                <th class="p-3 border-r border-zinc-700">Status</th>
-                <th class="p-3 text-center">Actions</th>
+                <th class="p-3 border-r border-zinc-700">Payment Receipt</th>
+                <th class="p-3 border-r border-zinc-700">Poster</th>
+                <th class="p-3">Synopsis</th>
               </tr>
             </thead>
             <tbody id="submissions-tbody" class="divide-y divide-zinc-200">
               <tr
-                ><td colspan="8" class="p-8 text-center text-zinc-500 font-bold"
-                  >Loading registrations...</td
+                ><td
+                  colspan="30"
+                  class="p-8 text-center text-zinc-500 font-bold"
+                  >Loading complete registrations data...</td
                 ></tr
               >
             </tbody>
@@ -475,7 +525,7 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </div>
 
-    <!-- SUBMISSION DOSSIER MODAL -->
+    <!-- SUBMISSION DOSSIER MODAL WITH DELETE OPTION -->
     <div
       id="detail-modal"
       class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
@@ -510,14 +560,21 @@ import Layout from "../layouts/Layout.astro";
         <div
           class="p-4 bg-white border-t-2 border-[#161616] flex flex-wrap items-center justify-between gap-3"
         >
+          <!-- Delete Entry Button Inside Modal -->
+          <button
+            type="button"
+            id="modal-delete-btn"
+            class="px-3 py-2 bg-red-800 text-white font-black uppercase hover:bg-black transition-colors cursor-pointer border border-[#161616] flex items-center gap-1.5"
+          >
+            <span>🗑️</span> Delete Entry
+          </button>
+
           <div class="flex items-center gap-2">
             <span class="font-bold uppercase text-[11px]">Current Status:</span>
             <span
               id="modal-current-status"
               class="px-2 py-1 font-black text-[10px] uppercase">Pending</span
             >
-          </div>
-          <div class="flex items-center gap-2">
             <button
               type="button"
               id="modal-accept-btn"
@@ -699,7 +756,41 @@ import Layout from "../layouts/Layout.astro";
       .length.toString();
   };
 
-  // TAB 1: SUBMISSIONS REVIEW
+  // DELETE SUBMISSION HANDLER
+  const deleteSubmission = async (
+    filmId: string,
+    entryNumber: string,
+    filmTitle: string,
+  ) => {
+    const confirmation = prompt(
+      `⚠️ WARNING: Deleting this entry will permanently remove the submission and any corresponding jury evaluations from the database.\n\nType "${entryNumber}" to confirm deletion of:\n"${filmTitle}"`,
+    );
+
+    if (confirmation !== entryNumber) {
+      if (confirmation !== null)
+        alert("Deletion cancelled: Entry ID did not match.");
+      return;
+    }
+
+    // 1. Delete associated evaluations first
+    await supabase.from("evaluations").delete().eq("submission_id", filmId);
+
+    // 2. Delete the submission
+    const { error } = await supabase
+      .from("submissions")
+      .delete()
+      .eq("id", filmId);
+
+    if (error) {
+      alert(`Failed to delete submission: ${error.message}`);
+    } else {
+      alert(`Submission ${entryNumber} has been permanently deleted.`);
+      document.getElementById("detail-modal")?.classList.add("hidden");
+      await fetchAllData();
+    }
+  };
+
+  // TAB 1: SUBMISSIONS REVIEW TABLE (ALL DETAILS EXPOSED DIRECTLY IN DASHBOARD)
   const renderSubmissionsTable = () => {
     const tbody = document.getElementById("submissions-tbody");
     if (!tbody) return;
@@ -715,17 +806,47 @@ import Layout from "../layouts/Layout.astro";
     const filtered = currentSubmissions.filter((item) => {
       const matchStatus =
         filter === "ALL" || (item.status || "Pending") === filter;
-      const matchSearch =
-        !query ||
-        item.entry_number?.toLowerCase().includes(query) ||
-        item.film_title?.toLowerCase().includes(query) ||
-        item.director_full_name?.toLowerCase().includes(query) ||
-        item.payment_ref?.toLowerCase().includes(query);
+
+      const searchFields = [
+        item.entry_number,
+        item.film_title,
+        item.genre,
+        item.film_language,
+        item.country_of_origin,
+        item.director_full_name,
+        item.director_pro_name,
+        item.director_email,
+        item.director_phone,
+        item.director_location,
+        item.producer_name,
+        item.producer_email,
+        item.producer_phone,
+        item.production_company,
+        item.dop_full_name,
+        item.dop_email,
+        item.dop_phone,
+        item.camera_specs,
+        item.crew_writer,
+        item.crew_editor,
+        item.crew_composer,
+        item.crew_sound,
+        item.crew_art,
+        item.crew_costume,
+        item.crew_cast,
+        item.rights_holder_name,
+        item.payment_ref,
+        item.synopsis,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      const matchSearch = !query || searchFields.includes(query);
       return matchStatus && matchSearch;
     });
 
     if (filtered.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="8" class="p-8 text-center text-zinc-500 font-bold">No submissions found.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="30" class="p-8 text-center text-zinc-500 font-bold">No submissions match the filter criteria.</td></tr>`;
       return;
     }
 
@@ -739,30 +860,191 @@ import Layout from "../layouts/Layout.astro";
           badge = "bg-red-100 text-red-900 border border-red-300";
 
         return `
-        <tr class="hover:bg-zinc-50 transition-colors">
-          <td class="p-3 font-bold border-r border-zinc-200 select-all">${item.entry_number}</td>
-          <td class="p-3 font-black text-[#161616] border-r border-zinc-200">
-            <div class="truncate max-w-[180px]">${item.film_title}</div>
-            <span class="text-[10px] text-zinc-500 font-normal">${item.genre || "N/A"}</span>
+        <tr class="hover:bg-zinc-50 transition-colors text-xs">
+          <!-- Sticky Actions / Quick Status Toggle & Delete Controls -->
+          <td class="p-2.5 border-r border-zinc-200 sticky left-0 bg-white shadow-xs z-10">
+            <div class="flex items-center gap-1.5">
+              <span class="px-2 py-0.5 text-[9px] font-black uppercase ${badge}">${status}</span>
+              <select data-entry-id="${item.id}" class="quick-status-change bg-[#F6F4EE] border border-zinc-400 text-[10px] font-bold p-1 cursor-pointer">
+                <option value="" disabled selected>Change</option>
+                <option value="Accepted">Accept</option>
+                <option value="Rejected">Reject</option>
+                <option value="Pending">Pending</option>
+              </select>
+              <button type="button" data-entry="${item.entry_number}" class="open-sub-btn px-2 py-1 bg-[#161616] text-white hover:bg-[#D9381E] font-bold text-[9px] uppercase transition-colors cursor-pointer">
+                Modal
+              </button>
+              <button type="button" data-id="${item.id}" data-entry="${item.entry_number}" data-title="${(item.film_title || "").replace(/"/g, "&quot;")}" class="delete-sub-btn px-2 py-1 bg-red-100 text-red-900 hover:bg-red-800 hover:text-white font-bold text-[9px] uppercase transition-colors cursor-pointer border border-red-300" title="Delete entry permanently">
+                ✕
+              </button>
+            </div>
           </td>
-          <td class="p-3 border-r border-zinc-200 font-bold">${item.director_full_name}</td>
-          <td class="p-3 border-r border-zinc-200 text-zinc-700">${item.film_language} (${item.duration_minutes}m)</td>
-          <td class="p-3 border-r border-zinc-200 font-mono text-[11px] select-all">${item.payment_ref}</td>
-          <td class="p-3 border-r border-zinc-200 text-center">
-            ${item.payment_screenshot_url ? `<a href="${item.payment_screenshot_url}" target="_blank" class="px-2 py-1 bg-zinc-200 hover:bg-[#161616] hover:text-white font-bold text-[10px] uppercase">View</a>` : `<span class="text-zinc-400">None</span>`}
+
+          <!-- 1. Entry ID -->
+          <td class="p-2.5 font-bold border-r border-zinc-200 select-all text-[#D9381E]">${item.entry_number}</td>
+
+          <!-- 2. Film Title -->
+          <td class="p-2.5 font-black text-[#161616] border-r border-zinc-200">
+            <div class="font-bold max-w-[200px] truncate" title="${item.film_title}">${item.film_title}</div>
           </td>
-          <td class="p-3 border-r border-zinc-200">
-            <span class="px-2 py-0.5 text-[10px] font-black uppercase ${badge}">${status}</span>
+
+          <!-- 3. Genre -->
+          <td class="p-2.5 border-r border-zinc-200">${item.genre || "—"}</td>
+
+          <!-- 4. Language -->
+          <td class="p-2.5 border-r border-zinc-200">${item.film_language || "—"}</td>
+
+          <!-- 5. Duration -->
+          <td class="p-2.5 border-r border-zinc-200 font-bold">${item.duration_minutes} Mins</td>
+
+          <!-- 6. Year / Country -->
+          <td class="p-2.5 border-r border-zinc-200">${item.year_of_production || 2026} / ${item.country_of_origin || "India"}</td>
+
+          <!-- 7. Premiere Status -->
+          <td class="p-2.5 border-r border-zinc-200">${item.premiere_status || "None"}</td>
+
+          <!-- 8. Screener Link -->
+          <td class="p-2.5 border-r border-zinc-200">
+            ${item.screener_url ? `<a href="${item.screener_url}" target="_blank" class="px-2 py-1 bg-zinc-900 text-white font-bold text-[10px] uppercase hover:bg-[#D9381E] inline-flex items-center gap-1">Open Screener &rarr;</a>` : `<span class="text-zinc-400">None</span>`}
           </td>
-          <td class="p-3 text-center">
-            <button type="button" data-entry="${item.entry_number}" class="open-sub-btn px-3 py-1.5 bg-[#161616] text-white hover:bg-[#D9381E] font-bold text-[10px] uppercase transition-colors cursor-pointer">
-              Open File &rarr;
-            </button>
+
+          <!-- 9. Screener Password -->
+          <td class="p-2.5 border-r border-zinc-200 font-mono font-bold select-all">${item.screener_password || "None"}</td>
+
+          <!-- 10. Subtitles -->
+          <td class="p-2.5 border-r border-zinc-200">${item.subtitles_available || "No"} (${item.subtitle_language || "N/A"})</td>
+
+          <!-- 11. Aspect Ratio / Format -->
+          <td class="p-2.5 border-r border-zinc-200">${item.aspect_ratio || "—"} | ${item.resolution_format || "—"}</td>
+
+          <!-- 12. Director -->
+          <td class="p-2.5 border-r border-zinc-200 font-black text-[#161616]">
+            ${item.director_full_name}
+            ${item.director_pro_name ? `<span class="text-[10px] text-zinc-500 font-normal block">(${item.director_pro_name})</span>` : ""}
+          </td>
+
+          <!-- 13. Director Contact -->
+          <td class="p-2.5 border-r border-zinc-200">
+            <div><a href="mailto:${item.director_email}" class="text-blue-700 hover:underline">${item.director_email}</a></div>
+            <div class="text-zinc-600 font-mono">${item.director_phone}</div>
+          </td>
+
+          <!-- 14. Director Location -->
+          <td class="p-2.5 border-r border-zinc-200">${item.director_location || "—"}</td>
+
+          <!-- 15. Producer / Banner -->
+          <td class="p-2.5 border-r border-zinc-200">
+            <div class="font-bold">${item.producer_name || "—"}</div>
+            <div class="text-[10px] text-zinc-500">${item.production_company || "Independent"}</div>
+          </td>
+
+          <!-- 16. Producer Contact -->
+          <td class="p-2.5 border-r border-zinc-200">
+            <div>${item.producer_email || "—"}</div>
+            <div class="text-zinc-600 font-mono">${item.producer_phone || "—"}</div>
+          </td>
+
+          <!-- 17. Cinematographer (DoP) -->
+          <td class="p-2.5 border-r border-zinc-200 font-bold">
+            ${item.dop_full_name || "—"}
+            ${item.dop_pro_name ? `<span class="text-[10px] text-zinc-500 font-normal block">(${item.dop_pro_name})</span>` : ""}
+          </td>
+
+          <!-- 18. DoP Contact -->
+          <td class="p-2.5 border-r border-zinc-200">
+            <div>${item.dop_email || "—"}</div>
+            <div class="text-zinc-600 font-mono">${item.dop_phone || "—"}</div>
+          </td>
+
+          <!-- 19. Camera & Lighting Specs -->
+          <td class="p-2.5 border-r border-zinc-200 max-w-[200px] truncate" title="${item.camera_specs || "—"}">
+            ${item.camera_specs || "—"}
+          </td>
+
+          <!-- 20. Screenplay / Writer -->
+          <td class="p-2.5 border-r border-zinc-200">${item.crew_writer || "—"}</td>
+
+          <!-- 21. Editor -->
+          <td class="p-2.5 border-r border-zinc-200">${item.crew_editor || "—"}</td>
+
+          <!-- 22. Sound & Music -->
+          <td class="p-2.5 border-r border-zinc-200">
+            <div><strong>Score:</strong> ${item.crew_composer || "—"}</div>
+            <div><strong>Sound:</strong> ${item.crew_sound || "—"}</div>
+          </td>
+
+          <!-- 23. Art & Costume -->
+          <td class="p-2.5 border-r border-zinc-200">
+            <div><strong>Art:</strong> ${item.crew_art || "—"}</div>
+            <div><strong>Costume:</strong> ${item.crew_costume || "—"}</div>
+          </td>
+
+          <!-- 24. Lead Cast -->
+          <td class="p-2.5 border-r border-zinc-200 max-w-[200px] truncate" title="${item.crew_cast || "—"}">
+            ${item.crew_cast || "—"}
+          </td>
+
+          <!-- 25. Rights Holder -->
+          <td class="p-2.5 border-r border-zinc-200 font-bold">${item.rights_holder_name || item.director_full_name}</td>
+
+          <!-- 26. UTR Reference -->
+          <td class="p-2.5 border-r border-zinc-200 font-mono font-bold select-all bg-zinc-50">${item.payment_ref}</td>
+
+          <!-- 27. Payment Receipt Link -->
+          <td class="p-2.5 border-r border-zinc-200 text-center">
+            ${item.payment_screenshot_url ? `<a href="${item.payment_screenshot_url}" target="_blank" class="px-2 py-1 bg-emerald-700 text-white hover:bg-black font-bold text-[10px] uppercase inline-block">Inspect Image</a>` : `<span class="text-zinc-400">None</span>`}
+          </td>
+
+          <!-- 28. Poster Link -->
+          <td class="p-2.5 border-r border-zinc-200 text-center">
+            ${item.poster_url ? `<a href="${item.poster_url}" target="_blank" class="px-2 py-1 bg-zinc-200 hover:bg-black hover:text-white font-bold text-[10px] uppercase inline-block">View Poster</a>` : `<span class="text-zinc-400">None</span>`}
+          </td>
+
+          <!-- 29. Synopsis -->
+          <td class="p-2.5 max-w-[260px] truncate text-zinc-600" title="${item.synopsis || "N/A"}">
+            ${item.synopsis || "N/A"}
           </td>
         </tr>
       `;
       })
       .join("");
+
+    // Quick Status Change directly from the table
+    document.querySelectorAll(".quick-status-change").forEach((select) => {
+      select.addEventListener("change", async (e) => {
+        const selectEl = e.currentTarget as HTMLSelectElement;
+        const entryId = selectEl.getAttribute("data-entry-id");
+        const newStatus = selectEl.value;
+        if (!entryId || !newStatus) return;
+
+        const { error } = await supabase
+          .from("submissions")
+          .update({ status: newStatus })
+          .eq("id", entryId);
+
+        if (!error) {
+          await fetchAllData();
+        } else {
+          alert(`Status update failed: ${error.message}`);
+        }
+      });
+    });
+
+    // Row Delete Button Handler
+    document.querySelectorAll(".delete-sub-btn").forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        const id = (e.currentTarget as HTMLElement).getAttribute("data-id");
+        const entryNumber = (e.currentTarget as HTMLElement).getAttribute(
+          "data-entry",
+        );
+        const title = (e.currentTarget as HTMLElement).getAttribute(
+          "data-title",
+        );
+        if (id && entryNumber) {
+          await deleteSubmission(id, entryNumber, title || "Untitled Film");
+        }
+      });
+    });
 
     document.querySelectorAll(".open-sub-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
@@ -812,6 +1094,18 @@ import Layout from "../layouts/Layout.astro";
 
     document.getElementById("detail-modal")?.classList.remove("hidden");
   };
+
+  // Modal Delete Action Handler
+  document
+    .getElementById("modal-delete-btn")
+    ?.addEventListener("click", async () => {
+      if (!activeSelectedFilm) return;
+      await deleteSubmission(
+        activeSelectedFilm.id,
+        activeSelectedFilm.entry_number,
+        activeSelectedFilm.film_title,
+      );
+    });
 
   const updateSubmissionStatus = async (newStatus: "Accepted" | "Rejected") => {
     if (!activeSelectedFilm) return;
@@ -1301,9 +1595,9 @@ import Layout from "../layouts/Layout.astro";
   document
     .getElementById("export-matrix-csv")
     ?.addEventListener("click", () => {
-      const acceptedFilms = currentSubmissions.filter(
+      const acceptedFilms = (currentSubsubmissions = currentSubmissions.filter(
         (s) => s.status === "Accepted",
-      );
+      ));
       if (acceptedFilms.length === 0 || currentJuryMembers.length === 0) {
         return alert("No evaluated competition data to export.");
       }
@@ -1312,7 +1606,6 @@ import Layout from "../layouts/Layout.astro";
         currentEvaluations.map((e) => [`${e.submission_id}_${e.jury_id}`, e]),
       );
 
-      // Header: Entry ID, Film Title, Director, [Jury 1], [Jury 2] ..., Average Score, Completed Juries
       const headers = [
         "Entry ID",
         "Film Title",
@@ -1424,6 +1717,265 @@ import Layout from "../layouts/Layout.astro";
       link.click();
     });
 
+  // COMPLETE DOSSIER CSV EXPORT (ALL FIELDS)
+  document
+    .getElementById("export-submissions-csv")
+    ?.addEventListener("click", () => {
+      if (currentSubmissions.length === 0)
+        return alert("No submissions to export.");
+
+      const headers = [
+        "Entry ID",
+        "Status",
+        "Film Title",
+        "Genre",
+        "Language",
+        "Duration (Mins)",
+        "Production Year",
+        "Country of Origin",
+        "Premiere Status",
+        "Screener URL",
+        "Screener Password",
+        "Subtitles Available",
+        "Subtitle Language",
+        "Aspect Ratio",
+        "Resolution Format",
+        "Director Full Name",
+        "Director Screen Name",
+        "Director Email",
+        "Director Phone",
+        "Director City/Location",
+        "Director Bio",
+        "Producer Name",
+        "Production Company",
+        "Producer Email",
+        "Producer Phone",
+        "Producer Country",
+        "DoP Full Name",
+        "DoP Screen Name",
+        "DoP Email",
+        "DoP Phone",
+        "DoP Location",
+        "Camera & Lighting Specs",
+        "Writer",
+        "Editor",
+        "Composer",
+        "Sound Designer",
+        "Art Director",
+        "Costume Designer",
+        "Lead Cast",
+        "Rights Holder Name",
+        "Payment Ref (UTR)",
+        "Payment Receipt URL",
+        "Poster URL",
+        "Synopsis",
+        "Submitted At",
+      ];
+
+      const rows = currentSubmissions.map((s) => [
+        `"${s.entry_number || ""}"`,
+        `"${s.status || "Pending"}"`,
+        `"${(s.film_title || "").replace(/"/g, '""')}"`,
+        `"${(s.genre || "").replace(/"/g, '""')}"`,
+        `"${s.film_language || ""}"`,
+        `"${s.duration_minutes || ""}"`,
+        `"${s.year_of_production || ""}"`,
+        `"${s.country_of_origin || ""}"`,
+        `"${s.premiere_status || ""}"`,
+        `"${s.screener_url || ""}"`,
+        `"${s.screener_password || ""}"`,
+        `"${s.subtitles_available || ""}"`,
+        `"${s.subtitle_language || ""}"`,
+        `"${s.aspect_ratio || ""}"`,
+        `"${s.resolution_format || ""}"`,
+        `"${(s.director_full_name || "").replace(/"/g, '""')}"`,
+        `"${(s.director_pro_name || "").replace(/"/g, '""')}"`,
+        `"${s.director_email || ""}"`,
+        `"${s.director_phone || ""}"`,
+        `"${(s.director_location || "").replace(/"/g, '""')}"`,
+        `"${(s.director_bio || "").replace(/"/g, '""')}"`,
+        `"${(s.producer_name || "").replace(/"/g, '""')}"`,
+        `"${(s.production_company || "").replace(/"/g, '""')}"`,
+        `"${s.producer_email || ""}"`,
+        `"${s.producer_phone || ""}"`,
+        `"${s.producer_country || ""}"`,
+        `"${(s.dop_full_name || "").replace(/"/g, '""')}"`,
+        `"${(s.dop_pro_name || "").replace(/"/g, '""')}"`,
+        `"${s.dop_email || ""}"`,
+        `"${s.dop_phone || ""}"`,
+        `"${(s.dop_location || "").replace(/"/g, '""')}"`,
+        `"${(s.camera_specs || "").replace(/"/g, '""')}"`,
+        `"${(s.crew_writer || "").replace(/"/g, '""')}"`,
+        `"${(s.crew_editor || "").replace(/"/g, '""')}"`,
+        `"${(s.crew_composer || "").replace(/"/g, '""')}"`,
+        `"${(s.crew_sound || "").replace(/"/g, '""')}"`,
+        `"${(s.crew_art || "").replace(/"/g, '""')}"`,
+        `"${(s.crew_costume || "").replace(/"/g, '""')}"`,
+        `"${(s.crew_cast || "").replace(/"/g, '""')}"`,
+        `"${(s.rights_holder_name || "").replace(/"/g, '""')}"`,
+        `"${s.payment_ref || ""}"`,
+        `"${s.payment_screenshot_url || ""}"`,
+        `"${s.poster_url || ""}"`,
+        `"${(s.synopsis || "").replace(/"/g, '""')}"`,
+        `"${s.created_at || ""}"`,
+      ]);
+
+      const csvContent =
+        "data:text/csv;charset=utf-8," +
+        [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
+      const link = document.createElement("a");
+      link.href = encodeURI(csvContent);
+      link.download = `PSFF2026_Complete_Submissions_Dossier_${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+    });
+
+  // IMPORT SUBMISSIONS (CSV / JSON)
+  const importFileInput = document.getElementById(
+    "import-submissions-file",
+  ) as HTMLInputElement;
+  importFileInput?.addEventListener("change", async (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      try {
+        const text = event.target?.result as string;
+        let recordsToInsert: any[] = [];
+
+        if (file.name.endsWith(".json")) {
+          recordsToInsert = JSON.parse(text);
+        } else if (file.name.endsWith(".csv")) {
+          const lines = text.split(/\r?\n/).filter((l) => l.trim().length > 0);
+          if (lines.length < 2) throw new Error("CSV file has no data rows.");
+
+          const parseCSVLine = (line: string) => {
+            const result = [];
+            let start = 0;
+            let inQuotes = false;
+            for (let i = 0; i < line.length; i++) {
+              if (line[i] === '"') inQuotes = !inQuotes;
+              else if (line[i] === "," && !inQuotes) {
+                let cell = line.substring(start, i).trim();
+                if (cell.startsWith('"') && cell.endsWith('"'))
+                  cell = cell.slice(1, -1).replace(/""/g, '"');
+                result.push(cell);
+                start = i + 1;
+              }
+            }
+            let lastCell = line.substring(start).trim();
+            if (lastCell.startsWith('"') && lastCell.endsWith('"'))
+              lastCell = lastCell.slice(1, -1).replace(/""/g, '"');
+            result.push(lastCell);
+            return result;
+          };
+
+          const headers = parseCSVLine(lines[0]).map((h) =>
+            h.toLowerCase().replace(/[^a-z0-9_]/g, "_"),
+          );
+
+          for (let i = 1; i < lines.length; i++) {
+            const values = parseCSVLine(lines[i]);
+            const rowObj: any = {};
+            headers.forEach((h, idx) => {
+              rowObj[h] = values[idx] || null;
+            });
+
+            recordsToInsert.push({
+              entry_number:
+                rowObj.entry_id ||
+                rowObj.entry_number ||
+                `PSFF26-${Math.floor(1000 + Math.random() * 9000)}`,
+              film_title: rowObj.film_title || rowObj.title || "Untitled Film",
+              genre: rowObj.genre || "Drama",
+              film_language:
+                rowObj.language || rowObj.film_language || "Malayalam",
+              duration_minutes: parseInt(
+                rowObj.duration_minutes || rowObj.duration || "15",
+                10,
+              ),
+              year_of_production: parseInt(
+                rowObj.year_of_production || rowObj.year || "2026",
+                10,
+              ),
+              country_of_origin: rowObj.country_of_origin || "India",
+              premiere_status: rowObj.premiere_status || "None",
+              screener_url: rowObj.screener_url || rowObj.screener || "",
+              screener_password:
+                rowObj.screener_password || rowObj.password || "None",
+              subtitles_available:
+                rowObj.subtitles_available || "Yes - English",
+              subtitle_language: rowObj.subtitle_language || "English",
+              aspect_ratio: rowObj.aspect_ratio || "16:9",
+              resolution_format: rowObj.resolution_format || "1080p MP4",
+              director_full_name:
+                rowObj.director_full_name || rowObj.director || "Director Name",
+              director_pro_name: rowObj.director_pro_name || null,
+              director_email: rowObj.director_email || rowObj.email || "",
+              director_phone: rowObj.director_phone || rowObj.phone || "",
+              director_location:
+                rowObj.director_location || rowObj.location || "",
+              director_bio: rowObj.director_bio || rowObj.bio || "",
+              producer_name: rowObj.producer_name || rowObj.producer || "",
+              production_company:
+                rowObj.production_company || rowObj.banner || "Independent",
+              producer_email: rowObj.producer_email || "",
+              producer_phone: rowObj.producer_phone || "",
+              producer_country: rowObj.producer_country || "India",
+              dop_full_name:
+                rowObj.dop_full_name ||
+                rowObj.dop ||
+                rowObj.cinematographer ||
+                "",
+              dop_pro_name: rowObj.dop_pro_name || null,
+              dop_email: rowObj.dop_email || "",
+              dop_phone: rowObj.dop_phone || "",
+              dop_location: rowObj.dop_location || "",
+              camera_specs: rowObj.camera_specs || "",
+              crew_writer: rowObj.crew_writer || rowObj.writer || "",
+              crew_editor: rowObj.crew_editor || rowObj.editor || "",
+              crew_composer: rowObj.crew_composer || rowObj.composer || "",
+              crew_sound: rowObj.crew_sound || rowObj.sound || "",
+              crew_art: rowObj.crew_art || rowObj.art || "",
+              crew_costume: rowObj.crew_costume || rowObj.costume || "",
+              crew_cast: rowObj.crew_cast || rowObj.cast || "",
+              rights_holder_name:
+                rowObj.rights_holder_name || rowObj.director_full_name || "",
+              payment_ref: rowObj.payment_ref || rowObj.utr || "OFFLINE_REF",
+              payment_screenshot_url: rowObj.payment_screenshot_url || "",
+              poster_url: rowObj.poster_url || "",
+              synopsis: rowObj.synopsis || "N/A",
+              status: rowObj.status || "Pending",
+            });
+          }
+        }
+
+        if (recordsToInsert.length === 0) {
+          return alert("No valid rows detected in the import file.");
+        }
+
+        const confirmImport = confirm(
+          `Ready to import ${recordsToInsert.length} submissions into Supabase. Proceed?`,
+        );
+        if (!confirmImport) return;
+
+        const { error } = await supabase
+          .from("submissions")
+          .insert(recordsToInsert);
+        if (error) {
+          alert(`Import failed: ${error.message}`);
+        } else {
+          alert(`Successfully imported ${recordsToInsert.length} submissions!`);
+          importFileInput.value = "";
+          await fetchAllData();
+        }
+      } catch (err: any) {
+        alert(`Failed to parse file: ${err.message}`);
+      }
+    };
+    reader.readAsText(file);
+  });
+
   // Search & Filter Listeners for Tab 1
   document
     .getElementById("submission-search")
@@ -1431,41 +1983,6 @@ import Layout from "../layouts/Layout.astro";
   document
     .getElementById("submission-filter")
     ?.addEventListener("change", renderSubmissionsTable);
-
-  // Submissions CSV Export
-  document
-    .getElementById("export-submissions-csv")
-    ?.addEventListener("click", () => {
-      if (currentSubmissions.length === 0)
-        return alert("No submissions to export.");
-      const headers = [
-        "Entry ID",
-        "Status",
-        "Title",
-        "Genre",
-        "Director",
-        "Email",
-        "Phone",
-        "UTR",
-      ];
-      const rows = currentSubmissions.map((s) => [
-        `"${s.entry_number}"`,
-        `"${s.status || "Pending"}"`,
-        `"${s.film_title}"`,
-        `"${s.genre}"`,
-        `"${s.director_full_name}"`,
-        `"${s.director_email}"`,
-        `"${s.director_phone}"`,
-        `"${s.payment_ref}"`,
-      ]);
-      const csvContent =
-        "data:text/csv;charset=utf-8," +
-        [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
-      const link = document.createElement("a");
-      link.href = encodeURI(csvContent);
-      link.download = `PSFF2026_Submissions_${new Date().toISOString().slice(0, 10)}.csv`;
-      link.click();
-    });
 
   checkAdminSession();
 </script>

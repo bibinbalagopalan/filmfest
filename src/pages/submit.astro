@@ -8,12 +8,42 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
 ---
 
 <Layout title="Official Film Submission Portal | PSFF Season 03">
+  <style is:global>
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printable-receipt-section,
+      #printable-receipt-section * {
+        visibility: visible;
+      }
+      #printable-receipt-section {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+        background: white !important;
+        color: black !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+
   <div
     class="w-full border-b border-zinc-900 py-12 sm:py-20 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]"
   >
     <div class="max-w-5xl mx-auto space-y-12">
       <!-- Page Header -->
-      <header class="border-b-2 border-[#161616] pb-6 space-y-4">
+      <header
+        id="submission-header"
+        class="border-b-2 border-[#161616] pb-6 space-y-4"
+      >
         <div
           class="flex items-center gap-3 font-mono text-xs uppercase tracking-wider text-zinc-500"
         >
@@ -34,6 +64,9 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
           </p>
         </div>
       </header>
+
+      <!-- SUCCESS ACKNOWLEDGEMENT RECEIPT (Rendered on Successful Submission) -->
+      <div id="receipt-container" class="hidden"></div>
 
       <form
         id="festival-submission-form"
@@ -60,11 +93,9 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
             </span>
           </div>
 
-          <!-- Compact Side-by-Side Flex Box -->
           <div
             class="flex flex-col sm:flex-row items-center sm:items-start gap-6 pt-2"
           >
-            <!-- Compact QR Card (Strictly 140px) -->
             <div
               class="w-[180px] shrink-0 border-2 border-[#161616] bg-white p-3 text-center space-y-2 shadow-[3px_3px_0px_0px_#161616]"
             >
@@ -111,7 +142,6 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
               </div>
             </div>
 
-            <!-- Transaction Reference & Image Upload -->
             <div class="flex-1 w-full space-y-4">
               <div class="space-y-1">
                 <label
@@ -134,7 +164,6 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
                 </p>
               </div>
 
-              <!-- Direct File Upload for Payment Screenshot -->
               <div class="space-y-1">
                 <label
                   for="payment_screenshot"
@@ -981,7 +1010,6 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
               />
             </div>
 
-            <!-- Mandatory Legal Confirmations -->
             <div class="space-y-2.5 pt-1 text-xs text-zinc-800 leading-relaxed">
               <label class="flex items-start gap-2.5 cursor-pointer">
                 <input
@@ -1103,7 +1131,7 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
           </div>
         </section>
 
-        <!-- STATUS DISPLAY NOTIFICATION -->
+        <!-- STATUS DISPLAY NOTIFICATION (Errors only) -->
         <div
           id="submission-status"
           class="hidden p-6 font-mono text-xs font-bold border-2 space-y-3"
@@ -1153,21 +1181,35 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
   const submitBtn = document.getElementById(
     "submit-form-btn",
   ) as HTMLButtonElement;
+  const receiptContainer = document.getElementById("receipt-container");
+  const pageHeader = document.getElementById("submission-header");
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    if (!statusBox || !submitBtn) return;
+    if (!statusBox || !submitBtn || !receiptContainer) return;
 
     submitBtn.disabled = true;
     submitBtn.innerText = "Processing Submission & Uploading Receipt...";
     statusBox.classList.add("hidden");
-    statusBox.className = "p-6 font-mono text-xs font-bold border-2 space-y-3";
 
     try {
       const formData = new FormData(form);
       const randomSuffix = Math.floor(1000 + Math.random() * 9000);
       const entry_number = `PSFF26-${randomSuffix}`;
+
+      const filmTitle = formData.get("film_title")?.toString().trim() || "";
+      const directorName =
+        formData.get("director_full_name")?.toString().trim() || "";
+      const directorEmail =
+        formData.get("director_email")?.toString().trim() || "";
+      const submissionDate = new Date().toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
 
       // 1. Upload Payment Screenshot to Supabase Storage Bucket
       let paymentScreenshotUrl = "";
@@ -1208,7 +1250,7 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
           entry_number,
           payment_ref: formData.get("payment_ref")?.toString().trim(),
           payment_screenshot_url: paymentScreenshotUrl,
-          film_title: formData.get("film_title")?.toString().trim(),
+          film_title: filmTitle,
           genre: formData.get("genre")?.toString().trim(),
           film_language: formData.get("film_language")?.toString().trim(),
           country_of_origin:
@@ -1241,15 +1283,12 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
             .get("resolution_format")
             ?.toString()
             .trim(),
-          director_full_name: formData
-            .get("director_full_name")
-            ?.toString()
-            .trim(),
+          director_full_name: directorName,
           director_pro_name: formData
             .get("director_pro_name")
             ?.toString()
             .trim(),
-          director_email: formData.get("director_email")?.toString().trim(),
+          director_email: directorEmail,
           director_phone: formData.get("director_phone")?.toString().trim(),
           director_location: formData
             .get("director_location")
@@ -1300,22 +1339,107 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
         throw new Error(insertError.message);
       }
 
-      statusBox.classList.remove("hidden");
-      statusBox.classList.add(
-        "bg-green-100",
-        "border-green-800",
-        "text-green-950",
-      );
-      statusBox.innerHTML = `
-        <div class="text-sm sm:text-base font-black uppercase text-green-900">✓ Official Entry Successfully Received</div>
-        <div class="text-xs">Your Tracking Reference: <span class="bg-[#161616] text-white px-2 py-0.5 font-bold tracking-wider">${entry_number}</span></div>
-        <div class="font-normal pt-1 text-zinc-700 leading-relaxed">
-          Thank you for submitting your film to the 3rd Pazhassi Short Film Festival. Our selection committee is reviewing your screening materials and will contact you via your registered email address regarding selection results.
+      // Hide the entry form and header
+      form.classList.add("hidden");
+      if (pageHeader) pageHeader.classList.add("hidden");
+
+      // Render the Printable Acknowledgment Receipt
+      receiptContainer.classList.remove("hidden");
+      receiptContainer.innerHTML = `
+        <div id="printable-receipt-section" class="border-2 border-[#161616] bg-white p-8 sm:p-12 shadow-[8px_8px_0px_0px_#161616] space-y-8">
+          
+          <!-- Receipt Header -->
+          <div class="border-b-2 border-[#161616] pb-6 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+            <div>
+              <span class="font-mono text-xs font-black uppercase tracking-widest text-[#D9381E] block">
+                Official Acknowledgement Receipt
+              </span>
+              <h2 class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#161616]">
+                3rd Pazhassi Short Film Festival
+              </h2>
+              <p class="font-mono text-xs text-zinc-600 mt-0.5">
+                PSFF Season 03 &bull; Mananthavady, Wayanad
+              </p>
+            </div>
+            
+            <div class="font-mono text-xs text-left sm:text-right border-t sm:border-t-0 border-zinc-200 pt-3 sm:pt-0">
+              <div class="text-zinc-500 uppercase text-[10px]">Issued On</div>
+              <div class="font-bold text-[#161616]">${submissionDate}</div>
+            </div>
+          </div>
+
+          <!-- Reference Number Box -->
+          <div class="border-2 border-[#161616] bg-[#F6F4EE] p-6 text-center space-y-2">
+            <span class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-600 block">
+              Reference Number
+            </span>
+            <div class="font-mono text-3xl sm:text-4xl font-black tracking-wider text-[#D9381E] select-all">
+              ${entry_number}
+            </div>
+            <p class="font-mono text-[11px] text-zinc-600">
+              Please ensure that the above Reference Number is quoted in all future correspondence with the Festival in relation to this submission.
+            </p>
+          </div>
+
+          <!-- Submission Metadata Summary -->
+          <div class="border border-zinc-300 bg-zinc-50 p-4 font-mono text-xs grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div><span class="text-zinc-500 uppercase">Film Title:</span> <strong class="text-[#161616] uppercase">${filmTitle}</strong></div>
+            <div><span class="text-zinc-500 uppercase">Director:</span> <strong class="text-[#161616] uppercase">${directorName}</strong></div>
+            <div class="sm:col-span-2"><span class="text-zinc-500 uppercase">Registered Email:</span> <strong class="text-[#161616]">${directorEmail}</strong></div>
+          </div>
+
+          <!-- Official Legal Confirmation Body -->
+          <div class="font-serif text-sm sm:text-base text-zinc-800 leading-relaxed space-y-4">
+            <p class="font-bold text-[#161616]">
+              We hereby confirm that your submission has been successfully received and provisionally accepted.
+            </p>
+            <p>
+              An official acknowledgment of receipt will be sent to you by email within 24 hours. In the event that you do not receive the acknowledgment email within the stipulated period, please contact our Festival Director, Mr. Bibin Balagopal, at <strong class="text-[#161616] font-mono font-bold">+91 85902 04208</strong> for further assistance.
+            </p>
+            <p>
+              Please note that this provisional acceptance does not constitute final acceptance or confirmation of participation. The submission remains subject to review and approval by the Screening Committee, as well as confirmation of the applicable payment requirements.
+            </p>
+            <p>
+              The Festival reserves the right to request additional information, documentation, or clarification in connection with the submission, where deemed necessary. Should any further information be required, a member of the Festival team will contact you accordingly.
+            </p>
+            <p class="font-semibold text-[#161616]">
+              We thank you for your submission and appreciate your interest in the Festival.
+            </p>
+          </div>
+
+          <!-- Sign-off & Institutional Footer -->
+          <div class="border-t-2 border-[#161616] pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 font-mono text-xs text-zinc-600">
+            <div>
+              <div class="font-bold uppercase text-[#161616]">Festival Directorate</div>
+              <div>Drishtidosham Chalachithravedi</div>
+              <div>Pazhassi Raja Smaraka Granthalayam</div>
+            </div>
+            <div class="text-[10px] uppercase text-zinc-500 text-left sm:text-right">
+              Official Electronic Receipt &bull; No Signature Required
+            </div>
+          </div>
+
+          <!-- Action Buttons (Hidden when printing) -->
+          <div class="no-print pt-4 border-t border-zinc-200 flex flex-wrap gap-4 items-center justify-between">
+            <button
+              type="button"
+              onclick="window.print()"
+              class="px-6 py-3 text-xs font-mono font-black uppercase tracking-widest text-[#F6F4EE] bg-[#161616] border-2 border-[#161616] hover:bg-[#D9381E] hover:border-[#D9381E] transition-all shadow-[3px_3px_0px_0px_#D9381E] cursor-pointer"
+            >
+              Print / Save Receipt (PDF) &darr;
+            </button>
+            <a
+              href="/"
+              class="text-xs font-mono font-bold uppercase tracking-wider text-[#161616] hover:text-[#D9381E] underline underline-offset-4"
+            >
+              Return to Home &rarr;
+            </a>
+          </div>
+
         </div>
       `;
-      form.reset();
-      submitBtn.innerText = "Entry Submitted Successfully";
-      statusBox.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      receiptContainer.scrollIntoView({ behavior: "smooth", block: "start" });
     } catch (err: any) {
       statusBox.classList.remove("hidden");
       statusBox.classList.add(

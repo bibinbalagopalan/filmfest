@@ -26,14 +26,10 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Favicon & Identity -->
     <link rel="icon" type="image/svg+xml" href="/Drishti.ico" />
 
-    <!-- Google Fonts Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- Cultural / Print Typography -->
     <link
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700;800&family=Noto+Sans+Malayalam:wght@400;700;900&family=Noto+Serif+Malayalam:wght@400;600;700;900&family=Syne:wght@700;800;900&display=swap"
       rel="stylesheet"
@@ -63,14 +59,26 @@ const {
         font-family: var(--font-malayalam-serif);
       }
 
-      /* Physical Paper Grain Texture */
-      .paper-grain {
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+      /* Subtle Film Print Texture */
+      .bg-editorial-grain {
+        background-color: #f6f4ee;
+        background-image:
+          radial-gradient(
+            at 100% 0%,
+            rgba(217, 56, 30, 0.035) 0px,
+            transparent 50%
+          ),
+          radial-gradient(
+            at 0% 100%,
+            rgba(67, 56, 202, 0.035) 0px,
+            transparent 50%
+          ),
+          url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
       }
     </style>
   </head>
   <body
-    class="min-h-screen bg-[#F6F4EE] text-[#161616] paper-grain flex flex-col justify-between"
+    class="min-h-screen bg-editorial-grain text-[#161616] flex flex-col justify-between"
   >
     <Navbar />
     <main class="flex-grow">
