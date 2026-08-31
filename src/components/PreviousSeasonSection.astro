@@ -30,57 +30,80 @@ const winners = [
 ];
 ---
 
-<section class="w-full bg-white text-zinc-950 border-b border-zinc-900 py-20 sm:py-28 px-6 sm:px-12">
-  <div class="max-w-6xl mx-auto space-y-16 sm:space-y-20">
+<section class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-20 sm:py-28 px-6 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden">
+  <!-- Subtle Background Grid Overlay -->
+  <div
+    class="absolute inset-0 opacity-10 pointer-events-none"
+    style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+  ></div>
+
+  <!-- Top & Bottom Film Reel Border Patterns -->
+  <div 
+    class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40 pointer-events-none opacity-20"
+    style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+  ></div>
+  <div 
+    class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40 pointer-events-none opacity-20"
+    style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+  ></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto space-y-16">
     
-    <!-- Editorial Masthead Header -->
-    <div class="border-b-2 border-zinc-950 pb-6 flex flex-col md:flex-row md:items-baseline justify-between gap-4">
-      <h2 class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-zinc-950">
-        Season 02 Winners
-      </h2>
-      <p class="font-mono text-sm uppercase tracking-widest text-zinc-600">
+    <!-- Section Header -->
+    <div class="border-b border-[#FDB813]/30 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="space-y-2">
+        <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#FDB813] font-bold">
+          <span>Previous Edition</span>
+          <span>&bull;</span>
+          <span>Official Laurels</span>
+        </div>
+        <h2 class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white font-mono drop-shadow-sm">
+          Season 02 Winners
+        </h2>
+      </div>
+      <p class="font-mono text-xs uppercase tracking-widest text-[#FDB813] font-bold">
         Festival Retrospective
       </p>
     </div>
 
-    <!-- Winners Display -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-10 items-start">
-      {winners.map((item, idx) => (
-        <article class="space-y-6 flex flex-col justify-between">
+    <!-- Winners Display Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch font-mono">
+      {winners.map((item) => (
+        <article class="group relative rounded-xl bg-[#8B140B]/85 border border-[#FDB813]/40 hover:border-[#FDB813] transition-all duration-300 p-5 flex flex-col justify-between shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-[6px_6px_0px_0px_#FDB813] hover:-translate-y-1">
           
-          <!-- Image Frame -->
-          <div class="w-full aspect-[4/5] bg-zinc-100 border border-zinc-950 overflow-hidden">
-            <img
-              src={item.image}
-              alt={`${item.film} - ${item.award}`}
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-
-          <!-- Narrative Winner Block -->
-          <div class="space-y-4">
-            
-            <!-- Category Title -->
-            <p class="text-xs font-mono font-bold uppercase tracking-widest text-[#4338ca]">
-              {item.award}
-            </p>
-
-            <!-- Prominent Film Title -->
-            <h3 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-zinc-950 leading-none">
-              {item.film}
-            </h3>
-
-            <!-- Credits Details -->
-            <div class="pt-4 border-t border-zinc-200 space-y-1.5 font-mono text-xs sm:text-sm">
-              {item.credits.map((c) => (
-                <div class="flex items-baseline justify-between gap-2">
-                  <span class="text-zinc-500 uppercase tracking-wider">{c.label}</span>
-                  <span class="font-bold text-zinc-950">{c.value}</span>
-                </div>
-              ))}
+          <div class="space-y-5">
+            <!-- Poster Frame -->
+            <div class="w-full aspect-[4/5] bg-[#5C0D07] rounded-lg overflow-hidden border border-[#FDB813]/30 shadow-inner">
+              <img
+                src={item.image}
+                alt={`${item.film} - ${item.award}`}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
             </div>
 
+            <!-- Winner Block -->
+            <div class="space-y-3">
+              <!-- Award Category Badge -->
+              <span class="inline-block font-mono text-xs font-bold uppercase tracking-widest text-[#FDB813]">
+                {item.award}
+              </span>
+
+              <!-- Film Title -->
+              <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">
+                {item.film}
+              </h3>
+            </div>
+          </div>
+
+          <!-- Credits Section -->
+          <div class="pt-4 mt-5 border-t border-[#FDB813]/20 space-y-1.5 text-xs">
+            {item.credits.map((c) => (
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="text-zinc-300 uppercase tracking-wider">{c.label}</span>
+                <span class="font-bold text-white">{c.value}</span>
+              </div>
+            ))}
           </div>
 
         </article>

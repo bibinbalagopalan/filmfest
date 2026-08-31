@@ -37,31 +37,42 @@ const utilityLinks = [
 ---
 
 <footer
-  class="w-full bg-[#161616] text-[#F6F4EE] border-t-4 border-[#161616] pt-16 pb-12 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]"
+  class="relative w-full bg-[#5C0D07] text-[#FDFCF7] border-t-2 border-black pt-16 pb-12 px-6 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden"
 >
-  <div class="max-w-7xl mx-auto space-y-16">
+  <!-- Background Pattern & Film Perforations -->
+  <div class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden">
+    <div
+      class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+      style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+    >
+    </div>
+    <div
+      class="absolute inset-0 opacity-10"
+      style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+    >
+    </div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto space-y-14">
     <!-- Masthead Row: Brand Title & CTA -->
     <div
-      class="border-b border-zinc-800 pb-12 flex flex-col lg:flex-row lg:items-end justify-between gap-8"
+      class="border-b border-[#FDB813]/30 pb-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8"
     >
       <div class="space-y-3 max-w-2xl">
         <div class="flex items-center gap-3">
-          <h2
-            class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white leading-none"
-          >
-            PSFF Season 03
-          </h2>
-          <span
-            class="inline-block font-mono text-xs font-bold uppercase tracking-wider text-[#161616] bg-[#D9381E] text-white px-2.5 py-1"
-          >
-            2026
-          </span>
+          <div class="h-14 sm:h-16 flex items-center">
+            <img
+              src="https://i.ibb.co/0R0xXBmN/logo-2.png"
+              alt="Pazhassi Short Film Fest Season 03"
+              class="h-full w-auto object-contain drop-shadow-sm"
+            />
+          </div>
         </div>
         <p
-          class="font-serif text-zinc-400 text-sm sm:text-base leading-relaxed"
+          class="font-serif text-zinc-200 text-sm sm:text-base leading-relaxed opacity-90"
         >
           Pazhassi Short Film Festival — Celebrating independent, documentary,
-          and experimental short cinema at Mananthavady, Wayanad.
+          and experimental short cinema at Mananthavady, Wayanad
         </p>
       </div>
 
@@ -69,14 +80,14 @@ const utilityLinks = [
       <div class="flex flex-wrap items-center gap-4 font-mono text-xs">
         <a
           href="/submit"
-          class="inline-flex items-center gap-2 px-6 py-3.5 font-black uppercase tracking-widest text-[#161616] bg-[#F6F4EE] hover:bg-[#D9381E] hover:text-white transition-all duration-150 shadow-[3px_3px_0px_0px_#D9381E]"
+          class="inline-flex items-center gap-2 px-6 py-3.5 font-black uppercase tracking-widest text-[#B31D12] bg-[#FDB813] hover:bg-white border-2 border-black rounded-lg transition-all duration-150 shadow-[3px_3px_0px_0px_#000000] hover:-translate-y-0.5 cursor-pointer"
         >
           <span>Submit Film</span>
-          <span class="font-sans">&rarr;</span>
+          <span class="font-sans text-sm">&rarr;</span>
         </a>
         <a
           href="/contact"
-          class="inline-flex items-center gap-2 px-6 py-3.5 font-bold uppercase tracking-widest text-white border border-zinc-700 hover:border-white transition-colors"
+          class="inline-flex items-center gap-2 px-6 py-3.5 font-bold uppercase tracking-widest text-white border-2 border-[#FDB813]/60 hover:bg-[#FDB813] hover:text-[#B31D12] rounded-lg transition-colors"
         >
           <span>Contact Desk</span>
         </a>
@@ -90,15 +101,18 @@ const utilityLinks = [
       <!-- Col 1: About & Background -->
       <div class="space-y-4">
         <h3
-          class="text-xs font-bold uppercase tracking-widest text-[#D9381E] border-b border-zinc-800 pb-2"
+          class="text-xs font-bold uppercase tracking-widest text-[#FDB813] border-b border-[#FDB813]/25 pb-2"
         >
           About PSFF
         </h3>
-        <ul class="space-y-2.5 text-zinc-400">
+        <ul class="space-y-2.5 text-zinc-200">
           {
             aboutLinks.map((link) => (
               <li>
-                <a href={link.href} class="hover:text-white transition-colors">
+                <a
+                  href={link.href}
+                  class="hover:text-[#FDB813] transition-colors"
+                >
                   {link.label}
                 </a>
               </li>
@@ -110,15 +124,18 @@ const utilityLinks = [
       <!-- Col 2: Awards & Categories -->
       <div class="space-y-4">
         <h3
-          class="text-xs font-bold uppercase tracking-widest text-[#D9381E] border-b border-zinc-800 pb-2"
+          class="text-xs font-bold uppercase tracking-widest text-[#FDB813] border-b border-[#FDB813]/25 pb-2"
         >
           Awards &amp; Laurels
         </h3>
-        <ul class="space-y-2.5 text-zinc-400">
+        <ul class="space-y-2.5 text-zinc-200">
           {
             awardsLinks.map((link) => (
               <li>
-                <a href={link.href} class="hover:text-white transition-colors">
+                <a
+                  href={link.href}
+                  class="hover:text-[#FDB813] transition-colors"
+                >
                   {link.label}
                 </a>
               </li>
@@ -130,15 +147,18 @@ const utilityLinks = [
       <!-- Col 3: Festival Program -->
       <div class="space-y-4">
         <h3
-          class="text-xs font-bold uppercase tracking-widest text-[#D9381E] border-b border-zinc-800 pb-2"
+          class="text-xs font-bold uppercase tracking-widest text-[#FDB813] border-b border-[#FDB813]/25 pb-2"
         >
           Festival Program
         </h3>
-        <ul class="space-y-2.5 text-zinc-400">
+        <ul class="space-y-2.5 text-zinc-200">
           {
             festivalLinks.map((link) => (
               <li>
-                <a href={link.href} class="hover:text-white transition-colors">
+                <a
+                  href={link.href}
+                  class="hover:text-[#FDB813] transition-colors"
+                >
                   {link.label}
                 </a>
               </li>
@@ -150,15 +170,18 @@ const utilityLinks = [
       <!-- Col 4: Archive -->
       <div class="space-y-4">
         <h3
-          class="text-xs font-bold uppercase tracking-widest text-[#D9381E] border-b border-zinc-800 pb-2"
+          class="text-xs font-bold uppercase tracking-widest text-[#FDB813] border-b border-[#FDB813]/25 pb-2"
         >
           Previous Seasons
         </h3>
-        <ul class="space-y-2.5 text-zinc-400">
+        <ul class="space-y-2.5 text-zinc-200">
           {
             archiveLinks.map((link) => (
               <li>
-                <a href={link.href} class="hover:text-white transition-colors">
+                <a
+                  href={link.href}
+                  class="hover:text-[#FDB813] transition-colors"
+                >
                   {link.label}
                 </a>
               </li>
@@ -170,15 +193,18 @@ const utilityLinks = [
       <!-- Col 5: Utilities & Legal -->
       <div class="space-y-4 col-span-2 sm:col-span-1">
         <h3
-          class="text-xs font-bold uppercase tracking-widest text-[#D9381E] border-b border-zinc-800 pb-2"
+          class="text-xs font-bold uppercase tracking-widest text-[#FDB813] border-b border-[#FDB813]/25 pb-2"
         >
           Quick Utilities
         </h3>
-        <ul class="space-y-2.5 text-zinc-400">
+        <ul class="space-y-2.5 text-zinc-200">
           {
             utilityLinks.map((link) => (
               <li>
-                <a href={link.href} class="hover:text-white transition-colors">
+                <a
+                  href={link.href}
+                  class="hover:text-[#FDB813] transition-colors"
+                >
                   {link.label}
                 </a>
               </li>
@@ -190,45 +216,48 @@ const utilityLinks = [
 
     <!-- Official Contacts & Social Row -->
     <div
-      class="border-t border-zinc-800 pt-10 grid grid-cols-1 md:grid-cols-3 gap-8 font-mono text-xs"
+      class="border-t border-[#FDB813]/25 pt-10 grid grid-cols-1 md:grid-cols-3 gap-8 font-mono text-xs"
     >
       <!-- Organizer Credit -->
-      <div class="space-y-1.5 text-zinc-400">
-        <span class="text-zinc-500 uppercase tracking-widest block text-[10px]"
-          >Organized By</span
-        >
+      <div class="space-y-1.5 text-zinc-200">
+        <span
+          class="text-[#FDB813] uppercase tracking-widest block text-[10px] font-bold"
+          >Organized By
+        </span>
         <p class="font-bold text-white">Drishtidosham Chalachithravedi</p>
-        <p class="text-zinc-400">Pazhassi Raja Smaraka Granthalayam</p>
-        <p class="text-zinc-500 text-[11px]">
+        <p class="text-zinc-300">Pazhassi Raja Smaraka Granthalayam</p>
+        <p class="text-zinc-400 text-[11px]">
           In Association with Mananthavady Municipality
         </p>
       </div>
 
       <!-- Venue & Location -->
-      <div class="space-y-1.5 text-zinc-400">
-        <span class="text-zinc-500 uppercase tracking-widest block text-[10px]"
-          >Festival Venue</span
-        >
+      <div class="space-y-1.5 text-zinc-200">
+        <span
+          class="text-[#FDB813] uppercase tracking-widest block text-[10px] font-bold"
+          >Festival Venue
+        </span>
         <p class="font-bold text-white">Veena-Varna Theatre</p>
-        <p class="text-zinc-400">Mananthavady, Wayanad, Kerala — 670645</p>
-        <p class="text-zinc-500 text-[11px]">Email: help@psff.in</p>
+        <p class="text-zinc-300">Mananthavady, Wayanad, Kerala — 670645</p>
+        <p class="text-zinc-400 text-[11px]">Email: help@psff.in</p>
       </div>
 
       <!-- Social Channels -->
       <div class="space-y-3">
-        <span class="text-zinc-500 uppercase tracking-widest block text-[10px]"
-          >Connect &amp; Follow</span
-        >
+        <span
+          class="text-[#FDB813] uppercase tracking-widest block text-[10px] font-bold"
+          >Connect &amp; Follow
+        </span>
         <div class="flex items-center gap-4">
           <a
             href="https://www.instagram.com/drishtidosham__filmsociety/"
             target="_blank"
             rel="noopener noreferrer"
-            class="p-2 border border-zinc-800 bg-zinc-900 hover:border-zinc-500 text-zinc-300 hover:text-white transition-colors"
+            class="p-2 border border-[#FDB813]/40 bg-[#8B140B] hover:bg-[#FDB813] hover:text-[#B31D12] text-zinc-200 rounded-lg transition-colors"
             title="Instagram"
             aria-label="Instagram"
           >
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
               <path
                 d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
               ></path>
@@ -239,11 +268,11 @@ const utilityLinks = [
             href="https://www.facebook.com/pazhassilibrary"
             target="_blank"
             rel="noopener noreferrer"
-            class="p-2 border border-zinc-800 bg-zinc-900 hover:border-zinc-500 text-zinc-300 hover:text-white transition-colors"
+            class="p-2 border border-[#FDB813]/40 bg-[#8B140B] hover:bg-[#FDB813] hover:text-[#B31D12] text-zinc-200 rounded-lg transition-colors"
             title="Facebook"
             aria-label="Facebook"
           >
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
               <path
                 d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"
               ></path>
@@ -255,11 +284,11 @@ const utilityLinks = [
 
     <!-- Bottom Copyright & Developer Byline -->
     <div
-      class="border-t border-zinc-900 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-zinc-500"
+      class="border-t border-[#FDB813]/25 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-zinc-300"
     >
-      <p>&copy; 2026 PSFF Season 03. All rights reserved.</p>
+      <p>&copy; 2026 PSFF Season 03. All rights reserved</p>
       <p>
-        Designed &amp; Developed by <span class="text-zinc-300 font-bold"
+        Designed &amp; Developed by <span class="text-[#FDB813] font-bold"
           >Bibin Balagopal</span
         >
       </p>

@@ -5,39 +5,89 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="About the Festival | PSFF Season 03">
   <div
-    class="w-full border-b border-zinc-900 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]"
+    class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden"
   >
-    <div class="max-w-4xl mx-auto space-y-16">
+    <!-- Background Graph Grid, Swirls & Film Perforations -->
+    <div
+      class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden"
+    >
+      <!-- Top & Bottom Film Reel Border Patterns -->
+      <div
+        class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+      <div
+        class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+
+      <!-- Golden Graph Grid Overlay -->
+      <div
+        class="absolute inset-0 opacity-10"
+        style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+      >
+      </div>
+
+      <!-- Golden Traditional Swirl Vectors -->
+      <svg
+        class="absolute -left-24 top-1/4 w-[520px] h-[520px] text-[#FDB813]"
+        viewBox="0 0 400 400"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path
+          d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190"
+        ></path>
+        <circle cx="200" cy="200" r="140" stroke-dasharray="8 8"></circle>
+      </svg>
+      <svg
+        class="absolute -right-28 bottom-1/4 w-[520px] h-[520px] text-[#FDB813]"
+        viewBox="0 0 400 400"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path
+          d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190"
+        ></path>
+        <circle cx="200" cy="200" r="170" stroke-dasharray="6 6"></circle>
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto space-y-16">
       <!-- Page Header -->
-      <header class="border-b-2 border-[#161616] pb-8 space-y-3">
-        <div class="font-mono text-xs uppercase tracking-wider text-zinc-500">
-          <a href="/" class="hover:text-[#D9381E] transition-colors"
+      <header class="border-b border-[#FDB813]/30 pb-8 space-y-3">
+        <div class="font-mono text-xs uppercase tracking-wider text-zinc-200">
+          <a href="/" class="hover:text-[#FDB813] transition-colors"
             >&larr; Home</a
           > / About
         </div>
         <h1
-          class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#161616]"
+          class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white font-mono drop-shadow-sm"
         >
           About The Festival
         </h1>
-        <p class="font-mono text-sm sm:text-base text-zinc-700">
+        <p class="font-mono text-sm sm:text-base text-[#FDB813] font-bold">
           Pazhassi Short Film Festival (PSFF) &bull; Mananthavady, Wayanad
         </p>
       </header>
 
       <!-- Section 1: Genesis, Cultural Context & Civic Partnership -->
       <section
-        class="space-y-6 text-zinc-800 text-base sm:text-lg leading-relaxed"
+        class="space-y-6 text-zinc-100 text-base sm:text-lg leading-relaxed"
       >
-        <div class="border-b-2 border-[#161616] pb-2">
+        <div class="border-b border-[#FDB813]/30 pb-2">
           <h2
-            class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]"
+            class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white font-mono"
           >
             The Genesis &amp; Cultural Roots
           </h2>
         </div>
 
-        <p>
+        <p class="font-sans leading-relaxed text-zinc-100">
           The Pazhassi Short Film Festival was conceived to address a
           long-standing void in the cultural landscape of Wayanad: the lack of
           an authentic theatrical platform dedicated entirely to independent
@@ -47,20 +97,21 @@ import Layout from "../layouts/Layout.astro";
           physical cinema space to experience and debate these works together.
         </p>
 
-        <p>
+        <p class="font-sans leading-relaxed text-zinc-100">
           Timed to coincide with the annual Pazhassi Day observance, the
           festival draws inspiration from the enduring legacy of resistance and
           self-determination associated with Pazhassi Raja. The event is curated
           and executed as a collaborative cultural initiative by <strong
-            >Drishtidosham Chalachithravedi</strong
+            class="text-[#FDB813]">Drishtidosham Chalachithravedi</strong
           >, a dedicated film society collective; the historic <strong
-            >Pazhassi Raja Smaraka Granthalayam</strong
+            class="text-[#FDB813]">Pazhassi Raja Smaraka Granthalayam</strong
           >, which serves as a center for literary and intellectual life in
-          Mananthavady; and the <strong>Mananthavady Municipality</strong>,
-          providing civic patronage and community infrastructure.
+          Mananthavady; and the <strong class="text-[#FDB813]"
+            >Mananthavady Municipality</strong
+          >, providing civic patronage and community infrastructure.
         </p>
 
-        <p>
+        <p class="font-sans leading-relaxed text-zinc-100">
           Admission to every screening, panel discussion, and open forum is kept
           entirely free of charge. This deliberate non-commercial stance ensures
           that students, local cinema enthusiasts, visiting delegates, and
@@ -70,10 +121,10 @@ import Layout from "../layouts/Layout.astro";
 
         <!-- Inline Highlight Frame: The Screening Venue -->
         <div
-          class="border-2 border-[#161616] bg-[#F6F4EE] p-4 sm:p-6 shadow-[5px_5px_0px_0px_#161616] space-y-3 mt-6"
+          class="border border-[#FDB813]/40 bg-[#8B140B]/90 p-4 sm:p-6 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] space-y-3 mt-6 backdrop-blur-xs"
         >
           <div
-            class="border-2 border-[#161616] h-[340px] sm:h-[440px] bg-[#161616] p-2 flex items-center justify-center overflow-hidden"
+            class="border border-[#FDB813]/30 h-[340px] sm:h-[440px] bg-[#5C0D07] rounded-lg p-2 flex items-center justify-center overflow-hidden shadow-inner"
           >
             <img
               src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk2MknLWIqh0cH_T_5SS4ZCOdQ6m98hAcivf5327pxGbv8fUboHDcGpPJvXS2pp5KtSpx5SOrcdXIMm9CvRB5LnRjq8bGdIyN9oG_bDxkXMZbA1L8D_nNsTYjbPlSHgPnRHS_8=s1360-w1360-h1020-rw"
@@ -83,7 +134,7 @@ import Layout from "../layouts/Layout.astro";
             />
           </div>
           <p
-            class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-700 text-center"
+            class="font-mono text-xs font-bold uppercase tracking-wider text-[#FDB813] text-center"
           >
             Veena - Varna Theatre, Mananthavady &mdash; The Festival Home &amp;
             Screening Complex
@@ -93,17 +144,17 @@ import Layout from "../layouts/Layout.astro";
 
       <!-- Section 2: Festival Architecture & Curation Model -->
       <section
-        class="space-y-6 text-zinc-800 text-base sm:text-lg leading-relaxed border-t-2 border-[#161616] pt-10"
+        class="space-y-6 text-zinc-100 text-base sm:text-lg leading-relaxed border-t border-[#FDB813]/30 pt-10"
       >
-        <div class="border-b-2 border-[#161616] pb-2">
+        <div class="border-b border-[#FDB813]/30 pb-2">
           <h2
-            class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]"
+            class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white font-mono"
           >
             Two-Tier Curation &amp; Adjudication Framework
           </h2>
         </div>
 
-        <p>
+        <p class="font-sans leading-relaxed text-zinc-100">
           PSFF follows a rigorous two-tier selection and judging model designed
           to maintain absolute transparency and artistic integrity. In the
           preliminary phase, every valid submission is reviewed by a 12-member
@@ -113,7 +164,7 @@ import Layout from "../layouts/Layout.astro";
           short films.
         </p>
 
-        <p>
+        <p class="font-sans leading-relaxed text-zinc-100">
           During the festival day, these 10 official selections are projected on
           the big screen at Veena - Varna Theatre. An independent main jury
           consisting of renowned film industry directors and critics evaluates
@@ -125,10 +176,10 @@ import Layout from "../layouts/Layout.astro";
 
         <!-- Inline Highlight Frame: Filmmakers & Public Debates -->
         <div
-          class="border-2 border-[#161616] bg-[#F6F4EE] p-4 sm:p-6 shadow-[5px_5px_0px_0px_#161616] space-y-3 mt-6"
+          class="border border-[#FDB813]/40 bg-[#8B140B]/90 p-4 sm:p-6 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] space-y-3 mt-6 backdrop-blur-xs"
         >
           <div
-            class="border-2 border-[#161616] h-[340px] sm:h-[440px] bg-[#161616] p-2 flex items-center justify-center overflow-hidden"
+            class="border border-[#FDB813]/30 h-[340px] sm:h-[440px] bg-[#5C0D07] rounded-lg p-2 flex items-center justify-center overflow-hidden shadow-inner"
           >
             <img
               src="https://i.ibb.co/mC4H1MgK/1.jpg"
@@ -138,7 +189,7 @@ import Layout from "../layouts/Layout.astro";
             />
           </div>
           <p
-            class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-700 text-center"
+            class="font-mono text-xs font-bold uppercase tracking-wider text-[#FDB813] text-center"
           >
             Open Forum &amp; Direct Dialogue Between Filmmakers, Jury Members,
             and Delegates
@@ -148,19 +199,20 @@ import Layout from "../layouts/Layout.astro";
 
       <!-- Section 3: The Journey — Seasons 01 & 02 -->
       <section
-        class="space-y-6 text-zinc-800 text-base sm:text-lg leading-relaxed border-t-2 border-[#161616] pt-10"
+        class="space-y-6 text-zinc-100 text-base sm:text-lg leading-relaxed border-t border-[#FDB813]/30 pt-10"
       >
-        <div class="border-b-2 border-[#161616] pb-2">
+        <div class="border-b border-[#FDB813]/30 pb-2">
           <h2
-            class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]"
+            class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white font-mono"
           >
             The Journey &amp; Past Milestones
           </h2>
         </div>
 
-        <p>
-          The inaugural edition took place on <strong>30 November 2024</strong> under
-          the jury leadership of Sanath PC. The debut season immediately captured
+        <p class="font-sans leading-relaxed text-zinc-100">
+          The inaugural edition took place on <strong class="text-[#FDB813]"
+            >30 November 2024</strong
+          > under the jury leadership of Sanath PC. The debut season immediately captured
           the attention of independent filmmakers statewide, culminating in Waseem
           Ameer's <em>The Show</em> winning the inaugural Best Short Film title, Nandulal
           M receiving Best Director for <em>Kolam</em>, and Atul Raj's <em
@@ -168,18 +220,20 @@ import Layout from "../layouts/Layout.astro";
           > securing the audience-voted Best Popular Film accolade.
         </p>
 
-        <p>
-          Season 02, staged on <strong>29 November 2025</strong>, represented a
-          massive leap in scale and community participation. The edition was
-          officially inaugurated by Kerala State Film Award-winning art director
-          Ajayan Chalissery (<em>Manjummel Boys</em>), with an evaluation jury
-          chaired by acclaimed screenwriter and director Santhosh Mandoor. Out
-          of 55 statewide submissions, the top 10 films were presented inside
-          the auditorium and simultaneously broadcast outdoors via an expansive
-          LED wall setup to accommodate overflow crowds.
+        <p class="font-sans leading-relaxed text-zinc-100">
+          Season 02, staged on <strong class="text-[#FDB813]"
+            >29 November 2025</strong
+          >, represented a massive leap in scale and community participation.
+          The edition was officially inaugurated by Kerala State Film
+          Award-winning art director Ajayan Chalissery (<em>Manjummel Boys</em
+          >), with an evaluation jury chaired by acclaimed screenwriter and
+          director Santhosh Mandoor. Out of 55 statewide submissions, the top 10
+          films were presented inside the auditorium and simultaneously
+          broadcast outdoors via an expansive LED wall setup to accommodate
+          overflow crowds.
         </p>
 
-        <p>
+        <p class="font-sans leading-relaxed text-zinc-100">
           The second season also marked two major technical milestones: the
           introduction of a custom electronic voting system for the ₹10,000
           Popular Film award and the addition of the Best Cinematographer
@@ -194,10 +248,10 @@ import Layout from "../layouts/Layout.astro";
         <!-- Two-Column Photo Pair: Audience & Award Moments from Season 02 -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
           <div
-            class="border-2 border-[#161616] bg-[#F6F4EE] p-4 shadow-[4px_4px_0px_0px_#161616] space-y-2"
+            class="border border-[#FDB813]/40 bg-[#8B140B]/90 p-4 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] space-y-2 backdrop-blur-xs"
           >
             <div
-              class="border-2 border-[#161616] h-[280px] sm:h-[320px] bg-[#161616] p-1.5 flex items-center justify-center overflow-hidden"
+              class="border border-[#FDB813]/30 h-[280px] sm:h-[320px] bg-[#5C0D07] rounded-lg p-1.5 flex items-center justify-center overflow-hidden shadow-inner"
             >
               <img
                 src="https://i.ibb.co/JwZj6Tdk/4.jpg"
@@ -207,17 +261,17 @@ import Layout from "../layouts/Layout.astro";
               />
             </div>
             <p
-              class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-700 text-center"
+              class="font-mono text-xs font-bold uppercase tracking-wider text-[#FDB813] text-center"
             >
               Packed Auditorium at Season 02 Public Screenings
             </p>
           </div>
 
           <div
-            class="border-2 border-[#161616] bg-[#F6F4EE] p-4 shadow-[4px_4px_0px_0px_#161616] space-y-2"
+            class="border border-[#FDB813]/40 bg-[#8B140B]/90 p-4 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] space-y-2 backdrop-blur-xs"
           >
             <div
-              class="border-2 border-[#161616] h-[280px] sm:h-[320px] bg-[#161616] p-1.5 flex items-center justify-center overflow-hidden"
+              class="border border-[#FDB813]/30 h-[280px] sm:h-[320px] bg-[#5C0D07] rounded-lg p-1.5 flex items-center justify-center overflow-hidden shadow-inner"
             >
               <img
                 src="https://i.ibb.co/YTKSmkLj/Best-Film.jpg"
@@ -227,7 +281,7 @@ import Layout from "../layouts/Layout.astro";
               />
             </div>
             <p
-              class="font-mono text-xs font-bold uppercase tracking-wider text-zinc-700 text-center"
+              class="font-mono text-xs font-bold uppercase tracking-wider text-[#FDB813] text-center"
             >
               Best Short Film Award Presentation &mdash; Kanam (Season 02)
             </p>
@@ -237,25 +291,25 @@ import Layout from "../layouts/Layout.astro";
 
       <!-- Section 4: Looking Forward to Season 03 -->
       <section
-        class="space-y-6 text-zinc-800 text-base sm:text-lg leading-relaxed border-t-2 border-[#161616] pt-10"
+        class="space-y-6 text-zinc-100 text-base sm:text-lg leading-relaxed border-t border-[#FDB813]/30 pt-10"
       >
-        <div class="border-b-2 border-[#161616] pb-2">
+        <div class="border-b border-[#FDB813]/30 pb-2">
           <h2
-            class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]"
+            class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white font-mono"
           >
             Season 03 (2026) Directorate &amp; Vision
           </h2>
         </div>
 
-        <p>
-          Scheduled for <strong>28 November 2026</strong>, PSFF Season 03
-          expands its commitment to independent cinema. National Film
-          Award–winning filmmaker Sherry Govindan serves as the Chief Jury,
-          working alongside film critic and director Arjun K to assess
-          competitive entries.
+        <p class="font-sans leading-relaxed text-zinc-100">
+          Scheduled for <strong class="text-[#FDB813]">28 November 2026</strong
+          >, PSFF Season 03 expands its commitment to independent cinema.
+          National Film Award–winning filmmaker Sherry Govindan serves as the
+          Chief Jury, working alongside film critic and director Arjun K to
+          assess competitive entries.
         </p>
 
-        <p>
+        <p class="font-sans leading-relaxed text-zinc-100">
           The total festival endowment has been established at ₹62,500, honoring
           winners across Best Short Film (₹25,000), Best Director (₹15,000),
           Best Cinematographer (₹10,000), and Best Popular Film (₹10,000), along
@@ -266,24 +320,24 @@ import Layout from "../layouts/Layout.astro";
 
       <!-- Bottom Submission Route -->
       <div
-        class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 sm:p-10 shadow-[6px_6px_0px_0px_#D9381E] flex flex-col sm:flex-row sm:items-center justify-between gap-6"
+        class="border-2 border-black bg-[#8B140B] text-[#FDFCF7] p-8 sm:p-10 rounded-2xl shadow-[6px_6px_0px_0px_#000000] flex flex-col sm:flex-row sm:items-center justify-between gap-6"
       >
-        <div class="space-y-1">
+        <div class="space-y-1.5">
           <h3
-            class="text-xl sm:text-2xl font-black uppercase tracking-tight text-white"
+            class="text-xl sm:text-2xl font-black uppercase tracking-tight text-white font-mono"
           >
             Enter Your Work for Season 03
           </h3>
-          <p class="font-mono text-xs text-zinc-400">
-            Submissions open until 30 September 2026 &bull; Runtime under 20
-            minutes
+          <p class="font-mono text-xs text-zinc-200">
+            Submissions open until 30 September 2026 &bull; Runtime not
+            exceeding 30 minutes
           </p>
         </div>
 
         <div class="flex flex-wrap items-center gap-3">
           <a
             href="/submit"
-            class="inline-block px-6 py-3.5 text-xs font-mono font-black uppercase tracking-wider text-[#161616] bg-[#F6F4EE] hover:bg-[#D9381E] hover:text-white transition-all shadow-[3px_3px_0px_0px_#D9381E]"
+            class="inline-block px-7 py-3.5 text-xs font-mono font-black uppercase tracking-wider text-[#B31D12] bg-[#FDB813] hover:bg-white border-2 border-black rounded-lg transition-all shadow-[3px_3px_0px_0px_#000000] hover:-translate-y-0.5 cursor-pointer"
           >
             Submit Film &rarr;
           </a>

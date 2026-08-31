@@ -33,53 +33,103 @@ const standardArticles = allNews.slice(1);
 
 <Layout title="Dispatches & News | PSFF Season 03">
   <div
-    class="w-full border-b border-zinc-900 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]"
+    class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden"
   >
-    <div class="max-w-6xl mx-auto space-y-16 sm:space-y-20">
+    <!-- Background Graph Grid, Swirls & Film Perforations -->
+    <div
+      class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden"
+    >
+      <!-- Top & Bottom Film Reel Border Patterns -->
+      <div
+        class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+      <div
+        class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+
+      <!-- Golden Graph Grid Overlay -->
+      <div
+        class="absolute inset-0 opacity-10"
+        style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+      >
+      </div>
+
+      <!-- Golden Traditional Line Art & Swirl Vectors -->
+      <svg
+        class="absolute -left-20 top-20 w-[480px] h-[480px] text-[#FDB813]"
+        viewBox="0 0 400 400"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path
+          d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190"
+        ></path>
+        <circle cx="200" cy="200" r="140" stroke-dasharray="8 8"></circle>
+      </svg>
+      <svg
+        class="absolute -right-24 bottom-24 w-[480px] h-[480px] text-[#FDB813]"
+        viewBox="0 0 400 400"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path
+          d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190"
+        ></path>
+        <circle cx="200" cy="200" r="160" stroke-dasharray="6 6"></circle>
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto space-y-16 sm:space-y-20">
       <!-- Editorial Page Masthead -->
-      <header class="border-b-2 border-[#161616] pb-8 space-y-4">
+      <header class="border-b border-[#FDB813]/30 pb-8 space-y-4">
         <div
-          class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-500"
+          class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-200"
         >
-          <a href="/" class="hover:text-[#D9381E] transition-colors"
+          <a href="/" class="hover:text-[#FDB813] transition-colors"
             >&larr; Home</a
           >
           <span>&bull;</span>
-          <span class="text-[#D9381E] font-bold">Press & Bulletins</span>
+          <span class="text-[#FDB813] font-bold">Press &amp; Bulletins</span>
           <span>&bull;</span>
           <span>Season 03</span>
         </div>
 
         <h1
-          class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#161616] leading-none"
+          class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-mono leading-none drop-shadow-sm"
         >
           Festival Dispatches
         </h1>
         <p
-          class="font-mono text-sm sm:text-base text-zinc-700 max-w-3xl leading-relaxed"
+          class="font-mono text-sm sm:text-base text-zinc-200 max-w-3xl leading-relaxed"
         >
           Official announcements, schedule updates, screening rosters, and press
           releases for the 3rd Pazhassi Short Film Festival.
         </p>
       </header>
 
-      <!-- Featured Lead Story (If available) -->
+      <!-- Featured Lead Story -->
       {
         featuredArticle && (
-          <section class="space-y-4">
-            <div class="border-b-2 border-[#161616] pb-2 flex items-baseline justify-between">
-              <span class="font-mono text-xs font-bold uppercase tracking-widest text-[#D9381E]">
+          <section class="space-y-4 font-mono">
+            <div class="border-b border-[#FDB813]/30 pb-2 flex items-baseline justify-between">
+              <span class="text-xs font-bold uppercase tracking-widest text-[#FDB813]">
                 Lead Story
               </span>
-              <span class="font-mono text-xs text-zinc-500 uppercase">
+              <span class="text-xs text-zinc-200 uppercase font-medium">
                 Latest Release
               </span>
             </div>
 
-            <article class="border-2 border-[#161616] bg-[#F6F4EE] shadow-[6px_6px_0px_0px_#161616] overflow-hidden">
+            <article class="border border-[#FDB813]/40 bg-[#8B140B]/90 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] overflow-hidden backdrop-blur-xs">
               <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
                 {featuredArticle.image && (
-                  <div class="lg:col-span-7 bg-[#161616] h-[280px] sm:h-[400px] border-b-2 lg:border-b-0 lg:border-r-2 border-[#161616] p-2 flex items-center justify-center overflow-hidden">
+                  <div class="lg:col-span-7 bg-[#5C0D07] h-[280px] sm:h-[400px] border-b lg:border-b-0 lg:border-r border-[#FDB813]/30 p-2 flex items-center justify-center overflow-hidden">
                     <img
                       src={featuredArticle.image}
                       alt={featuredArticle.title}
@@ -93,32 +143,32 @@ const standardArticles = allNews.slice(1);
                   class={`${featuredArticle.image ? "lg:col-span-5" : "lg:col-span-12"} p-6 sm:p-10 flex flex-col justify-between space-y-6`}
                 >
                   <div class="space-y-4">
-                    <div class="flex items-center gap-3 font-mono text-xs text-zinc-500 uppercase">
-                      <span class="text-[#D9381E] font-bold">
+                    <div class="flex items-center gap-3 text-xs text-zinc-300 uppercase">
+                      <span class="text-[#FDB813] font-bold">
                         {featuredArticle.tag || "Bulletin"}
                       </span>
                       <span>&bull;</span>
                       <span>{featuredArticle.publishDate}</span>
                     </div>
 
-                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-[#161616] leading-tight hover:text-[#D9381E] transition-colors">
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-white font-mono leading-tight hover:text-[#FDB813] transition-colors">
                       <a href={`/news/${featuredArticle.slug}`}>
                         {featuredArticle.title}
                       </a>
                     </h2>
 
-                    <p class="font-mono text-xs sm:text-sm text-zinc-700 leading-relaxed">
+                    <p class="text-xs sm:text-sm text-zinc-200 leading-relaxed font-sans opacity-90">
                       {featuredArticle.summary}
                     </p>
                   </div>
 
-                  <div class="pt-4 border-t border-zinc-300">
+                  <div class="pt-4 border-t border-[#FDB813]/20">
                     <a
                       href={`/news/${featuredArticle.slug}`}
-                      class="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-[#161616] hover:text-[#D9381E] transition-colors"
+                      class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white hover:text-[#FDB813] transition-colors"
                     >
                       <span>Read Complete Dispatch</span>
-                      <span>&rarr;</span>
+                      <span class="font-sans text-sm">&rarr;</span>
                     </a>
                   </div>
                 </div>
@@ -131,52 +181,52 @@ const standardArticles = allNews.slice(1);
       <!-- Remaining Dispatches Grid -->
       {
         standardArticles.length > 0 && (
-          <section class="space-y-6">
-            <div class="border-b-2 border-[#161616] pb-2">
-              <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]">
+          <section class="space-y-6 font-mono">
+            <div class="border-b border-[#FDB813]/30 pb-2">
+              <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white font-mono">
                 All Announcements
               </h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
               {standardArticles.map((article) => (
-                <article class="border-2 border-[#161616] bg-[#F6F4EE] shadow-[5px_5px_0px_0px_#161616] p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                <article class="border border-[#FDB813]/40 bg-[#8B140B]/90 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] p-6 sm:p-8 flex flex-col justify-between space-y-6 backdrop-blur-xs">
                   <div class="space-y-4">
                     {article.image && (
-                      <div class="border-2 border-[#161616] h-52 bg-[#161616] p-2 flex items-center justify-center overflow-hidden mb-4">
+                      <div class="border border-[#FDB813]/30 rounded-lg h-52 bg-[#5C0D07] p-2 flex items-center justify-center overflow-hidden mb-4 shadow-inner">
                         <img
                           src={article.image}
                           alt={article.title}
-                          class="w-full h-full object-contain"
+                          class="w-full h-full object-contain rounded"
                           loading="lazy"
                         />
                       </div>
                     )}
 
-                    <div class="flex items-center gap-3 font-mono text-xs text-zinc-500 uppercase">
-                      <span class="text-[#D9381E] font-bold">
+                    <div class="flex items-center gap-3 text-xs text-zinc-300 uppercase">
+                      <span class="text-[#FDB813] font-bold">
                         {article.tag || "Update"}
                       </span>
                       <span>&bull;</span>
                       <span>{article.publishDate}</span>
                     </div>
 
-                    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#161616] leading-snug hover:text-[#D9381E] transition-colors">
+                    <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-white font-mono leading-snug hover:text-[#FDB813] transition-colors">
                       <a href={`/news/${article.slug}`}>{article.title}</a>
                     </h3>
 
-                    <p class="font-mono text-xs sm:text-sm text-zinc-700 leading-relaxed">
+                    <p class="text-xs sm:text-sm text-zinc-200 leading-relaxed font-sans opacity-90">
                       {article.summary}
                     </p>
                   </div>
 
-                  <div class="pt-4 border-t border-zinc-300">
+                  <div class="pt-4 border-t border-[#FDB813]/20">
                     <a
                       href={`/news/${article.slug}`}
-                      class="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-[#161616] hover:text-[#D9381E] transition-colors"
+                      class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-white hover:text-[#FDB813] transition-colors"
                     >
                       <span>Read Dispatch</span>
-                      <span>&rarr;</span>
+                      <span class="font-sans text-sm">&rarr;</span>
                     </a>
                   </div>
                 </article>
@@ -188,27 +238,27 @@ const standardArticles = allNews.slice(1);
 
       <!-- Media & Communications Contact -->
       <section
-        class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 sm:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6"
+        class="border-2 border-black bg-[#8B140B] text-[#FDFCF7] p-8 sm:p-10 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-[6px_6px_0px_0px_#000000] font-mono"
       >
         <div class="space-y-1">
           <span
-            class="font-mono text-xs uppercase tracking-widest text-[#D9381E] font-bold block"
+            class="text-xs uppercase tracking-widest text-[#FDB813] font-bold block"
           >
-            Media & Communications Desk
+            Media &amp; Communications Desk
           </span>
           <h3
-            class="text-xl sm:text-2xl font-black uppercase tracking-tight text-white"
+            class="text-xl sm:text-2xl font-black uppercase tracking-tight text-white font-mono"
           >
-            Press Inquiries & Information
+            Press Inquiries &amp; Information
           </h3>
-          <p class="font-mono text-xs text-zinc-400">
+          <p class="text-xs text-zinc-200">
             For press accreditation, interview requests, and official releases.
           </p>
         </div>
 
         <a
           href="/contact"
-          class="inline-block px-6 py-3 text-xs font-mono font-black uppercase tracking-wider text-[#161616] bg-[#F6F4EE] hover:bg-[#D9381E] hover:text-white transition-all shadow-[3px_3px_0px_0px_#D9381E]"
+          class="inline-block px-6 py-3 text-xs font-mono font-black uppercase tracking-wider text-[#B31D12] bg-[#FDB813] hover:bg-white rounded-lg transition-all shadow-[2px_2px_0px_0px_#000000] hover:-translate-y-0.5 cursor-pointer"
         >
           Contact Press Team &rarr;
         </a>

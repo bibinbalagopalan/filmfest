@@ -3,53 +3,81 @@
 ---
 
 <section
-  class="w-full bg-white text-zinc-950 border-b border-zinc-200 py-12 sm:py-20 px-6 sm:px-12 selection:bg-[#4338ca] selection:text-white"
+  class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-12 sm:py-20 px-6 sm:px-12 overflow-hidden selection:bg-[#FDB813] selection:text-[#B31D12]"
 >
-  <div class="max-w-6xl mx-auto">
+  <!-- Festival Golden Floral Wave & Film Perforation Patterns -->
+  <div class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden">
+    <!-- Traditional Floral Swirl Overlay Pattern -->
+    <svg
+      class="absolute -left-20 -top-24 w-[520px] h-[520px] text-[#FDB813]"
+      viewBox="0 0 400 400"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+    >
+      <path
+        d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190"
+      ></path>
+      <path d="M20 100 Q100 40 180 90 T340 80 T400 180"></path>
+      <path d="M10 320 Q90 260 170 310 T330 300 T420 380"></path>
+      <circle cx="200" cy="200" r="140" stroke-dasharray="8 8"></circle>
+      <circle cx="200" cy="200" r="180" stroke-dasharray="4 6"></circle>
+    </svg>
+
+    <!-- Top & Bottom Film Reel Border Patterns -->
+    <div
+      class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+      style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+      style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+    >
+    </div>
+
+    <!-- Golden Graph Grid Overlay -->
+    <div
+      class="absolute inset-0 opacity-10"
+      style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+    >
+    </div>
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto">
     <!-- Main Grid: Brand Lockup + Call for Entries -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-start">
-      <!-- Left 6 Columns: Festival Identity & Brand Lockup -->
+      <!-- Left 6 Columns: Official White Logo + Date + Associated Institutions -->
       <div class="lg:col-span-6 space-y-6 lg:pr-4">
         <div class="space-y-4">
-          <!-- Edition Tagline -->
-          <div class="flex items-center gap-3">
-            <span
-              class="text-7xl sm:text-8xl lg:text-9xl font-black tracking-tighter text-[#4338ca] leading-none select-none"
-            >
-              03
-            </span>
-            <div class="h-20 w-[3px] bg-zinc-900 mx-1"></div>
-            <div class="flex flex-col justify-center">
-              <span
-                class="text-xs font-mono font-bold tracking-widest uppercase text-zinc-500"
-                >Season</span
-              >
-              <span
-                class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-zinc-950 leading-none"
-                >PSFF</span
-              >
-            </div>
+          <!-- 222nd Pazhassi Day Commemoration Ribbon -->
+          <div
+            class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#FDB813] font-bold border-b border-[#FDB813]/40 pb-1"
+          >
+            <span>222nd Pazhassi Day Commemoration</span>
           </div>
 
-          <!-- Monumental Festival Title -->
-          <div class="space-y-1 pt-2">
-            <h1
-              class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-zinc-950 leading-[0.95]"
-            >
-              Pazhassi Short<br />Film Festival
-            </h1>
-            <p
-              class="text-lg sm:text-xl font-bold text-zinc-700 pt-2 font-mono tracking-tight"
-            >
-              28 November 2026 &bull; Mananthavady
-            </p>
+          <!-- White Vector Logo with High-Contrast Background Display -->
+          <div class="pt-1">
+            <img
+              src="https://i.ibb.co/0R0xXBmN/logo-2.png"
+              alt="Pazhassi Short Film Fest Season 03"
+              class="w-full max-w-[380px] sm:max-w-[420px] h-auto object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]"
+              loading="eager"
+            />
           </div>
+
+          <p
+            class="text-base sm:text-lg font-bold text-[#FDB813] font-mono tracking-tight pt-1"
+          >
+            28 November 2026 &bull; Mananthavady
+          </p>
         </div>
 
-        <!-- Association Logos with Text -->
-        <div class="pt-6 border-t border-zinc-200 space-y-3">
+        <!-- Association Logos with Text Block -->
+        <div class="pt-6 border-t border-[#FDB813]/30 space-y-3">
           <span
-            class="block text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-500"
+            class="block text-[10px] font-mono font-bold uppercase tracking-widest text-[#FDB813]"
           >
             In Association With
           </span>
@@ -57,7 +85,9 @@
           <div class="grid grid-cols-3 gap-3 sm:gap-4 pt-2 items-start">
             <!-- 1. Mananthavady Municipality -->
             <div class="flex flex-col items-center text-center space-y-2">
-              <div class="h-16 sm:h-20 w-full flex items-center justify-center">
+              <div
+                class="h-20 sm:h-24 w-full bg-white rounded-xl p-2.5 flex items-center justify-center border-2 border-[#FDB813] shadow-md"
+              >
                 <img
                   src="https://i.ibb.co/4Z0gvZ7M/Emblem-new.png"
                   alt="Mananthavady Municipality"
@@ -66,7 +96,7 @@
                 />
               </div>
               <span
-                class="text-[10px] sm:text-[11px] font-mono font-bold leading-tight text-zinc-800 uppercase"
+                class="text-[10px] sm:text-[11px] font-mono font-bold leading-tight text-white uppercase"
               >
                 Mananthavady Municipality
               </span>
@@ -74,16 +104,18 @@
 
             <!-- 2. Pazhassi Raja Smaraka Granthalayam -->
             <div class="flex flex-col items-center text-center space-y-2">
-              <div class="h-16 sm:h-20 w-full flex items-center justify-center">
+              <div
+                class="h-20 sm:h-24 w-full bg-white rounded-xl p-2 flex items-center justify-center border-2 border-[#FDB813] shadow-md"
+              >
                 <img
                   src="https://i.ibb.co/Y7WYgy12/308498146-403106168660352-4248819466489882370-n.jpg"
                   alt="Pazhassi Raja Smaraka Granthalayam"
-                  class="h-full w-auto max-w-full object-contain"
+                  class="h-full w-auto max-w-full object-contain rounded-md"
                   loading="lazy"
                 />
               </div>
               <span
-                class="text-[10px] sm:text-[11px] font-mono font-bold leading-tight text-zinc-800 uppercase"
+                class="text-[10px] sm:text-[11px] font-mono font-bold leading-tight text-white uppercase"
               >
                 Pazhassi Raja Smaraka Granthalayam
               </span>
@@ -91,16 +123,18 @@
 
             <!-- 3. Drishtidosham Chalachithravedi -->
             <div class="flex flex-col items-center text-center space-y-2">
-              <div class="h-16 sm:h-20 w-full flex items-center justify-center">
+              <div
+                class="h-20 sm:h-24 w-full bg-white rounded-xl p-2 flex items-center justify-center border-2 border-[#FDB813] shadow-md"
+              >
                 <img
                   src="https://i.ibb.co/8gND0Ktp/465973754-2789790697873483-7085224223616281315-n.jpg"
                   alt="Drishtidosham Chalachithravedi"
-                  class="h-full w-auto max-w-full object-contain"
+                  class="h-full w-auto max-w-full object-contain rounded-md"
                   loading="lazy"
                 />
               </div>
               <span
-                class="text-[10px] sm:text-[11px] font-mono font-bold leading-tight text-zinc-800 uppercase"
+                class="text-[10px] sm:text-[11px] font-mono font-bold leading-tight text-white uppercase"
               >
                 Drishtidosham Chalachithravedi
               </span>
@@ -109,75 +143,138 @@
         </div>
       </div>
 
-      <!-- Right 6 Columns: Graph Accent Banner + Submission Directive -->
-      <div class="lg:col-span-6 space-y-8">
-        <!-- Graph Paper Textured Banner -->
+      <!-- Right 6 Columns: Golden Accent Cards + Cash Prizes & Separate Guidelines -->
+      <div class="lg:col-span-6 space-y-6">
+        <!-- Entries Open Notice Banner -->
         <div
-          class="relative w-full border-2 border-[#4338ca] bg-[#f8f9ff] p-6 sm:p-8 overflow-hidden rounded-xs"
+          class="relative w-full border-2 border-[#FDB813] bg-[#8B140B] p-6 sm:p-7 rounded-xl shadow-[4px_4px_0px_0px_#000000]"
         >
-          <!-- Graph Grid Pattern -->
-          <div
-            class="absolute inset-0 opacity-20 pointer-events-none"
-            style="background-image: linear-gradient(to right, #4338ca 1px, transparent 1px), linear-gradient(to bottom, #4338ca 1px, transparent 1px); background-size: 10px 10px;"
-          >
-          </div>
-
-          <div class="relative z-10">
+          <div class="flex items-center justify-between">
             <span
-              class="text-3xl sm:text-5xl font-black tracking-tight text-[#4338ca] uppercase block font-mono"
+              class="text-2xl sm:text-4xl font-black tracking-tight text-[#FDB813] uppercase font-mono"
             >
               Entries Open Now
+            </span>
+            <span
+              class="px-2.5 py-1 bg-[#FDB813] text-[#B31D12] text-xs font-black uppercase tracking-wider font-mono rounded-sm"
+            >
+              PSFF 2026
             </span>
           </div>
         </div>
 
-        <!-- Structured Details Block -->
-        <div class="space-y-6">
+        <!-- Cash Awards Grid (English Translated) -->
+        <div
+          class="border border-[#FDB813]/40 bg-[#8B140B]/80 rounded-xl p-5 space-y-3 font-mono"
+        >
+          <span
+            class="text-[10px] font-bold text-[#FDB813] uppercase tracking-widest block border-b border-[#FDB813]/20 pb-1"
+          >
+            Awards &amp; Cash Prizes
+          </span>
+
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <div class="border-l-2 border-[#FDB813] pl-2.5 py-0.5">
+              <span class="text-zinc-300 text-[10px] uppercase block"
+                >Best Short Film</span
+              >
+              <strong class="text-white text-sm sm:text-base font-black"
+                >₹25,000 + Memento</strong
+              >
+            </div>
+            <div class="border-l-2 border-[#FDB813] pl-2.5 py-0.5">
+              <span class="text-zinc-300 text-[10px] uppercase block"
+                >Best Director</span
+              >
+              <strong class="text-white text-sm sm:text-base font-black"
+                >₹15,000 + Memento</strong
+              >
+            </div>
+            <div class="border-l-2 border-[#FDB813] pl-2.5 py-0.5">
+              <span class="text-zinc-300 text-[10px] uppercase block"
+                >Best Cinematographer</span
+              >
+              <strong class="text-white text-sm sm:text-base font-black"
+                >₹10,000 + Memento</strong
+              >
+            </div>
+            <div class="border-l-2 border-[#FDB813] pl-2.5 py-0.5">
+              <span class="text-zinc-300 text-[10px] uppercase block"
+                >Popular Short Film</span
+              >
+              <strong class="text-white text-sm sm:text-base font-black"
+                >₹10,000 + Memento</strong
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Submission Rules & Separate Criteria Blocks -->
+        <div class="space-y-4 font-mono text-xs">
           <p
-            class="text-base sm:text-lg text-zinc-800 leading-relaxed font-normal"
+            class="text-sm sm:text-base text-zinc-100 leading-relaxed font-sans"
           >
             Short films completed between <strong
-              class="text-zinc-950 font-bold">01 September 2023</strong
-            > and <strong class="text-zinc-950 font-bold">31 August 2026</strong
+              class="text-[#FDB813] font-bold">01 September 2023</strong
+            > and <strong class="text-[#FDB813] font-bold"
+              >31 August 2026</strong
             > are eligible to apply.
           </p>
 
+          <!-- Separated Structured Detail Cards -->
           <div
-            class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-5 border-t border-zinc-200"
+            class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-[#FDB813]/30"
           >
-            <div>
+            <!-- 1. Submission Deadline -->
+            <div
+              class="bg-[#8B140B]/60 p-3 rounded-lg border border-[#FDB813]/20"
+            >
               <span
-                class="block text-xs font-mono uppercase text-zinc-500 font-semibold mb-1"
-                >Entry Submission Period</span
+                class="block text-[10px] uppercase text-[#FDB813] font-bold mb-0.5"
+                >Deadline</span
               >
-              <p class="text-base font-bold text-[#4338ca]">
-                01 Sept 2026 &mdash; 30 Sept 2026
+              <p class="text-xs sm:text-sm font-bold text-white">
+                30 Sept 2026
               </p>
             </div>
 
-            <div>
+            <!-- 2. Run Time -->
+            <div
+              class="bg-[#8B140B]/60 p-3 rounded-lg border border-[#FDB813]/20"
+            >
               <span
-                class="block text-xs font-mono uppercase text-zinc-500 font-semibold mb-1"
+                class="block text-[10px] uppercase text-[#FDB813] font-bold mb-0.5"
                 >Total Run Time</span
               >
-              <p class="text-base font-bold text-zinc-950">
-                Not Exceeding 30 Minutes
+              <p class="text-xs sm:text-sm font-bold text-white">Max 30 Mins</p>
+            </div>
+
+            <!-- 3. Entry Registration Fee -->
+            <div
+              class="bg-[#8B140B]/60 p-3 rounded-lg border border-[#FDB813]/20"
+            >
+              <span
+                class="block text-[10px] uppercase text-[#FDB813] font-bold mb-0.5"
+                >Registration Fee</span
+              >
+              <p class="text-xs sm:text-sm font-bold text-white">
+                ₹1,000 (Per Film)
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Action Bar -->
+        <!-- Action CTA Buttons -->
         <div class="pt-2 flex flex-wrap items-center gap-4">
           <a
             href="/submit"
-            class="inline-flex items-center justify-center px-8 py-4 bg-[#4338ca] hover:bg-[#3730a3] text-white text-sm font-bold tracking-wide uppercase transition-colors duration-150 shadow-md"
+            class="inline-flex items-center justify-center px-8 py-4 bg-[#FDB813] hover:bg-[#e5a50b] text-[#B31D12] text-xs sm:text-sm font-black tracking-wider uppercase transition-all shadow-[4px_4px_0px_0px_#000000] hover:-translate-y-0.5 cursor-pointer font-mono"
           >
-            Submit Your Entry
+            Submit Your Entry &rarr;
           </a>
           <a
             href="/rules"
-            class="inline-flex items-center justify-center px-6 py-4 border border-zinc-300 hover:border-zinc-950 text-zinc-800 hover:text-zinc-950 text-sm font-semibold transition-colors"
+            class="inline-flex items-center justify-center px-6 py-4 border-2 border-[#FDB813] text-white hover:bg-[#FDB813] hover:text-[#B31D12] text-xs sm:text-sm font-bold uppercase transition-colors font-mono"
           >
             Full Guidelines
           </a>

@@ -31,76 +31,102 @@ const { frontmatter, Content } = Astro.props;
 
 <Layout title={`${frontmatter.title} | PSFF 2026`}>
   <main
-    class="w-full bg-white text-zinc-950 border-b border-zinc-200 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#4338ca] selection:text-white"
+    class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-12 sm:py-20 px-4 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden"
   >
-    <div class="max-w-4xl mx-auto space-y-10 sm:space-y-12">
-      <!-- Back Button -->
+    <!-- Background Frame Accents -->
+    <div
+      class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden"
+    >
+      <div
+        class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+      <div
+        class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+      <div
+        class="absolute inset-0 opacity-10"
+        style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+      >
+      </div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto space-y-6">
+      <!-- Back Link -->
       <div>
         <a
-          href="/"
-          class="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-zinc-500 hover:text-zinc-950 transition-colors"
+          href="/news"
+          class="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-[#FDB813] hover:text-white transition-colors"
         >
           <span>&larr;</span>
-          <span>Back to Overview</span>
+          <span>Back to All Dispatches</span>
         </a>
       </div>
 
-      <!-- Headline & Meta -->
-      <header class="border-b-2 border-zinc-950 pb-6 space-y-4">
-        <div
-          class="flex items-center gap-3 font-mono text-xs text-zinc-500 uppercase tracking-widest"
-        >
-          <span class="text-[#4338ca] font-bold"
-            >{frontmatter.tag || "Dispatch"}</span
+      <!-- High-Contrast Reading Container -->
+      <article
+        class="bg-[#FDFCF7] text-[#18181B] border-2 border-black rounded-2xl p-6 sm:p-12 md:p-16 shadow-[6px_6px_0px_0px_#000000] space-y-8"
+      >
+        <!-- Header & Meta -->
+        <header class="border-b-2 border-black pb-6 space-y-3">
+          <div
+            class="flex items-center gap-3 font-mono text-xs text-zinc-600 uppercase tracking-widest"
           >
-          <span>&bull;</span>
-          <span>{frontmatter.publishDate}</span>
-          <span>&bull;</span>
-          <span>Season 03</span>
+            <span class="text-[#B31D12] font-black"
+              >{frontmatter.tag || "Dispatch"}</span
+            >
+            <span>&bull;</span>
+            <span>{frontmatter.publishDate}</span>
+            <span>&bull;</span>
+            <span>Season 03</span>
+          </div>
+
+          <h1
+            class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#18181B] font-mono leading-[1.1]"
+          >
+            {frontmatter.title}
+          </h1>
+        </header>
+
+        <!-- Featured Media Container -->
+        {
+          frontmatter.image && (
+            <div class="w-full bg-[#18181B] border-2 border-black rounded-xl overflow-hidden shadow-inner flex items-center justify-center p-2 max-h-[480px]">
+              <img
+                src={frontmatter.image}
+                alt={frontmatter.title}
+                class="w-full h-auto max-h-[460px] object-contain rounded-lg"
+              />
+            </div>
+          )
+        }
+
+        <!-- Typography Body -->
+        <div
+          class="max-w-none text-[#27272A] text-base sm:text-lg leading-relaxed font-serif space-y-6 [&>p]:leading-relaxed [&>p]:mb-6 [&>strong]:text-[#18181B] [&>strong]:font-bold [&>h2]:text-2xl [&>h2]:font-black [&>h2]:uppercase [&>h2]:tracking-tight [&>h2]:text-[#18181B] [&>h2]:font-mono [&>h2]:mt-8 [&>h2]:mb-3 [&>h2]:border-b-2 [&>h2]:border-zinc-200 [&>h2]:pb-2 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:space-y-2 [&>ul]:text-zinc-800"
+        >
+          <Content />
         </div>
 
-        <h1
-          class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950 leading-[1.05]"
+        <!-- Article Footer -->
+        <footer
+          class="pt-8 border-t-2 border-black/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs"
         >
-          {frontmatter.title}
-        </h1>
-      </header>
-
-      <!-- Featured Image Container -->
-      {
-        frontmatter.image && (
-          <div class="relative border-2 border-zinc-950 aspect-[16/9] bg-zinc-100 overflow-hidden shadow-[6px_6px_0px_0px_#18181b]">
-            <img
-              src={frontmatter.image}
-              alt={frontmatter.title}
-              class="w-full h-full object-cover"
-            />
-          </div>
-        )
-      }
-
-      <!-- Body Copy -->
-      <article
-        class="max-w-3xl space-y-6 text-base sm:text-lg text-zinc-800 leading-relaxed font-normal [&>p]:leading-relaxed [&>p]:mb-6 [&>strong]:text-zinc-950 [&>strong]:font-bold [&>h2]:text-2xl [&>h2]:font-black [&>h2]:uppercase [&>h2]:tracking-tight [&>h2]:text-zinc-950 [&>h2]:mt-10 [&>h2]:mb-4 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:space-y-2"
-      >
-        <Content />
+          <span class="uppercase tracking-wider text-zinc-500">
+            Pazhassi Short Film Festival &bull; Mananthavady
+          </span>
+          <a
+            href="/"
+            class="inline-flex items-center gap-1.5 font-bold uppercase tracking-wider text-[#B31D12] hover:text-black underline underline-offset-4 transition-colors"
+          >
+            <span>Return to Homepage</span>
+            <span class="font-sans text-sm">&rarr;</span>
+          </a>
+        </footer>
       </article>
-
-      <!-- Bottom Nav -->
-      <div
-        class="pt-10 border-t border-zinc-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-      >
-        <span class="font-mono text-xs uppercase tracking-wider text-zinc-400">
-          Pazhassi Short Film Festival &bull; Mananthavady
-        </span>
-        <a
-          href="/"
-          class="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#4338ca] hover:text-zinc-950 underline underline-offset-4 transition-colors"
-        >
-          <span>Return to Homepage</span>
-          <span>&rarr;</span>
-        </a>
-      </div>
     </div>
   </main>
 </Layout>

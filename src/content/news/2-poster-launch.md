@@ -3,7 +3,7 @@ title: "PSFF Season 03 Official Festival Poster Unveiled"
 publishDate: "2026-08-20"
 tag: "Announcement"
 order: 2
-image: "https://i.ibb.co/27KQwjb3/Whats-App-Image-2026-08-12-at-12-43-28-PM.jpg"
+image: "https://i.ibb.co/TDvJV0s5/Whats-App-Image-2026-08-31-at-6-51-50-PM.jpg"
 summary: "Organisers have officially revealed the Season 03 festival poster, celebrating independent cinema across Wayanad with high-contrast print typography."
 ---
 

@@ -73,83 +73,126 @@ const inquiryTypes = [
 
 <Layout title="Contact & Helpdesk | PSFF Season 03">
   <div
-    class="w-full border-b border-zinc-900 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]"
+    class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-16 sm:py-24 px-4 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden"
   >
-    <div class="max-w-6xl mx-auto space-y-16 sm:space-y-20">
+    <!-- Background Frame Accents -->
+    <div
+      class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden"
+    >
+      <div
+        class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+      <div
+        class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+      <div
+        class="absolute inset-0 opacity-10"
+        style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+      >
+      </div>
+      <svg
+        class="absolute -left-20 top-20 w-[480px] h-[480px] text-[#FDB813]"
+        viewBox="0 0 400 400"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path
+          d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190"
+        ></path>
+        <circle cx="200" cy="200" r="140" stroke-dasharray="8 8"></circle>
+      </svg>
+      <svg
+        class="absolute -right-24 bottom-24 w-[480px] h-[480px] text-[#FDB813]"
+        viewBox="0 0 400 400"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path
+          d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190"
+        ></path>
+        <circle cx="200" cy="200" r="160" stroke-dasharray="6 6"></circle>
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto space-y-16 sm:space-y-20">
       <!-- Page Header -->
-      <header class="border-b-2 border-[#161616] pb-8 space-y-4">
+      <header class="border-b border-[#FDB813]/30 pb-8 space-y-4">
         <div
-          class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-500"
+          class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-200"
         >
-          <a href="/" class="hover:text-[#D9381E] transition-colors"
+          <a href="/" class="hover:text-[#FDB813] transition-colors"
             >&larr; Home</a
           >
           <span>&bull;</span>
-          <span class="text-[#D9381E] font-bold">Helpdesk</span>
+          <span class="text-[#FDB813] font-bold">Helpdesk</span>
           <span>&bull;</span>
           <span>Season 03</span>
         </div>
 
         <h1
-          class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#161616] leading-none"
+          class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-mono leading-none drop-shadow-sm"
         >
           Contact
         </h1>
         <p
-          class="font-mono text-sm sm:text-base text-zinc-700 max-w-3xl leading-relaxed"
+          class="font-mono text-sm sm:text-base text-zinc-200 max-w-3xl leading-relaxed"
         >
           Official contact points for film submissions, delegate passes, press
           accreditation, and festival management.
         </p>
       </header>
 
-      <!-- Section 1: Departmental Email Channels -->
+      <!-- Section 1: Departmental Email Channels (High Contrast) -->
       <section class="space-y-6">
         <div
-          class="border-b-2 border-[#161616] pb-3 flex items-baseline justify-between"
+          class="border-b border-[#FDB813]/30 pb-3 flex items-baseline justify-between"
         >
           <h2
-            class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]"
+            class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white font-mono"
           >
             Official Email Channels
           </h2>
-          <span class="font-mono text-xs uppercase text-zinc-500 font-bold">
+          <span class="font-mono text-xs uppercase text-[#FDB813] font-bold">
             Direct Desks
           </span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono">
           {
             emailChannels.map((channel) => (
               <div
-                class={`border-2 border-[#161616] p-6 shadow-[5px_5px_0px_0px_#161616] space-y-2 flex flex-col justify-between ${
+                class={`border-2 border-black rounded-2xl p-6 shadow-[6px_6px_0px_0px_#000000] space-y-3 flex flex-col justify-between hover:-translate-y-1 transition-all ${
                   channel.primary
-                    ? "bg-[#161616] text-[#F6F4EE] shadow-[5px_5px_0px_0px_#D9381E]"
-                    : "bg-[#F6F4EE] text-[#161616]"
+                    ? "bg-[#FDB813] text-[#18181B]"
+                    : "bg-[#FDFCF7] text-[#18181B]"
                 }`}
               >
                 <div class="space-y-1.5">
                   <span
-                    class={`font-mono text-[11px] uppercase tracking-widest font-bold block ${
-                      channel.primary ? "text-[#D9381E]" : "text-zinc-500"
+                    class={`text-[11px] uppercase tracking-widest font-black block ${
+                      channel.primary ? "text-[#B31D12]" : "text-[#B31D12]"
                     }`}
                   >
                     {channel.role}
                   </span>
                   <a
                     href={`mailto:${channel.email}`}
-                    class={`text-xl sm:text-2xl font-mono font-black tracking-tight block hover:text-[#D9381E] transition-colors ${
-                      channel.primary ? "text-white" : "text-[#161616]"
-                    }`}
+                    class="text-xl sm:text-2xl font-black tracking-tight block hover:underline transition-all"
                   >
                     {channel.email}
                   </a>
                 </div>
                 <p
-                  class={`font-mono text-xs pt-2 border-t ${
+                  class={`text-xs pt-3 border-t-2 font-sans ${
                     channel.primary
-                      ? "border-zinc-800 text-zinc-400"
-                      : "border-zinc-300 text-zinc-700"
+                      ? "border-black/15 text-zinc-900"
+                      : "border-black/10 text-zinc-700"
                   }`}
                 >
                   {channel.desc}
@@ -163,34 +206,34 @@ const inquiryTypes = [
       <!-- Section 2: Designated Contact Directory & Form -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <!-- Left: Key Officials & Secretariat Address -->
-        <div class="lg:col-span-6 space-y-6">
+        <div class="lg:col-span-6 space-y-6 font-mono">
           <!-- Key Officials Phone List -->
           <div
-            class="border-2 border-[#161616] bg-[#F6F4EE] p-6 sm:p-8 shadow-[5px_5px_0px_0px_#161616] space-y-6"
+            class="bg-[#FDFCF7] text-[#18181B] border-2 border-black rounded-2xl p-6 sm:p-8 shadow-[6px_6px_0px_0px_#000000] space-y-6"
           >
-            <div class="border-b border-zinc-300 pb-2">
+            <div class="border-b-2 border-black/10 pb-3">
               <span
-                class="font-mono text-xs font-bold uppercase tracking-widest text-[#D9381E]"
+                class="text-xs font-black uppercase tracking-widest text-[#B31D12]"
               >
                 Direct Contacts &amp; Helplines
               </span>
             </div>
 
-            <div class="divide-y divide-zinc-300 space-y-4 font-mono">
+            <div class="divide-y-2 divide-black/10 space-y-4">
               {
                 phoneNumbers.map((phone, idx) => (
                   <div class={idx > 0 ? "pt-4 space-y-1" : "space-y-1"}>
                     <div class="flex items-baseline justify-between gap-2">
-                      <h3 class="text-base font-black text-[#161616] uppercase">
+                      <h3 class="text-base font-black text-[#18181B] uppercase font-mono">
                         {phone.name}
                       </h3>
                     </div>
-                    <span class="block text-[11px] uppercase tracking-wider text-zinc-500 font-bold">
+                    <span class="block text-[11px] uppercase tracking-wider text-zinc-600 font-bold">
                       {phone.role}
                     </span>
                     <a
                       href={`tel:${phone.raw}`}
-                      class="text-base font-black text-[#161616] hover:text-[#D9381E] transition-colors inline-block pt-0.5"
+                      class="text-base font-black text-[#B31D12] hover:text-black transition-colors inline-block pt-0.5"
                     >
                       {phone.number}
                     </a>
@@ -202,23 +245,25 @@ const inquiryTypes = [
 
           <!-- Festival Secretariat Postal Address -->
           <div
-            class="border-2 border-[#161616] bg-[#F6F4EE] p-6 sm:p-8 shadow-[5px_5px_0px_0px_#161616] space-y-4"
+            class="bg-[#FDFCF7] text-[#18181B] border-2 border-black rounded-2xl p-6 sm:p-8 shadow-[6px_6px_0px_0px_#000000] space-y-4"
           >
-            <div class="border-b border-zinc-300 pb-2">
+            <div class="border-b-2 border-black/10 pb-2">
               <span
-                class="font-mono text-xs font-bold uppercase tracking-widest text-[#D9381E]"
+                class="text-xs font-black uppercase tracking-widest text-[#B31D12]"
               >
                 Write to Us
               </span>
             </div>
 
             <div
-              class="font-mono text-xs sm:text-sm text-zinc-800 space-y-1 leading-relaxed"
+              class="text-xs sm:text-sm text-zinc-800 space-y-1 leading-relaxed font-sans"
             >
-              <p class="font-black text-[#161616] text-sm sm:text-base">
+              <p
+                class="font-black text-[#18181B] text-sm sm:text-base font-mono"
+              >
                 Festival Director
               </p>
-              <p class="font-bold">
+              <p class="font-bold text-[#18181B]">
                 Pazhassi Short Film Festival (PSFF Season 03)
               </p>
               <p>Pazhassi Raja Smaraka Granthalayam</p>
@@ -230,16 +275,17 @@ const inquiryTypes = [
 
         <!-- Right: Message Form -->
         <div
-          class="lg:col-span-6 border-2 border-[#161616] bg-[#F6F4EE] p-6 sm:p-8 shadow-[6px_6px_0px_0px_#161616] space-y-6"
+          class="lg:col-span-6 bg-[#FDFCF7] text-[#18181B] border-2 border-black rounded-2xl p-6 sm:p-8 shadow-[6px_6px_0px_0px_#000000] space-y-6 font-mono"
         >
-          <div class="border-b border-zinc-300 pb-3">
+          <div class="border-b-2 border-black/10 pb-3">
             <h2
-              class="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#161616]"
+              class="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#18181B] font-mono"
             >
               Send a Direct Message
             </h2>
-            <p class="font-mono text-xs text-zinc-600 mt-1">
-              Submit your query and the help desk will respond directly.
+            <p class="text-xs text-zinc-600 mt-1 font-sans">
+              Submit your query and the help desk will respond directly.[cite:
+              14]
             </p>
           </div>
 
@@ -247,12 +293,12 @@ const inquiryTypes = [
             action="mailto:help@psff.in"
             method="POST"
             enctype="text/plain"
-            class="space-y-4 font-mono text-xs"
+            class="space-y-4 text-xs"
           >
             <div class="space-y-1.5">
               <label
                 for="name"
-                class="block font-bold uppercase tracking-wider text-[#161616]"
+                class="block font-bold uppercase tracking-wider text-[#18181B]"
               >
                 Full Name *
               </label>
@@ -262,7 +308,7 @@ const inquiryTypes = [
                 name="name"
                 required
                 placeholder="Enter your name"
-                class="w-full bg-white border-2 border-[#161616] p-3 text-xs text-[#161616] focus:outline-none focus:border-[#D9381E]"
+                class="w-full bg-white border-2 border-black rounded-lg p-3 text-xs text-[#18181B] focus:outline-none focus:border-[#B31D12]"
               />
             </div>
 
@@ -270,7 +316,7 @@ const inquiryTypes = [
               <div class="space-y-1.5">
                 <label
                   for="email"
-                  class="block font-bold uppercase tracking-wider text-[#161616]"
+                  class="block font-bold uppercase tracking-wider text-[#18181B]"
                 >
                   Email Address *
                 </label>
@@ -280,14 +326,14 @@ const inquiryTypes = [
                   name="email"
                   required
                   placeholder="name@example.com"
-                  class="w-full bg-white border-2 border-[#161616] p-3 text-xs text-[#161616] focus:outline-none focus:border-[#D9381E]"
+                  class="w-full bg-white border-2 border-black rounded-lg p-3 text-xs text-[#18181B] focus:outline-none focus:border-[#B31D12]"
                 />
               </div>
 
               <div class="space-y-1.5">
                 <label
                   for="phone"
-                  class="block font-bold uppercase tracking-wider text-[#161616]"
+                  class="block font-bold uppercase tracking-wider text-[#18181B]"
                 >
                   Contact Number
                 </label>
@@ -296,7 +342,7 @@ const inquiryTypes = [
                   id="phone"
                   name="phone"
                   placeholder="+91 00000 00000"
-                  class="w-full bg-white border-2 border-[#161616] p-3 text-xs text-[#161616] focus:outline-none focus:border-[#D9381E]"
+                  class="w-full bg-white border-2 border-black rounded-lg p-3 text-xs text-[#18181B] focus:outline-none focus:border-[#B31D12]"
                 />
               </div>
             </div>
@@ -304,7 +350,7 @@ const inquiryTypes = [
             <div class="space-y-1.5">
               <label
                 for="subject"
-                class="block font-bold uppercase tracking-wider text-[#161616]"
+                class="block font-bold uppercase tracking-wider text-[#18181B]"
               >
                 Department / Inquiry Type *
               </label>
@@ -312,11 +358,11 @@ const inquiryTypes = [
                 id="subject"
                 name="subject"
                 required
-                class="w-full bg-white border-2 border-[#161616] p-3 text-xs text-[#161616] focus:outline-none focus:border-[#D9381E]"
+                class="w-full bg-white border-2 border-black rounded-lg p-3 text-xs text-[#18181B] focus:outline-none focus:border-[#B31D12]"
               >
                 {
                   inquiryTypes.map((type) => (
-                    <option value={type}>{type}</option>
+                    <option value={type}>{type} </option>
                   ))
                 }
               </select>
@@ -325,7 +371,7 @@ const inquiryTypes = [
             <div class="space-y-1.5">
               <label
                 for="message"
-                class="block font-bold uppercase tracking-wider text-[#161616]"
+                class="block font-bold uppercase tracking-wider text-[#18181B]"
               >
                 Your Message *
               </label>
@@ -335,13 +381,13 @@ const inquiryTypes = [
                 rows="5"
                 required
                 placeholder="Please describe your query in detail..."
-                class="w-full bg-white border-2 border-[#161616] p-3 text-xs text-[#161616] focus:outline-none focus:border-[#D9381E]"
+                class="w-full bg-white border-2 border-black rounded-lg p-3 text-xs text-[#18181B] focus:outline-none focus:border-[#B31D12]"
               ></textarea>
             </div>
 
             <button
               type="submit"
-              class="w-full py-4 text-xs font-mono font-black uppercase tracking-widest text-[#F6F4EE] bg-[#161616] border-2 border-[#161616] shadow-[3px_3px_0px_0px_#D9381E] hover:bg-[#D9381E] hover:border-[#D9381E] hover:text-white transition-all cursor-pointer"
+              class="w-full py-4 text-xs font-mono font-black uppercase tracking-widest text-[#FDFCF7] bg-[#B31D12] hover:bg-black border-2 border-black rounded-lg shadow-[3px_3px_0px_0px_#000000] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
             >
               Submit &rarr;
             </button>
@@ -351,21 +397,21 @@ const inquiryTypes = [
 
       <!-- Quick Navigation Footer -->
       <div
-        class="border-t-2 border-[#161616] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs"
+        class="border-t border-[#FDB813]/30 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs"
       >
         <a
           href="/venue"
-          class="font-bold uppercase tracking-wider text-[#161616] hover:text-[#D9381E] transition-colors"
+          class="font-bold uppercase tracking-wider text-zinc-200 hover:text-[#FDB813] transition-colors"
         >
           &larr; View Venue &amp; Travel Guide
         </a>
 
         <a
           href="/submit"
-          class="inline-flex items-center gap-2 px-6 py-3 font-black uppercase tracking-widest text-[#F6F4EE] bg-[#161616] shadow-[3px_3px_0px_0px_#D9381E] hover:bg-[#D9381E] transition-all"
+          class="inline-flex items-center gap-2 px-6 py-3 font-black uppercase tracking-widest text-[#B31D12] bg-[#FDB813] hover:bg-white rounded-lg shadow-[2px_2px_0px_0px_#000000] hover:-translate-y-0.5 transition-all cursor-pointer"
         >
           <span>Submit Film to Season 03</span>
-          <span>&rarr;</span>
+          <span>&rarr; </span>
         </a>
       </div>
     </div>

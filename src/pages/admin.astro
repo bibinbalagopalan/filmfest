@@ -14,65 +14,102 @@ import Layout from "../layouts/Layout.astro";
   </style>
 
   <div
-    class="w-full min-h-screen bg-[#F6F4EE] font-mono text-[#161616] p-4 sm:p-8 selection:bg-[#D9381E] selection:text-[#F6F4EE]"
+    class="relative w-full min-h-screen bg-[#B31D12] text-[#FDFCF7] font-mono p-4 sm:p-8 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden"
   >
+    <!-- Background Frame Accents & Swirl Patterns -->
+    <div
+      class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden"
+    >
+      <div
+        class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+      <div
+        class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+      <div
+        class="absolute inset-0 opacity-10"
+        style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+      >
+      </div>
+    </div>
+
     <!-- 1. LOGIN SCREEN -->
     <div
       id="login-view"
-      class="max-w-md mx-auto my-20 bg-white border-2 border-[#161616] p-6 sm:p-8 shadow-[6px_6px_0px_0px_#161616] space-y-6"
+      class="relative z-10 max-w-md mx-auto my-16 bg-[#FDFCF7] text-[#18181B] border-2 border-black p-6 sm:p-8 rounded-2xl shadow-[6px_6px_0px_0px_#000000] space-y-6"
     >
-      <div class="border-b-2 border-[#161616] pb-4">
-        <span
-          class="text-[10px] font-black uppercase text-[#D9381E] tracking-widest"
-          >PSFF Season 03</span
+      <div
+        class="border-b-2 border-black/10 pb-4 flex items-center justify-between gap-4"
+      >
+        <div>
+          <span
+            class="text-[10px] font-black uppercase text-[#B31D12] tracking-widest block"
+            >PSFF Season 03</span
+          >
+          <h1
+            class="text-2xl font-black uppercase tracking-tight text-[#18181B] mt-0.5"
+          >
+            Control Panel
+          </h1>
+          <p class="text-xs text-zinc-600 font-sans mt-0.5">
+            Sign in with convener credentials.
+          </p>
+        </div>
+        <!-- High-Contrast Crimson Shield Badge for White Logo Visibility -->
+        <div
+          class="h-12 w-12 bg-[#B31D12] border-2 border-black rounded-xl p-1 flex items-center justify-center shadow-sm shrink-0"
         >
-        <h1
-          class="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#161616] mt-1"
-        >
-          Login
-        </h1>
-        <p class="text-xs text-zinc-600 mt-1">Sign in with your credentials.</p>
+          <img
+            src="https://i.ibb.co/0R0xXBmN/logo-2.png"
+            alt="PSFF Logo"
+            class="h-full w-auto object-contain"
+          />
+        </div>
       </div>
 
       <form id="login-form" class="space-y-4 text-xs">
         <div class="space-y-1.5">
           <label
             for="admin-email"
-            class="block font-bold uppercase tracking-wider"
-            >Email Address</label
-          >
+            class="block font-bold uppercase tracking-wider text-[#18181B]"
+            >Email Address
+          </label>
           <input
             type="email"
             id="admin-email"
             required
             autocomplete="email"
-            placeholder="Email ID"
-            class="w-full bg-[#F6F4EE] border-2 border-[#161616] p-2.5 focus:outline-none focus:border-[#D9381E]"
+            class="w-full bg-white border-2 border-black rounded-lg p-2.5 text-[#18181B] focus:outline-none focus:border-[#B31D12]"
           />
         </div>
         <div class="space-y-1.5">
           <label
             for="admin-password"
-            class="block font-bold uppercase tracking-wider">Password</label
-          >
+            class="block font-bold uppercase tracking-wider text-[#18181B]"
+            >Password
+          </label>
           <input
             type="password"
             id="admin-password"
             required
             autocomplete="current-password"
             placeholder="••••••••"
-            class="w-full bg-[#F6F4EE] border-2 border-[#161616] p-2.5 focus:outline-none focus:border-[#D9381E]"
+            class="w-full bg-white border-2 border-black rounded-lg p-2.5 text-[#18181B] focus:outline-none focus:border-[#B31D12]"
           />
         </div>
         <div
           id="login-error"
-          class="hidden p-3 bg-red-100 border border-[#D9381E] text-[#D9381E] font-bold text-[11px]"
+          class="hidden p-3 bg-red-100 border border-[#B31D12] text-[#B31D12] font-bold text-[11px] rounded-lg"
         >
         </div>
         <button
           type="submit"
           id="login-btn"
-          class="w-full py-3 font-black uppercase tracking-widest text-[#F6F4EE] bg-[#161616] border-2 border-[#161616] hover:bg-[#D9381E] hover:border-[#D9381E] transition-colors cursor-pointer shadow-[3px_3px_0px_0px_#D9381E]"
+          class="w-full py-3 font-black uppercase tracking-widest text-[#FDFCF7] bg-[#B31D12] border-2 border-black rounded-lg hover:bg-black transition-colors cursor-pointer shadow-[3px_3px_0px_0px_#000000]"
         >
           Authenticate &rarr;
         </button>
@@ -80,66 +117,82 @@ import Layout from "../layouts/Layout.astro";
     </div>
 
     <!-- 2. CONVENER MASTER DASHBOARD -->
-    <div id="dashboard-view" class="hidden max-w-full mx-auto space-y-6">
+    <div
+      id="dashboard-view"
+      class="relative z-10 hidden max-w-full mx-auto space-y-6"
+    >
       <!-- Top Navigation Header -->
       <header
-        class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-[#161616] pb-4 bg-white p-4 sm:p-6 border-2 shadow-[4px_4px_0px_0px_#161616]"
+        class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-2 border-black rounded-2xl pb-4 bg-[#FDFCF7] text-[#18181B] p-4 sm:p-6 shadow-[6px_6px_0px_0px_#000000]"
       >
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"
-            ></span>
-            <span class="text-[10px] font-bold uppercase text-zinc-500"
-              >PSFF Season 03</span
-            >
-          </div>
-          <h1
-            class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616] mt-0.5"
+        <div class="flex items-center gap-4">
+          <!-- High-Contrast Crimson Shield Badge for White Logo Visibility -->
+          <div
+            class="h-12 w-12 bg-[#B31D12] border-2 border-black rounded-xl p-1 flex items-center justify-center shadow-sm shrink-0"
           >
-            Control Panel
-          </h1>
+            <img
+              src="https://i.ibb.co/0R0xXBmN/logo-2.png"
+              alt="PSFF Logo"
+              class="h-full w-auto object-contain"
+            />
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span
+                class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"
+              ></span>
+              <span class="text-[10px] font-bold uppercase text-[#B31D12]"
+                >PSFF Season 03</span
+              >
+            </div>
+            <h1
+              class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#18181B] mt-0.5"
+            >
+              Control Panel
+            </h1>
+          </div>
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
           <!-- Primary Module Tabs -->
           <div
-            class="flex border-2 border-[#161616] p-0.5 bg-[#F6F4EE] overflow-x-auto"
+            class="flex border-2 border-black p-0.5 bg-zinc-100 rounded-lg overflow-x-auto"
           >
             <button
               type="button"
               data-tab="tab-submissions"
-              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase bg-[#161616] text-white"
-              >1. Submissions</button
-            >
+              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase bg-[#B31D12] text-white rounded-md"
+              >1. Submissions
+            </button>
             <button
               type="button"
               data-tab="tab-jury"
-              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#161616] hover:bg-zinc-200"
-              >2. Jury Roster</button
-            >
+              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md"
+              >2. Jury Roster
+            </button>
             <button
               type="button"
               data-tab="tab-progress"
-              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#161616] hover:bg-zinc-200"
-              >3. Progress Grid</button
-            >
+              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md"
+              >3. Progress Grid
+            </button>
             <button
               type="button"
               data-tab="tab-matrix"
-              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#161616] hover:bg-zinc-200"
-              >4. Score Matrix</button
-            >
+              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md"
+              >4. Score Matrix
+            </button>
             <button
               type="button"
               data-tab="tab-leaderboard"
-              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#161616] hover:bg-zinc-200 bg-amber-200/50"
-              >5. Shortlist</button
-            >
+              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md bg-[#FDB813]/40"
+              >5. Shortlist
+            </button>
           </div>
           <button
             type="button"
             id="logout-btn"
-            class="px-3 py-2 text-[11px] font-bold uppercase tracking-wider bg-[#D9381E] text-white border-2 border-[#161616] hover:bg-black transition-colors cursor-pointer"
+            class="px-3 py-2 text-[11px] font-black uppercase tracking-wider bg-[#B31D12] text-white border-2 border-black rounded-lg hover:bg-black transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000]"
           >
             Sign Out
           </button>
@@ -151,24 +204,24 @@ import Layout from "../layouts/Layout.astro";
         <!-- Metrics Bar -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <div
-            class="bg-white border-2 border-[#161616] p-4 shadow-[3px_3px_0px_0px_#161616]"
+            class="bg-[#FDFCF7] border-2 border-black p-4 rounded-xl shadow-[4px_4px_0px_0px_#000000] text-[#18181B]"
           >
-            <span class="text-[10px] uppercase font-bold text-zinc-500"
-              >Total Registered</span
-            >
+            <span class="text-[10px] uppercase font-bold text-zinc-600"
+              >Total Registered
+            </span>
             <div
               id="stat-total"
-              class="text-2xl sm:text-3xl font-black text-[#161616] mt-1"
+              class="text-2xl sm:text-3xl font-black text-[#18181B] mt-1"
             >
               0
             </div>
           </div>
           <div
-            class="bg-white border-2 border-[#161616] p-4 shadow-[3px_3px_0px_0px_#161616]"
+            class="bg-[#FDFCF7] border-2 border-black p-4 rounded-xl shadow-[4px_4px_0px_0px_#000000] text-[#18181B]"
           >
             <span class="text-[10px] uppercase font-bold text-amber-600"
-              >Pending Review</span
-            >
+              >Pending Review
+            </span>
             <div
               id="stat-pending"
               class="text-2xl sm:text-3xl font-black text-amber-600 mt-1"
@@ -177,11 +230,11 @@ import Layout from "../layouts/Layout.astro";
             </div>
           </div>
           <div
-            class="bg-white border-2 border-[#161616] p-4 shadow-[3px_3px_0px_0px_#161616]"
+            class="bg-[#FDFCF7] border-2 border-black p-4 rounded-xl shadow-[4px_4px_0px_0px_#000000] text-[#18181B]"
           >
             <span class="text-[10px] uppercase font-bold text-emerald-600"
-              >Accepted (To Jury)</span
-            >
+              >Accepted (To Jury)
+            </span>
             <div
               id="stat-accepted"
               class="text-2xl sm:text-3xl font-black text-emerald-600 mt-1"
@@ -190,14 +243,14 @@ import Layout from "../layouts/Layout.astro";
             </div>
           </div>
           <div
-            class="bg-white border-2 border-[#161616] p-4 shadow-[3px_3px_0px_0px_#161616]"
+            class="bg-[#FDFCF7] border-2 border-black p-4 rounded-xl shadow-[4px_4px_0px_0px_#000000] text-[#18181B]"
           >
-            <span class="text-[10px] uppercase font-bold text-[#D9381E]"
-              >Rejected</span
-            >
+            <span class="text-[10px] uppercase font-bold text-[#B31D12]"
+              >Rejected
+            </span>
             <div
               id="stat-rejected"
-              class="text-2xl sm:text-3xl font-black text-[#D9381E] mt-1"
+              class="text-2xl sm:text-3xl font-black text-[#B31D12] mt-1"
             >
               0
             </div>
@@ -206,29 +259,29 @@ import Layout from "../layouts/Layout.astro";
 
         <!-- Search Toolbar & Import/Export Actions -->
         <div
-          class="bg-white border-2 border-[#161616] p-4 flex flex-col lg:flex-row gap-3 items-stretch lg:items-center justify-between shadow-[3px_3px_0px_0px_#161616]"
+          class="bg-[#FDFCF7] border-2 border-black p-4 rounded-xl flex flex-col lg:flex-row gap-3 items-stretch lg:items-center justify-between shadow-[4px_4px_0px_0px_#000000] text-[#18181B]"
         >
           <input
             type="text"
             id="submission-search"
             placeholder="Search across all fields: Title, Director, DoP, Producer, Writer, Cast, UTR, City..."
-            class="w-full lg:w-[480px] bg-[#F6F4EE] border-2 border-[#161616] p-2.5 text-xs focus:outline-none focus:border-[#D9381E]"
+            class="w-full lg:w-[480px] bg-white border-2 border-black rounded-lg p-2.5 text-xs focus:outline-none focus:border-[#B31D12]"
           />
           <div class="flex flex-wrap items-center gap-2">
             <select
               id="submission-filter"
-              class="bg-[#F6F4EE] border-2 border-[#161616] p-2.5 text-xs font-bold uppercase focus:outline-none focus:border-[#D9381E]"
+              class="bg-white border-2 border-black rounded-lg p-2.5 text-xs font-bold uppercase focus:outline-none focus:border-[#B31D12]"
             >
-              <option value="ALL">All Statuses</option>
-              <option value="Pending">Pending</option>
-              <option value="Accepted">Accepted</option>
-              <option value="Rejected">Rejected</option>
+              <option value="ALL">All Statuses </option>
+              <option value="Pending">Pending </option>
+              <option value="Accepted">Accepted </option>
+              <option value="Rejected">Rejected </option>
             </select>
 
             <!-- Import CSV / JSON Trigger -->
             <label
               for="import-submissions-file"
-              class="px-3 py-2.5 bg-zinc-200 text-[#161616] border-2 border-[#161616] text-xs font-bold uppercase hover:bg-zinc-300 transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#161616] flex items-center gap-1.5"
+              class="px-3 py-2.5 bg-zinc-200 text-[#18181B] border-2 border-black rounded-lg text-xs font-bold uppercase hover:bg-zinc-300 transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000] flex items-center gap-1.5"
             >
               <span>📥</span> Import (CSV/JSON)
             </label>
@@ -243,7 +296,7 @@ import Layout from "../layouts/Layout.astro";
             <button
               type="button"
               id="export-submissions-csv"
-              class="px-3 py-2.5 bg-[#161616] text-white text-xs font-bold uppercase hover:bg-[#D9381E] transition-colors cursor-pointer border-2 border-[#161616] shadow-[2px_2px_0px_0px_#D9381E] flex items-center gap-1.5"
+              class="px-3 py-2.5 bg-[#B31D12] text-white text-xs font-bold uppercase hover:bg-black transition-colors cursor-pointer border-2 border-black rounded-lg shadow-[2px_2px_0px_0px_#000000] flex items-center gap-1.5"
             >
               <span>📤</span> Export Full Dossier CSV
             </button>
@@ -252,52 +305,52 @@ import Layout from "../layouts/Layout.astro";
 
         <!-- Complete Submissions Table with All Columns & Delete Action -->
         <div
-          class="bg-white border-2 border-[#161616] shadow-[4px_4px_0px_0px_#161616] overflow-x-auto max-h-[75vh]"
+          class="bg-[#FDFCF7] border-2 border-black rounded-2xl shadow-[6px_6px_0px_0px_#000000] overflow-x-auto max-h-[75vh]"
         >
           <table
-            class="w-full text-left text-[11px] border-collapse whitespace-nowrap"
+            class="w-full text-left text-[11px] border-collapse whitespace-nowrap text-[#18181B]"
           >
             <thead class="sticky top-0 z-20">
               <tr
-                class="bg-[#161616] text-[#F6F4EE] uppercase tracking-wider text-[10px]"
+                class="bg-[#18181B] text-[#FDFCF7] uppercase tracking-wider text-[10px]"
               >
                 <th
-                  class="p-3 border-r border-zinc-700 sticky left-0 bg-[#161616] z-30"
-                  >Status / Controls</th
-                >
-                <th class="p-3 border-r border-zinc-700">Entry ID</th>
-                <th class="p-3 border-r border-zinc-700">Film Title</th>
-                <th class="p-3 border-r border-zinc-700">Genre</th>
-                <th class="p-3 border-r border-zinc-700">Language</th>
-                <th class="p-3 border-r border-zinc-700">Duration</th>
-                <th class="p-3 border-r border-zinc-700">Year / Origin</th>
-                <th class="p-3 border-r border-zinc-700">Premiere</th>
-                <th class="p-3 border-r border-zinc-700">Screener Link</th>
-                <th class="p-3 border-r border-zinc-700">Screener Pwd</th>
-                <th class="p-3 border-r border-zinc-700">Subtitles</th>
-                <th class="p-3 border-r border-zinc-700">Aspect / Format</th>
-                <th class="p-3 border-r border-zinc-700">Director</th>
-                <th class="p-3 border-r border-zinc-700">Director Contact</th>
-                <th class="p-3 border-r border-zinc-700">Director Location</th>
-                <th class="p-3 border-r border-zinc-700">Producer / Banner</th>
-                <th class="p-3 border-r border-zinc-700">Producer Contact</th>
+                  class="p-3 border-r border-zinc-700 sticky left-0 bg-[#18181B] z-30"
+                  >Status / Controls
+                </th>
+                <th class="p-3 border-r border-zinc-700">Entry ID </th>
+                <th class="p-3 border-r border-zinc-700">Film Title </th>
+                <th class="p-3 border-r border-zinc-700">Genre </th>
+                <th class="p-3 border-r border-zinc-700">Language </th>
+                <th class="p-3 border-r border-zinc-700">Duration </th>
+                <th class="p-3 border-r border-zinc-700">Year / Origin </th>
+                <th class="p-3 border-r border-zinc-700">Premiere </th>
+                <th class="p-3 border-r border-zinc-700">Screener Link </th>
+                <th class="p-3 border-r border-zinc-700">Screener Pwd </th>
+                <th class="p-3 border-r border-zinc-700">Subtitles </th>
+                <th class="p-3 border-r border-zinc-700">Aspect / Format </th>
+                <th class="p-3 border-r border-zinc-700">Director </th>
+                <th class="p-3 border-r border-zinc-700">Director Contact </th>
+                <th class="p-3 border-r border-zinc-700">Director Location </th>
+                <th class="p-3 border-r border-zinc-700">Producer / Banner </th>
+                <th class="p-3 border-r border-zinc-700">Producer Contact </th>
                 <th class="p-3 border-r border-zinc-700"
-                  >Cinematographer (DoP)</th
-                >
-                <th class="p-3 border-r border-zinc-700">DoP Contact</th>
+                  >Cinematographer (DoP)
+                </th>
+                <th class="p-3 border-r border-zinc-700">DoP Contact </th>
                 <th class="p-3 border-r border-zinc-700"
-                  >Camera / Lighting Specs</th
-                >
-                <th class="p-3 border-r border-zinc-700">Writer(s)</th>
-                <th class="p-3 border-r border-zinc-700">Editor</th>
-                <th class="p-3 border-r border-zinc-700">Sound / Music</th>
-                <th class="p-3 border-r border-zinc-700">Art / Costume</th>
-                <th class="p-3 border-r border-zinc-700">Lead Cast</th>
-                <th class="p-3 border-r border-zinc-700">Rights Holder</th>
-                <th class="p-3 border-r border-zinc-700">UTR / Ref</th>
-                <th class="p-3 border-r border-zinc-700">Payment Receipt</th>
-                <th class="p-3 border-r border-zinc-700">Poster</th>
-                <th class="p-3">Synopsis</th>
+                  >Camera / Lighting Specs
+                </th>
+                <th class="p-3 border-r border-zinc-700">Writer(s) </th>
+                <th class="p-3 border-r border-zinc-700">Editor </th>
+                <th class="p-3 border-r border-zinc-700">Sound / Music </th>
+                <th class="p-3 border-r border-zinc-700">Art / Costume </th>
+                <th class="p-3 border-r border-zinc-700">Lead Cast </th>
+                <th class="p-3 border-r border-zinc-700">Rights Holder </th>
+                <th class="p-3 border-r border-zinc-700">UTR / Ref </th>
+                <th class="p-3 border-r border-zinc-700">Payment Receipt </th>
+                <th class="p-3 border-r border-zinc-700">Poster </th>
+                <th class="p-3">Synopsis </th>
               </tr>
             </thead>
             <tbody id="submissions-tbody" class="divide-y divide-zinc-200">
@@ -305,8 +358,8 @@ import Layout from "../layouts/Layout.astro";
                 ><td
                   colspan="30"
                   class="p-8 text-center text-zinc-500 font-bold"
-                  >Loading complete registrations data...</td
-                ></tr
+                  >Loading complete registrations data...
+                </td></tr
               >
             </tbody>
           </table>
@@ -316,20 +369,20 @@ import Layout from "../layouts/Layout.astro";
       <!-- TAB 2: JURY ROSTER -->
       <section id="tab-jury" class="tab-pane hidden space-y-6">
         <div
-          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-4 border-2 border-[#161616] shadow-[3px_3px_0px_0px_#161616]"
+          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-[#FDFCF7] text-[#18181B] p-4 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_#000000]"
         >
           <div>
-            <h3 class="text-base font-black uppercase text-[#161616]">
+            <h3 class="text-base font-black uppercase text-[#18181B]">
               Active Jury Members
             </h3>
-            <p class="text-xs text-zinc-500">
+            <p class="text-xs text-zinc-600 font-sans">
               Every active jury member evaluates every accepted short film.
             </p>
           </div>
           <button
             type="button"
             id="open-add-jury-btn"
-            class="px-4 py-2.5 bg-[#D9381E] text-white text-xs font-black uppercase border-2 border-[#161616] hover:bg-black transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#161616]"
+            class="px-4 py-2.5 bg-[#B31D12] text-white text-xs font-black uppercase border-2 border-black rounded-lg hover:bg-black transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000]"
           >
             + Add New Jury Member
           </button>
@@ -345,27 +398,27 @@ import Layout from "../layouts/Layout.astro";
       <!-- TAB 3: SINGLE-GLANCE JURY VS MOVIE PROGRESS GRID -->
       <section id="tab-progress" class="tab-pane hidden space-y-6">
         <div
-          class="bg-white p-4 border-2 border-[#161616] shadow-[3px_3px_0px_0px_#161616] space-y-1"
+          class="bg-[#FDFCF7] text-[#18181B] p-4 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_#000000] space-y-1"
         >
-          <h3 class="text-base font-black uppercase text-[#161616]">
+          <h3 class="text-base font-black uppercase text-[#18181B]">
             Jury Evaluation Progress Grid
           </h3>
-          <p class="text-xs text-zinc-600 leading-relaxed">
+          <p class="text-xs text-zinc-600 leading-relaxed font-sans">
             Single-glance view of each jury member against all competition short
             films. Incomplete evaluations are highlighted in red/amber.
           </p>
         </div>
 
         <div
-          class="bg-white border-2 border-[#161616] shadow-[4px_4px_0px_0px_#161616] overflow-x-auto"
+          class="bg-[#FDFCF7] text-[#18181B] border-2 border-black rounded-2xl shadow-[6px_6px_0px_0px_#000000] overflow-x-auto"
         >
           <table class="w-full text-left text-xs border-collapse">
             <thead id="progress-grid-thead"></thead>
             <tbody id="progress-grid-tbody" class="divide-y divide-zinc-200">
               <tr
                 ><td class="p-8 text-center text-zinc-500 font-bold"
-                  >Aggregating progress grid...</td
-                ></tr
+                  >Aggregating progress grid...
+                </td></tr
               >
             </tbody>
           </table>
@@ -375,13 +428,13 @@ import Layout from "../layouts/Layout.astro";
       <!-- TAB 4: CROSS-JURY SCORE MATRIX & TOTALS CSV EXPORT -->
       <section id="tab-matrix" class="tab-pane hidden space-y-6">
         <div
-          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-4 border-2 border-[#161616] shadow-[3px_3px_0px_0px_#161616]"
+          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-[#FDFCF7] text-[#18181B] p-4 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_#000000]"
         >
           <div>
-            <h3 class="text-base font-black uppercase text-[#161616]">
+            <h3 class="text-base font-black uppercase text-[#18181B]">
               Cross-Jury Score Matrix
             </h3>
-            <p class="text-xs text-zinc-500">
+            <p class="text-xs text-zinc-600 font-sans">
               Detailed criterion breakdown per movie. Use the CSV button to
               export jury totals and averages.
             </p>
@@ -389,7 +442,7 @@ import Layout from "../layouts/Layout.astro";
           <button
             type="button"
             id="export-matrix-csv"
-            class="px-4 py-2.5 bg-[#D9381E] text-white text-xs font-black uppercase border-2 border-[#161616] hover:bg-black transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#161616] flex items-center gap-2"
+            class="px-4 py-2.5 bg-[#B31D12] text-white text-xs font-black uppercase border-2 border-black rounded-lg hover:bg-black transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000] flex items-center gap-2"
           >
             <span>📥</span> Export Score Summary CSV
           </button>
@@ -401,13 +454,13 @@ import Layout from "../layouts/Layout.astro";
       <!-- TAB 5: SHORTLIST LEADERBOARD (RANKED BY AVERAGE SCORE) -->
       <section id="tab-leaderboard" class="tab-pane hidden space-y-6">
         <div
-          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-4 border-2 border-[#161616] shadow-[3px_3px_0px_0px_#161616]"
+          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-[#FDFCF7] text-[#18181B] p-4 rounded-xl border-2 border-black shadow-[4px_4px_0px_0px_#000000]"
         >
           <div>
-            <h3 class="text-base font-black uppercase text-[#161616]">
+            <h3 class="text-base font-black uppercase text-[#18181B]">
               Official Competition Shortlist &amp; Ranks
             </h3>
-            <p class="text-xs text-zinc-500">
+            <p class="text-xs text-zinc-600 font-sans">
               Films ranked automatically in descending order based on average
               jury marks.
             </p>
@@ -415,42 +468,42 @@ import Layout from "../layouts/Layout.astro";
           <button
             type="button"
             id="export-leaderboard-csv"
-            class="px-4 py-2.5 bg-[#161616] text-white text-xs font-black uppercase hover:bg-[#D9381E] transition-colors cursor-pointer border-2 border-[#161616] shadow-[2px_2px_0px_0px_#D9381E]"
+            class="px-4 py-2.5 bg-[#B31D12] text-white text-xs font-black uppercase hover:bg-black transition-colors cursor-pointer border-2 border-black rounded-lg shadow-[2px_2px_0px_0px_#000000]"
           >
             Export Shortlist CSV
           </button>
         </div>
 
         <div
-          class="bg-white border-2 border-[#161616] shadow-[4px_4px_0px_0px_#161616] overflow-x-auto"
+          class="bg-[#FDFCF7] text-[#18181B] border-2 border-black rounded-2xl shadow-[6px_6px_0px_0px_#000000] overflow-x-auto"
         >
           <table class="w-full text-left text-xs border-collapse">
             <thead>
               <tr
-                class="bg-[#161616] text-[#F6F4EE] uppercase tracking-wider text-[10px]"
+                class="bg-[#18181B] text-[#FDFCF7] uppercase tracking-wider text-[10px]"
               >
                 <th class="p-3 border-r border-zinc-700 text-center w-16"
-                  >Rank</th
-                >
-                <th class="p-3 border-r border-zinc-700">Entry ID</th>
-                <th class="p-3 border-r border-zinc-700">Film Title</th>
-                <th class="p-3 border-r border-zinc-700">Director</th>
-                <th class="p-3 border-r border-zinc-700">Language / Min</th>
+                  >Rank
+                </th>
+                <th class="p-3 border-r border-zinc-700">Entry ID </th>
+                <th class="p-3 border-r border-zinc-700">Film Title </th>
+                <th class="p-3 border-r border-zinc-700">Director </th>
+                <th class="p-3 border-r border-zinc-700">Language / Min </th>
                 <th class="p-3 border-r border-zinc-700 text-center"
-                  >Completed Juries</th
-                >
+                  >Completed Juries
+                </th>
                 <th
-                  class="p-3 border-r border-zinc-700 text-center bg-[#D9381E] text-white"
-                  >Average Score</th
-                >
-                <th class="p-3 text-center">Verdict</th>
+                  class="p-3 border-r border-zinc-700 text-center bg-[#B31D12] text-white font-black"
+                  >Average Score
+                </th>
+                <th class="p-3 text-center">Verdict </th>
               </tr>
             </thead>
             <tbody id="leaderboard-tbody" class="divide-y divide-zinc-200">
               <tr
                 ><td colspan="8" class="p-8 text-center text-zinc-500 font-bold"
-                  >Computing leaderboard ranks...</td
-                ></tr
+                  >Computing leaderboard ranks...
+                </td></tr
               >
             </tbody>
           </table>
@@ -461,63 +514,65 @@ import Layout from "../layouts/Layout.astro";
     <!-- ADD JURY MODAL -->
     <div
       id="add-jury-modal"
-      class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+      class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 backdrop-blur-xs"
     >
       <div
-        class="bg-white border-2 border-[#161616] w-full max-w-sm p-6 shadow-[6px_6px_0px_0px_#161616] space-y-4 font-mono text-xs"
+        class="bg-[#FDFCF7] text-[#18181B] border-2 border-black w-full max-w-sm p-6 rounded-2xl shadow-[8px_8px_0px_0px_#000000] space-y-4 font-mono text-xs"
       >
         <div
-          class="flex items-center justify-between border-b border-zinc-200 pb-2"
+          class="flex items-center justify-between border-b-2 border-black/10 pb-2"
         >
-          <h3 class="font-black uppercase text-sm">Add Jury Member</h3>
+          <h3 class="font-black uppercase text-sm text-[#18181B]">
+            Add Jury Member
+          </h3>
           <button
             type="button"
             id="close-add-jury-modal"
-            class="text-lg font-black cursor-pointer hover:text-[#D9381E]"
-            >✕</button
-          >
+            class="text-lg font-black cursor-pointer hover:text-[#B31D12]"
+            >✕
+          </button>
         </div>
         <form id="add-jury-form" class="space-y-3">
           <div class="space-y-1">
-            <label class="block font-bold uppercase">Full Name</label>
+            <label class="block font-bold uppercase">Full Name </label>
             <input
               type="text"
               id="new-jury-name"
               required
               placeholder="e.g. Priyadarshan"
-              class="w-full bg-[#F6F4EE] border-2 border-[#161616] p-2 focus:outline-none focus:border-[#D9381E]"
+              class="w-full bg-white border-2 border-black rounded-lg p-2 focus:outline-none focus:border-[#B31D12]"
             />
           </div>
           <div class="space-y-1">
-            <label class="block font-bold uppercase">Email Address</label>
+            <label class="block font-bold uppercase">Email Address </label>
             <input
               type="email"
               id="new-jury-email"
               required
               placeholder="jury1@psff.in"
-              class="w-full bg-[#F6F4EE] border-2 border-[#161616] p-2 focus:outline-none focus:border-[#D9381E]"
+              class="w-full bg-white border-2 border-black rounded-lg p-2 focus:outline-none focus:border-[#B31D12]"
             />
           </div>
           <div class="space-y-1">
-            <label class="block font-bold uppercase">Temporary Password</label>
+            <label class="block font-bold uppercase">Temporary Password </label>
             <input
               type="password"
               id="new-jury-pwd"
               required
               minlength="6"
               placeholder="At least 6 chars"
-              class="w-full bg-[#F6F4EE] border-2 border-[#161616] p-2 focus:outline-none focus:border-[#D9381E]"
+              class="w-full bg-white border-2 border-black rounded-lg p-2 focus:outline-none focus:border-[#B31D12]"
             />
           </div>
           <div
             id="add-jury-msg"
-            class="hidden p-2 text-[11px] font-bold border"
+            class="hidden p-2 text-[11px] font-bold border rounded-lg"
           >
           </div>
           <button
             type="submit"
             id="create-jury-submit-btn"
-            class="w-full py-2.5 font-bold uppercase bg-[#161616] text-white hover:bg-[#D9381E] transition-colors cursor-pointer"
+            class="w-full py-2.5 font-black uppercase bg-[#B31D12] text-white rounded-lg hover:bg-black transition-colors cursor-pointer"
           >
             Create Jury Account
           </button>
@@ -528,23 +583,23 @@ import Layout from "../layouts/Layout.astro";
     <!-- SUBMISSION DOSSIER MODAL WITH DELETE OPTION -->
     <div
       id="detail-modal"
-      class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+      class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 backdrop-blur-xs"
     >
       <div
-        class="bg-[#F6F4EE] border-2 border-[#161616] w-full max-w-4xl max-h-[90vh] flex flex-col shadow-[8px_8px_0px_0px_#161616] text-xs font-mono"
+        class="bg-[#FDFCF7] border-2 border-black rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-[8px_8px_0px_0px_#000000] text-xs font-mono text-[#18181B] overflow-hidden"
       >
         <div
-          class="p-4 bg-[#161616] text-white flex items-center justify-between border-b-2 border-[#161616]"
+          class="p-4 bg-[#18181B] text-white flex items-center justify-between border-b-2 border-black"
         >
           <div class="flex items-center gap-3">
             <span
               id="modal-entry-id"
-              class="px-2 py-0.5 bg-[#D9381E] font-black text-xs"
+              class="px-2.5 py-1 bg-[#B31D12] font-black text-xs rounded"
               >PSFF26-XXXX</span
             >
             <h3
               id="modal-title"
-              class="text-base font-black uppercase truncate max-w-md"
+              class="text-base font-black uppercase truncate max-w-md font-mono"
             >
               Film Details
             </h3>
@@ -552,40 +607,43 @@ import Layout from "../layouts/Layout.astro";
           <button
             type="button"
             id="close-modal-btn"
-            class="text-white hover:text-[#D9381E] text-lg font-black cursor-pointer"
-            >✕</button
-          >
+            class="text-white hover:text-[#FDB813] text-lg font-black cursor-pointer"
+            >✕
+          </button>
         </div>
         <div class="p-6 overflow-y-auto space-y-6 flex-1" id="modal-body"></div>
         <div
-          class="p-4 bg-white border-t-2 border-[#161616] flex flex-wrap items-center justify-between gap-3"
+          class="p-4 bg-white border-t-2 border-black/10 flex flex-wrap items-center justify-between gap-3"
         >
           <!-- Delete Entry Button Inside Modal -->
           <button
             type="button"
             id="modal-delete-btn"
-            class="px-3 py-2 bg-red-800 text-white font-black uppercase hover:bg-black transition-colors cursor-pointer border border-[#161616] flex items-center gap-1.5"
+            class="px-3 py-2 bg-red-800 text-white font-black uppercase hover:bg-black transition-colors cursor-pointer rounded-lg border border-black flex items-center gap-1.5"
           >
             <span>🗑️</span> Delete Entry
           </button>
 
           <div class="flex items-center gap-2">
-            <span class="font-bold uppercase text-[11px]">Current Status:</span>
+            <span class="font-bold uppercase text-[11px]"
+              >Current Status:
+            </span>
             <span
               id="modal-current-status"
-              class="px-2 py-1 font-black text-[10px] uppercase">Pending</span
-            >
+              class="px-2.5 py-1 font-black text-[10px] uppercase rounded bg-zinc-200"
+              >Pending
+            </span>
             <button
               type="button"
               id="modal-accept-btn"
-              class="px-4 py-2 bg-emerald-600 text-white font-black uppercase hover:bg-emerald-700 transition-colors cursor-pointer border border-[#161616]"
+              class="px-4 py-2 bg-emerald-700 text-white font-black uppercase hover:bg-emerald-800 transition-colors cursor-pointer rounded-lg border border-black shadow-xs"
             >
               Accept &amp; Send to All Juries
             </button>
             <button
               type="button"
               id="modal-reject-btn"
-              class="px-4 py-2 bg-[#D9381E] text-white font-black uppercase hover:bg-black transition-colors cursor-pointer border border-[#161616]"
+              class="px-4 py-2 bg-[#B31D12] text-white font-black uppercase hover:bg-black transition-colors cursor-pointer rounded-lg border border-black shadow-xs"
             >
               Reject Entry
             </button>
@@ -640,10 +698,10 @@ import Layout from "../layouts/Layout.astro";
       );
       document.querySelectorAll(".admin-tab-btn").forEach((b) => {
         b.className =
-          "admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#161616] hover:bg-zinc-200";
+          "admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md";
       });
       (e.currentTarget as HTMLElement).className =
-        "admin-tab-btn px-3 py-1.5 text-xs font-black uppercase bg-[#161616] text-white";
+        "admin-tab-btn px-3 py-1.5 text-xs font-black uppercase bg-[#B31D12] text-white rounded-md";
       document
         .querySelectorAll(".tab-pane")
         .forEach((pane) => pane.classList.add("hidden"));
@@ -865,26 +923,26 @@ import Layout from "../layouts/Layout.astro";
           <td class="p-2.5 border-r border-zinc-200 sticky left-0 bg-white shadow-xs z-10">
             <div class="flex items-center gap-1.5">
               <span class="px-2 py-0.5 text-[9px] font-black uppercase ${badge}">${status}</span>
-              <select data-entry-id="${item.id}" class="quick-status-change bg-[#F6F4EE] border border-zinc-400 text-[10px] font-bold p-1 cursor-pointer">
+              <select data-entry-id="${item.id}" class="quick-status-change bg-[#FDFCF7] border border-zinc-400 text-[10px] font-bold p-1 rounded cursor-pointer">
                 <option value="" disabled selected>Change</option>
                 <option value="Accepted">Accept</option>
                 <option value="Rejected">Reject</option>
                 <option value="Pending">Pending</option>
               </select>
-              <button type="button" data-entry="${item.entry_number}" class="open-sub-btn px-2 py-1 bg-[#161616] text-white hover:bg-[#D9381E] font-bold text-[9px] uppercase transition-colors cursor-pointer">
+              <button type="button" data-entry="${item.entry_number}" class="open-sub-btn px-2 py-1 bg-[#18181B] text-white hover:bg-[#B31D12] rounded font-bold text-[9px] uppercase transition-colors cursor-pointer">
                 Modal
               </button>
-              <button type="button" data-id="${item.id}" data-entry="${item.entry_number}" data-title="${(item.film_title || "").replace(/"/g, "&quot;")}" class="delete-sub-btn px-2 py-1 bg-red-100 text-red-900 hover:bg-red-800 hover:text-white font-bold text-[9px] uppercase transition-colors cursor-pointer border border-red-300" title="Delete entry permanently">
+              <button type="button" data-id="${item.id}" data-entry="${item.entry_number}" data-title="${(item.film_title || "").replace(/"/g, "&quot;")}" class="delete-sub-btn px-2 py-1 bg-red-100 text-red-900 hover:bg-red-800 hover:text-white rounded font-bold text-[9px] uppercase transition-colors cursor-pointer border border-red-300" title="Delete entry permanently">
                 ✕
               </button>
             </div>
           </td>
 
           <!-- 1. Entry ID -->
-          <td class="p-2.5 font-bold border-r border-zinc-200 select-all text-[#D9381E]">${item.entry_number}</td>
+          <td class="p-2.5 font-bold border-r border-zinc-200 select-all text-[#B31D12]">${item.entry_number}</td>
 
           <!-- 2. Film Title -->
-          <td class="p-2.5 font-black text-[#161616] border-r border-zinc-200">
+          <td class="p-2.5 font-black text-[#18181B] border-r border-zinc-200">
             <div class="font-bold max-w-[200px] truncate" title="${item.film_title}">${item.film_title}</div>
           </td>
 
@@ -905,7 +963,7 @@ import Layout from "../layouts/Layout.astro";
 
           <!-- 8. Screener Link -->
           <td class="p-2.5 border-r border-zinc-200">
-            ${item.screener_url ? `<a href="${item.screener_url}" target="_blank" class="px-2 py-1 bg-zinc-900 text-white font-bold text-[10px] uppercase hover:bg-[#D9381E] inline-flex items-center gap-1">Open Screener &rarr;</a>` : `<span class="text-zinc-400">None</span>`}
+            ${item.screener_url ? `<a href="${item.screener_url}" target="_blank" class="px-2 py-1 bg-[#18181B] text-white font-bold text-[10px] uppercase hover:bg-[#B31D12] rounded inline-flex items-center gap-1">Open Screener &rarr;</a>` : `<span class="text-zinc-400">None</span>`}
           </td>
 
           <!-- 9. Screener Password -->
@@ -918,7 +976,7 @@ import Layout from "../layouts/Layout.astro";
           <td class="p-2.5 border-r border-zinc-200">${item.aspect_ratio || "—"} | ${item.resolution_format || "—"}</td>
 
           <!-- 12. Director -->
-          <td class="p-2.5 border-r border-zinc-200 font-black text-[#161616]">
+          <td class="p-2.5 border-r border-zinc-200 font-black text-[#18181B]">
             ${item.director_full_name}
             ${item.director_pro_name ? `<span class="text-[10px] text-zinc-500 font-normal block">(${item.director_pro_name})</span>` : ""}
           </td>
@@ -992,12 +1050,12 @@ import Layout from "../layouts/Layout.astro";
 
           <!-- 27. Payment Receipt Link -->
           <td class="p-2.5 border-r border-zinc-200 text-center">
-            ${item.payment_screenshot_url ? `<a href="${item.payment_screenshot_url}" target="_blank" class="px-2 py-1 bg-emerald-700 text-white hover:bg-black font-bold text-[10px] uppercase inline-block">Inspect Image</a>` : `<span class="text-zinc-400">None</span>`}
+            ${item.payment_screenshot_url ? `<a href="${item.payment_screenshot_url}" target="_blank" class="px-2 py-1 bg-emerald-700 text-white hover:bg-black rounded font-bold text-[10px] uppercase inline-block">Inspect Image</a>` : `<span class="text-zinc-400">None</span>`}
           </td>
 
           <!-- 28. Poster Link -->
           <td class="p-2.5 border-r border-zinc-200 text-center">
-            ${item.poster_url ? `<a href="${item.poster_url}" target="_blank" class="px-2 py-1 bg-zinc-200 hover:bg-black hover:text-white font-bold text-[10px] uppercase inline-block">View Poster</a>` : `<span class="text-zinc-400">None</span>`}
+            ${item.poster_url ? `<a href="${item.poster_url}" target="_blank" class="px-2 py-1 bg-zinc-200 hover:bg-black hover:text-white rounded font-bold text-[10px] uppercase inline-block">View Poster</a>` : `<span class="text-zinc-400">None</span>`}
           </td>
 
           <!-- 29. Synopsis -->
@@ -1065,26 +1123,26 @@ import Layout from "../layouts/Layout.astro";
     document.getElementById("modal-body")!.innerHTML = `
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="space-y-4">
-          <div class="border-2 border-[#161616] bg-white p-2">
+          <div class="border-2 border-black rounded-xl bg-white p-2">
             <span class="text-[9px] uppercase font-bold text-zinc-500 block mb-1">Official Poster</span>
-            <img src="${film.poster_url}" alt="Poster" class="w-full aspect-2/3 object-cover border" onerror="this.src=''"/>
+            <img src="${film.poster_url}" alt="Poster" class="w-full aspect-2/3 object-cover border rounded" onerror="this.src=''"/>
           </div>
-          <div class="border-2 border-[#161616] bg-white p-3 space-y-1 text-xs">
+          <div class="border-2 border-black rounded-xl bg-white p-3 space-y-1 text-xs">
             <strong>UTR:</strong> <code class="select-all font-bold">${film.payment_ref}</code>
-            ${film.payment_screenshot_url ? `<a href="${film.payment_screenshot_url}" target="_blank" class="block text-center py-1 bg-zinc-200 hover:bg-black hover:text-white font-bold uppercase text-[10px] mt-2">Inspect Receipt Image</a>` : ""}
+            ${film.payment_screenshot_url ? `<a href="${film.payment_screenshot_url}" target="_blank" class="block text-center py-1 bg-zinc-200 hover:bg-black hover:text-white font-bold uppercase text-[10px] mt-2 rounded">Inspect Receipt Image</a>` : ""}
           </div>
         </div>
         <div class="md:col-span-2 space-y-4">
-          <div class="bg-white border-2 border-[#161616] p-4 space-y-2 text-xs">
-            <h4 class="font-black uppercase text-[#D9381E] border-b pb-1">Synopsis & Screener</h4>
-            <p class="leading-relaxed bg-zinc-50 p-2.5 border">${film.synopsis || "N/A"}</p>
+          <div class="bg-white border-2 border-black rounded-xl p-4 space-y-2 text-xs">
+            <h4 class="font-black uppercase text-[#B31D12] border-b pb-1">Synopsis & Screener</h4>
+            <p class="leading-relaxed bg-zinc-50 p-2.5 border rounded">${film.synopsis || "N/A"}</p>
             <div class="pt-2">
-              <a href="${film.screener_url}" target="_blank" class="inline-block px-3 py-1.5 bg-[#161616] text-white font-black uppercase text-xs hover:bg-[#D9381E]">Open Screener Link &rarr;</a>
+              <a href="${film.screener_url}" target="_blank" class="inline-block px-3 py-1.5 bg-[#18181B] text-white font-black uppercase text-xs hover:bg-[#B31D12] rounded">Open Screener Link &rarr;</a>
               ${film.screener_password ? `<span class="ml-2 font-bold">Password: <code>${film.screener_password}</code></span>` : ""}
             </div>
           </div>
-          <div class="bg-white border-2 border-[#161616] p-4 text-xs space-y-1">
-            <h4 class="font-black uppercase text-[#D9381E] border-b pb-1">Director / Producer Details</h4>
+          <div class="bg-white border-2 border-black rounded-xl p-4 text-xs space-y-1">
+            <h4 class="font-black uppercase text-[#B31D12] border-b pb-1">Director / Producer Details</h4>
             <div><strong>Director:</strong> ${film.director_full_name} (${film.director_email} | ${film.director_phone})</div>
             <div><strong>Producer:</strong> ${film.producer_name} (${film.producer_email})</div>
           </div>
@@ -1138,7 +1196,7 @@ import Layout from "../layouts/Layout.astro";
     if (!container) return;
 
     if (currentJuryMembers.length === 0) {
-      container.innerHTML = `<div class="col-span-3 p-8 text-center text-zinc-500 font-bold bg-white border-2 border-[#161616]">No jury members created yet. Click "+ Add New Jury Member" above.</div>`;
+      container.innerHTML = `<div class="col-span-3 p-8 text-center text-zinc-500 font-bold bg-[#FDFCF7] border-2 border-black rounded-2xl">No jury members created yet. Click "+ Add New Jury Member" above.</div>`;
       return;
     }
 
@@ -1157,30 +1215,30 @@ import Layout from "../layouts/Layout.astro";
             : 0;
 
         return `
-        <div class="bg-white border-2 border-[#161616] p-5 shadow-[4px_4px_0px_0px_#161616] space-y-4">
+        <div class="bg-[#FDFCF7] border-2 border-black rounded-2xl p-5 shadow-[4px_4px_0px_0px_#000000] space-y-4">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-[10px] font-bold uppercase text-zinc-500">Juror Account</span>
-              <h4 class="text-base font-black uppercase text-[#161616]">${jury.full_name}</h4>
+              <h4 class="text-base font-black uppercase text-[#18181B]">${jury.full_name}</h4>
               <span class="text-xs text-zinc-600">${jury.email}</span>
             </div>
-            <span class="px-2 py-0.5 text-[9px] font-black uppercase ${jury.is_active ? "bg-emerald-100 text-emerald-900 border border-emerald-300" : "bg-red-100 text-red-900 border border-red-300"}">
+            <span class="px-2.5 py-0.5 text-[9px] font-black uppercase rounded ${jury.is_active ? "bg-emerald-100 text-emerald-900 border border-emerald-300" : "bg-red-100 text-red-900 border border-red-300"}">
               ${jury.is_active ? "Active" : "Deactivated"}
             </span>
           </div>
 
-          <div class="bg-[#F6F4EE] p-3 border border-zinc-300 space-y-2 text-xs">
+          <div class="bg-white p-3 rounded-xl border border-zinc-300 space-y-2 text-xs">
             <div class="flex justify-between font-bold">
               <span>Evaluation Progress:</span>
               <span>${evals.length} / ${acceptedFilmsCount} Films (${completionRate}%)</span>
             </div>
-            <div class="w-full bg-zinc-200 h-1.5 overflow-hidden">
-              <div class="bg-[#D9381E] h-full" style="width: ${completionRate}%"></div>
+            <div class="w-full bg-zinc-200 h-2 rounded-full overflow-hidden">
+              <div class="bg-[#B31D12] h-full" style="width: ${completionRate}%"></div>
             </div>
           </div>
 
           <div class="pt-2 border-t border-zinc-200 flex justify-end">
-            <button type="button" data-jury-id="${jury.id}" data-active="${jury.is_active}" class="toggle-active-btn px-3 py-2 bg-zinc-200 hover:bg-black hover:text-white font-bold uppercase text-[10px] transition-colors cursor-pointer">
+            <button type="button" data-jury-id="${jury.id}" data-active="${jury.is_active}" class="toggle-active-btn px-3 py-2 bg-zinc-200 hover:bg-black hover:text-white rounded-lg font-bold uppercase text-[10px] transition-colors cursor-pointer">
               ${jury.is_active ? "Deactivate Access" : "Activate Access"}
             </button>
           </div>
@@ -1247,7 +1305,7 @@ import Layout from "../layouts/Layout.astro";
 
       if (error) {
         msg.className =
-          "p-2 text-[11px] font-bold border bg-red-100 border-[#D9381E] text-[#D9381E]";
+          "p-2 text-[11px] font-bold border bg-red-100 border-[#B31D12] text-[#B31D12] rounded-lg";
         msg.innerText = error.message;
         msg.classList.remove("hidden");
         submitBtn.disabled = false;
@@ -1264,7 +1322,7 @@ import Layout from "../layouts/Layout.astro";
         }
 
         msg.className =
-          "p-2 text-[11px] font-bold border bg-green-100 border-green-800 text-green-950";
+          "p-2 text-[11px] font-bold border bg-green-100 border-green-800 text-green-950 rounded-lg";
         msg.innerText = "Jury account created successfully!";
         msg.classList.remove("hidden");
 
@@ -1297,7 +1355,7 @@ import Layout from "../layouts/Layout.astro";
 
     // Build Table Header: Jury Member | [Film 1] | [Film 2] ... | Overall Completed
     thead.innerHTML = `
-      <tr class="bg-[#161616] text-[#F6F4EE] uppercase tracking-wider text-[10px]">
+      <tr class="bg-[#18181B] text-[#FDFCF7] uppercase tracking-wider text-[10px]">
         <th class="p-3 border-r border-zinc-700 min-w-[180px]">Jury Member</th>
         ${acceptedFilms
           .map(
@@ -1309,7 +1367,7 @@ import Layout from "../layouts/Layout.astro";
         `,
           )
           .join("")}
-        <th class="p-3 text-center bg-[#D9381E] text-white min-w-[120px]">Completed</th>
+        <th class="p-3 text-center bg-[#B31D12] text-white min-w-[120px]">Completed</th>
       </tr>
     `;
 
@@ -1336,7 +1394,7 @@ import Layout from "../layouts/Layout.astro";
               <div class="font-black text-xs text-emerald-950">${ev.total_score} / 100</div>
               <div class="flex items-center justify-center gap-1 mt-1">
                 <span class="text-[9px] uppercase font-bold text-emerald-700">✓ Done</span>
-                <button type="button" data-eval-id="${ev.id}" class="reopen-eval-btn px-1 text-[8px] uppercase bg-zinc-200 hover:bg-[#D9381E] hover:text-white font-bold transition-colors cursor-pointer border" title="Unlock score for juror">Reopen</button>
+                <button type="button" data-eval-id="${ev.id}" class="reopen-eval-btn px-1.5 py-0.5 text-[8px] uppercase bg-zinc-200 hover:bg-[#B31D12] hover:text-white font-bold transition-colors cursor-pointer border rounded" title="Unlock score for juror">Reopen</button>
               </div>
             </td>
           `;
@@ -1347,7 +1405,7 @@ import Layout from "../layouts/Layout.astro";
                 ev.total_score !== undefined ? `${ev.total_score}/100` : "";
               return `
             <td class="p-2.5 border-r border-zinc-200 text-center bg-amber-50/60">
-              <span class="px-1.5 py-0.5 text-[9px] font-black uppercase bg-amber-200 text-amber-950 border border-amber-400">
+              <span class="px-1.5 py-0.5 text-[9px] font-black uppercase bg-amber-200 text-amber-950 border border-amber-400 rounded">
                 Incomplete
               </span>
               ${draftScore ? `<div class="text-[9px] text-amber-800 font-bold mt-1">Draft: ${draftScore}</div>` : ""}
@@ -1357,7 +1415,7 @@ import Layout from "../layouts/Layout.astro";
 
             return `
           <td class="p-2.5 border-r border-zinc-200 text-center bg-red-50/40">
-            <span class="px-1.5 py-0.5 text-[9px] font-black uppercase bg-red-100 text-red-900 border border-red-300">
+            <span class="px-1.5 py-0.5 text-[9px] font-black uppercase bg-red-100 text-red-900 border border-red-300 rounded">
               Incomplete
             </span>
           </td>
@@ -1371,13 +1429,13 @@ import Layout from "../layouts/Layout.astro";
 
         return `
         <tr class="hover:bg-zinc-50 transition-colors">
-          <td class="p-3 font-black border-r border-zinc-200 text-[#161616]">
+          <td class="p-3 font-black border-r border-zinc-200 text-[#18181B]">
             <div>${jury.full_name}</div>
             <span class="text-[10px] text-zinc-500 font-normal">${jury.email}</span>
           </td>
           ${movieCells}
           <td class="p-3 font-black text-center bg-zinc-100">
-            <div class="text-xs ${completedCount === acceptedFilms.length ? "text-emerald-700" : "text-[#D9381E]"}">
+            <div class="text-xs ${completedCount === acceptedFilms.length ? "text-emerald-700" : "text-[#B31D12]"}">
               ${completedCount} / ${acceptedFilms.length}
             </div>
             <div class="text-[9px] text-zinc-500 font-normal">(${completionPct}%)</div>
@@ -1415,7 +1473,7 @@ import Layout from "../layouts/Layout.astro";
       (s) => s.status === "Accepted",
     );
     if (acceptedFilms.length === 0 || currentJuryMembers.length === 0) {
-      container.innerHTML = `<div class="bg-white border-2 border-[#161616] p-8 text-center text-zinc-500 font-bold">No accepted competition films to display.</div>`;
+      container.innerHTML = `<div class="bg-[#FDFCF7] border-2 border-black rounded-2xl p-8 text-center text-zinc-500 font-bold">No accepted competition films to display.</div>`;
       return;
     }
 
@@ -1430,22 +1488,22 @@ import Layout from "../layouts/Layout.astro";
         );
 
         return `
-        <div class="bg-white border-2 border-[#161616] p-5 shadow-[4px_4px_0px_0px_#161616] space-y-4">
-          <div class="flex flex-col sm:flex-row justify-between sm:items-baseline gap-2 border-b-2 border-[#161616] pb-2">
+        <div class="bg-[#FDFCF7] border-2 border-black rounded-2xl p-5 shadow-[4px_4px_0px_0px_#000000] space-y-4">
+          <div class="flex flex-col sm:flex-row justify-between sm:items-baseline gap-2 border-b-2 border-black/10 pb-2">
             <div>
-              <span class="text-[10px] font-black uppercase text-[#D9381E] tracking-widest">${film.entry_number}</span>
-              <h4 class="text-lg font-black uppercase text-[#161616]">${film.film_title}</h4>
-              <span class="text-xs text-zinc-600">Director: ${film.director_full_name} | ${film.duration_minutes} Mins</span>
+              <span class="text-[10px] font-black uppercase text-[#B31D12] tracking-widest">${film.entry_number}</span>
+              <h4 class="text-lg font-black uppercase text-[#18181B] font-mono">${film.film_title}</h4>
+              <span class="text-xs text-zinc-600 font-sans">Director: ${film.director_full_name} | ${film.duration_minutes} Mins</span>
             </div>
             <div class="text-xs font-bold text-zinc-700">
-              Evaluations Submitted: <span class="font-black text-[#161616]">${filmEvals.length} / ${currentJuryMembers.length}</span>
+              Evaluations Submitted: <span class="font-black text-[#18181B]">${filmEvals.length} / ${currentJuryMembers.length}</span>
             </div>
           </div>
 
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs border-collapse">
               <thead>
-                <tr class="bg-[#F6F4EE] border-b-2 border-[#161616] text-[10px] uppercase">
+                <tr class="bg-zinc-100 border-b-2 border-black text-[10px] uppercase">
                   <th class="p-2.5 border-r border-zinc-300">Rubric Criterion</th>
                   ${currentJuryMembers.map((j) => `<th class="p-2.5 border-r border-zinc-300">${j.full_name}</th>`).join("")}
                   <th class="p-2.5 font-black bg-zinc-200">Criterion Average</th>
@@ -1480,7 +1538,7 @@ import Layout from "../layouts/Layout.astro";
                   `;
                 }).join("")}
                 
-                <tr class="bg-[#161616] text-white font-black">
+                <tr class="bg-[#18181B] text-white font-black">
                   <td class="p-2.5 border-r border-zinc-700 uppercase">TOTAL / 100</td>
                   ${currentJuryMembers
                     .map((j) => {
@@ -1488,7 +1546,7 @@ import Layout from "../layouts/Layout.astro";
                       return `<td class="p-2.5 border-r border-zinc-700">${ev && ev.is_submitted && ev.total_score !== undefined ? `${ev.total_score}` : "—"}</td>`;
                     })
                     .join("")}
-                  <td class="p-2.5 bg-[#D9381E] text-white">
+                  <td class="p-2.5 bg-[#B31D12] text-white">
                     ${(() => {
                       if (filmEvals.length === 0) return "—";
                       const totalSum = filmEvals.reduce(
@@ -1555,17 +1613,17 @@ import Layout from "../layouts/Layout.astro";
         let rankBadge = `<span class="font-black text-sm text-zinc-700">${rank}</span>`;
 
         if (rank === 1)
-          rankBadge = `<span class="px-2 py-0.5 bg-amber-400 text-black font-black text-xs rounded-xs shadow-xs">🥇 1st</span>`;
+          rankBadge = `<span class="px-2 py-0.5 bg-[#FDB813] text-black font-black text-xs rounded shadow-xs">🥇 1st</span>`;
         else if (rank === 2)
-          rankBadge = `<span class="px-2 py-0.5 bg-zinc-300 text-black font-black text-xs rounded-xs shadow-xs">🥈 2nd</span>`;
+          rankBadge = `<span class="px-2 py-0.5 bg-zinc-300 text-black font-black text-xs rounded shadow-xs">🥈 2nd</span>`;
         else if (rank === 3)
-          rankBadge = `<span class="px-2 py-0.5 bg-amber-700 text-white font-black text-xs rounded-xs shadow-xs">🥉 3rd</span>`;
+          rankBadge = `<span class="px-2 py-0.5 bg-amber-700 text-white font-black text-xs rounded shadow-xs">🥉 3rd</span>`;
 
         return `
         <tr class="hover:bg-zinc-50 transition-colors ${rank <= 3 ? "bg-amber-50/30" : ""}">
           <td class="p-3 border-r border-zinc-200 text-center font-black">${rankBadge}</td>
-          <td class="p-3 border-r border-zinc-200 font-bold select-all">${film.entry_number}</td>
-          <td class="p-3 font-black text-[#161616] border-r border-zinc-200">
+          <td class="p-3 border-r border-zinc-200 font-bold select-all text-[#B31D12]">${film.entry_number}</td>
+          <td class="p-3 font-black text-[#18181B] border-r border-zinc-200">
             <div class="truncate max-w-[200px]">${film.film_title}</div>
             <span class="text-[10px] text-zinc-500 font-normal">${film.genre || "Short Film"}</span>
           </td>
@@ -1574,15 +1632,15 @@ import Layout from "../layouts/Layout.astro";
           <td class="p-3 border-r border-zinc-200 text-center font-bold">
             ${film.evalCount} / ${currentJuryMembers.length}
           </td>
-          <td class="p-3 border-r border-zinc-200 text-center font-black text-base ${film.evalCount > 0 ? "text-[#D9381E]" : "text-zinc-400"}">
+          <td class="p-3 border-r border-zinc-200 text-center font-black text-base ${film.evalCount > 0 ? "text-[#B31D12]" : "text-zinc-400"}">
             ${film.evalCount > 0 ? film.averageScore.toFixed(2) : "—"}
           </td>
           <td class="p-3 text-center">
             ${
               film.evalCount === currentJuryMembers.length &&
               currentJuryMembers.length > 0
-                ? `<span class="px-2 py-0.5 bg-emerald-100 text-emerald-950 font-black text-[10px] uppercase border border-emerald-400">Ready for Award</span>`
-                : `<span class="px-2 py-0.5 bg-amber-100 text-amber-900 font-bold text-[10px] uppercase border border-amber-300">In Review</span>`
+                ? `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-950 font-black text-[10px] uppercase border border-emerald-400 rounded">Ready for Award</span>`
+                : `<span class="px-2.5 py-1 bg-amber-100 text-amber-900 font-bold text-[10px] uppercase border border-amber-300 rounded">In Review</span>`
             }
           </td>
         </tr>

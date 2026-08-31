@@ -19,7 +19,7 @@ const festivalEditions = [
     edition: "Season 03",
     year: "2026",
     title: "Current Edition",
-    desc: "Featuring structured 12-criterion jury evaluations, ₹50,000+ in total prize pool, and dedicated awards for direction, cinematography, and performance.",
+    desc: "Featuring structured 12-criterion jury evaluations, dedicated cash awards, and competition laurels for direction, cinematography, and performance.",
   },
 ];
 
@@ -44,30 +44,80 @@ const pillars = [
 
 <Layout title="About Us | Drishtidosham Chalachithravedi">
   <div
-    class="w-full border-b border-zinc-900 py-12 sm:py-20 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]"
+    class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden"
   >
-    <div class="max-w-5xl mx-auto space-y-16 sm:space-y-20">
+    <!-- Background Subtle Golden Line Drawings, Swirls & Film Perforations -->
+    <div
+      class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden"
+    >
+      <!-- Top & Bottom Film Reel Border Patterns -->
+      <div
+        class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+      <div
+        class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+
+      <!-- Golden Graph Grid Overlay -->
+      <div
+        class="absolute inset-0 opacity-10"
+        style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+      >
+      </div>
+
+      <!-- Golden Traditional Line Art & Swirl Vectors -->
+      <svg
+        class="absolute -left-20 top-20 w-[480px] h-[480px] text-[#FDB813]"
+        viewBox="0 0 400 400"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path
+          d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190"
+        ></path>
+        <circle cx="200" cy="200" r="140" stroke-dasharray="8 8"></circle>
+      </svg>
+      <svg
+        class="absolute -right-24 bottom-24 w-[480px] h-[480px] text-[#FDB813]"
+        viewBox="0 0 400 400"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path
+          d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190"
+        ></path>
+        <circle cx="200" cy="200" r="160" stroke-dasharray="6 6"></circle>
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto space-y-16 sm:space-y-20">
       <!-- Masthead -->
-      <header class="border-b-2 border-[#161616] pb-8 space-y-4">
+      <header class="border-b border-[#FDB813]/30 pb-8 space-y-4">
         <div
-          class="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-zinc-500"
+          class="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-zinc-200"
         >
-          <a href="/" class="hover:text-[#D9381E] transition-colors"
+          <a href="/" class="hover:text-[#FDB813] transition-colors"
             >&larr; Home</a
           >
           <span>/</span>
-          <span>About Drishtidosham</span>
+          <span class="text-[#FDB813] font-bold">About Drishtidosham</span>
         </div>
 
         <h1
-          class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#161616] leading-none"
+          class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white font-mono leading-none drop-shadow-sm"
         >
           Drishtidosham <br class="hidden sm:inline" />
-          <span class="text-[#D9381E]">Chalachithravedi</span>
+          <span class="text-[#FDB813]">Chalachithravedi</span>
         </h1>
 
         <p
-          class="font-mono text-xs sm:text-sm text-zinc-700 leading-relaxed max-w-3xl pt-2"
+          class="font-mono text-xs sm:text-sm text-zinc-200 leading-relaxed max-w-3xl pt-2"
         >
           The film society wing of Pazhassi Raja Smaraka Granthalayam,
           Mananthavady — introducing world cinema classics to local audiences
@@ -79,29 +129,29 @@ const pillars = [
       <section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         <div class="md:col-span-5 space-y-4 font-mono">
           <div
-            class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-6 shadow-[5px_5px_0px_0px_#D9381E] space-y-3"
+            class="border border-[#FDB813]/40 bg-[#8B140B]/90 rounded-xl p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] space-y-3 backdrop-blur-xs"
           >
             <span
-              class="text-[10px] font-bold uppercase tracking-widest text-[#D9381E]"
+              class="text-[10px] font-bold uppercase tracking-widest text-[#FDB813]"
               >Parent Institution</span
             >
             <h2
-              class="text-xl sm:text-2xl font-black uppercase tracking-tight text-white"
+              class="text-xl sm:text-2xl font-black uppercase tracking-tight text-white font-mono"
             >
               Pazhassi Raja Smaraka Granthalayam
             </h2>
-            <p class="text-xs text-zinc-400 leading-relaxed">
+            <p class="text-xs text-zinc-200 leading-relaxed">
               Mananthavady, Wayanad, Kerala
             </p>
           </div>
 
           <div
-            class="border-2 border-[#161616] bg-white p-5 space-y-2 text-xs text-zinc-700 shadow-[3px_3px_0px_0px_#161616]"
+            class="border border-[#FDB813]/40 bg-[#8B140B]/90 rounded-xl p-5 space-y-2 text-xs text-zinc-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] backdrop-blur-xs"
           >
-            <span class="font-bold text-[#161616] uppercase block"
+            <span class="font-bold text-[#FDB813] uppercase block"
               >Key Activities</span
             >
-            <ul class="space-y-1.5 list-disc list-inside text-zinc-600">
+            <ul class="space-y-1.5 list-disc list-inside text-zinc-200">
               <li>World Cinema &amp; Classic Film Screenings</li>
               <li>Post-Screening Critical Open Discussions</li>
               <li>Pazhassi Short Film Festival (PSFF)</li>
@@ -111,22 +161,22 @@ const pillars = [
         </div>
 
         <div
-          class="md:col-span-7 space-y-5 font-mono text-xs leading-relaxed text-zinc-800"
+          class="md:col-span-7 space-y-5 font-mono text-xs leading-relaxed text-zinc-100"
         >
           <div
-            class="flex items-center gap-2 text-[#D9381E] font-bold uppercase tracking-wider text-[11px] pb-1 border-b border-zinc-300"
+            class="flex items-center gap-2 text-[#FDB813] font-bold uppercase tracking-wider text-[11px] pb-1 border-b border-[#FDB813]/30"
           >
             <span>01</span>
             <span>&bull;</span>
             <span>About the Collective</span>
           </div>
 
-          <p class="text-sm font-bold text-[#161616]">
+          <p class="text-sm font-bold text-white">
             Drishtidosham Chalachithravedi functions as the cinema collective of
             the Pazhassi Raja Smaraka Granthalayam in Mananthavady.
           </p>
 
-          <p>
+          <p class="text-zinc-200">
             The society was founded to introduce audiences in Mananthavady and
             surrounding regions to classic, artistic, and parallel traditions of
             world cinema. Through curated screenings and post-show discussions,
@@ -134,9 +184,9 @@ const pillars = [
             extension of the library's cultural and social role.
           </p>
 
-          <p>
+          <p class="text-zinc-200">
             In 2024, Drishtidosham launched the inaugural <strong
-              >Pazhassi Short Film Festival (PSFF)</strong
+              class="text-[#FDB813]">Pazhassi Short Film Festival (PSFF)</strong
             > to create an authentic, competitive big-screen showcase for independent
             short filmmakers. After successfully concluding Season 01 (2024) and Season
             02 (2025), the collective is currently hosting Season 03 (2026).
@@ -147,7 +197,7 @@ const pillars = [
       <!-- Key Pillars -->
       <section class="space-y-4 font-mono text-xs">
         <div
-          class="flex items-center gap-2 text-[#D9381E] font-bold uppercase tracking-wider text-[11px] pb-1 border-b border-zinc-300"
+          class="flex items-center gap-2 text-[#FDB813] font-bold uppercase tracking-wider text-[11px] pb-1 border-b border-[#FDB813]/30"
         >
           <span>02</span>
           <span>&bull;</span>
@@ -157,15 +207,15 @@ const pillars = [
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {
             pillars.map((item) => (
-              <div class="border-2 border-[#161616] bg-white p-6 shadow-[4px_4px_0px_0px_#161616] space-y-3 flex flex-col justify-between">
+              <div class="border border-[#FDB813]/40 bg-[#8B140B]/90 rounded-xl p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] space-y-3 flex flex-col justify-between backdrop-blur-xs hover:border-[#FDB813] transition-colors">
                 <div class="space-y-2">
-                  <span class="text-[10px] font-black uppercase tracking-wider text-[#D9381E] block">
+                  <span class="text-[10px] font-black uppercase tracking-wider text-[#FDB813] block">
                     {item.tag}
                   </span>
-                  <h3 class="text-base font-black uppercase tracking-tight text-[#161616]">
+                  <h3 class="text-base font-black uppercase tracking-tight text-white font-mono">
                     {item.title}
                   </h3>
-                  <p class="text-zinc-600 leading-relaxed text-[11px] pt-1">
+                  <p class="text-zinc-200 leading-relaxed text-[11px] pt-1 font-sans">
                     {item.desc}
                   </p>
                 </div>
@@ -178,7 +228,7 @@ const pillars = [
       <!-- Festival Editions Table -->
       <section class="space-y-3 font-mono text-xs">
         <div
-          class="flex items-center gap-2 text-[#D9381E] font-bold uppercase tracking-wider text-[11px] pb-1 border-b border-zinc-300"
+          class="flex items-center gap-2 text-[#FDB813] font-bold uppercase tracking-wider text-[11px] pb-1 border-b border-[#FDB813]/30"
         >
           <span>03</span>
           <span>&bull;</span>
@@ -186,36 +236,38 @@ const pillars = [
         </div>
 
         <div
-          class="border-2 border-[#161616] bg-white shadow-[4px_4px_0px_0px_#161616] overflow-x-auto"
+          class="border border-[#FDB813]/40 bg-[#8B140B]/90 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] overflow-x-auto backdrop-blur-xs"
         >
           <table class="w-full text-left border-collapse">
             <thead>
               <tr
-                class="bg-[#161616] text-[#F6F4EE] uppercase tracking-wider text-[10px] border-b-2 border-[#161616]"
+                class="bg-[#5C0D07] text-[#FDB813] uppercase tracking-wider text-[10px] border-b border-[#FDB813]/30"
               >
-                <th class="p-3.5 border-r border-zinc-700 w-32 text-center"
+                <th class="p-3.5 border-r border-[#FDB813]/20 w-32 text-center"
                   >Edition</th
                 >
-                <th class="p-3.5 border-r border-zinc-700 sm:w-1/4">Focus</th>
+                <th class="p-3.5 border-r border-[#FDB813]/20 sm:w-1/4"
+                  >Focus</th
+                >
                 <th class="p-3.5">Highlights &amp; Summary</th>
               </tr>
             </thead>
-            <tbody class="divide-y-2 divide-[#161616]">
+            <tbody class="divide-y divide-[#FDB813]/20 text-zinc-200">
               {
                 festivalEditions.map((item) => (
-                  <tr class="hover:bg-[#F6F4EE] transition-colors">
-                    <td class="p-3.5 border-r-2 border-[#161616] font-black text-center bg-[#F6F4EE]/40">
-                      <div class="text-[#D9381E] text-xs uppercase">
+                  <tr class="hover:bg-[#5C0D07]/50 transition-colors">
+                    <td class="p-3.5 border-r border-[#FDB813]/20 font-black text-center bg-[#5C0D07]/30">
+                      <div class="text-[#FDB813] text-xs uppercase font-mono">
                         {item.edition}
                       </div>
-                      <div class="text-[10px] text-zinc-500 font-normal">
+                      <div class="text-[10px] text-zinc-300 font-normal">
                         {item.year}
                       </div>
                     </td>
-                    <td class="p-3.5 border-r-2 border-[#161616] font-black uppercase text-[#161616] tracking-tight">
+                    <td class="p-3.5 border-r border-[#FDB813]/20 font-black uppercase text-white tracking-tight">
                       {item.title}
                     </td>
-                    <td class="p-3.5 font-bold text-zinc-700 leading-relaxed text-[11px]">
+                    <td class="p-3.5 text-zinc-200 leading-relaxed text-[11px] font-sans">
                       {item.desc}
                     </td>
                   </tr>
@@ -228,17 +280,19 @@ const pillars = [
 
       <!-- Footer Banner -->
       <div
-        class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-[5px_5px_0px_0px_#D9381E] font-mono"
+        class="border-2 border-black bg-[#8B140B] text-[#FDFCF7] p-6 sm:p-8 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-[6px_6px_0px_0px_#000000] font-mono"
       >
         <div class="space-y-1">
           <span
-            class="text-[10px] uppercase font-bold text-[#D9381E] tracking-widest block"
+            class="text-[10px] uppercase font-bold text-[#FDB813] tracking-widest block"
             >Screening Venue</span
           >
-          <h3 class="text-xl sm:text-2xl font-black uppercase text-white">
+          <h3
+            class="text-xl sm:text-2xl font-black uppercase text-white font-mono"
+          >
             Veena - Varna Theatre, Mananthavady
           </h3>
-          <p class="text-xs text-zinc-400">
+          <p class="text-xs text-zinc-200">
             Pazhassi Short Film Festival Season 03 &bull; Wayanad, Kerala
           </p>
         </div>
@@ -246,13 +300,13 @@ const pillars = [
         <div class="flex flex-wrap gap-3">
           <a
             href="/team"
-            class="px-4 py-2 text-xs font-black uppercase tracking-wider text-[#161616] bg-[#F6F4EE] hover:bg-[#D9381E] hover:text-white transition-all shadow-[2px_2px_0px_0px_#D9381E]"
+            class="px-5 py-2.5 text-xs font-black uppercase tracking-wider text-[#B31D12] bg-[#FDB813] hover:bg-white rounded-lg transition-all shadow-[2px_2px_0px_0px_#000000] hover:-translate-y-0.5 cursor-pointer"
           >
             Festival Team &rarr;
           </a>
           <a
             href="/submit"
-            class="px-4 py-2 text-xs font-black uppercase tracking-wider text-white border-2 border-white hover:bg-white hover:text-black transition-all"
+            class="px-5 py-2.5 text-xs font-black uppercase tracking-wider text-white border-2 border-[#FDB813]/60 hover:bg-[#FDB813] hover:text-[#B31D12] rounded-lg transition-all"
           >
             Submit Film
           </a>

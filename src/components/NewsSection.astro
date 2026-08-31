@@ -23,69 +23,95 @@ const sortedNews = Object.entries(newsFiles)
   .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 ---
 
-<section class="w-full bg-white text-zinc-950 border-b border-zinc-200 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#4338ca] selection:text-white">
-  <div class="max-w-6xl mx-auto space-y-12 sm:space-y-16">
+<section class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-20 sm:py-28 px-6 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden">
+  
+  <!-- Subtle Background Grid & Film Reel Borders (Seamless Flow from Previous Sections) -->
+  <div class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden">
+    <div 
+      class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+      style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+    ></div>
+    <div 
+      class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+      style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+    ></div>
+    <div
+      class="absolute inset-0 opacity-10"
+      style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+    ></div>
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto space-y-12 sm:space-y-16">
     
-    <!-- Direct Section Header (Matching Design Pattern) -->
-    <div class="border-b-2 border-zinc-950 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-      <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950">
-        Festival Updates
-      </h2>
-      <p class="font-mono text-xs uppercase tracking-wider text-zinc-500">
-        Official News &amp; Bulletins
+    <!-- Section Header -->
+    <div class="border-b border-[#FDB813]/30 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="space-y-2">
+        <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#FDB813] font-bold">
+          <span>Official Press &amp; Bulletins</span>
+          <span>&bull;</span>
+          <span>Dispatches</span>
+        </div>
+        <h2 class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white font-mono drop-shadow-sm">
+          Festival Updates
+        </h2>
+      </div>
+      <p class="font-mono text-xs uppercase tracking-widest text-[#FDB813] font-bold">
+        PSFF Season 03 Newsroom
       </p>
     </div>
 
-    <!-- 3-Column Profile / Article Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 items-start">
+    <!-- 3-Column News Article Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch font-mono">
       {sortedNews.map((item) => (
-        <article class="space-y-5 flex flex-col justify-between">
+        <article class="group relative rounded-xl bg-[#8B140B]/85 border border-[#FDB813]/40 hover:border-[#FDB813] transition-all duration-300 p-5 flex flex-col justify-between shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-[6px_6px_0px_0px_#FDB813] hover:-translate-y-1 backdrop-blur-xs">
           
-          <!-- Image Frame -->
-          {item.image && (
-            <a href={`/news/${item.slug}`} class="block group">
-              <div class="relative border-2 border-zinc-950 aspect-[16/10] bg-zinc-100 overflow-hidden shadow-[6px_6px_0px_0px_#18181b]">
+          <div class="space-y-5">
+            <!-- Fixed Aspect Container: Displays Full Images Without Awkward Crop Cuts -->
+            {item.image && (
+              <a href={`/news/${item.slug}`} class="block relative aspect-[16/10] bg-[#5C0D07] rounded-lg overflow-hidden border border-[#FDB813]/30 shadow-inner flex items-center justify-center">
                 <img
                   src={item.image}
                   alt={item.title}
-                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  class="w-full h-full object-contain p-1.5 transition-transform duration-500 ease-out group-hover:scale-105"
                   loading="lazy"
                 />
-                <div class="absolute bottom-3 left-3 bg-zinc-950 text-white font-mono text-[11px] font-bold px-2.5 py-1 uppercase tracking-wider">
+                
+                <!-- Floating Category Tag -->
+                <div class="absolute bottom-2.5 left-2.5 bg-[#B31D12] text-white font-mono text-[10px] font-black px-2.5 py-0.5 uppercase tracking-wider rounded border border-[#FDB813]/60 shadow-md">
                   {item.tag || "Dispatch"}
                 </div>
-              </div>
-            </a>
-          )}
-
-          <!-- Content Details -->
-          <div class="space-y-3 pt-1">
-            <div class="border-b border-zinc-200 pb-3">
-              <span class="block font-mono text-xs text-zinc-500 uppercase tracking-wider mb-1">
-                {item.publishDate}
-              </span>
-              <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-zinc-950 leading-snug hover:text-[#4338ca] transition-colors">
-                <a href={`/news/${item.slug}`}>
-                  {item.title}
-                </a>
-              </h3>
-            </div>
-
-            <!-- Summary Body -->
-            <p class="text-sm text-zinc-700 leading-relaxed font-normal">
-              {item.summary}
-            </p>
-
-            <!-- Inline Link Action -->
-            <div class="pt-2">
-              <a
-                href={`/news/${item.slug}`}
-                class="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-[#4338ca] hover:text-zinc-950 transition-colors"
-              >
-                <span>Read More</span>
-                <span>&rarr;</span>
               </a>
+            )}
+
+            <!-- Content Details -->
+            <div class="space-y-3">
+              <div class="border-b border-[#FDB813]/20 pb-3">
+                <span class="block font-mono text-[11px] text-[#FDB813] font-bold uppercase tracking-wider mb-1">
+                  {item.publishDate}
+                </span>
+                <h3 class="text-lg sm:text-xl font-black uppercase tracking-tight text-white group-hover:text-[#FDB813] transition-colors leading-snug">
+                  <a href={`/news/${item.slug}`}>
+                    {item.title}
+                  </a>
+                </h3>
+              </div>
+
+              <!-- Summary Body -->
+              <p class="text-xs text-zinc-200 leading-relaxed font-sans line-clamp-3 opacity-90">
+                {item.summary}
+              </p>
             </div>
+          </div>
+
+          <!-- Action Footer Button -->
+          <div class="pt-4 mt-5 border-t border-[#FDB813]/20">
+            <a
+              href={`/news/${item.slug}`}
+              class="inline-flex items-center justify-between w-full py-2.5 px-3.5 rounded-lg bg-[#5C0D07]/80 hover:bg-[#FDB813] hover:text-[#B31D12] text-xs font-bold font-mono uppercase tracking-wider text-white transition-all duration-200 border border-[#FDB813]/30 hover:border-[#FDB813] shadow-sm"
+            >
+              <span>Read Full Story</span>
+              <span class="text-sm font-sans group-hover:translate-x-1 transition-transform">&rarr;</span>
+            </a>
           </div>
 
         </article>

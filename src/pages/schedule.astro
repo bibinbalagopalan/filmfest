@@ -10,7 +10,7 @@ const timelinePhases = [
     title: "Online Submissions Window",
     desc: "Open for short films completed between 01 September 2025 and 31 August 2026. Submissions must be under 30 minutes runtime.",
     badge: "Active",
-    badgeColor: "bg-[#D9381E] text-white",
+    badgeColor: "bg-[#B31D12] text-[#FDFCF7] border border-[#B31D12]",
   },
   {
     phase: "02",
@@ -19,7 +19,7 @@ const timelinePhases = [
     title: "Preliminary Screening & Elimination",
     desc: "The 12-member festival screening panel reviews all valid online entries to curate the official selection shortlist.",
     badge: "Screening Panel",
-    badgeColor: "bg-[#161616] text-[#F6F4EE]",
+    badgeColor: "bg-[#18181B] text-[#FDFCF7]",
   },
   {
     phase: "03",
@@ -28,7 +28,7 @@ const timelinePhases = [
     title: "Main Jury Evaluation",
     desc: "The chief jury and evaluation committee view and score the shortlisted official selections against calibrated evaluation rubrics.",
     badge: "Main Jury",
-    badgeColor: "bg-[#161616] text-[#F6F4EE]",
+    badgeColor: "bg-[#18181B] text-[#FDFCF7]",
   },
   {
     phase: "04",
@@ -37,73 +37,98 @@ const timelinePhases = [
     title: "Festival Screenings & Award Declaration",
     desc: "Public screenings at Veena - Varna Theatre and the outdoor LED arena, live audience electronic voting for Best Popular Film, and the awards ceremony.",
     badge: "Public Event",
-    badgeColor: "bg-[#D9381E] text-white",
+    badgeColor: "bg-[#B31D12] text-[#FDFCF7] border border-[#B31D12]",
   },
 ];
 ---
 
 <Layout title="Festival Schedule & Timeline | PSFF Season 03">
-  <div class="w-full border-b border-zinc-900 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]">
-    <div class="max-w-6xl mx-auto space-y-16 sm:space-y-20">
+  <div class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-16 sm:py-24 px-4 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden">
+    
+    <!-- Background Frame Accents -->
+    <div class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden">
+      <div 
+        class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      ></div>
+      <div 
+        class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      ></div>
+      <div
+        class="absolute inset-0 opacity-10"
+        style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+      ></div>
+      <svg class="absolute -left-20 top-20 w-[480px] h-[480px] text-[#FDB813]" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190" />
+        <circle cx="200" cy="200" r="140" stroke-dasharray="8 8" />
+      </svg>
+      <svg class="absolute -right-24 bottom-24 w-[480px] h-[480px] text-[#FDB813]" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190" />
+        <circle cx="200" cy="200" r="160" stroke-dasharray="6 6" />
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto space-y-16 sm:space-y-20">
       
       <!-- Page Header -->
-      <header class="border-b-2 border-[#161616] pb-8 space-y-4">
-        <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-500">
-          <a href="/" class="hover:text-[#D9381E] transition-colors">&larr; Home</a>
+      <header class="border-b border-[#FDB813]/30 pb-8 space-y-4">
+        <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-200">
+          <a href="/" class="hover:text-[#FDB813] transition-colors">&larr; Home</a>  
           <span>&bull;</span>
-          <span class="text-[#D9381E] font-bold">Timeline</span>
+          <span class="text-[#FDB813] font-bold">Timeline</span>  
           <span>&bull;</span>
-          <span>Season 03</span>
+          <span>Season 03</span>  
         </div>
 
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#161616] leading-none">
-          Festival Schedule
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-mono leading-none drop-shadow-sm">
+          Festival Schedule  
         </h1>
-        <p class="font-mono text-sm sm:text-base text-zinc-700 max-w-3xl leading-relaxed">
-          Key dates, submission deadlines, jury evaluation phases, and the screening timeline for the 3rd Pazhassi Short Film Festival 2026.
+        <p class="font-mono text-sm sm:text-base text-zinc-200 max-w-3xl leading-relaxed">
+          Key dates, submission deadlines, jury evaluation phases, and the screening timeline for the 3rd Pazhassi Short Film Festival 2026.  
         </p>
       </header>
 
-      <!-- Section 1: 4-Phase Season Timeline -->
+      <!-- Section 1: 4-Phase Season Timeline (High-Contrast Cards) -->
       <section class="space-y-6">
-        <div class="border-b-2 border-[#161616] pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-          <h2 class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#161616]">
-            Season 03 Roadmap
+        <div class="border-b border-[#FDB813]/30 pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+          <h2 class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white font-mono">
+            Season 03 Roadmap  
           </h2>
-          <span class="font-mono text-xs uppercase text-zinc-500 font-bold">
-            August — November 2026
+          <span class="font-mono text-xs uppercase text-[#FDB813] font-bold">
+            August — November 2026  
           </span>
         </div>
 
-        <div class="border-2 border-[#161616] bg-[#F6F4EE] divide-y-2 divide-[#161616] shadow-[6px_6px_0px_0px_#161616]">
+        <div class="bg-[#FDFCF7] text-[#18181B] border-2 border-black rounded-2xl divide-y-2 divide-black/10 shadow-[6px_6px_0px_0px_#000000] overflow-hidden">
           {timelinePhases.map((phase) => (
-            <div class="p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:bg-zinc-50 transition-colors">
               
               <div class="space-y-2 md:max-w-2xl">
                 <div class="flex flex-wrap items-center gap-3 font-mono">
-                  <span class="text-xs font-black text-[#D9381E]">PHASE {phase.phase}</span>
-                  <span class="text-zinc-400">&bull;</span>
-                  <span class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 ${phase.badgeColor}`}>
-                    {phase.badge}
+                  <span class="text-xs font-black text-[#B31D12]">PHASE {phase.phase}</span>  
+                  <span class="text-zinc-400">&bull;</span>  
+                  <span class={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md shadow-xs ${phase.badgeColor}`}>
+                    {phase.badge}  
                   </span>
                 </div>
 
-                <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#161616]">
-                  {phase.title}
+                <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#18181B] font-mono">
+                  {phase.title}  
                 </h3>
 
-                <p class="font-mono text-xs sm:text-sm text-zinc-700 leading-relaxed">
-                  {phase.desc}
+                <p class="font-sans text-xs sm:text-sm text-zinc-700 leading-relaxed">
+                  {phase.desc}  
                 </p>
               </div>
 
               <!-- Date Badge -->
-              <div class="font-mono md:text-right border-t md:border-t-0 pt-4 md:pt-0 border-zinc-300 min-w-[260px]">
-                <span class="text-[10px] uppercase text-zinc-500 font-bold block mb-1">
-                  {phase.status}
+              <div class="font-mono md:text-right border-t md:border-t-0 pt-4 md:pt-0 border-black/10 min-w-[260px]">
+                <span class="text-[10px] uppercase text-[#B31D12] font-black block mb-1 tracking-wider">
+                  {phase.status}  
                 </span>
-                <span class="text-base sm:text-lg font-black text-[#161616] block">
-                  {phase.dates}
+                <span class="text-base sm:text-lg font-black text-[#18181B] block font-mono">
+                  {phase.dates}  
                 </span>
               </div>
 
@@ -114,69 +139,69 @@ const timelinePhases = [
 
       <!-- Section 2: Grand Finale Program Notice -->
       <section class="space-y-6">
-        <div class="border-b-2 border-[#161616] pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+        <div class="border-b border-[#FDB813]/30 pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
           <div>
-            <span class="font-mono text-xs font-bold uppercase tracking-widest text-[#D9381E] block mb-1">
-              Grand Finale Day
+            <span class="font-mono text-xs font-bold uppercase tracking-widest text-[#FDB813] block mb-1">
+              Grand Finale Day  
             </span>
-            <h2 class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#161616]">
-              28 November 2026 Program
+            <h2 class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white font-mono">
+              28 November 2026 Program  
             </h2>
           </div>
-          <span class="font-mono text-xs uppercase text-zinc-500 font-bold">
-            Veena - Varna Theatre
+          <span class="font-mono text-xs uppercase text-zinc-200 font-bold">
+            Veena - Varna Theatre  
           </span>
         </div>
 
-        <div class="border-2 border-[#161616] bg-[#F6F4EE] p-8 sm:p-12 shadow-[5px_5px_0px_0px_#161616] text-center space-y-3">
-          <span class="font-mono text-xs uppercase tracking-widest text-[#D9381E] font-bold block">
-            Screening & Event Timeline
+        <div class="bg-[#FDFCF7] text-[#18181B] border-2 border-black rounded-2xl p-8 sm:p-12 shadow-[6px_6px_0px_0px_#000000] text-center space-y-3">
+          <span class="font-mono text-xs uppercase tracking-widest text-[#B31D12] font-black block">
+            Screening &amp; Event Timeline  
           </span>
-          <p class="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#161616]">
-            Detailed Schedule Will Be Updated Shortly
+          <p class="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#18181B] font-mono">
+            Detailed Schedule Will Be Updated Shortly  
           </p>
-          <p class="font-mono text-xs sm:text-sm text-zinc-700 max-w-xl mx-auto leading-relaxed">
-            The full lineup of competition screenings, open forum sessions, and the award ceremony order will be announced following the completion of jury evaluations.
+          <p class="font-sans text-xs sm:text-sm text-zinc-700 max-w-xl mx-auto leading-relaxed">
+            The full lineup of competition screenings, open forum sessions, and the award ceremony order will be announced following the completion of jury evaluations.  
           </p>
         </div>
       </section>
 
       <!-- Bottom Submission CTA -->
-      <section class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 sm:p-10 shadow-[6px_6px_0px_0px_#D9381E] flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <section class="border-2 border-black bg-[#8B140B] text-[#FDFCF7] p-8 sm:p-10 rounded-2xl shadow-[6px_6px_0px_0px_#000000] flex flex-col md:flex-row md:items-center justify-between gap-6 font-mono">
         <div class="space-y-2">
-          <span class="inline-block font-mono text-xs uppercase tracking-widest text-[#D9381E] font-bold">
-            Submission Window
+          <span class="inline-block text-xs uppercase tracking-widest text-[#FDB813] font-bold">
+            Submission Window  
           </span>
-          <h3 class="text-2xl sm:text-3xl font-black uppercase text-white tracking-tight">
-            Entries Close: 30 September 2026
+          <h3 class="text-2xl sm:text-3xl font-black uppercase text-white tracking-tight font-mono">
+            Last Date: 30 September 2026  
           </h3>
-          <p class="font-mono text-xs text-zinc-400 max-w-xl">
-            Submit your screener links, subtitle files, and film details before the window closes.
+          <p class="text-xs text-zinc-200 max-w-xl font-sans">
+            Submit your screener links, subtitle files, and film details before the window closes.  
           </p>
         </div>
 
         <a
           href="/submit"
-          class="inline-block px-6 py-3.5 text-xs font-mono font-black uppercase tracking-wider text-[#161616] bg-[#F6F4EE] hover:bg-[#D9381E] hover:text-white transition-all shadow-[3px_3px_0px_0px_#D9381E]"
+          class="inline-block px-6 py-3.5 text-xs font-black uppercase tracking-wider text-[#B31D12] bg-[#FDB813] hover:bg-white rounded-lg transition-all shadow-[2px_2px_0px_0px_#000000] hover:-translate-y-0.5 cursor-pointer shrink-0"
         >
-          Submit Entry Now &rarr;
+          Submit Entry Now &rarr;  
         </a>
       </section>
 
       <!-- Footer Routing -->
-      <div class="border-t-2 border-[#161616] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
+      <div class="border-t border-[#FDB813]/30 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
         <a
           href="/venue"
-          class="font-bold uppercase tracking-wider text-[#161616] hover:text-[#D9381E] transition-colors"
+          class="font-bold uppercase tracking-wider text-zinc-200 hover:text-[#FDB813] transition-colors"
         >
-          &larr; View Screening Venue &amp; Travel Guide
+          &larr; View Screening Venue &amp; Travel Guide  
         </a>
 
         <a
           href="/rules"
-          class="font-bold uppercase tracking-wider text-[#161616] hover:text-[#D9381E] transition-colors"
+          class="font-bold uppercase tracking-wider text-zinc-200 hover:text-[#FDB813] transition-colors"
         >
-          Read Rules &amp; Regulations &rarr;
+          Read Rules &amp; Regulations &rarr;  
         </a>
       </div>
 

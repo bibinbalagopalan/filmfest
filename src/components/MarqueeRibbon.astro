@@ -12,25 +12,25 @@ const announcements = [
 ---
 
 <div
-  class="w-full bg-[#4338ca] text-white border-y border-zinc-950 overflow-hidden py-3 select-none flex items-center"
+  class="w-full bg-[#FDB813] text-[#161616] border-y-2 border-black overflow-hidden py-3 select-none flex items-center shadow-md selection:bg-[#B31D12] selection:text-white"
 >
   <!-- Fixed Label -->
   <div
-    class="z-10 bg-[#4338ca] pl-6 pr-4 shrink-0 font-mono text-xs font-black uppercase tracking-widest flex items-center gap-2.5 shadow-[8px_0px_12px_#4338ca]"
+    class="z-10 bg-[#FDB813] pl-6 pr-4 shrink-0 font-mono text-xs font-black uppercase tracking-widest flex items-center gap-2.5 shadow-[10px_0px_16px_#FDB813]"
   >
-    <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
-    <span class="text-white">Announcements:</span>
+    <span class="w-2.5 h-2.5 rounded-full bg-[#B31D12] animate-ping"></span>
+    <span class="text-[#B31D12] font-black">Announcements:</span>
   </div>
 
   <!-- Scrolling Marquee Content -->
   <div class="marquee-track flex whitespace-nowrap overflow-hidden">
     {
       [...Array(2)].map(() => (
-        <div class="marquee-content flex items-center gap-6 shrink-0 pl-4 font-mono text-xs uppercase tracking-wider font-semibold">
+        <div class="marquee-content flex items-center gap-6 shrink-0 pl-4 font-mono text-xs uppercase tracking-wider font-bold">
           {announcements.map((item) => (
             <div class="flex items-center gap-6">
-              <span class="text-white">{item}</span>
-              <span class="text-indigo-300 font-normal">&bull;</span>
+              <span class="text-[#161616]">{item}</span>
+              <span class="text-[#B31D12] font-black text-sm">&bull;</span>
             </div>
           ))}
         </div>

@@ -3,35 +3,78 @@
 import Layout from "../layouts/Layout.astro";
 
 const directorate = [
-  { role: "Festival Director", name: "Sunith KP" },
-  { role: "Festival Convenor", name: "Bibin Balagopal, Vishnu K" },
+  { 
+    role: "Festival Director", 
+    name: "Sunith KP",
+    designation: "General Directorate & Curation"
+  },
+  { 
+    role: "Festival Convenor", 
+    name: "Bibin Balagopal",
+    designation: "Technical Operations & Digital Systems"
+  },
+  { 
+    role: "Festival Convenor", 
+    name: "Vishnu K",
+    designation: "Coordination & Logistics Management"
+  },
 ];
 ---
 
 <Layout title="Organizing Collective | PSFF Season 03">
   <div
-    class="w-full border-b border-zinc-900 py-12 sm:py-20 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]"
+    class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden"
   >
-    <div class="max-w-5xl mx-auto space-y-12 sm:space-y-16">
+    <!-- Background Graph Grid, Swirls & Film Perforations -->
+    <div class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden">
+      <!-- Top & Bottom Film Reel Border Patterns -->
+      <div 
+        class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      ></div>
+      <div 
+        class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      ></div>
+
+      <!-- Golden Graph Grid Overlay -->
+      <div
+        class="absolute inset-0 opacity-10"
+        style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+      ></div>
+
+      <!-- Golden Traditional Line Art & Swirl Vectors -->
+      <svg class="absolute -left-20 top-12 w-[480px] h-[480px] text-[#FDB813]" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190" />
+        <circle cx="200" cy="200" r="140" stroke-dasharray="8 8" />
+      </svg>
+      <svg class="absolute -right-24 bottom-12 w-[480px] h-[480px] text-[#FDB813]" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190" />
+        <circle cx="200" cy="200" r="160" stroke-dasharray="6 6" />
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto space-y-12 sm:space-y-16">
+      
       <!-- Masthead -->
-      <header class="border-b-2 border-[#161616] pb-6 space-y-3">
+      <header class="border-b border-[#FDB813]/30 pb-6 space-y-3">
         <div
-          class="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-zinc-500"
+          class="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-zinc-200"
         >
-          <a href="/" class="hover:text-[#D9381E] transition-colors"
+          <a href="/" class="hover:text-[#FDB813] transition-colors"
             >&larr; Home</a
           >
           <span>/</span>
-          <span>Organizing Committee</span>
+          <span class="text-[#FDB813] font-bold">Organizing Committee</span>
         </div>
 
         <h1
-          class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#161616]"
+          class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white font-mono drop-shadow-sm"
         >
           Festival Team
         </h1>
         <p
-          class="font-mono text-xs sm:text-sm text-zinc-700 leading-relaxed max-w-3xl"
+          class="font-mono text-xs sm:text-sm text-zinc-200 leading-relaxed max-w-3xl"
         >
           PSFF is built and executed collectively by local film enthusiasts,
           cultural workers, and volunteers working collaboratively across all
@@ -39,39 +82,40 @@ const directorate = [
         </p>
       </header>
 
-      <!-- Table 1: Core Coordination -->
-      <section class="space-y-3 font-mono text-xs">
-        <div
-          class="border-2 border-[#161616] bg-white shadow-[4px_4px_0px_0px_#161616] overflow-x-auto"
-        >
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr
-                class="bg-[#161616] text-[#F6F4EE] uppercase tracking-wider text-[10px] border-b-2 border-[#161616]"
-              >
-                <th class="p-3.5 border-r border-zinc-700 w-1/3 sm:w-1/4"
-                  >Role / Body</th
-                >
-                <th class="p-3.5">Members &amp; Key Coordinators</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y-2 divide-[#161616]">
-              {
-                directorate.map((item) => (
-                  <tr class="hover:bg-[#F6F4EE] transition-colors">
-                    <td class="p-3.5 border-r-2 border-[#161616] font-bold text-zinc-600 uppercase text-[11px] bg-[#F6F4EE]/40">
-                      {item.role}
-                    </td>
-                    <td class="p-3.5 font-black text-sm sm:text-base text-[#161616] uppercase tracking-tight">
-                      {item.name}
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        </div>
+      <!-- Executive Directorate Cards Grid -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 font-mono">
+        {
+          directorate.map((member) => (
+            <article class="group relative rounded-xl bg-[#8B140B]/90 border border-[#FDB813]/40 hover:border-[#FDB813] transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] hover:shadow-[6px_6px_0px_0px_#FDB813] hover:-translate-y-1 backdrop-blur-xs">
+              
+              <div class="space-y-4">
+                <!-- Role Tag -->
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#5C0D07] text-[#FDB813] text-[10px] font-black uppercase tracking-wider rounded border border-[#FDB813]/30 shadow-xs">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#FDB813]"></span>
+                  <span>{member.role}</span>
+                </div>
+
+                <!-- Member Name -->
+                <div class="space-y-1 pt-1">
+                  <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white font-mono group-hover:text-[#FDB813] transition-colors">
+                    {member.name}
+                  </h2>
+                  <p class="text-xs text-zinc-200 font-sans leading-relaxed pt-1 opacity-90">
+                    {member.designation}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Card Base Accent -->
+              <div class="pt-5 mt-6 border-t border-[#FDB813]/20 flex items-center justify-between text-[11px] text-zinc-300">
+                <span class="uppercase tracking-widest text-[#FDB813] font-bold">PSFF 2026</span>
+                <span class="font-sans text-white group-hover:translate-x-1 transition-transform">&rarr;</span>
+              </div>
+            </article>
+          ))
+        }
       </section>
+
     </div>
   </div>
 </Layout>

@@ -101,30 +101,75 @@ const legalSections = [
 
 <Layout title="Rules & Regulations | PSFF Season 03">
   <div
-    class="w-full border-b border-zinc-900 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]"
+    class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-16 sm:py-24 px-4 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden"
   >
-    <div class="max-w-6xl mx-auto space-y-16 sm:space-y-20">
+    <!-- Background Frame Accents -->
+    <div
+      class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden"
+    >
+      <div
+        class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+      <div
+        class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+      <div
+        class="absolute inset-0 opacity-10"
+        style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+      >
+      </div>
+      <svg
+        class="absolute -left-20 top-20 w-[480px] h-[480px] text-[#FDB813]"
+        viewBox="0 0 400 400"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path
+          d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190"
+        ></path>
+        <circle cx="200" cy="200" r="140" stroke-dasharray="8 8"></circle>
+      </svg>
+      <svg
+        class="absolute -right-24 bottom-24 w-[480px] h-[480px] text-[#FDB813]"
+        viewBox="0 0 400 400"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path
+          d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190"
+        ></path>
+        <circle cx="200" cy="200" r="160" stroke-dasharray="6 6"></circle>
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto space-y-16 sm:space-y-20">
       <!-- Page Header -->
-      <header class="border-b-2 border-[#161616] pb-8 space-y-4">
+      <header class="border-b border-[#FDB813]/30 pb-8 space-y-4">
         <div
-          class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-500"
+          class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-200"
         >
-          <a href="/" class="hover:text-[#D9381E] transition-colors"
+          <a href="/" class="hover:text-[#FDB813] transition-colors"
             >&larr; Home</a
           >
           <span>&bull;</span>
-          <span class="text-[#D9381E] font-bold">Guidelines</span>
+          <span class="text-[#FDB813] font-bold">Guidelines</span>
           <span>&bull;</span>
           <span>Season 03</span>
         </div>
 
         <h1
-          class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#161616] leading-none"
+          class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-mono leading-none drop-shadow-sm"
         >
           Rules &amp; Regulations
         </h1>
         <p
-          class="font-mono text-sm sm:text-base text-zinc-700 max-w-3xl leading-relaxed"
+          class="font-mono text-sm sm:text-base text-zinc-200 max-w-3xl leading-relaxed"
         >
           Official eligibility criteria, prize distribution, submission
           parameters, and legal terms for the 3rd Pazhassi Short Film Festival
@@ -132,33 +177,33 @@ const legalSections = [
         </p>
       </header>
 
-      <!-- Section 1: Official Cash Prizes & Awards Structure -->
+      <!-- Section 1: Official Cash Prizes & Awards Structure (High Contrast) -->
       <section class="space-y-6">
         <div
-          class="border-b-2 border-[#161616] pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2"
+          class="border-b border-[#FDB813]/30 pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2"
         >
           <h2
-            class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#161616]"
+            class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white font-mono"
           >
             Awards &amp; Endowments
           </h2>
-          <span class="font-mono text-xs uppercase text-zinc-500 font-bold">
+          <span class="font-mono text-xs uppercase text-[#FDB813] font-bold">
             Season 03 Purse
           </span>
         </div>
 
         <div
-          class="border-2 border-[#161616] bg-[#F6F4EE] divide-y-2 divide-[#161616] shadow-[6px_6px_0px_0px_#161616]"
+          class="bg-[#FDFCF7] text-[#18181B] border-2 border-black rounded-2xl divide-y-2 divide-black/10 shadow-[6px_6px_0px_0px_#000000] overflow-hidden"
         >
           {
             awards.map((item) => (
-              <div class="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono">
+              <div class="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono hover:bg-zinc-50 transition-colors">
                 <div class="space-y-1">
                   <div class="flex items-center gap-3">
-                    <span class="text-xs font-black text-[#D9381E]">
+                    <span class="text-xs font-black text-[#B31D12]">
                       {item.rank}.
                     </span>
-                    <h3 class="text-lg sm:text-xl font-black uppercase tracking-tight text-[#161616]">
+                    <h3 class="text-lg sm:text-xl font-black uppercase tracking-tight text-[#18181B] font-mono">
                       {item.title}
                     </h3>
                   </div>
@@ -168,10 +213,10 @@ const legalSections = [
                 </div>
 
                 <div class="pl-7 sm:pl-0 font-mono text-right flex sm:flex-col items-baseline sm:items-end justify-between">
-                  <span class="text-2xl sm:text-3xl font-black text-[#161616]">
+                  <span class="text-2xl sm:text-3xl font-black text-[#18181B]">
                     {item.prize}
                   </span>
-                  <span class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">
+                  <span class="text-[10px] text-[#B31D12] uppercase tracking-widest font-black">
                     Award Value
                   </span>
                 </div>
@@ -181,11 +226,11 @@ const legalSections = [
         </div>
       </section>
 
-      <!-- Section 2: Core Submission Guidelines -->
-      <section class="space-y-6">
-        <div class="border-b-2 border-[#161616] pb-3">
+      <!-- Section 2: Core Submission Guidelines (High Contrast Grid) -->
+      <section class="space-y-6 font-mono">
+        <div class="border-b border-[#FDB813]/30 pb-3">
           <h2
-            class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#161616]"
+            class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white font-mono"
           >
             Key Entry Guidelines
           </h2>
@@ -194,16 +239,16 @@ const legalSections = [
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {
             keyGuidelines.map((item, idx) => (
-              <div class="border-2 border-[#161616] bg-[#F6F4EE] p-6 shadow-[5px_5px_0px_0px_#161616] flex flex-col justify-between space-y-4">
+              <div class="bg-[#FDFCF7] text-[#18181B] border-2 border-black rounded-2xl p-6 shadow-[5px_5px_0px_0px_#000000] flex flex-col justify-between space-y-4 hover:-translate-y-1 hover:shadow-[7px_7px_0px_0px_#FDB813] transition-all">
                 <div class="space-y-2">
-                  <span class="font-mono text-xs font-bold text-[#D9381E] block">
+                  <span class="text-xs font-black text-[#B31D12] block">
                     0{idx + 1}.
                   </span>
-                  <h3 class="text-lg font-black uppercase tracking-tight text-[#161616]">
+                  <h3 class="text-lg font-black uppercase tracking-tight text-[#18181B] font-mono">
                     {item.title}
                   </h3>
                 </div>
-                <p class="font-mono text-xs text-zinc-700 leading-relaxed border-t border-zinc-300 pt-3">
+                <p class="text-xs text-zinc-700 leading-relaxed border-t-2 border-black/10 pt-3 font-sans">
                   {item.desc}
                 </p>
               </div>
@@ -212,27 +257,27 @@ const legalSections = [
         </div>
       </section>
 
-      <!-- Section 3: Comprehensive Legal Terms & Standards -->
-      <section class="space-y-6">
-        <div class="border-b-2 border-[#161616] pb-3">
+      <!-- Section 3: Comprehensive Legal Terms & Standards (High Contrast) -->
+      <section class="space-y-6 font-mono">
+        <div class="border-b border-[#FDB813]/30 pb-3">
           <h2
-            class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#161616]"
+            class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white font-mono"
           >
             Terms, Conditions &amp; Legal Clauses
           </h2>
         </div>
 
-        <div class="space-y-8 font-mono text-xs sm:text-sm text-zinc-800">
+        <div class="space-y-6 text-xs sm:text-sm text-[#18181B]">
           {
             legalSections.map((sec) => (
-              <div class="border-2 border-[#161616] bg-[#F6F4EE] p-6 sm:p-8 shadow-[5px_5px_0px_0px_#161616] space-y-4">
-                <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-[#161616] border-b border-zinc-300 pb-2">
+              <div class="bg-[#FDFCF7] border-2 border-black rounded-2xl p-6 sm:p-8 shadow-[5px_5px_0px_0px_#000000] space-y-4">
+                <h3 class="text-base sm:text-lg font-black uppercase tracking-tight text-[#18181B] font-mono border-b-2 border-black/10 pb-2">
                   {sec.title}
                 </h3>
-                <ul class="space-y-2.5 leading-relaxed">
+                <ul class="space-y-2.5 leading-relaxed font-sans text-zinc-800">
                   {sec.points.map((pt) => (
                     <li class="flex items-start gap-3">
-                      <span class="text-[#D9381E] font-bold mt-0.5">
+                      <span class="text-[#B31D12] font-black mt-0.5 font-mono">
                         &bull;
                       </span>
                       <span>{pt}</span>
@@ -247,28 +292,30 @@ const legalSections = [
 
       <!-- Section 4: Bottom Call to Action -->
       <section
-        class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 sm:p-10 shadow-[6px_6px_0px_0px_#D9381E] flex flex-col md:flex-row md:items-center justify-between gap-6"
+        class="border-2 border-black bg-[#8B140B] text-[#FDFCF7] p-8 sm:p-10 rounded-2xl shadow-[6px_6px_0px_0px_#000000] flex flex-col md:flex-row md:items-center justify-between gap-6 font-mono"
       >
         <div class="space-y-2">
           <span
-            class="inline-block font-mono text-xs uppercase tracking-widest text-[#D9381E] font-bold"
+            class="inline-block text-xs uppercase tracking-widest text-[#FDB813] font-bold"
           >
             Ready to Enter?
           </span>
           <h3
-            class="text-2xl sm:text-3xl font-black uppercase text-white tracking-tight"
+            class="text-2xl sm:text-3xl font-black uppercase text-white tracking-tight font-mono"
           >
             Submit Your Short Film
           </h3>
-          <p class="font-mono text-xs text-zinc-400 max-w-xl">
-            Entry Fee: ₹1,000 &bull; Deadline: 30 September 2026 &bull; Runtime
-            &le; 30 Minutes
+          <p class="text-xs text-zinc-200 max-w-xl font-sans">
+            <b>
+              Entry Fee: ₹1,000 &bull; Deadline: 30 September 2026 &bull;
+              Runtime &le; 30 Minutes
+            </b>
           </p>
         </div>
 
         <a
           href="/submit"
-          class="inline-block px-6 py-3.5 text-xs font-mono font-black uppercase tracking-wider text-[#161616] bg-[#F6F4EE] hover:bg-[#D9381E] hover:text-white transition-all shadow-[3px_3px_0px_0px_#D9381E]"
+          class="inline-block px-6 py-3.5 text-xs font-mono font-black uppercase tracking-wider text-[#B31D12] bg-[#FDB813] hover:bg-white rounded-lg transition-all shadow-[2px_2px_0px_0px_#000000] hover:-translate-y-0.5 cursor-pointer shrink-0"
         >
           Proceed to Submission &rarr;
         </a>
@@ -276,18 +323,18 @@ const legalSections = [
 
       <!-- Navigation Routing -->
       <div
-        class="border-t-2 border-[#161616] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs"
+        class="border-t border-[#FDB813]/30 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs"
       >
         <a
           href="/schedule"
-          class="font-bold uppercase tracking-wider text-[#161616] hover:text-[#D9381E] transition-colors"
+          class="font-bold uppercase tracking-wider text-zinc-200 hover:text-[#FDB813] transition-colors"
         >
           &larr; View Festival Schedule
         </a>
 
         <a
           href="/contact"
-          class="font-bold uppercase tracking-wider text-[#161616] hover:text-[#D9381E] transition-colors"
+          class="font-bold uppercase tracking-wider text-zinc-200 hover:text-[#FDB813] transition-colors"
         >
           Have Questions? Contact Us &rarr;
         </a>

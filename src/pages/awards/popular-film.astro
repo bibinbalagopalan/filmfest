@@ -62,26 +62,56 @@ const winners = [
 ---
 
 <Layout title="Best Popular Short Film | PSFF Season 03">
-  <div class="w-full border-b border-zinc-900 py-16 sm:py-24 px-6 sm:px-12">
-    <div class="max-w-6xl mx-auto space-y-16 sm:space-y-20">
+  <div class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden">
+    
+    <!-- Background Graph Grid, Swirls & Film Perforations -->
+    <div class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden">
+      <!-- Top & Bottom Film Reel Border Patterns -->
+      <div 
+        class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      ></div>
+      <div 
+        class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      ></div>
+
+      <!-- Golden Graph Grid Overlay -->
+      <div
+        class="absolute inset-0 opacity-10"
+        style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+      ></div>
+
+      <!-- Golden Traditional Line Art & Swirl Vectors -->
+      <svg class="absolute -left-20 top-20 w-[480px] h-[480px] text-[#FDB813]" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190" />
+        <circle cx="200" cy="200" r="140" stroke-dasharray="8 8" />
+      </svg>
+      <svg class="absolute -right-24 bottom-24 w-[480px] h-[480px] text-[#FDB813]" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190" />
+        <circle cx="200" cy="200" r="160" stroke-dasharray="6 6" />
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto space-y-16 sm:space-y-20">
       
       <!-- Header -->
-      <header class="border-b-2 border-[#161616] pb-8 space-y-3">
-        <div class="font-mono text-xs uppercase tracking-wider text-zinc-500">
-          <a href="/" class="hover:text-[#D9381E]">&larr; Home</a> / Awards
+      <header class="border-b border-[#FDB813]/30 pb-8 space-y-3">
+        <div class="font-mono text-xs uppercase tracking-wider text-zinc-200">
+          <a href="/" class="hover:text-[#FDB813] transition-colors">&larr; Home</a> / Awards
         </div>
-        <h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#161616]">
+        <h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white font-mono drop-shadow-sm">
           Best Popular Short Film
         </h1>
-        <p class="font-mono text-sm sm:text-base text-zinc-700">
+        <p class="font-mono text-sm sm:text-base text-[#FDB813] font-bold">
           Decided directly by the festival audience through on-venue voting during public screenings.
         </p>
       </header>
 
       <!-- Prize Summary -->
-      <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 shadow-[5px_5px_0px_0px_#D9381E] space-y-2">
-          <span class="font-mono text-xs uppercase tracking-wider text-[#D9381E] font-bold block">
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono">
+        <div class="border border-[#FDB813]/40 bg-[#8B140B]/90 rounded-xl p-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] space-y-2 backdrop-blur-xs">
+          <span class="text-xs uppercase tracking-wider text-[#FDB813] font-bold block">
             Cash Award
           </span>
           <p class="text-5xl sm:text-6xl font-black text-white">
@@ -89,11 +119,11 @@ const winners = [
           </p>
         </div>
 
-        <div class="border-2 border-[#161616] bg-[#F6F4EE] p-8 shadow-[5px_5px_0px_0px_#161616] space-y-2 flex flex-col justify-center">
-          <span class="font-mono text-xs uppercase tracking-wider text-zinc-500 font-bold block">
+        <div class="border border-[#FDB813]/40 bg-[#8B140B]/90 rounded-xl p-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] space-y-2 flex flex-col justify-center backdrop-blur-xs">
+          <span class="text-xs uppercase tracking-wider text-[#FDB813] font-bold block">
             Award Includes
           </span>
-          <p class="text-2xl sm:text-3xl font-black uppercase text-[#161616]">
+          <p class="text-2xl sm:text-3xl font-black uppercase text-white">
             Official Trophy + Citation
           </p>
         </div>
@@ -101,26 +131,26 @@ const winners = [
 
       <!-- Voting Process -->
       <section class="space-y-6">
-        <div class="border-b-2 border-[#161616] pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-          <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]">
+        <div class="border-b border-[#FDB813]/30 pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+          <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white font-mono">
             Audience Voting Mechanism
           </h2>
-          <span class="font-mono text-xs uppercase text-zinc-500 font-bold">
+          <span class="font-mono text-xs uppercase text-[#FDB813] font-bold">
             Electronic Voting
           </span>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
           {votingSteps.map((item) => (
-            <div class="border-2 border-[#161616] bg-[#F6F4EE] p-6 shadow-[4px_4px_0px_0px_#161616] flex flex-col justify-between space-y-4">
-              <span class="font-mono text-2xl font-black text-[#D9381E]">
+            <div class="border border-[#FDB813]/40 bg-[#8B140B]/90 rounded-xl p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] flex flex-col justify-between space-y-4 backdrop-blur-xs hover:border-[#FDB813] transition-colors">
+              <span class="text-3xl font-black text-[#FDB813]">
                 {item.step}
               </span>
               <div class="space-y-1.5">
-                <h3 class="font-mono text-base font-black uppercase text-[#161616]">
+                <h3 class="text-base font-black uppercase text-white tracking-tight">
                   {item.title}
                 </h3>
-                <p class="text-xs sm:text-sm text-zinc-700 font-mono">
+                <p class="text-xs text-zinc-200 font-sans leading-relaxed pt-1">
                   {item.desc}
                 </p>
               </div>
@@ -131,50 +161,50 @@ const winners = [
 
       <!-- Previous Winners -->
       <section class="space-y-8">
-        <div class="border-b-2 border-[#161616] pb-3">
-          <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#161616]">
+        <div class="border-b border-[#FDB813]/30 pb-3">
+          <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white font-mono">
             Previous Winners
           </h2>
         </div>
 
         <div class="space-y-10">
           {winners.map((item) => (
-            <article class="border-2 border-[#161616] bg-[#F6F4EE] p-6 sm:p-8 shadow-[5px_5px_0px_0px_#161616] space-y-6">
+            <article class="border border-[#FDB813]/40 bg-[#8B140B]/90 rounded-xl p-6 sm:p-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] space-y-6 backdrop-blur-xs">
               
               <!-- Header -->
-              <div class="border-b border-zinc-300 pb-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+              <div class="border-b border-[#FDB813]/20 pb-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
                 <div>
-                  <span class="font-mono text-xs font-bold uppercase text-[#D9381E] block mb-1">
+                  <span class="font-mono text-xs font-bold uppercase text-[#FDB813] block mb-1">
                     {item.season}
                   </span>
-                  <h3 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-[#161616]">
+                  <h3 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white font-mono">
                     {item.film}
                   </h3>
                 </div>
 
-                <div class="font-mono text-sm text-[#161616]">
-                  <span class="text-zinc-500 uppercase">Director:</span>{" "}
-                  <strong>{item.director}</strong>
+                <div class="font-mono text-sm text-zinc-200">
+                  <span class="text-zinc-400 uppercase text-xs">Director:</span>{" "}
+                  <strong class="text-white">{item.director}</strong>
                 </div>
               </div>
 
               <!-- Full-Fit Images Grid -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {item.images.map((img) => (
-                  <div class="border-2 border-[#161616] h-[340px] sm:h-[420px] bg-[#161616] p-2 flex items-center justify-center overflow-hidden">
+                  <div class="border border-[#FDB813]/30 rounded-lg h-[340px] sm:h-[420px] bg-[#5C0D07] p-2 flex items-center justify-center overflow-hidden shadow-inner">
                     <img
                       src={img.src}
                       alt={img.alt}
-                      class="w-full h-full object-contain"
+                      class="w-full h-full object-contain rounded"
                       loading="lazy"
                     />
                   </div>
                 ))}
               </div>
 
-              <div class="pt-2 border-t border-zinc-200">
-                <span class="font-mono text-xs text-zinc-500">
-                  {item.note}
+              <div class="pt-3 border-t border-[#FDB813]/20">
+                <span class="font-mono text-xs text-[#FDB813] font-bold">
+                  &bull; {item.note}
                 </span>
               </div>
 
@@ -184,19 +214,19 @@ const winners = [
       </section>
 
       <!-- Submission CTA -->
-      <div class="border-2 border-[#161616] bg-[#161616] text-[#F6F4EE] p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+      <div class="border-2 border-black bg-[#8B140B] text-[#FDFCF7] p-8 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-[6px_6px_0px_0px_#000000] font-mono">
         <div>
-          <h3 class="text-xl sm:text-2xl font-black uppercase text-white">
+          <h3 class="text-xl sm:text-2xl font-black uppercase text-white font-mono">
             Submit for Season 03
           </h3>
-          <p class="font-mono text-xs text-zinc-400 mt-1">
+          <p class="font-mono text-xs text-zinc-200 mt-1">
             All official selections compete for the Popular Film award during festival screenings.
           </p>
         </div>
 
         <a
           href="/submit"
-          class="inline-block px-6 py-3 text-xs font-mono font-black uppercase tracking-wider text-[#161616] bg-[#F6F4EE] hover:bg-[#D9381E] hover:text-white transition-all shadow-[3px_3px_0px_0px_#D9381E]"
+          class="inline-block px-6 py-3 text-xs font-mono font-black uppercase tracking-wider text-[#B31D12] bg-[#FDB813] hover:bg-white rounded-lg transition-all shadow-[2px_2px_0px_0px_#000000] hover:-translate-y-0.5 cursor-pointer"
         >
           Submit Film &rarr;
         </a>

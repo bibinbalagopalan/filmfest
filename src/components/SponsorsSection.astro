@@ -3,15 +3,15 @@
 
 const sponsors = [
   {
-    name: "Pazhassi Raja Smaraka Granthalayam",
-    logo: "https://i.ibb.co/Y7WYgy12/308498146-403106168660352-4248819466489882370-n.jpg",
-    url: null,
-  },
-  {
     name: "Mananthavady Municipality",
     logo: "https://i.ibb.co/4Z0gvZ7M/Emblem-new.png",
     url: null,
   },
+  {
+    name: "Pazhassi Raja Smaraka Granthalayam",
+    logo: "https://i.ibb.co/Y7WYgy12/308498146-403106168660352-4248819466489882370-n.jpg",
+    url: null,
+  }, 
   {
     name: "Drishtidosham Chalachithravedi",
     logo: "https://i.ibb.co/8gND0Ktp/465973754-2789790697873483-7085224223616281315-n.jpg",
@@ -26,20 +26,42 @@ const sponsors = [
 ---
 
 <section
-  class="w-full bg-white text-zinc-950 border-b border-zinc-200 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#4338ca] selection:text-white"
+  class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-20 sm:py-28 px-6 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden"
 >
-  <div class="max-w-6xl mx-auto space-y-10 sm:space-y-12">
-    <!-- Section Header -->
-    <div class="border-b-2 border-zinc-950 pb-4">
-      <h2
-        class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-zinc-950"
-      >
-        Partners &amp; Sponsors
-      </h2>
+  <!-- Background Pattern & Film Perforation Rails -->
+  <div class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden">
+    <div 
+      class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+      style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+    ></div>
+    <div 
+      class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+      style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+    ></div>
+    <div
+      class="absolute inset-0 opacity-10"
+      style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+    ></div>
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto space-y-12 sm:space-y-16">
+    <!-- Executive Section Header -->
+    <div class="border-b border-[#FDB813]/30 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="space-y-2">
+        <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#FDB813] font-bold">
+          <span>Institutional Alliances &bull; PSFF Season 03</span>
+        </div>
+        <h2 class="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white font-mono drop-shadow-sm">
+          Partners &amp; Sponsors
+        </h2>
+      </div>
+      <p class="font-mono text-xs uppercase tracking-widest text-[#FDB813] font-bold">
+        Official Supporters &amp; Patrons
+      </p>
     </div>
 
-    <!-- Full-Color Logo Grid -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+    <!-- Executive Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 font-mono">
       {
         sponsors.map((sponsor) => {
           const Wrapper = sponsor.url ? "a" : "div";
@@ -52,18 +74,34 @@ const sponsors = [
             : {};
 
           return (
-            <Wrapper
-              {...wrapperProps}
-              class={`border-2 border-zinc-950 bg-white p-6 sm:p-8 flex items-center justify-center aspect-square shadow-[4px_4px_0px_0px_#18181b] transition-all duration-150 ${sponsor.url ? "hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#18181b]" : ""}`}
-              title={sponsor.name}
-            >
-              <img
-                src={sponsor.logo}
-                alt={sponsor.name}
-                class="max-h-full max-w-full object-contain"
-                loading="lazy"
-              />
-            </Wrapper>
+            <div class="space-y-3">
+              <Wrapper
+                {...wrapperProps}
+                class={`group block rounded-2xl bg-white p-6 sm:p-8 flex items-center justify-center aspect-square border-2 border-[#FDB813]/40 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] transition-all duration-300 ${
+                  sponsor.url
+                    ? "hover:border-[#FDB813] hover:shadow-[6px_6px_0px_0px_#FDB813] hover:-translate-y-1 cursor-pointer"
+                    : "hover:border-[#FDB813]"
+                }`}
+                title={sponsor.name}
+              >
+                <img
+                  src={sponsor.logo}
+                  alt={sponsor.name}
+                  class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </Wrapper>
+
+              <!-- Institution Metadata -->
+              <div class="text-center space-y-0.5 px-1">
+                <span class="text-[10px] text-[#FDB813] font-bold uppercase tracking-wider block">
+                  {sponsor.category}
+                </span>
+                <p class="text-xs font-bold text-white leading-snug line-clamp-2">
+                  {sponsor.name}
+                </p>
+              </div>
+            </div>
           );
         })
       }

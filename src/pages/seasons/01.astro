@@ -44,40 +44,70 @@ const winners = [
 ];
 ---
 
-<Layout title="Season 01 Retrospective (2024) | PSFF">
-  <div class="w-full border-b border-zinc-900 py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#D9381E] selection:text-[#F6F4EE]">
-    <div class="max-w-6xl mx-auto space-y-16 sm:space-y-20">
+<Layout title="Pazhassi Short Film Fest Season 01 | PSFF S01">
+  <div class="relative w-full bg-[#B31D12] text-[#FDFCF7] border-b-2 border-black py-16 sm:py-24 px-6 sm:px-12 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden">
+    
+    <!-- Background Graph Grid, Swirls & Film Perforations -->
+    <div class="absolute inset-0 pointer-events-none opacity-15 overflow-hidden">
+      <!-- Top & Bottom Film Reel Border Patterns -->
+      <div 
+        class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      ></div>
+      <div 
+        class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      ></div>
+
+      <!-- Golden Graph Grid Overlay -->
+      <div
+        class="absolute inset-0 opacity-10"
+        style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+      ></div>
+
+      <!-- Golden Traditional Line Art & Swirl Vectors -->
+      <svg class="absolute -left-20 top-20 w-[480px] h-[480px] text-[#FDB813]" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190" />
+        <circle cx="200" cy="200" r="140" stroke-dasharray="8 8" />
+      </svg>
+      <svg class="absolute -right-24 bottom-24 w-[480px] h-[480px] text-[#FDB813]" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M50 200 C80 120, 160 80, 240 120 C320 160, 360 260, 290 330 C220 400, 100 370, 70 290 C40 210, 110 140, 190 140 C270 140, 310 220, 280 270 C250 320, 190 320, 160 280 C130 240, 150 190, 200 190" />
+        <circle cx="200" cy="200" r="160" stroke-dasharray="6 6" />
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto space-y-16 sm:space-y-20">
       
       <!-- Page Header -->
-      <header class="border-b-2 border-[#161616] pb-8 space-y-4">
-        <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-500">
-          <a href="/" class="hover:text-[#D9381E] transition-colors">&larr; Back to Festival</a>
+      <header class="border-b border-[#FDB813]/30 pb-8 space-y-4">
+        <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-200">
+          <a href="/" class="hover:text-[#FDB813] transition-colors">&larr; Back to Festival</a>
           <span>&bull;</span>
-          <span class="text-[#D9381E] font-bold">Archives</span>
+          <span class="text-[#FDB813] font-bold">Archives</span>
           <span>&bull;</span>
           <span>Inaugural Edition</span>
         </div>
 
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#161616] leading-none">
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-white font-mono leading-none drop-shadow-sm">
           Season 01 (2024)
         </h1>
-        <p class="font-mono text-sm sm:text-base text-zinc-700 max-w-3xl leading-relaxed">
+        <p class="font-mono text-sm sm:text-base text-zinc-200 max-w-3xl leading-relaxed">
           The inaugural edition of the Pazhassi Short Film Festival was conducted on 30 November 2024 in Mananthavady in commemoration of Pazhassi Day, establishing a dedicated public platform for independent cinema in Wayanad.
         </p>
       </header>
 
       <!-- Key Festival Facts Table -->
-      <section class="border-2 border-[#161616] bg-[#F6F4EE] shadow-[5px_5px_0px_0px_#161616]">
-        <div class="p-6 border-b-2 border-[#161616] bg-[#161616] text-[#F6F4EE]">
+      <section class="border border-[#FDB813]/40 bg-[#8B140B]/90 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] overflow-hidden backdrop-blur-xs">
+        <div class="p-6 border-b border-[#FDB813]/30 bg-[#5C0D07] text-[#FDB813]">
           <h2 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-white font-mono">
             Inaugural Edition Overview
           </h2>
         </div>
-        <div class="divide-y border-zinc-300 font-mono text-xs sm:text-sm">
+        <div class="divide-y divide-[#FDB813]/20 font-mono text-xs sm:text-sm">
           {festivalFacts.map((fact) => (
-            <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <span class="text-zinc-500 uppercase tracking-wider font-semibold">{fact.label}</span>
-              <span class="font-bold text-[#161616] sm:text-right">{fact.value}</span>
+            <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-1 hover:bg-[#5C0D07]/50 transition-colors">
+              <span class="text-[#FDB813] uppercase tracking-wider font-semibold">{fact.label}</span>
+              <span class="font-bold text-white sm:text-right">{fact.value}</span>
             </div>
           ))}
         </div>
@@ -85,35 +115,35 @@ const winners = [
 
       <!-- Award Winners Roster -->
       <section class="space-y-8">
-        <div class="border-b-2 border-[#161616] pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-          <h2 class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#161616]">
+        <div class="border-b border-[#FDB813]/30 pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+          <h2 class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white font-mono">
             Inaugural Award Laureates
           </h2>
-          <span class="font-mono text-xs uppercase text-zinc-500 font-bold">
+          <span class="font-mono text-xs uppercase text-[#FDB813] font-bold">
             Season 01 Roll of Honor
           </span>
         </div>
 
         <div class="space-y-12">
           {winners.map((item) => (
-            <article class="border-2 border-[#161616] bg-[#F6F4EE] p-6 sm:p-8 shadow-[6px_6px_0px_0px_#161616] space-y-6">
+            <article class="border border-[#FDB813]/40 bg-[#8B140B]/90 rounded-xl p-6 sm:p-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.35)] space-y-6 backdrop-blur-xs">
               
               <!-- Winner Header -->
-              <div class="border-b border-zinc-300 pb-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-3">
+              <div class="border-b border-[#FDB813]/20 pb-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-3">
                 <div>
-                  <span class="font-mono text-xs font-black uppercase tracking-widest text-[#D9381E] block mb-1">
+                  <span class="font-mono text-xs font-black uppercase tracking-widest text-[#FDB813] block mb-1">
                     {item.category}
                   </span>
-                  <h3 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-[#161616]">
+                  <h3 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white font-mono">
                     {item.film}
                   </h3>
-                  <p class="font-mono text-sm font-bold text-zinc-800 mt-1">
+                  <p class="font-mono text-sm font-bold text-zinc-200 mt-1">
                     {item.recipient}
                   </p>
                 </div>
 
                 <div class="font-mono sm:text-right">
-                  <div class="text-base sm:text-lg font-black text-[#161616]">
+                  <div class="text-base sm:text-lg font-black text-[#FDB813]">
                     {item.prize}
                   </div>
                 </div>
@@ -122,11 +152,11 @@ const winners = [
               <!-- Full-Fit Images Grid -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {item.images.map((img) => (
-                  <div class="border-2 border-[#161616] h-[340px] sm:h-[420px] bg-[#161616] p-2 flex items-center justify-center overflow-hidden">
+                  <div class="border border-[#FDB813]/30 rounded-lg h-[340px] sm:h-[420px] bg-[#5C0D07] p-2 flex items-center justify-center overflow-hidden shadow-inner">
                     <img
                       src={img.src}
                       alt={img.alt}
-                      class="w-full h-full object-contain"
+                      class="w-full h-full object-contain rounded"
                       loading="lazy"
                     />
                   </div>
@@ -139,17 +169,17 @@ const winners = [
       </section>
 
       <!-- Navigation Routing -->
-      <div class="border-t-2 border-[#161616] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
+      <div class="border-t border-[#FDB813]/30 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
         <a
           href="/seasons/02"
-          class="inline-flex items-center gap-2 font-bold uppercase tracking-wider text-[#161616] hover:text-[#D9381E] transition-colors"
+          class="inline-flex items-center gap-2 font-bold uppercase tracking-wider text-zinc-200 hover:text-[#FDB813] transition-colors"
         >
           <span>View Season 02 Archive (2025) &rarr;</span>
         </a>
 
         <a
           href="/submit"
-          class="inline-flex items-center gap-2 px-6 py-3 font-black uppercase tracking-widest text-[#F6F4EE] bg-[#161616] shadow-[3px_3px_0px_0px_#D9381E] hover:bg-[#D9381E] transition-all"
+          class="inline-flex items-center gap-2 px-6 py-3 font-black uppercase tracking-widest text-[#B31D12] bg-[#FDB813] hover:bg-white rounded-lg shadow-[2px_2px_0px_0px_#000000] hover:-translate-y-0.5 transition-all cursor-pointer"
         >
           <span>Enter Season 03</span>
           <span>&rarr;</span>
