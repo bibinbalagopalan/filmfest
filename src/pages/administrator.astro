@@ -56,7 +56,7 @@ import Layout from "../layouts/Layout.astro";
             Control Panel
           </h1>
           <p class="text-xs text-zinc-600 font-sans mt-0.5">
-            Sign in with convener credentials.
+            Sign in with authorized credentials.
           </p>
         </div>
         <!-- High-Contrast Crimson Shield Badge for White Logo Visibility -->
@@ -116,7 +116,7 @@ import Layout from "../layouts/Layout.astro";
       </form>
     </div>
 
-    <!-- 2. CONVENER MASTER DASHBOARD -->
+    <!-- 2. MASTER DASHBOARD -->
     <div
       id="dashboard-view"
       class="relative z-10 hidden max-w-full mx-auto space-y-6"
@@ -142,7 +142,10 @@ import Layout from "../layouts/Layout.astro";
                 class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"
               ></span>
               <span class="text-[10px] font-bold uppercase text-[#B31D12]"
-                >PSFF Season 03</span
+                >PSFF Season 03 <span
+                  id="role-badge"
+                  class="ml-1 bg-[#18181B] text-white px-1.5 py-0.5 rounded uppercase font-black tracking-widest"
+                ></span></span
               >
             </div>
             <h1
@@ -156,6 +159,7 @@ import Layout from "../layouts/Layout.astro";
         <div class="flex flex-wrap items-center gap-2">
           <!-- Primary Module Tabs -->
           <div
+            id="tab-navigation-container"
             class="flex border-2 border-black p-0.5 bg-zinc-100 rounded-lg overflow-x-auto"
           >
             <button
@@ -167,35 +171,47 @@ import Layout from "../layouts/Layout.astro";
             <button
               type="button"
               data-tab="tab-jury"
-              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md"
+              class="admin-tab-btn admin-only-tab px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md"
               >2. Jury Roster
             </button>
             <button
               type="button"
               data-tab="tab-progress"
-              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md"
+              class="admin-tab-btn admin-only-tab px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md"
               >3. Progress Grid
             </button>
             <button
               type="button"
               data-tab="tab-matrix"
-              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md"
+              class="admin-tab-btn admin-only-tab px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md"
               >4. Score Matrix
             </button>
             <button
               type="button"
               data-tab="tab-leaderboard"
-              class="admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md bg-[#FDB813]/40"
+              class="admin-tab-btn admin-only-tab px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md bg-[#FDB813]/40"
               >5. Shortlist
             </button>
           </div>
-          <button
-            type="button"
-            id="logout-btn"
-            class="px-3 py-2 text-[11px] font-black uppercase tracking-wider bg-[#B31D12] text-white border-2 border-black rounded-lg hover:bg-black transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000]"
+
+          <div
+            class="flex items-center gap-2 border-l-2 border-black/20 pl-2 ml-1"
           >
-            Sign Out
-          </button>
+            <button
+              type="button"
+              id="open-change-pwd-btn"
+              class="px-3 py-2 text-[11px] font-black uppercase tracking-wider bg-zinc-200 text-[#18181B] border-2 border-black rounded-lg hover:bg-zinc-300 transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000]"
+            >
+              Change Password
+            </button>
+            <button
+              type="button"
+              id="logout-btn"
+              class="px-3 py-2 text-[11px] font-black uppercase tracking-wider bg-[#B31D12] text-white border-2 border-black rounded-lg hover:bg-black transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000]"
+            >
+              Sign Out
+            </button>
+          </div>
         </div>
       </header>
 
@@ -278,10 +294,11 @@ import Layout from "../layouts/Layout.astro";
               <option value="Rejected">Rejected </option>
             </select>
 
-            <!-- Import CSV / JSON Trigger -->
+            <!-- Import CSV / JSON Trigger (Admin Only) -->
             <label
               for="import-submissions-file"
-              class="px-3 py-2.5 bg-zinc-200 text-[#18181B] border-2 border-black rounded-lg text-xs font-bold uppercase hover:bg-zinc-300 transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000] flex items-center gap-1.5"
+              id="import-btn-wrapper"
+              class="admin-only-action px-3 py-2.5 bg-zinc-200 text-[#18181B] border-2 border-black rounded-lg text-xs font-bold uppercase hover:bg-zinc-300 transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000] flex items-center gap-1.5"
             >
               <span>📥</span> Import (CSV/JSON)
             </label>
@@ -292,11 +309,11 @@ import Layout from "../layouts/Layout.astro";
               class="hidden"
             />
 
-            <!-- Complete Export CSV -->
+            <!-- Complete Export CSV (Admin Only) -->
             <button
               type="button"
               id="export-submissions-csv"
-              class="px-3 py-2.5 bg-[#B31D12] text-white text-xs font-bold uppercase hover:bg-black transition-colors cursor-pointer border-2 border-black rounded-lg shadow-[2px_2px_0px_0px_#000000] flex items-center gap-1.5"
+              class="admin-only-action px-3 py-2.5 bg-[#B31D12] text-white text-xs font-bold uppercase hover:bg-black transition-colors cursor-pointer border-2 border-black rounded-lg shadow-[2px_2px_0px_0px_#000000] flex items-center gap-1.5"
             >
               <span>📤</span> Export Full Dossier CSV
             </button>
@@ -511,6 +528,74 @@ import Layout from "../layouts/Layout.astro";
       </section>
     </div>
 
+    <!-- CHANGE PASSWORD MODAL -->
+    <div
+      id="change-pwd-modal"
+      class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 backdrop-blur-xs"
+    >
+      <div
+        class="bg-[#FDFCF7] text-[#18181B] border-2 border-black w-full max-w-sm p-6 rounded-2xl shadow-[8px_8px_0px_0px_#000000] space-y-4 font-mono text-xs"
+      >
+        <div
+          class="flex items-center justify-between border-b-2 border-black/10 pb-2"
+        >
+          <h3 class="font-black uppercase text-sm text-[#18181B]">
+            Change Password
+          </h3>
+          <button
+            type="button"
+            id="close-change-pwd-modal"
+            class="text-lg font-black cursor-pointer hover:text-[#B31D12]"
+            >✕</button
+          >
+        </div>
+        <form id="change-pwd-form" class="space-y-3">
+          <div class="space-y-1">
+            <label class="block font-bold uppercase">Current Password</label>
+            <input
+              type="password"
+              id="current-pwd"
+              required
+              class="w-full bg-white border-2 border-black rounded-lg p-2 focus:outline-none focus:border-[#B31D12]"
+            />
+          </div>
+          <div class="space-y-1">
+            <label class="block font-bold uppercase">New Password</label>
+            <input
+              type="password"
+              id="new-pwd"
+              required
+              minlength="6"
+              class="w-full bg-white border-2 border-black rounded-lg p-2 focus:outline-none focus:border-[#B31D12]"
+            />
+          </div>
+          <div class="space-y-1">
+            <label class="block font-bold uppercase">Confirm New Password</label
+            >
+            <input
+              type="password"
+              id="confirm-pwd"
+              required
+              minlength="6"
+              class="w-full bg-white border-2 border-black rounded-lg p-2 focus:outline-none focus:border-[#B31D12]"
+            />
+          </div>
+          <div
+            id="change-pwd-msg"
+            class="hidden p-2 text-[11px] font-bold border rounded-lg"
+          >
+          </div>
+          <button
+            type="submit"
+            id="change-pwd-submit-btn"
+            class="w-full py-2.5 font-black uppercase bg-[#18181B] text-white rounded-lg hover:bg-[#B31D12] transition-colors cursor-pointer"
+          >
+            Update Password
+          </button>
+        </form>
+      </div>
+    </div>
+
     <!-- ADD JURY MODAL -->
     <div
       id="add-jury-modal"
@@ -615,11 +700,11 @@ import Layout from "../layouts/Layout.astro";
         <div
           class="p-4 bg-white border-t-2 border-black/10 flex flex-wrap items-center justify-between gap-3"
         >
-          <!-- Delete Entry Button Inside Modal -->
+          <!-- Delete Entry Button Inside Modal (Admin Only) -->
           <button
             type="button"
             id="modal-delete-btn"
-            class="px-3 py-2 bg-red-800 text-white font-black uppercase hover:bg-black transition-colors cursor-pointer rounded-lg border border-black flex items-center gap-1.5"
+            class="admin-only-action px-3 py-2 bg-red-800 text-white font-black uppercase hover:bg-black transition-colors cursor-pointer rounded-lg border border-black flex items-center gap-1.5"
           >
             <span>🗑️</span> Delete Entry
           </button>
@@ -682,6 +767,7 @@ import Layout from "../layouts/Layout.astro";
   let currentJuryMembers: any[] = [];
   let currentEvaluations: any[] = [];
   let activeSelectedFilm: any = null;
+  let currentUserProfile: any = null;
 
   const loginView = document.getElementById("login-view");
   const dashboardView = document.getElementById("dashboard-view");
@@ -697,8 +783,14 @@ import Layout from "../layouts/Layout.astro";
         "data-tab",
       );
       document.querySelectorAll(".admin-tab-btn").forEach((b) => {
-        b.className =
-          "admin-tab-btn px-3 py-1.5 text-xs font-black uppercase text-[#18181B] hover:bg-zinc-200 rounded-md";
+        if (!b.classList.contains("hidden")) {
+          b.className = b.className.replace(
+            "bg-[#B31D12] text-white",
+            "text-[#18181B] hover:bg-zinc-200",
+          );
+          if (!b.className.includes("text-[#18181B]"))
+            b.className += " text-[#18181B] hover:bg-zinc-200";
+        }
       });
       (e.currentTarget as HTMLElement).className =
         "admin-tab-btn px-3 py-1.5 text-xs font-black uppercase bg-[#B31D12] text-white rounded-md";
@@ -708,6 +800,33 @@ import Layout from "../layouts/Layout.astro";
       document.getElementById(targetTab!)?.classList.remove("hidden");
     });
   });
+
+  const applyRoleRestrictions = () => {
+    const roleBadge = document.getElementById("role-badge");
+    if (roleBadge) roleBadge.innerText = currentUserProfile.role;
+
+    if (currentUserProfile.role === "reviewer") {
+      // Hide non-submission tabs
+      document
+        .querySelectorAll(".admin-only-tab")
+        .forEach((el) => el.classList.add("hidden"));
+
+      // Hide import, export, and delete actions
+      document
+        .querySelectorAll(".admin-only-action")
+        .forEach((el) => el.classList.add("hidden"));
+
+      // Force user into submissions tab safely
+      document.getElementById("tab-submissions")?.classList.remove("hidden");
+    } else {
+      document
+        .querySelectorAll(".admin-only-tab")
+        .forEach((el) => el.classList.remove("hidden"));
+      document
+        .querySelectorAll(".admin-only-action")
+        .forEach((el) => el.classList.remove("hidden"));
+    }
+  };
 
   const checkAdminSession = async () => {
     const {
@@ -722,10 +841,23 @@ import Layout from "../layouts/Layout.astro";
 
       if (
         profile &&
-        (profile.role === "admin" || session.user.email === "convener@psff.in")
+        profile.is_active === true &&
+        (profile.role === "admin" ||
+          profile.role === "reviewer" ||
+          session.user.email === "convener@psff.in")
       ) {
+        currentUserProfile = profile;
+        if (
+          session.user.email === "convener@psff.in" &&
+          profile.role !== "admin"
+        ) {
+          currentUserProfile.role = "admin"; // Force fallback for convener master account
+        }
+
         loginView?.classList.add("hidden");
         dashboardView?.classList.remove("hidden");
+
+        applyRoleRestrictions();
         await fetchAllData();
       } else {
         await supabase.auth.signOut();
@@ -733,7 +865,7 @@ import Layout from "../layouts/Layout.astro";
         dashboardView?.classList.add("hidden");
         if (loginError) {
           loginError.innerText =
-            "Restricted: Only convener@psff.in can access this portal.";
+            "Restricted: Inactive account or insufficient permissions.";
           loginError.classList.remove("hidden");
         }
       }
@@ -778,26 +910,137 @@ import Layout from "../layouts/Layout.astro";
     location.reload();
   });
 
+  // CHANGE PASSWORD LOGIC
+  document
+    .getElementById("open-change-pwd-btn")
+    ?.addEventListener("click", () => {
+      document.getElementById("change-pwd-modal")?.classList.remove("hidden");
+    });
+
+  document
+    .getElementById("close-change-pwd-modal")
+    ?.addEventListener("click", () => {
+      document.getElementById("change-pwd-modal")?.classList.add("hidden");
+      (document.getElementById("change-pwd-form") as HTMLFormElement).reset();
+      document.getElementById("change-pwd-msg")?.classList.add("hidden");
+    });
+
+  document
+    .getElementById("change-pwd-form")
+    ?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const currentPwd = (
+        document.getElementById("current-pwd") as HTMLInputElement
+      ).value;
+      const newPwd = (document.getElementById("new-pwd") as HTMLInputElement)
+        .value;
+      const confirmPwd = (
+        document.getElementById("confirm-pwd") as HTMLInputElement
+      ).value;
+      const msg = document.getElementById("change-pwd-msg")!;
+      const submitBtn = document.getElementById(
+        "change-pwd-submit-btn",
+      ) as HTMLButtonElement;
+
+      if (newPwd !== confirmPwd) {
+        msg.className =
+          "p-2 text-[11px] font-bold border bg-red-100 border-[#B31D12] text-[#B31D12] rounded-lg";
+        msg.innerText = "New password and confirmation do not match.";
+        msg.classList.remove("hidden");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Verifying & Updating...";
+
+      // 1. Verify the current password by attempting to re-sign in
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user || !user.email) {
+        msg.className =
+          "p-2 text-[11px] font-bold border bg-red-100 border-[#B31D12] text-[#B31D12] rounded-lg";
+        msg.innerText = "Session error. Please sign out and sign back in.";
+        msg.classList.remove("hidden");
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Update Password";
+        return;
+      }
+
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: currentPwd,
+      });
+
+      if (signInError) {
+        msg.className =
+          "p-2 text-[11px] font-bold border bg-red-100 border-[#B31D12] text-[#B31D12] rounded-lg";
+        msg.innerText = "The current password you entered is incorrect.";
+        msg.classList.remove("hidden");
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Update Password";
+        return;
+      }
+
+      // 2. Update to the new password securely
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: newPwd,
+      });
+
+      if (updateError) {
+        msg.className =
+          "p-2 text-[11px] font-bold border bg-red-100 border-[#B31D12] text-[#B31D12] rounded-lg";
+        msg.innerText = updateError.message;
+        msg.classList.remove("hidden");
+      } else {
+        msg.className =
+          "p-2 text-[11px] font-bold border bg-green-100 border-green-800 text-green-950 rounded-lg";
+        msg.innerText = "Password successfully updated!";
+        msg.classList.remove("hidden");
+
+        setTimeout(() => {
+          document.getElementById("change-pwd-modal")?.classList.add("hidden");
+          (
+            document.getElementById("change-pwd-form") as HTMLFormElement
+          ).reset();
+          msg.classList.add("hidden");
+        }, 1500);
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Update Password";
+    });
+
   const fetchAllData = async () => {
-    const [subsRes, juryRes, evalsRes] = await Promise.all([
-      supabase
-        .from("submissions")
-        .select("*")
-        .order("created_at", { ascending: false }),
-      supabase.from("profiles").select("*").eq("role", "jury"),
-      supabase.from("evaluations").select("*"),
-    ]);
+    const subsPromise = supabase
+      .from("submissions")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-    currentSubmissions = subsRes.data || [];
-    currentJuryMembers = juryRes.data || [];
-    currentEvaluations = evalsRes.data || [];
+    // Optimize fetches: Reviewers don't need jury or evaluations data
+    if (currentUserProfile?.role === "reviewer") {
+      const [subsRes] = await Promise.all([subsPromise]);
+      currentSubmissions = subsRes.data || [];
+      updateMetrics();
+      renderSubmissionsTable();
+    } else {
+      const [subsRes, juryRes, evalsRes] = await Promise.all([
+        subsPromise,
+        supabase.from("profiles").select("*").eq("role", "jury"),
+        supabase.from("evaluations").select("*"),
+      ]);
 
-    updateMetrics();
-    renderSubmissionsTable();
-    renderJuryRoster();
-    renderSingleGlanceProgressGrid();
-    renderScoreMatrix();
-    renderLeaderboard();
+      currentSubmissions = subsRes.data || [];
+      currentJuryMembers = juryRes.data || [];
+      currentEvaluations = evalsRes.data || [];
+
+      updateMetrics();
+      renderSubmissionsTable();
+      renderJuryRoster();
+      renderSingleGlanceProgressGrid();
+      renderScoreMatrix();
+      renderLeaderboard();
+    }
   };
 
   const updateMetrics = () => {
@@ -820,6 +1063,9 @@ import Layout from "../layouts/Layout.astro";
     entryNumber: string,
     filmTitle: string,
   ) => {
+    if (currentUserProfile?.role !== "admin")
+      return alert("Unauthorized: Only Admins can delete submissions.");
+
     const confirmation = prompt(
       `⚠️ WARNING: Deleting this entry will permanently remove the submission and any corresponding jury evaluations from the database.\n\nType "${entryNumber}" to confirm deletion of:\n"${filmTitle}"`,
     );
@@ -830,10 +1076,7 @@ import Layout from "../layouts/Layout.astro";
       return;
     }
 
-    // 1. Delete associated evaluations first
     await supabase.from("evaluations").delete().eq("submission_id", filmId);
-
-    // 2. Delete the submission
     const { error } = await supabase
       .from("submissions")
       .delete()
@@ -848,7 +1091,7 @@ import Layout from "../layouts/Layout.astro";
     }
   };
 
-  // TAB 1: SUBMISSIONS REVIEW TABLE (ALL DETAILS EXPOSED DIRECTLY IN DASHBOARD)
+  // TAB 1: SUBMISSIONS REVIEW TABLE
   const renderSubmissionsTable = () => {
     const tbody = document.getElementById("submissions-tbody");
     if (!tbody) return;
@@ -864,7 +1107,6 @@ import Layout from "../layouts/Layout.astro";
     const filtered = currentSubmissions.filter((item) => {
       const matchStatus =
         filter === "ALL" || (item.status || "Pending") === filter;
-
       const searchFields = [
         item.entry_number,
         item.film_title,
@@ -899,8 +1141,7 @@ import Layout from "../layouts/Layout.astro";
         .join(" ")
         .toLowerCase();
 
-      const matchSearch = !query || searchFields.includes(query);
-      return matchStatus && matchSearch;
+      return matchStatus && (!query || searchFields.includes(query));
     });
 
     if (filtered.length === 0) {
@@ -917,6 +1158,16 @@ import Layout from "../layouts/Layout.astro";
         if (status === "Rejected")
           badge = "bg-red-100 text-red-900 border border-red-300";
 
+        // Only show delete button in table if the user is an admin
+        const deleteBtnHtml =
+          currentUserProfile?.role === "admin"
+            ? `
+          <button type="button" data-id="${item.id}" data-entry="${item.entry_number}" data-title="${(item.film_title || "").replace(/"/g, "&quot;")}" class="delete-sub-btn px-2 py-1 bg-red-100 text-red-900 hover:bg-red-800 hover:text-white rounded font-bold text-[9px] uppercase transition-colors cursor-pointer border border-red-300" title="Delete entry permanently">
+            ✕
+          </button>
+        `
+            : "";
+
         return `
         <tr class="hover:bg-zinc-50 transition-colors text-xs">
           <!-- Sticky Actions / Quick Status Toggle & Delete Controls -->
@@ -932,136 +1183,99 @@ import Layout from "../layouts/Layout.astro";
               <button type="button" data-entry="${item.entry_number}" class="open-sub-btn px-2 py-1 bg-[#18181B] text-white hover:bg-[#B31D12] rounded font-bold text-[9px] uppercase transition-colors cursor-pointer">
                 Modal
               </button>
-              <button type="button" data-id="${item.id}" data-entry="${item.entry_number}" data-title="${(item.film_title || "").replace(/"/g, "&quot;")}" class="delete-sub-btn px-2 py-1 bg-red-100 text-red-900 hover:bg-red-800 hover:text-white rounded font-bold text-[9px] uppercase transition-colors cursor-pointer border border-red-300" title="Delete entry permanently">
-                ✕
-              </button>
+              ${deleteBtnHtml}
             </div>
           </td>
-
           <!-- 1. Entry ID -->
           <td class="p-2.5 font-bold border-r border-zinc-200 select-all text-[#B31D12]">${item.entry_number}</td>
-
           <!-- 2. Film Title -->
           <td class="p-2.5 font-black text-[#18181B] border-r border-zinc-200">
             <div class="font-bold max-w-[200px] truncate" title="${item.film_title}">${item.film_title}</div>
           </td>
-
           <!-- 3. Genre -->
           <td class="p-2.5 border-r border-zinc-200">${item.genre || "—"}</td>
-
           <!-- 4. Language -->
           <td class="p-2.5 border-r border-zinc-200">${item.film_language || "—"}</td>
-
           <!-- 5. Duration -->
           <td class="p-2.5 border-r border-zinc-200 font-bold">${item.duration_minutes} Mins</td>
-
           <!-- 6. Year / Country -->
           <td class="p-2.5 border-r border-zinc-200">${item.year_of_production || 2026} / ${item.country_of_origin || "India"}</td>
-
           <!-- 7. Premiere Status -->
           <td class="p-2.5 border-r border-zinc-200">${item.premiere_status || "None"}</td>
-
           <!-- 8. Screener Link -->
           <td class="p-2.5 border-r border-zinc-200">
             ${item.screener_url ? `<a href="${item.screener_url}" target="_blank" class="px-2 py-1 bg-[#18181B] text-white font-bold text-[10px] uppercase hover:bg-[#B31D12] rounded inline-flex items-center gap-1">Open Screener &rarr;</a>` : `<span class="text-zinc-400">None</span>`}
           </td>
-
           <!-- 9. Screener Password -->
           <td class="p-2.5 border-r border-zinc-200 font-mono font-bold select-all">${item.screener_password || "None"}</td>
-
           <!-- 10. Subtitles -->
           <td class="p-2.5 border-r border-zinc-200">${item.subtitles_available || "No"} (${item.subtitle_language || "N/A"})</td>
-
           <!-- 11. Aspect Ratio / Format -->
           <td class="p-2.5 border-r border-zinc-200">${item.aspect_ratio || "—"} | ${item.resolution_format || "—"}</td>
-
           <!-- 12. Director -->
           <td class="p-2.5 border-r border-zinc-200 font-black text-[#18181B]">
             ${item.director_full_name}
             ${item.director_pro_name ? `<span class="text-[10px] text-zinc-500 font-normal block">(${item.director_pro_name})</span>` : ""}
           </td>
-
           <!-- 13. Director Contact -->
           <td class="p-2.5 border-r border-zinc-200">
             <div><a href="mailto:${item.director_email}" class="text-blue-700 hover:underline">${item.director_email}</a></div>
             <div class="text-zinc-600 font-mono">${item.director_phone}</div>
           </td>
-
           <!-- 14. Director Location -->
           <td class="p-2.5 border-r border-zinc-200">${item.director_location || "—"}</td>
-
           <!-- 15. Producer / Banner -->
           <td class="p-2.5 border-r border-zinc-200">
             <div class="font-bold">${item.producer_name || "—"}</div>
             <div class="text-[10px] text-zinc-500">${item.production_company || "Independent"}</div>
           </td>
-
           <!-- 16. Producer Contact -->
           <td class="p-2.5 border-r border-zinc-200">
             <div>${item.producer_email || "—"}</div>
             <div class="text-zinc-600 font-mono">${item.producer_phone || "—"}</div>
           </td>
-
           <!-- 17. Cinematographer (DoP) -->
           <td class="p-2.5 border-r border-zinc-200 font-bold">
             ${item.dop_full_name || "—"}
             ${item.dop_pro_name ? `<span class="text-[10px] text-zinc-500 font-normal block">(${item.dop_pro_name})</span>` : ""}
           </td>
-
           <!-- 18. DoP Contact -->
           <td class="p-2.5 border-r border-zinc-200">
             <div>${item.dop_email || "—"}</div>
             <div class="text-zinc-600 font-mono">${item.dop_phone || "—"}</div>
           </td>
-
           <!-- 19. Camera & Lighting Specs -->
-          <td class="p-2.5 border-r border-zinc-200 max-w-[200px] truncate" title="${item.camera_specs || "—"}">
-            ${item.camera_specs || "—"}
-          </td>
-
+          <td class="p-2.5 border-r border-zinc-200 max-w-[200px] truncate" title="${item.camera_specs || "—"}">${item.camera_specs || "—"}</td>
           <!-- 20. Screenplay / Writer -->
           <td class="p-2.5 border-r border-zinc-200">${item.crew_writer || "—"}</td>
-
           <!-- 21. Editor -->
           <td class="p-2.5 border-r border-zinc-200">${item.crew_editor || "—"}</td>
-
           <!-- 22. Sound & Music -->
           <td class="p-2.5 border-r border-zinc-200">
             <div><strong>Score:</strong> ${item.crew_composer || "—"}</div>
             <div><strong>Sound:</strong> ${item.crew_sound || "—"}</div>
           </td>
-
           <!-- 23. Art & Costume -->
           <td class="p-2.5 border-r border-zinc-200">
             <div><strong>Art:</strong> ${item.crew_art || "—"}</div>
             <div><strong>Costume:</strong> ${item.crew_costume || "—"}</div>
           </td>
-
           <!-- 24. Lead Cast -->
-          <td class="p-2.5 border-r border-zinc-200 max-w-[200px] truncate" title="${item.crew_cast || "—"}">
-            ${item.crew_cast || "—"}
-          </td>
-
+          <td class="p-2.5 border-r border-zinc-200 max-w-[200px] truncate" title="${item.crew_cast || "—"}">${item.crew_cast || "—"}</td>
           <!-- 25. Rights Holder -->
           <td class="p-2.5 border-r border-zinc-200 font-bold">${item.rights_holder_name || item.director_full_name}</td>
-
           <!-- 26. UTR Reference -->
           <td class="p-2.5 border-r border-zinc-200 font-mono font-bold select-all bg-zinc-50">${item.payment_ref}</td>
-
           <!-- 27. Payment Receipt Link -->
           <td class="p-2.5 border-r border-zinc-200 text-center">
             ${item.payment_screenshot_url ? `<a href="${item.payment_screenshot_url}" target="_blank" class="px-2 py-1 bg-emerald-700 text-white hover:bg-black rounded font-bold text-[10px] uppercase inline-block">Inspect Image</a>` : `<span class="text-zinc-400">None</span>`}
           </td>
-
           <!-- 28. Poster Link -->
           <td class="p-2.5 border-r border-zinc-200 text-center">
             ${item.poster_url ? `<a href="${item.poster_url}" target="_blank" class="px-2 py-1 bg-zinc-200 hover:bg-black hover:text-white rounded font-bold text-[10px] uppercase inline-block">View Poster</a>` : `<span class="text-zinc-400">None</span>`}
           </td>
-
           <!-- 29. Synopsis -->
-          <td class="p-2.5 max-w-[260px] truncate text-zinc-600" title="${item.synopsis || "N/A"}">
-            ${item.synopsis || "N/A"}
-          </td>
+          <td class="p-2.5 max-w-[260px] truncate text-zinc-600" title="${item.synopsis || "N/A"}">${item.synopsis || "N/A"}</td>
         </tr>
       `;
       })
@@ -1079,7 +1293,6 @@ import Layout from "../layouts/Layout.astro";
           .from("submissions")
           .update({ status: newStatus })
           .eq("id", entryId);
-
         if (!error) {
           await fetchAllData();
         } else {
@@ -1089,20 +1302,22 @@ import Layout from "../layouts/Layout.astro";
     });
 
     // Row Delete Button Handler
-    document.querySelectorAll(".delete-sub-btn").forEach((btn) => {
-      btn.addEventListener("click", async (e) => {
-        const id = (e.currentTarget as HTMLElement).getAttribute("data-id");
-        const entryNumber = (e.currentTarget as HTMLElement).getAttribute(
-          "data-entry",
-        );
-        const title = (e.currentTarget as HTMLElement).getAttribute(
-          "data-title",
-        );
-        if (id && entryNumber) {
-          await deleteSubmission(id, entryNumber, title || "Untitled Film");
-        }
+    if (currentUserProfile?.role === "admin") {
+      document.querySelectorAll(".delete-sub-btn").forEach((btn) => {
+        btn.addEventListener("click", async (e) => {
+          const id = (e.currentTarget as HTMLElement).getAttribute("data-id");
+          const entryNumber = (e.currentTarget as HTMLElement).getAttribute(
+            "data-entry",
+          );
+          const title = (e.currentTarget as HTMLElement).getAttribute(
+            "data-title",
+          );
+          if (id && entryNumber) {
+            await deleteSubmission(id, entryNumber, title || "Untitled Film");
+          }
+        });
       });
-    });
+    }
 
     document.querySelectorAll(".open-sub-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
@@ -1226,17 +1441,15 @@ import Layout from "../layouts/Layout.astro";
               ${jury.is_active ? "Active" : "Deactivated"}
             </span>
           </div>
-
           <div class="bg-white p-3 rounded-xl border border-zinc-300 space-y-2 text-xs">
-            <div class="flex justify-between font-bold">
+            <div class="flex justify-between font-bold text-[#000000]">
               <span>Evaluation Progress:</span>
-              <span>${evals.length} / ${acceptedFilmsCount} Films (${completionRate}%)</span>
+              <span class="text-[#000000]">${evals.length} / ${acceptedFilmsCount} Films (${completionRate}%)</span>
             </div>
             <div class="w-full bg-zinc-200 h-2 rounded-full overflow-hidden">
               <div class="bg-[#B31D12] h-full" style="width: ${completionRate}%"></div>
             </div>
           </div>
-
           <div class="pt-2 border-t border-zinc-200 flex justify-end">
             <button type="button" data-jury-id="${jury.id}" data-active="${jury.is_active}" class="toggle-active-btn px-3 py-2 bg-zinc-200 hover:bg-black hover:text-white rounded-lg font-bold uppercase text-[10px] transition-colors cursor-pointer">
               ${jury.is_active ? "Deactivate Access" : "Activate Access"}
@@ -1249,6 +1462,7 @@ import Layout from "../layouts/Layout.astro";
 
     document.querySelectorAll(".toggle-active-btn").forEach((btn) => {
       btn.addEventListener("click", async (e) => {
+        if (currentUserProfile?.role !== "admin") return alert("Unauthorized");
         const juryId = (e.currentTarget as HTMLElement).getAttribute(
           "data-jury-id",
         );
@@ -1267,9 +1481,10 @@ import Layout from "../layouts/Layout.astro";
   // Add Jury Member
   document
     .getElementById("open-add-jury-btn")
-    ?.addEventListener("click", () =>
-      document.getElementById("add-jury-modal")?.classList.remove("hidden"),
-    );
+    ?.addEventListener("click", () => {
+      if (currentUserProfile?.role === "admin")
+        document.getElementById("add-jury-modal")?.classList.remove("hidden");
+    });
   document
     .getElementById("close-add-jury-modal")
     ?.addEventListener("click", () =>
@@ -1280,6 +1495,8 @@ import Layout from "../layouts/Layout.astro";
     .getElementById("add-jury-form")
     ?.addEventListener("submit", async (e) => {
       e.preventDefault();
+      if (currentUserProfile?.role !== "admin") return alert("Unauthorized");
+
       const fullName = (
         document.getElementById("new-jury-name") as HTMLInputElement
       ).value.trim();
@@ -1320,7 +1537,6 @@ import Layout from "../layouts/Layout.astro";
             is_active: true,
           });
         }
-
         msg.className =
           "p-2 text-[11px] font-bold border bg-green-100 border-green-800 text-green-950 rounded-lg";
         msg.innerText = "Jury account created successfully!";
@@ -1353,7 +1569,6 @@ import Layout from "../layouts/Layout.astro";
       return;
     }
 
-    // Build Table Header: Jury Member | [Film 1] | [Film 2] ... | Overall Completed
     thead.innerHTML = `
       <tr class="bg-[#18181B] text-[#FDFCF7] uppercase tracking-wider text-[10px]">
         <th class="p-3 border-r border-zinc-700 min-w-[180px]">Jury Member</th>
@@ -1363,8 +1578,7 @@ import Layout from "../layouts/Layout.astro";
           <th class="p-3 border-r border-zinc-700 text-center min-w-[140px]">
             <div class="truncate max-w-[130px] font-black">${film.film_title}</div>
             <span class="text-[9px] text-zinc-400 font-normal font-mono">${film.entry_number}</span>
-          </th>
-        `,
+          </th>`,
           )
           .join("")}
         <th class="p-3 text-center bg-[#B31D12] text-white min-w-[120px]">Completed</th>
@@ -1375,11 +1589,9 @@ import Layout from "../layouts/Layout.astro";
       currentEvaluations.map((e) => [`${e.submission_id}_${e.jury_id}`, e]),
     );
 
-    // Build Rows for each Jury Member
     tbody.innerHTML = currentJuryMembers
       .map((jury) => {
         let completedCount = 0;
-
         const movieCells = acceptedFilms
           .map((film) => {
             const ev = evalMap.get(`${film.id}_${jury.id}`);
@@ -1396,30 +1608,18 @@ import Layout from "../layouts/Layout.astro";
                 <span class="text-[9px] uppercase font-bold text-emerald-700">✓ Done</span>
                 <button type="button" data-eval-id="${ev.id}" class="reopen-eval-btn px-1.5 py-0.5 text-[8px] uppercase bg-zinc-200 hover:bg-[#B31D12] hover:text-white font-bold transition-colors cursor-pointer border rounded" title="Unlock score for juror">Reopen</button>
               </div>
-            </td>
-          `;
+            </td>`;
             }
-
             if (isInProgress) {
               const draftScore =
                 ev.total_score !== undefined ? `${ev.total_score}/100` : "";
               return `
             <td class="p-2.5 border-r border-zinc-200 text-center bg-amber-50/60">
-              <span class="px-1.5 py-0.5 text-[9px] font-black uppercase bg-amber-200 text-amber-950 border border-amber-400 rounded">
-                Incomplete
-              </span>
+              <span class="px-1.5 py-0.5 text-[9px] font-black uppercase bg-amber-200 text-amber-950 border border-amber-400 rounded">Incomplete</span>
               ${draftScore ? `<div class="text-[9px] text-amber-800 font-bold mt-1">Draft: ${draftScore}</div>` : ""}
-            </td>
-          `;
+            </td>`;
             }
-
-            return `
-          <td class="p-2.5 border-r border-zinc-200 text-center bg-red-50/40">
-            <span class="px-1.5 py-0.5 text-[9px] font-black uppercase bg-red-100 text-red-900 border border-red-300 rounded">
-              Incomplete
-            </span>
-          </td>
-        `;
+            return `<td class="p-2.5 border-r border-zinc-200 text-center bg-red-50/40"><span class="px-1.5 py-0.5 text-[9px] font-black uppercase bg-red-100 text-red-900 border border-red-300 rounded">Incomplete</span></td>`;
           })
           .join("");
 
@@ -1435,18 +1635,16 @@ import Layout from "../layouts/Layout.astro";
           </td>
           ${movieCells}
           <td class="p-3 font-black text-center bg-zinc-100">
-            <div class="text-xs ${completedCount === acceptedFilms.length ? "text-emerald-700" : "text-[#B31D12]"}">
-              ${completedCount} / ${acceptedFilms.length}
-            </div>
+            <div class="text-xs ${completedCount === acceptedFilms.length ? "text-emerald-700" : "text-[#B31D12]"}">${completedCount} / ${acceptedFilms.length}</div>
             <div class="text-[9px] text-zinc-500 font-normal">(${completionPct}%)</div>
           </td>
-        </tr>
-      `;
+        </tr>`;
       })
       .join("");
 
     document.querySelectorAll(".reopen-eval-btn").forEach((btn) => {
       btn.addEventListener("click", async (e) => {
+        if (currentUserProfile?.role !== "admin") return alert("Unauthorized");
         const evalId = (e.currentTarget as HTMLElement).getAttribute(
           "data-eval-id",
         );
@@ -1486,7 +1684,6 @@ import Layout from "../layouts/Layout.astro";
         const filmEvals = currentEvaluations.filter(
           (e) => e.submission_id === film.id && e.is_submitted,
         );
-
         return `
         <div class="bg-[#FDFCF7] border-2 border-black rounded-2xl p-5 shadow-[4px_4px_0px_0px_#000000] space-y-4">
           <div class="flex flex-col sm:flex-row justify-between sm:items-baseline gap-2 border-b-2 border-black/10 pb-2">
@@ -1499,21 +1696,19 @@ import Layout from "../layouts/Layout.astro";
               Evaluations Submitted: <span class="font-black text-[#18181B]">${filmEvals.length} / ${currentJuryMembers.length}</span>
             </div>
           </div>
-
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs border-collapse">
               <thead>
                 <tr class="bg-zinc-100 border-b-2 border-black text-[10px] uppercase">
-                  <th class="p-2.5 border-r border-zinc-300">Rubric Criterion</th>
-                  ${currentJuryMembers.map((j) => `<th class="p-2.5 border-r border-zinc-300">${j.full_name}</th>`).join("")}
-                  <th class="p-2.5 font-black bg-zinc-200">Criterion Average</th>
+                  <th class="p-2.5 border-r border-zinc-300 text-[#000000]">Rubric Criterion</th>
+                  ${currentJuryMembers.map((j) => `<th class="p-2.5 border-r border-zinc-300 text-[#000000]">${j.full_name}</th>`).join("")}
+                  <th class="p-2.5 font-black bg-zinc-200 text-[#000000]">Criterion Average</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-zinc-200">
                 ${CRITERIA.map((c) => {
                   let sum = 0;
                   let count = 0;
-
                   const scoresCols = currentJuryMembers
                     .map((j) => {
                       const ev = evalMap.get(`${film.id}_${j.id}`);
@@ -1521,29 +1716,21 @@ import Layout from "../layouts/Layout.astro";
                       if (val !== null && val !== undefined) {
                         sum += val;
                         count++;
-                        return `<td class="p-2.5 border-r border-zinc-200 font-bold">${val} / ${c.max}</td>`;
+                        return `<td class="p-2.5 border-r border-zinc-200 font-bold text-[#000000]">${val} / ${c.max}</td>`;
                       }
-                      return `<td class="p-2.5 border-r border-zinc-200 text-zinc-400 font-mono">—</td>`;
+                      return `<td class="p-2.5 border-r border-zinc-200 text-[#000000] font-mono">—</td>`;
                     })
                     .join("");
-
                   const avg = count > 0 ? (sum / count).toFixed(1) : "—";
-
-                  return `
-                    <tr>
-                      <td class="p-2.5 border-r border-zinc-200 font-black text-zinc-800">${c.label} (${c.max})</td>
-                      ${scoresCols}
-                      <td class="p-2.5 font-black bg-zinc-100">${avg}</td>
-                    </tr>
-                  `;
+                  return `<tr><td class="p-2.5 border-r border-zinc-200 font-black text-[#000000]">${c.label} (${c.max})</td>${scoresCols}<td class="p-2.5 font-black bg-zinc-100 text-[#000000]">${avg}</td></tr>`;
                 }).join("")}
                 
-                <tr class="bg-[#18181B] text-white font-black">
-                  <td class="p-2.5 border-r border-zinc-700 uppercase">TOTAL / 100</td>
+                <tr class="bg-zinc-300 text-[#000000] font-black border-t-2 border-black">
+                  <td class="p-2.5 border-r border-zinc-400 uppercase">TOTAL / 100</td>
                   ${currentJuryMembers
                     .map((j) => {
                       const ev = evalMap.get(`${film.id}_${j.id}`);
-                      return `<td class="p-2.5 border-r border-zinc-700">${ev && ev.is_submitted && ev.total_score !== undefined ? `${ev.total_score}` : "—"}</td>`;
+                      return `<td class="p-2.5 border-r border-zinc-400">${ev && ev.is_submitted && ev.total_score !== undefined ? `${ev.total_score}` : "—"}</td>`;
                     })
                     .join("")}
                   <td class="p-2.5 bg-[#B31D12] text-white">
@@ -1584,7 +1771,6 @@ import Layout from "../layouts/Layout.astro";
       currentEvaluations.map((e) => [`${e.submission_id}_${e.jury_id}`, e]),
     );
 
-    // Compute average score per film
     const rankedFilms = acceptedFilms.map((film) => {
       const filmEvals = currentEvaluations.filter(
         (e) => e.submission_id === film.id && e.is_submitted,
@@ -1597,21 +1783,15 @@ import Layout from "../layouts/Layout.astro";
         );
         avg = sum / filmEvals.length;
       }
-      return {
-        ...film,
-        evalCount: filmEvals.length,
-        averageScore: avg,
-      };
+      return { ...film, evalCount: filmEvals.length, averageScore: avg };
     });
 
-    // Sort descending by average score
     rankedFilms.sort((a, b) => b.averageScore - a.averageScore);
 
     tbody.innerHTML = rankedFilms
       .map((film, index) => {
         const rank = index + 1;
         let rankBadge = `<span class="font-black text-sm text-zinc-700">${rank}</span>`;
-
         if (rank === 1)
           rankBadge = `<span class="px-2 py-0.5 bg-[#FDB813] text-black font-black text-xs rounded shadow-xs">🥇 1st</span>`;
         else if (rank === 2)
@@ -1629,12 +1809,8 @@ import Layout from "../layouts/Layout.astro";
           </td>
           <td class="p-3 border-r border-zinc-200 font-bold">${film.director_full_name}</td>
           <td class="p-3 border-r border-zinc-200 text-zinc-700">${film.film_language} (${film.duration_minutes}m)</td>
-          <td class="p-3 border-r border-zinc-200 text-center font-bold">
-            ${film.evalCount} / ${currentJuryMembers.length}
-          </td>
-          <td class="p-3 border-r border-zinc-200 text-center font-black text-base ${film.evalCount > 0 ? "text-[#B31D12]" : "text-zinc-400"}">
-            ${film.evalCount > 0 ? film.averageScore.toFixed(2) : "—"}
-          </td>
+          <td class="p-3 border-r border-zinc-200 text-center font-bold">${film.evalCount} / ${currentJuryMembers.length}</td>
+          <td class="p-3 border-r border-zinc-200 text-center font-black text-base ${film.evalCount > 0 ? "text-[#B31D12]" : "text-zinc-400"}">${film.evalCount > 0 ? film.averageScore.toFixed(2) : "—"}</td>
           <td class="p-3 text-center">
             ${
               film.evalCount === currentJuryMembers.length &&
@@ -1643,27 +1819,25 @@ import Layout from "../layouts/Layout.astro";
                 : `<span class="px-2.5 py-1 bg-amber-100 text-amber-900 font-bold text-[10px] uppercase border border-amber-300 rounded">In Review</span>`
             }
           </td>
-        </tr>
-      `;
+        </tr>`;
       })
       .join("");
   };
 
-  // CSV EXPORT 1: MATRIX CSV (Movie rows x Jury Total Score columns + Average)
+  // CSV EXPORT 1: MATRIX CSV
   document
     .getElementById("export-matrix-csv")
     ?.addEventListener("click", () => {
-      const acceptedFilms = (currentSubsubmissions = currentSubmissions.filter(
+      if (currentUserProfile?.role !== "admin") return alert("Unauthorized");
+      const acceptedFilms = currentSubmissions.filter(
         (s) => s.status === "Accepted",
-      ));
-      if (acceptedFilms.length === 0 || currentJuryMembers.length === 0) {
+      );
+      if (acceptedFilms.length === 0 || currentJuryMembers.length === 0)
         return alert("No evaluated competition data to export.");
-      }
 
       const evalMap = new Map(
         currentEvaluations.map((e) => [`${e.submission_id}_${e.jury_id}`, e]),
       );
-
       const headers = [
         "Entry ID",
         "Film Title",
@@ -1674,19 +1848,16 @@ import Layout from "../layouts/Layout.astro";
         "Average Score",
         "Completed Juries",
       ];
-
       const rows = acceptedFilms.map((film) => {
         const filmEvals = currentEvaluations.filter(
           (e) => e.submission_id === film.id && e.is_submitted,
         );
-
         const jurorScores = currentJuryMembers.map((j) => {
           const ev = evalMap.get(`${film.id}_${j.id}`);
           return ev && ev.is_submitted && ev.total_score !== undefined
             ? ev.total_score
             : "Incomplete";
         });
-
         let avg = "";
         if (filmEvals.length > 0) {
           const totalSum = filmEvals.reduce(
@@ -1695,7 +1866,6 @@ import Layout from "../layouts/Layout.astro";
           );
           avg = (totalSum / filmEvals.length).toFixed(2);
         }
-
         return [
           `"${film.entry_number}"`,
           `"${(film.film_title || "").replace(/"/g, '""')}"`,
@@ -1717,10 +1887,11 @@ import Layout from "../layouts/Layout.astro";
       link.click();
     });
 
-  // CSV EXPORT 2: LEADERBOARD SHORTLIST CSV (Ranked by Average Score)
+  // CSV EXPORT 2: LEADERBOARD SHORTLIST CSV
   document
     .getElementById("export-leaderboard-csv")
     ?.addEventListener("click", () => {
+      if (currentUserProfile?.role !== "admin") return alert("Unauthorized");
       const acceptedFilms = currentSubmissions.filter(
         (s) => s.status === "Accepted",
       );
@@ -1742,7 +1913,6 @@ import Layout from "../layouts/Layout.astro";
       });
 
       rankedFilms.sort((a, b) => b.averageScore - a.averageScore);
-
       const headers = [
         "Rank",
         "Entry ID",
@@ -1775,10 +1945,11 @@ import Layout from "../layouts/Layout.astro";
       link.click();
     });
 
-  // COMPLETE DOSSIER CSV EXPORT (ALL FIELDS)
+  // COMPLETE DOSSIER CSV EXPORT
   document
     .getElementById("export-submissions-csv")
     ?.addEventListener("click", () => {
+      if (currentUserProfile?.role !== "admin") return alert("Unauthorized");
       if (currentSubmissions.length === 0)
         return alert("No submissions to export.");
 
@@ -1829,7 +2000,6 @@ import Layout from "../layouts/Layout.astro";
         "Synopsis",
         "Submitted At",
       ];
-
       const rows = currentSubmissions.map((s) => [
         `"${s.entry_number || ""}"`,
         `"${s.status || "Pending"}"`,
@@ -1887,11 +2057,12 @@ import Layout from "../layouts/Layout.astro";
       link.click();
     });
 
-  // IMPORT SUBMISSIONS (CSV / JSON)
+  // IMPORT SUBMISSIONS
   const importFileInput = document.getElementById(
     "import-submissions-file",
   ) as HTMLInputElement;
   importFileInput?.addEventListener("change", async (e) => {
+    if (currentUserProfile?.role !== "admin") return alert("Unauthorized");
     const file = (e.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
@@ -1909,8 +2080,8 @@ import Layout from "../layouts/Layout.astro";
 
           const parseCSVLine = (line: string) => {
             const result = [];
-            let start = 0;
-            let inQuotes = false;
+            let start = 0,
+              inQuotes = false;
             for (let i = 0; i < line.length; i++) {
               if (line[i] === '"') inQuotes = !inQuotes;
               else if (line[i] === "," && !inQuotes) {
@@ -2008,9 +2179,8 @@ import Layout from "../layouts/Layout.astro";
           }
         }
 
-        if (recordsToInsert.length === 0) {
+        if (recordsToInsert.length === 0)
           return alert("No valid rows detected in the import file.");
-        }
 
         const confirmImport = confirm(
           `Ready to import ${recordsToInsert.length} submissions into Supabase. Proceed?`,
