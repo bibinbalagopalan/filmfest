@@ -1,0 +1,29 @@
+[33m179f7f1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m fix: update Astro and configure Cloudflare adapter to fix build errors
+[33m6eb9b0f[m[33m ([m[1;31morigin/main[m[33m)[m Fix Cloudflare Pages deployment - remove adapter
+[33m323c974[m changed admin to administrator and added submissions review as well
+[33m2b020e8[m favicon change
+[33mbfb1c77[m Changed the entire theme except the judges panel (internal) based on the official poster
+[33m7ccc5b1[m Changes in the Jury, admin and submit pages
+[33m17fff88[m Changes in Sanath PC's biography at slug level
+[33m7235fb2[m Changes in Bio of Judges
+[33m3e266af[m Third change in PC Sanath
+[33m3ff1693[m Second changes in the profile of PC Sanath
+[33md1b11d0[m Updated Sanath PC profile
+[33m9fa0385[m changed the invalid submission link in the hero
+[33m80d1594[m added links to the jury profile
+[33md5fc039[m Minor change regarding Arjun's highlights
+[33me3222cb[m Changes suggested by Arjun K
+[33m292627e[m Changes are suggested by the Library's Executive Council
+[33mabb4493[m Jury and Timelimit Edit
+[33mf826f30[m Changed the top bar
+[33m0decc2f[m fixed all the broken links
+[33m0317482[m admin and juries pages have been added
+[33m289c4d5[m deleted the api
+[33m013c03d[m Commit post Supabase integration
+[33m7c0821f[m favicon changed
+[33m6d490f2[m just drishti remains
+[33m71a6263[m commit with all the pages but two
+[33m1d2a7ec[m third committ with complete landing page and navbar and footer
+[33mcb73a82[m second commit
+[33m5c11c66[m first commit
+[33medcd7d6[m "Initial commit from Astro"
