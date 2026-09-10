@@ -388,16 +388,20 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
                   for="poster_url"
                   class="block font-bold uppercase tracking-wider text-[#18181B]"
                 >
-                  High-Res Poster Link (Drive / Dropbox) *
+                  Movie Poster Link (Google Drive or Dropbox) *
                 </label>
                 <input
                   type="url"
                   id="poster_url"
                   name="poster_url"
                   required
-                  placeholder="https://drive.google.com/..."
+                  placeholder="https://drive.google.com/... or https://dropbox.com/..."
                   class="w-full bg-white border-2 border-black rounded-lg p-2.5 text-xs text-[#18181B] focus:outline-none focus:border-[#B31D12]"
                 />
+                <p class="text-[10px] text-zinc-600 font-sans">
+                  Please paste a valid Google Drive or Dropbox link containing
+                  your film's poster.
+                </p>
               </div>
             </div>
 
@@ -442,16 +446,20 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
                   for="screener_url"
                   class="block font-bold uppercase tracking-wider text-[#18181B]"
                 >
-                  Private Screener Link (Vimeo / Google Drive) *
+                  Movie Screening Link (Vimeo or Google Drive) *
                 </label>
                 <input
                   type="url"
                   id="screener_url"
                   name="screener_url"
                   required
-                  placeholder="https://..."
+                  placeholder="https://vimeo.com/... or https://drive.google.com/..."
                   class="w-full bg-white border-2 border-black rounded-lg p-2.5 text-xs text-[#18181B] focus:outline-none focus:border-[#B31D12]"
                 />
+                <p class="text-[10px] text-zinc-600 font-sans">
+                  Please paste a valid Vimeo or Google Drive link where we can
+                  watch your film.
+                </p>
               </div>
 
               <div class="space-y-1.5">
@@ -1246,6 +1254,32 @@ const officialUpiId = "sbivan.MFBANK10001001000632@sbi";
 
     try {
       const formData = new FormData(form);
+
+      // --- LINK VALIDATION CHECKS ---
+      const posterUrl =
+        formData.get("poster_url")?.toString().trim().toLowerCase() || "";
+      const screenerUrl =
+        formData.get("screener_url")?.toString().trim().toLowerCase() || "";
+
+      if (
+        !posterUrl.includes("drive.google.com") &&
+        !posterUrl.includes("dropbox.com")
+      ) {
+        throw new Error(
+          "The Movie Poster link must be from Google Drive or Dropbox. Please fix it and try again.",
+        );
+      }
+
+      if (
+        !screenerUrl.includes("vimeo.com") &&
+        !screenerUrl.includes("drive.google.com")
+      ) {
+        throw new Error(
+          "The Movie Screening link must be from Vimeo or Google Drive. Please fix it and try again.",
+        );
+      }
+      // -----------------------------
+
       const randomSuffix = Math.floor(1000 + Math.random() * 9000);
       const entry_number = `PSFF26-${randomSuffix}`;
 
