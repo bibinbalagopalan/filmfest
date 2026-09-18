@@ -1165,7 +1165,19 @@ import Layout from "../layouts/Layout.astro";
         );
         if (ytMatch) embedUrl = `https://www.youtube.com/embed/${ytMatch[1]}`;
       } else if (screenerUrl.includes("drive.google.com")) {
-        embedUrl = screenerUrl.replace(/\/view.*$/, "/preview"); // Converts view links to preview mode for iframes
+        // Extract file ID from various Google Drive URL formats
+        const driveIdMatch =
+          screenerUrl.match(/\/d\/([a-zA-Z0-9_-]+)/) ||
+          screenerUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+
+        if (driveIdMatch && driveIdMatch[1]) {
+          const fileId = driveIdMatch[1];
+          // Use the /preview endpoint which allows iframe embedding for public files
+          embedUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+        } else {
+          // Fallback: try the original replace method
+          embedUrl = screenerUrl.replace(/\/view.*$/, "/preview");
+        }
       }
 
       videoFrame.src = embedUrl;
