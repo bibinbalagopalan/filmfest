@@ -11,94 +11,121 @@ import Layout from "../layouts/Layout.astro";
     footer {
       display: none !important;
     }
-
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #0f0f0f;
+      background: #fdfcf7;
     }
     ::-webkit-scrollbar-thumb {
-      background: #333333;
-      border-radius: 3px;
+      background: #18181b;
+      border-radius: 0px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #555555;
+      background: #b31d12;
     }
   </style>
 
   <div
-    class="w-full min-h-screen bg-[#0F0F0F] text-[#F1F1F1] font-sans antialiased selection:bg-[#D9381E] selection:text-white"
+    class="relative w-full min-h-screen bg-[#B31D12] text-[#FDFCF7] font-mono p-2 sm:p-4 selection:bg-[#FDB813] selection:text-[#B31D12] overflow-hidden flex flex-col"
   >
+    <!-- Background Frame Accents & Swirl Patterns -->
+    <div
+      class="fixed inset-0 pointer-events-none opacity-15 overflow-hidden z-0"
+    >
+      <div
+        class="absolute top-0 left-0 right-0 h-4 border-b border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+      <div
+        class="absolute bottom-0 left-0 right-0 h-4 border-t border-[#FDB813]/40"
+        style="background-image: radial-gradient(#FDB813 35%, transparent 35%); background-size: 16px 16px;"
+      >
+      </div>
+      <div
+        class="absolute inset-0 opacity-10"
+        style="background-image: linear-gradient(to right, #FDB813 1px, transparent 1px), linear-gradient(to bottom, #FDB813 1px, transparent 1px); background-size: 24px 24px;"
+      >
+      </div>
+    </div>
+
     <!-- 1. LOGIN SCREEN -->
     <div
       id="auth-guard"
-      class="min-h-screen flex items-center justify-center p-4 sm:p-6"
+      class="min-h-screen flex items-center justify-center p-4 relative z-10"
     >
       <div
-        class="w-full max-w-md bg-[#1F1F1F] border border-[#2E2E2E] rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6"
+        class="w-full max-w-md bg-[#FDFCF7] text-[#18181B] border-2 border-black p-6 sm:p-8 rounded-2xl shadow-[6px_6px_0px_0px_#000000] space-y-6"
       >
-        <div class="text-center space-y-3">
-          <div class="inline-flex items-center gap-2.5 justify-center">
+        <div
+          class="border-b-2 border-black/10 pb-4 flex items-center justify-between gap-4"
+        >
+          <div>
             <span
-              class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white font-mono"
+              class="text-[10px] font-black uppercase text-[#B31D12] tracking-widest block"
             >
-              PSFF
+              PSFF Season 03
             </span>
-            <span
-              class="inline-flex items-center justify-center font-mono text-xs font-black uppercase tracking-wider text-white bg-[#D9381E] px-2.5 py-1 border border-[#D9381E] shadow-[2px_2px_0px_0px_#000000]"
+            <h1
+              class="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#18181B] mt-0.5"
             >
-              Season 03
-            </span>
+              Jury Portal
+            </h1>
+            <p class="text-xs text-zinc-600 font-sans mt-0.5">
+              Sign in with authorized credentials.
+            </p>
           </div>
-          <h1 class="text-base sm:text-lg font-bold text-white pt-1">
-            Jury Screening Portal
-          </h1>
-          <p class="text-xs text-zinc-400 font-mono">
-            Sign in with authorized juror credentials to begin evaluation.
-          </p>
+          <div
+            class="h-12 w-12 bg-[#B31D12] border-2 border-black rounded-xl p-1 flex items-center justify-center shadow-sm shrink-0"
+          >
+            <img
+              src="https://i.ibb.co/0R0xXBmN/logo-2.png"
+              alt="PSFF Logo"
+              class="h-full w-auto object-contain"
+            />
+          </div>
         </div>
 
         <form id="jury-login-form" class="space-y-4 text-xs font-mono">
           <div class="space-y-1.5">
             <label
-              class="block font-bold text-zinc-400 uppercase tracking-wider"
-              >Email Address</label
+              class="block font-bold uppercase tracking-wider text-[#18181B]"
             >
+              Email Address
+            </label>
             <input
               type="email"
               id="jury-email"
               required
-              class="w-full bg-[#121212] border border-[#3A3A3A] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#D9381E] transition-colors"
+              class="w-full bg-white border-2 border-black rounded-lg p-2.5 text-[#18181B] focus:outline-none focus:border-[#B31D12]"
               placeholder="jury@psff.in"
             />
           </div>
-
           <div class="space-y-1.5">
             <label
-              class="block font-bold text-zinc-400 uppercase tracking-wider"
-              >Password</label
+              class="block font-bold uppercase tracking-wider text-[#18181B]"
             >
+              Password
+            </label>
             <input
               type="password"
               id="jury-pwd"
               required
-              class="w-full bg-[#121212] border border-[#3A3A3A] rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#D9381E] transition-colors"
+              class="w-full bg-white border-2 border-black rounded-lg p-2.5 text-[#18181B] focus:outline-none focus:border-[#B31D12]"
               placeholder="••••••••"
             />
           </div>
-
           <div
             id="auth-err"
-            class="hidden p-3 bg-red-950/80 border border-red-800 rounded-lg text-red-300 text-xs font-bold font-mono"
+            class="hidden p-3 bg-red-100 border border-[#B31D12] text-[#B31D12] font-bold text-[11px] rounded-lg"
           >
           </div>
-
           <button
             type="submit"
             id="jury-auth-btn"
-            class="w-full py-3.5 bg-[#D9381E] hover:bg-[#b82d16] text-white font-bold rounded-lg text-xs uppercase tracking-wider transition-colors cursor-pointer shadow-lg"
+            class="w-full py-3 font-black uppercase tracking-widest text-[#FDFCF7] bg-[#B31D12] border-2 border-black rounded-lg hover:bg-black transition-colors cursor-pointer shadow-[3px_3px_0px_0px_#000000]"
           >
             Enter Screening Room &rarr;
           </button>
@@ -107,42 +134,53 @@ import Layout from "../layouts/Layout.astro";
     </div>
 
     <!-- 2. MAIN WORKSPACE -->
-    <div id="jury-workspace" class="hidden min-h-screen flex flex-col">
+    <div
+      id="jury-workspace"
+      class="hidden flex-1 relative z-10 flex flex-col max-w-7xl mx-auto w-full space-y-4 sm:space-y-6"
+    >
       <!-- Top App Bar -->
       <header
         id="jury-top-bar"
-        class="sticky top-0 z-50 bg-[#0F0F0F] border-b border-[#272727] px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4"
+        class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-2 border-black rounded-2xl bg-[#FDFCF7] text-[#18181B] p-4 sm:p-5 shadow-[6px_6px_0px_0px_#000000] sticky top-4 z-40"
       >
-        <div class="flex items-center gap-2 sm:gap-4 shrink-0">
-          <button
-            type="button"
-            id="nav-home-btn"
-            class="flex items-center gap-2.5 text-white hover:opacity-90 focus:outline-none cursor-pointer"
-            title="Return to Films Queue"
+        <div class="flex items-center gap-4 shrink-0">
+          <div
+            class="h-10 w-10 bg-[#B31D12] border-2 border-black rounded-xl p-1 flex items-center justify-center shadow-sm shrink-0"
           >
-            <span
-              class="text-xl sm:text-2xl font-black uppercase tracking-tight text-white font-mono"
+            <img
+              src="https://i.ibb.co/0R0xXBmN/logo-2.png"
+              alt="PSFF Logo"
+              class="h-full w-auto object-contain"
+            />
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
+              ></span>
+              <span class="text-[10px] font-bold uppercase text-[#B31D12]"
+                >Screening Room</span
+              >
+            </div>
+            <button
+              type="button"
+              id="nav-home-btn"
+              class="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#18181B] hover:text-[#B31D12] transition-colors mt-0.5 text-left focus:outline-none"
             >
-              PSFF
-            </span>
-            <span
-              class="inline-flex items-center justify-center font-mono text-[10px] sm:text-xs font-black uppercase tracking-wider text-white bg-[#D9381E] px-2 py-0.5 border border-[#D9381E] shadow-[2px_2px_0px_0px_#000000]"
-            >
-              Season 03
-            </span>
-          </button>
+              Jury Dashboard
+            </button>
+          </div>
         </div>
 
-        <div class="flex-1 max-w-xl mx-2">
+        <div class="flex-1 max-w-xl mx-0 md:mx-4 w-full">
           <div class="relative w-full">
             <input
               type="text"
               id="top-search-bar"
               placeholder="Search films, directors, genres, IDs..."
-              class="w-full bg-[#121212] border border-[#303030] rounded-full py-1.5 sm:py-2 pl-9 pr-4 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D9381E] transition-all placeholder:text-zinc-500 font-mono"
+              class="w-full bg-white border-2 border-black rounded-lg py-2 pl-9 pr-4 text-xs text-[#18181B] focus:outline-none focus:border-[#B31D12] placeholder:text-zinc-500 font-mono shadow-xs"
             />
             <svg
-              class="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2"
+              class="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -160,20 +198,19 @@ import Layout from "../layouts/Layout.astro";
           class="flex items-center gap-2 sm:gap-3 shrink-0 font-mono text-xs"
         >
           <div
-            class="hidden md:flex items-center gap-2 bg-[#272727] px-3 py-1.5 rounded-full border border-zinc-700"
+            class="hidden md:flex items-center gap-2 bg-zinc-100 px-3 py-2 rounded-lg border-2 border-black shadow-[2px_2px_0px_0px_#000000]"
           >
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
-            ></span>
             <span
               id="juror-name-badge"
-              class="font-bold text-zinc-200 truncate max-w-[120px]">Juror</span
+              class="font-black text-[#18181B] truncate max-w-[120px] uppercase"
             >
+              Juror
+            </span>
           </div>
-
           <button
             type="button"
             id="jury-signout-btn"
-            class="px-3 py-1.5 bg-[#272727] hover:bg-[#3F3F3F] text-zinc-200 hover:text-white rounded-full text-[11px] font-bold transition-colors cursor-pointer border border-zinc-700"
+            class="px-3 py-2 bg-[#B31D12] text-white border-2 border-black rounded-lg hover:bg-black font-black uppercase tracking-wider text-[11px] transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000]"
           >
             Sign Out
           </button>
@@ -181,122 +218,132 @@ import Layout from "../layouts/Layout.astro";
       </header>
 
       <!-- VIEW 1: HOME & MOVIE TABLE -->
-      <main
-        id="home-view"
-        class="flex-1 max-w-7xl mx-auto w-full p-4 sm:p-6 space-y-6"
-      >
-        <div class="grid grid-cols-3 gap-2 sm:gap-4 font-mono">
+      <main id="home-view" class="flex-1 w-full space-y-4 sm:space-y-6">
+        <div class="grid grid-cols-3 gap-3 sm:gap-4 font-mono">
           <div
-            class="bg-[#1F1F1F] border border-[#2E2E2E] rounded-xl p-3 sm:p-4 text-center"
+            class="bg-[#FDFCF7] border-2 border-black p-4 rounded-xl shadow-[4px_4px_0px_0px_#000000] text-[#18181B] text-center"
           >
             <span
-              class="text-[9px] sm:text-xs text-zinc-400 uppercase font-bold block"
-              >Assigned</span
+              class="text-[10px] sm:text-xs text-zinc-600 uppercase font-bold block"
             >
+              Assigned
+            </span>
             <span
               id="stat-total-assigned"
-              class="text-lg sm:text-2xl font-black text-white">0</span
+              class="text-xl sm:text-3xl font-black mt-1 block"
             >
+              0
+            </span>
           </div>
           <div
-            class="bg-[#1F1F1F] border border-[#2E2E2E] rounded-xl p-3 sm:p-4 text-center"
+            class="bg-[#FDFCF7] border-2 border-black p-4 rounded-xl shadow-[4px_4px_0px_0px_#000000] text-[#18181B] text-center"
           >
             <span
-              class="text-[9px] sm:text-xs text-emerald-400 uppercase font-bold block"
-              >Completed</span
+              class="text-[10px] sm:text-xs text-emerald-700 uppercase font-bold block"
             >
+              Completed
+            </span>
             <span
               id="stat-completed"
-              class="text-lg sm:text-2xl font-black text-emerald-400">0</span
+              class="text-xl sm:text-3xl font-black text-emerald-700 mt-1 block"
             >
+              0
+            </span>
           </div>
           <div
-            class="bg-[#1F1F1F] border border-[#2E2E2E] rounded-xl p-3 sm:p-4 text-center"
+            class="bg-[#FDFCF7] border-2 border-black p-4 rounded-xl shadow-[4px_4px_0px_0px_#000000] text-[#18181B] text-center"
           >
             <span
-              class="text-[9px] sm:text-xs text-amber-400 uppercase font-bold block"
-              >Pending</span
+              class="text-[10px] sm:text-xs text-[#B31D12] uppercase font-bold block"
             >
+              Pending
+            </span>
             <span
               id="stat-pending"
-              class="text-lg sm:text-2xl font-black text-amber-400">0</span
+              class="text-xl sm:text-3xl font-black text-[#B31D12] mt-1 block"
             >
+              0
+            </span>
           </div>
         </div>
 
         <div
-          class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-mono font-bold"
+          class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-mono"
         >
           <button
             type="button"
             data-filter="ALL"
-            class="filter-chip px-4 py-1.5 rounded-lg bg-white text-black shrink-0 transition-colors"
+            class="filter-chip px-3 py-1.5 font-black uppercase bg-[#B31D12] text-white border-2 border-black rounded-md shadow-[2px_2px_0px_0px_#000000] shrink-0 transition-colors"
           >
             All Films
           </button>
           <button
             type="button"
             data-filter="Pending"
-            class="filter-chip px-4 py-1.5 rounded-lg bg-[#272727] text-zinc-300 hover:bg-[#3F3F3F] shrink-0 transition-colors"
+            class="filter-chip px-3 py-1.5 font-black uppercase bg-zinc-200 text-[#18181B] hover:bg-zinc-300 border-2 border-transparent rounded-md shrink-0 transition-colors"
           >
             Yet to Start
           </button>
           <button
             type="button"
             data-filter="In Progress"
-            class="filter-chip px-4 py-1.5 rounded-lg bg-[#272727] text-zinc-300 hover:bg-[#3F3F3F] shrink-0 transition-colors"
+            class="filter-chip px-3 py-1.5 font-black uppercase bg-zinc-200 text-[#18181B] hover:bg-zinc-300 border-2 border-transparent rounded-md shrink-0 transition-colors"
           >
             In Progress
           </button>
           <button
             type="button"
             data-filter="Completed"
-            class="filter-chip px-4 py-1.5 rounded-lg bg-[#272727] text-zinc-300 hover:bg-[#3F3F3F] shrink-0 transition-colors"
+            class="filter-chip px-3 py-1.5 font-black uppercase bg-zinc-200 text-[#18181B] hover:bg-zinc-300 border-2 border-transparent rounded-md shrink-0 transition-colors"
           >
             Completed 🔒
           </button>
         </div>
 
         <div
-          class="bg-[#1F1F1F] border border-[#2E2E2E] rounded-xl overflow-hidden shadow-xl"
+          class="bg-[#FDFCF7] border-2 border-black rounded-2xl shadow-[6px_6px_0px_0px_#000000] overflow-hidden text-[#18181B]"
         >
           <div
-            class="p-3 sm:p-4 border-b border-[#2E2E2E] flex items-center justify-between"
+            class="p-4 border-b-2 border-black flex items-center justify-between bg-zinc-100"
           >
             <h2
-              class="text-xs sm:text-sm font-bold uppercase tracking-wider text-zinc-300 font-mono"
+              class="text-xs sm:text-sm font-black uppercase tracking-wider text-[#18181B] font-mono"
             >
-              Competition Film Queue
+              Competition Queue
             </h2>
-            <span id="results-count" class="text-xs text-zinc-500 font-mono"
-              >0 Films</span
+            <span
+              id="results-count"
+              class="text-xs text-zinc-600 font-bold font-mono"
             >
+              0 Films
+            </span>
           </div>
-
-          <div class="overflow-x-auto">
+          <div class="overflow-x-auto max-h-[60vh]">
             <table class="w-full text-left text-xs border-collapse">
-              <thead>
+              <thead class="sticky top-0 z-20">
                 <tr
-                  class="bg-[#121212] text-zinc-400 uppercase tracking-wider text-[10px] font-mono border-b border-[#2E2E2E]"
+                  class="bg-[#18181B] text-[#FDFCF7] uppercase tracking-wider text-[10px] font-mono border-b-2 border-black"
                 >
-                  <th class="p-3 sm:p-3.5 border-r border-[#2E2E2E] w-24"
+                  <th class="p-3 sm:p-3.5 border-r border-zinc-700 w-24"
                     >Entry ID</th
                   >
-                  <th class="p-3 sm:p-3.5 border-r border-[#2E2E2E]"
+                  <th class="p-3 sm:p-3.5 border-r border-zinc-700"
                     >Film Title &amp; Genre</th
                   >
                   <th
-                    class="p-3 sm:p-3.5 border-r border-[#2E2E2E] hidden sm:table-cell"
-                    >Director</th
+                    class="p-3 sm:p-3.5 border-r border-zinc-700 hidden sm:table-cell"
                   >
+                    Director
+                  </th>
                   <th
-                    class="p-3 sm:p-3.5 border-r border-[#2E2E2E] hidden md:table-cell"
-                    >Duration</th
+                    class="p-3 sm:p-3.5 border-r border-zinc-700 hidden md:table-cell"
                   >
-                  <th class="p-3 sm:p-3.5 border-r border-[#2E2E2E] text-center"
+                    Duration
+                  </th>
+                  <th class="p-3 sm:p-3.5 border-r border-zinc-700 text-center"
                     >Status</th
                   >
-                  <th class="p-3 sm:p-3.5 border-r border-[#2E2E2E] text-center"
+                  <th class="p-3 sm:p-3.5 border-r border-zinc-700 text-center"
                     >Score</th
                   >
                   <th class="p-3 sm:p-3.5 text-center w-28">Screening</th>
@@ -304,7 +351,7 @@ import Layout from "../layouts/Layout.astro";
               </thead>
               <tbody
                 id="home-movies-tbody"
-                class="divide-y divide-[#2E2E2E] font-mono"
+                class="divide-y divide-zinc-200 font-mono"
               >
                 <tr>
                   <td
@@ -321,15 +368,12 @@ import Layout from "../layouts/Layout.astro";
       </main>
 
       <!-- VIEW 2: SCREENING & MARKING ROOM -->
-      <main
-        id="player-view"
-        class="hidden flex-1 max-w-5xl mx-auto w-full p-2 sm:p-6 space-y-4"
-      >
+      <main id="player-view" class="hidden flex-1 w-full space-y-4 pb-12">
         <div>
           <button
             type="button"
             id="player-back-btn"
-            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#272727] hover:bg-[#3F3F3F] text-xs font-mono font-bold text-white transition-colors cursor-pointer border border-zinc-700"
+            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border-2 border-black hover:bg-zinc-100 text-[11px] font-mono font-black text-[#18181B] uppercase transition-colors cursor-pointer shadow-[2px_2px_0px_0px_#000000]"
           >
             <span>&larr;</span> Back to Films List
           </button>
@@ -337,12 +381,14 @@ import Layout from "../layouts/Layout.astro";
 
         <!-- 1. Video Player Container -->
         <div
-          class="w-full bg-black rounded-xl sm:rounded-2xl overflow-hidden aspect-video border border-[#2E2E2E] shadow-2xl relative flex items-center justify-center"
+          class="w-full bg-black rounded-xl overflow-hidden aspect-video border-2 border-black shadow-[6px_6px_0px_0px_#000000] relative flex items-center justify-center"
         >
           <div id="player-placeholder" class="text-center p-6 space-y-2">
             <span class="text-zinc-600 text-4xl block">▶</span>
-            <p class="text-xs text-zinc-400 font-mono">
-              Loading film video stream...
+            <p
+              class="text-xs text-zinc-400 font-mono font-bold uppercase tracking-widest"
+            >
+              Loading Film Stream
             </p>
           </div>
           <iframe
@@ -354,135 +400,135 @@ import Layout from "../layouts/Layout.astro";
 
         <!-- 2. Film Heading & Collapsible Details Section -->
         <div
-          class="bg-[#1F1F1F] border border-[#2E2E2E] rounded-xl p-4 space-y-3"
+          class="bg-[#FDFCF7] text-[#18181B] border-2 border-black rounded-2xl p-4 sm:p-6 shadow-[6px_6px_0px_0px_#000000] space-y-4"
         >
-          <div class="flex items-start justify-between gap-3">
+          <div
+            class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+          >
             <div>
+              <span
+                class="text-[10px] font-black uppercase text-[#B31D12] tracking-widest block"
+                id="screen-entry-id"
+              >
+                PSFF26-XXXX
+              </span>
               <h1
                 id="screen-film-title"
-                class="text-lg sm:text-2xl font-black text-white uppercase tracking-tight"
+                class="text-xl sm:text-3xl font-black uppercase tracking-tight mt-0.5 font-mono"
               >
                 Film Title
               </h1>
               <span
                 id="screen-film-language-runtime"
-                class="text-xs font-mono text-zinc-400 block mt-0.5"
+                class="text-xs font-mono font-bold text-zinc-600 block mt-1"
               >
                 Malayalam &bull; 15 Mins
               </span>
             </div>
-
             <!-- Toggle Details Accordion Button -->
             <button
               type="button"
               id="toggle-details-btn"
-              class="px-3 py-1.5 bg-[#2A2A2A] hover:bg-[#3A3A3A] text-zinc-200 rounded-lg text-xs font-mono font-bold transition-colors cursor-pointer shrink-0 flex items-center gap-1.5 border border-zinc-700"
+              class="px-3 py-2 bg-zinc-200 hover:bg-zinc-300 border-2 border-black text-[#18181B] rounded-lg text-[10px] font-mono font-black uppercase transition-colors cursor-pointer shrink-0 flex items-center gap-1.5 shadow-[2px_2px_0px_0px_#000000]"
             >
               <span id="details-btn-label">Show Film Info</span>
               <span
                 id="details-btn-arrow"
-                class="transition-transform duration-200">&darr;</span
+                class="transition-transform duration-200 font-sans"
               >
+                &darr;
+              </span>
             </button>
           </div>
 
           <!-- Collapsible Film Metadata Drawer -->
           <div
             id="collapsible-film-details"
-            class="hidden space-y-3 pt-2 border-t border-[#2E2E2E]"
+            class="hidden space-y-3 pt-4 border-t-2 border-black/10"
           >
             <div
-              class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 font-mono text-xs"
+              class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 font-mono text-xs"
             >
               <div
-                class="bg-[#141414] p-2.5 rounded-lg border border-[#272727]"
+                class="bg-white p-3 rounded-lg border-2 border-black shadow-sm"
               >
-                <span
-                  class="text-[10px] text-zinc-500 uppercase block font-bold"
+                <span class="text-[9px] text-zinc-500 uppercase block font-bold"
                   >Director</span
                 >
                 <strong
                   id="screen-director"
-                  class="text-zinc-200 text-xs block truncate">—</strong
+                  class="text-[#18181B] text-xs block truncate mt-0.5"
                 >
+                  —
+                </strong>
               </div>
-
               <div
-                class="bg-[#141414] p-2.5 rounded-lg border border-[#272727]"
+                class="bg-white p-3 rounded-lg border-2 border-black shadow-sm"
               >
-                <span
-                  class="text-[10px] text-zinc-500 uppercase block font-bold"
+                <span class="text-[9px] text-zinc-500 uppercase block font-bold"
                   >Producer</span
                 >
                 <strong
                   id="screen-producer"
-                  class="text-zinc-200 text-xs block truncate">—</strong
+                  class="text-[#18181B] text-xs block truncate mt-0.5"
                 >
+                  —
+                </strong>
               </div>
-
               <div
-                class="bg-[#141414] p-2.5 rounded-lg border border-[#272727]"
+                class="bg-white p-3 rounded-lg border-2 border-black shadow-sm"
               >
                 <span
-                  class="text-[10px] text-zinc-500 uppercase block font-bold"
-                  >Cameraperson (DoP)</span
+                  class="text-[9px] text-zinc-500 uppercase block font-bold"
                 >
+                  Cameraperson (DoP)
+                </span>
                 <strong
                   id="screen-dop"
-                  class="text-zinc-200 text-xs block truncate">—</strong
+                  class="text-[#18181B] text-xs block truncate mt-0.5"
                 >
+                  —
+                </strong>
               </div>
-
               <div
-                class="bg-[#141414] p-2.5 rounded-lg border border-[#272727]"
+                class="bg-white p-3 rounded-lg border-2 border-black shadow-sm"
               >
-                <span
-                  class="text-[10px] text-zinc-500 uppercase block font-bold"
+                <span class="text-[9px] text-zinc-500 uppercase block font-bold"
                   >Genre</span
                 >
                 <strong
                   id="screen-genre"
-                  class="text-zinc-200 text-xs block truncate">—</strong
+                  class="text-[#18181B] text-xs block truncate mt-0.5"
                 >
+                  —
+                </strong>
               </div>
-
-              <div
-                class="bg-[#141414] p-2.5 rounded-lg border border-[#272727]"
-              >
-                <span
-                  class="text-[10px] text-zinc-500 uppercase block font-bold"
-                  >Entry ID</span
-                >
-                <strong
-                  id="screen-entry-id"
-                  class="text-[#D9381E] text-xs block truncate font-mono select-all"
-                  >PSFF26-XXXX</strong
-                >
-              </div>
-
               <div
                 id="screen-pwd-box"
-                class="bg-[#141414] p-2.5 rounded-lg border border-[#272727] hidden"
+                class="bg-amber-100 p-3 rounded-lg border-2 border-amber-400 shadow-sm hidden md:col-span-4"
               >
                 <span
-                  class="text-[10px] text-zinc-500 uppercase block font-bold"
-                  >Screener Password</span
+                  class="text-[9px] text-amber-800 uppercase block font-bold"
                 >
+                  Screener Password
+                </span>
                 <strong
                   id="screen-pwd"
-                  class="text-amber-400 text-xs block truncate font-mono select-all"
-                  >None</strong
+                  class="text-[#18181B] text-xs block font-mono select-all mt-0.5"
                 >
+                  None
+                </strong>
               </div>
             </div>
-
             <div
-              class="bg-[#121212] p-3 rounded-lg border border-[#272727] text-xs font-mono text-zinc-300 space-y-1"
+              class="bg-zinc-50 p-4 rounded-lg border-2 border-black text-xs font-mono text-[#18181B] space-y-1.5 shadow-sm"
             >
-              <span class="text-[10px] font-bold text-zinc-500 uppercase block"
-                >Synopsis</span
+              <span
+                class="text-[10px] font-black text-[#B31D12] uppercase block tracking-wider"
               >
-              <p id="screen-synopsis" class="leading-relaxed text-zinc-300">
+                Synopsis
+              </span>
+              <p id="screen-synopsis" class="leading-relaxed font-sans text-sm">
                 No synopsis provided.
               </p>
             </div>
@@ -491,35 +537,42 @@ import Layout from "../layouts/Layout.astro";
 
         <!-- 3. Scrollable Scoring Panel -->
         <div
-          class="bg-[#1A1A1A] border border-[#2E2E2E] rounded-xl p-4 sm:p-6 space-y-5"
+          class="bg-[#FDFCF7] border-2 border-black rounded-2xl p-4 sm:p-6 space-y-6 shadow-[6px_6px_0px_0px_#000000]"
         >
+          <h2
+            class="text-base sm:text-lg font-black uppercase text-[#18181B] border-b-2 border-black/10 pb-2"
+          >
+            Jury Evaluation Rubric
+          </h2>
+
           <!-- Sticky Sub-Bar for Live Marks & Status -->
           <div
-            class="sticky top-16 sm:top-20 z-30 bg-[#242424] border border-[#3A3A3A] rounded-xl p-3 sm:p-4 shadow-xl flex items-center justify-between gap-4 font-mono"
+            class="sticky top-[88px] sm:top-[104px] z-30 bg-white border-2 border-black rounded-xl p-4 shadow-[4px_4px_0px_0px_#000000] flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono"
           >
             <div>
-              <span class="text-[10px] uppercase font-bold text-zinc-400 block"
+              <span class="text-[10px] uppercase font-bold text-zinc-500 block"
                 >Total Marks</span
               >
               <div class="flex items-baseline gap-1 mt-0.5">
                 <span
                   id="live-total-score"
-                  class="text-2xl sm:text-3xl font-black text-white">0</span
+                  class="text-3xl font-black text-[#18181B]">0</span
                 >
-                <span class="text-xs text-zinc-500 font-bold">/ 100</span>
+                <span class="text-sm text-zinc-600 font-bold">/ 100</span>
               </div>
             </div>
-
-            <div class="text-right">
+            <div
+              class="text-left sm:text-right flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center w-full sm:w-auto"
+            >
               <span
                 id="eval-status-pill"
-                class="inline-block px-2.5 py-1 text-[10px] font-black uppercase rounded-md bg-[#333333] text-zinc-300 border border-zinc-600"
+                class="inline-block px-2.5 py-1 text-[10px] font-black uppercase rounded bg-amber-100 text-amber-900 border border-amber-400"
               >
                 Draft
               </span>
               <div
                 id="rubric-progress-text"
-                class="text-xs font-bold text-[#D9381E] mt-1"
+                class="text-xs font-black text-[#B31D12] mt-0 sm:mt-1"
               >
                 0 / 12 Scored
               </div>
@@ -529,7 +582,7 @@ import Layout from "../layouts/Layout.astro";
           <!-- Lock Notification -->
           <div
             id="locked-notice"
-            class="hidden p-4 bg-emerald-950/80 border border-emerald-800 rounded-xl text-emerald-300 text-xs font-mono font-bold"
+            class="hidden p-4 bg-emerald-50 border-2 border-emerald-600 rounded-xl text-emerald-900 text-xs font-mono font-bold shadow-sm"
           >
             ✓ Evaluation is locked and finalized. Marks cannot be modified
             unless unlocked by the Festival Convener.
@@ -540,31 +593,31 @@ import Layout from "../layouts/Layout.astro";
             <div id="criteria-form-container" class="space-y-3">
               <!-- Dynamically populated via JS -->
             </div>
-
             <div
-              class="bg-[#141414] border border-[#2E2E2E] rounded-xl p-4 space-y-2"
+              class="bg-zinc-50 border-2 border-black rounded-xl p-4 space-y-2 shadow-sm"
             >
-              <label class="block text-xs font-bold uppercase text-zinc-300">
+              <label class="block text-xs font-black uppercase text-[#18181B]">
                 General Juror Remarks / Recommendations
               </label>
               <textarea
                 name="general_feedback"
-                rows="3"
+                rows="4"
                 placeholder="Enter remarks, critiques, or specific award citations..."
-                class="w-full bg-[#0F0F0F] border border-[#333333] rounded-lg p-3 text-xs text-white focus:outline-none focus:border-[#D9381E]"
+                class="w-full bg-white border-2 border-black rounded-lg p-3 text-xs text-[#18181B] focus:outline-none focus:border-[#B31D12] font-sans"
               ></textarea>
             </div>
-
             <!-- Submit & Lock CTA Trigger -->
-            <div id="submit-block" class="pt-2 space-y-2">
+            <div id="submit-block" class="pt-4 space-y-2">
               <button
                 type="button"
                 id="open-confirm-modal-btn"
-                class="w-full py-4 bg-[#D9381E] hover:bg-[#b82d16] text-white font-black uppercase tracking-wider text-xs sm:text-sm rounded-xl transition-colors cursor-pointer shadow-lg disabled:opacity-50"
+                class="w-full py-4 bg-[#B31D12] hover:bg-black text-white font-black uppercase tracking-widest text-xs sm:text-sm border-2 border-black rounded-xl transition-colors cursor-pointer shadow-[4px_4px_0px_0px_#000000] disabled:opacity-50"
               >
                 Submit &amp; Lock Scores (100 Marks) &rarr;
               </button>
-              <p class="text-[10px] text-zinc-500 text-center">
+              <p
+                class="text-[10px] text-zinc-500 font-bold text-center uppercase tracking-wider pt-2"
+              >
                 Drafts are automatically saved as you score.
               </p>
             </div>
@@ -579,50 +632,48 @@ import Layout from "../layouts/Layout.astro";
       class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4"
     >
       <div
-        class="w-full max-w-sm bg-[#1E1E1E] border border-[#333333] rounded-2xl p-6 space-y-5 shadow-2xl font-mono text-center"
+        class="w-full max-w-sm bg-[#FDFCF7] border-2 border-black rounded-2xl p-6 space-y-5 shadow-[8px_8px_0px_0px_#000000] font-mono text-center text-[#18181B]"
       >
         <div
-          class="w-12 h-12 bg-amber-500/10 text-amber-500 rounded-full flex items-center justify-center mx-auto border border-amber-500/30 text-xl font-bold"
+          class="w-12 h-12 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center mx-auto border-2 border-black text-xl font-bold shadow-sm"
         >
           🔒
         </div>
-
         <div class="space-y-1.5">
-          <h3 class="text-base font-black uppercase text-white">
-            Lock Evaluation?
-          </h3>
+          <h3 class="text-base font-black uppercase">Lock Evaluation?</h3>
           <p
             id="confirm-modal-film-title"
-            class="text-xs font-bold text-zinc-300 truncate"
+            class="text-xs font-bold text-zinc-600 truncate"
           >
             Movie Title
           </p>
-          <p class="text-xs text-zinc-400 leading-relaxed pt-1">
-            Total Marks Awarded: <strong
+          <p class="text-xs text-[#18181B] pt-2">
+            Total Marks Awarded: <br /><strong
               id="confirm-modal-score"
-              class="text-white text-sm font-black">0/100</strong
+              class="text-2xl font-black text-[#B31D12]">0/100</strong
             >
           </p>
-          <p class="text-[11px] text-zinc-500 pt-1">
+          <p
+            class="text-[10px] text-zinc-500 pt-2 font-sans font-bold leading-relaxed border-t-2 border-black/10 mt-2 pt-3"
+          >
             Once submitted, your marks are official and locked. You cannot
-            modify them further.
+            modify them further without admin assistance.
           </p>
         </div>
-
         <div class="grid grid-cols-2 gap-3 pt-2">
           <button
             type="button"
             id="cancel-confirm-modal-btn"
-            class="py-3 bg-[#2A2A2A] hover:bg-[#383838] text-zinc-200 text-xs font-bold uppercase rounded-xl transition-colors cursor-pointer"
+            class="py-3 bg-zinc-200 hover:bg-zinc-300 border-2 border-black text-[#18181B] text-xs font-black uppercase rounded-xl transition-colors cursor-pointer shadow-sm"
           >
             Cancel
           </button>
           <button
             type="button"
             id="confirm-lock-btn"
-            class="py-3 bg-[#D9381E] hover:bg-[#b82d16] text-white text-xs font-black uppercase rounded-xl transition-colors cursor-pointer shadow-md"
+            class="py-3 bg-[#B31D12] hover:bg-black text-white text-xs font-black uppercase border-2 border-black rounded-xl transition-colors cursor-pointer shadow-[3px_3px_0px_0px_#000000]"
           >
-            Confirm &amp; Lock
+            Confirm
           </button>
         </div>
       </div>
@@ -631,7 +682,7 @@ import Layout from "../layouts/Layout.astro";
     <!-- 4. IN-APP TOAST NOTIFICATION -->
     <div
       id="toast-notification"
-      class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#1E1E1E] border border-zinc-700 text-white px-5 py-3 rounded-full shadow-2xl text-xs font-mono font-bold flex items-center gap-2"
+      class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#18181B] border-2 border-black text-white px-5 py-3 rounded-xl shadow-[4px_4px_0px_0px_#B31D12] text-xs font-mono font-bold flex items-center gap-2"
     >
       <span id="toast-icon">✓</span>
       <span id="toast-message">Action completed</span>
@@ -653,7 +704,7 @@ import Layout from "../layouts/Layout.astro";
       key: "score_concept",
       label: "1. Concept / Premise",
       max: 10,
-      desc: "Clarity, premise strength, and originality of theme",
+      desc: "Clarity, premise strength, and originality",
     },
     {
       key: "score_originality",
@@ -665,61 +716,61 @@ import Layout from "../layouts/Layout.astro";
       key: "score_screenplay",
       label: "3. Screenplay / Structure",
       max: 15,
-      desc: "Narrative pacing, scene dynamics, and dialogue",
+      desc: "Narrative pacing, scene dynamics",
     },
     {
       key: "score_direction",
       label: "4. Direction",
       max: 15,
-      desc: "Directorial control, tonal balance, and visual vision",
+      desc: "Directorial control and visual vision",
     },
     {
       key: "score_characterization",
       label: "5. Characterization & Acting",
       max: 10,
-      desc: "Performances, emotional authenticity, and casting",
+      desc: "Performances, emotional authenticity",
     },
     {
       key: "score_cinematography",
       label: "6. Cinematography",
       max: 10,
-      desc: "Framing, lighting, camera movement, and aesthetic",
+      desc: "Framing, lighting, camera aesthetic",
     },
     {
       key: "score_editing",
       label: "7. Editing & Pacing",
       max: 10,
-      desc: "Rhythm, scene transitions, and narrative economy",
+      desc: "Rhythm, transitions, narrative economy",
     },
     {
       key: "score_sound",
       label: "8. Sound Design & Foley",
       max: 8,
-      desc: "Clarity of audio, mixing, and sound effects",
+      desc: "Clarity of audio, mixing",
     },
     {
       key: "score_production_design",
       label: "9. Production Design",
       max: 4,
-      desc: "Locations, sets, props, and art direction",
+      desc: "Locations, sets, art direction",
     },
     {
       key: "score_music",
       label: "10. Music & Score",
       max: 3,
-      desc: "Atmosphere, mood, and original score integration",
+      desc: "Atmosphere and original score",
     },
     {
       key: "score_thematic_depth",
       label: "11. Thematic Depth",
       max: 5,
-      desc: "Human insight, social depth, and relevance",
+      desc: "Human insight, social relevance",
     },
     {
       key: "score_impact",
       label: "12. Overall Impact",
       max: 10,
-      desc: "Lasting emotional resonance and memorable execution",
+      desc: "Lasting emotional resonance",
     },
   ];
 
@@ -762,8 +813,8 @@ import Layout from "../layouts/Layout.astro";
   );
   const detailsBtnLabel = document.getElementById("details-btn-label");
   const detailsBtnArrow = document.getElementById("details-btn-arrow");
-
   let isDetailsExpanded = false;
+
   toggleDetailsBtn?.addEventListener("click", () => {
     isDetailsExpanded = !isDetailsExpanded;
     if (isDetailsExpanded) {
@@ -783,41 +834,30 @@ import Layout from "../layouts/Layout.astro";
     const icon = document.getElementById("toast-icon");
     const text = document.getElementById("toast-message");
     if (!toast || !text || !icon) return;
-
     icon.innerText = isError ? "✕" : "✓";
     icon.className = isError
       ? "text-red-400 font-bold"
       : "text-emerald-400 font-bold";
     text.innerText = message;
     toast.classList.remove("hidden");
-
     setTimeout(() => {
       toast.classList.add("hidden");
     }, 3200);
   };
 
-  // Render 12 Criteria input rows
+  // Render 12 Criteria input rows (Admin Brutalist Theme)
   const container = document.getElementById("criteria-form-container");
   if (container) {
     container.innerHTML = CRITERIA.map(
       (c) => `
-      <div class="bg-[#141414] border border-[#2A2A2A] rounded-xl p-3.5 sm:p-4 space-y-2">
-        <div class="flex items-center justify-between gap-2">
-          <div>
-            <h4 class="text-xs font-bold uppercase text-white">${c.label}</h4>
-            <span class="text-[10px] text-zinc-500 block">${c.desc}</span>
-          </div>
-          <div class="flex items-center gap-1.5 shrink-0">
-            <input
-              type="number"
-              name="${c.key}"
-              min="0"
-              max="${c.max}"
-              placeholder="—"
-              class="rubric-input w-14 bg-[#0F0F0F] border border-[#3A3A3A] rounded-lg p-2 text-center text-sm font-black text-white focus:border-[#D9381E] focus:outline-none"
-            />
-            <span class="text-xs text-zinc-500 font-bold">/ ${c.max}</span>
-          </div>
+      <div class="bg-white border-2 border-black rounded-xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+        <div>
+          <h4 class="text-xs font-black uppercase text-[#18181B]">${c.label}</h4>
+          <span class="text-[10px] text-zinc-500 font-sans font-bold block">${c.desc}</span>
+        </div>
+        <div class="flex items-center gap-1.5 shrink-0 self-end sm:self-auto">
+          <input type="number" name="${c.key}" min="0" max="${c.max}" placeholder="—" class="rubric-input w-16 bg-zinc-50 border-2 border-black rounded-lg p-2 text-center text-sm font-black text-[#18181B] focus:border-[#B31D12] focus:outline-none transition-colors" />
+          <span class="text-xs text-zinc-400 font-black">/ ${c.max}</span>
         </div>
       </div>
     `,
@@ -829,6 +869,7 @@ import Layout from "../layouts/Layout.astro";
     const {
       data: { session },
     } = await supabase.auth.getSession();
+
     if (session) {
       const { data: profile } = await supabase
         .from("profiles")
@@ -864,20 +905,30 @@ import Layout from "../layouts/Layout.astro";
   loginForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
     authErr?.classList.add("hidden");
+
     const email = (
       document.getElementById("jury-email") as HTMLInputElement
     ).value.trim();
     const password = (document.getElementById("jury-pwd") as HTMLInputElement)
       .value;
+    const btn = document.getElementById("jury-auth-btn") as HTMLButtonElement;
+
+    btn.disabled = true;
+    btn.innerText = "Authenticating...";
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
+
     if (error) {
       showError(error.message);
+      btn.disabled = false;
+      btn.innerText = "Enter Screening Room →";
     } else {
       await checkSession();
+      btn.disabled = false;
+      btn.innerText = "Enter Screening Room →";
     }
   });
 
@@ -982,14 +1033,13 @@ import Layout from "../layouts/Layout.astro";
         const isInProgress =
           evaluation && !isCompleted && evaluation.status === "In Progress";
 
-        let statusBadge = `<span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-[#272727] text-zinc-400 border border-zinc-700">Yet to Start</span>`;
+        let statusBadge = `<span class="px-2.5 py-1 rounded bg-zinc-200 text-zinc-600 border border-zinc-300 text-[9px] font-black uppercase">Yet to Start</span>`;
         if (isCompleted) {
-          statusBadge = `<span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-emerald-950 text-emerald-400 border border-emerald-700">✓ Completed</span>`;
+          statusBadge = `<span class="px-2.5 py-1 rounded bg-emerald-100 text-emerald-900 border border-emerald-400 text-[9px] font-black uppercase">✓ Completed</span>`;
         } else if (isInProgress) {
-          statusBadge = `<span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-amber-950 text-amber-400 border border-amber-700">In Progress</span>`;
+          statusBadge = `<span class="px-2.5 py-1 rounded bg-amber-100 text-amber-900 border border-amber-400 text-[9px] font-black uppercase">In Progress</span>`;
         }
 
-        // Calculate score dynamically if completed
         let displayScore = "—";
         if (isCompleted && evaluation) {
           let computed = 0;
@@ -1000,33 +1050,25 @@ import Layout from "../layouts/Layout.astro";
         }
 
         return `
-        <tr class="hover:bg-[#2A2A2A]/50 transition-colors text-xs">
-          <td class="p-3 sm:p-3.5 border-r border-[#2E2E2E] font-bold text-zinc-400 select-all">${movie.entry_number}</td>
-          
-          <td class="p-3 sm:p-3.5 border-r border-[#2E2E2E]">
-            <div class="font-bold text-white text-sm truncate max-w-[180px] sm:max-w-[260px]">${movie.film_title}</div>
-            <span class="text-[10px] text-zinc-400 font-normal">${movie.genre || "Short Film"} &bull; ${movie.film_language}</span>
-          </td>
-
-          <td class="p-3 sm:p-3.5 border-r border-[#2E2E2E] text-zinc-300 hidden sm:table-cell">${movie.director_full_name}</td>
-          <td class="p-3 sm:p-3.5 border-r border-[#2E2E2E] text-zinc-400 hidden md:table-cell">${movie.duration_minutes} Mins</td>
-          <td class="p-3 sm:p-3.5 border-r border-[#2E2E2E] text-center">${statusBadge}</td>
-
-          <td class="p-3 sm:p-3.5 border-r border-[#2E2E2E] text-center font-black ${isCompleted ? "text-emerald-400" : "text-zinc-500"}">
-            ${displayScore}
-          </td>
-
-          <td class="p-3 sm:p-3.5 text-center">
-            <button
-              type="button"
-              data-id="${movie.id}"
-              class="play-movie-btn px-3 py-1.5 rounded-lg ${isCompleted ? "bg-[#272727] text-zinc-300 hover:bg-[#383838]" : "bg-[#D9381E] text-white hover:bg-[#b82d16]"} font-bold text-[10px] uppercase transition-colors cursor-pointer inline-flex items-center gap-1 shadow-sm"
-            >
-              <span>▶</span> ${isCompleted ? "Review" : "Watch"}
-            </button>
-          </td>
-        </tr>
-      `;
+          <tr class="hover:bg-zinc-50 transition-colors text-xs text-[#18181B]">
+            <td class="p-3 sm:p-3.5 border-r border-zinc-200 font-bold text-[#B31D12] select-all">${movie.entry_number}</td>
+            <td class="p-3 sm:p-3.5 border-r border-zinc-200">
+              <div class="font-black text-[#18181B] text-sm truncate max-w-[180px] sm:max-w-[260px] uppercase">${movie.film_title}</div>
+              <span class="text-[10px] text-zinc-500 font-normal font-sans">${movie.genre || "Short Film"} &bull; ${movie.film_language}</span>
+            </td>
+            <td class="p-3 sm:p-3.5 border-r border-zinc-200 font-bold hidden sm:table-cell">${movie.director_full_name}</td>
+            <td class="p-3 sm:p-3.5 border-r border-zinc-200 hidden md:table-cell font-sans">${movie.duration_minutes} Mins</td>
+            <td class="p-3 sm:p-3.5 border-r border-zinc-200 text-center">${statusBadge}</td>
+            <td class="p-3 sm:p-3.5 border-r border-zinc-200 text-center font-black ${isCompleted ? "text-emerald-700" : "text-zinc-400"}">
+              ${displayScore}
+            </td>
+            <td class="p-3 sm:p-3.5 text-center">
+              <button type="button" data-id="${movie.id}" class="play-movie-btn px-3 py-1.5 rounded-lg border-2 border-black ${isCompleted ? "bg-zinc-200 text-[#18181B] hover:bg-zinc-300" : "bg-[#B31D12] text-white hover:bg-black"} font-black text-[10px] uppercase transition-colors cursor-pointer inline-flex items-center gap-1 shadow-[2px_2px_0px_0px_#000000]">
+                <span>▶</span> ${isCompleted ? "Review" : "Watch"}
+              </button>
+            </td>
+          </tr>
+        `;
       })
       .join("");
 
@@ -1047,10 +1089,10 @@ import Layout from "../layouts/Layout.astro";
         (e.currentTarget as HTMLElement).getAttribute("data-filter") || "ALL";
       document.querySelectorAll(".filter-chip").forEach((c) => {
         c.className =
-          "filter-chip px-4 py-1.5 rounded-lg bg-[#272727] text-zinc-300 hover:bg-[#3F3F3F] shrink-0 transition-colors";
+          "filter-chip px-3 py-1.5 font-black uppercase bg-zinc-200 text-[#18181B] hover:bg-zinc-300 border-2 border-transparent rounded-md shrink-0 transition-colors";
       });
       (e.currentTarget as HTMLElement).className =
-        "filter-chip px-4 py-1.5 rounded-lg bg-white text-black shrink-0 transition-colors";
+        "filter-chip px-3 py-1.5 font-black uppercase bg-[#B31D12] text-white border-2 border-black rounded-md shadow-[2px_2px_0px_0px_#000000] shrink-0 transition-colors";
       renderHomeMovies();
     });
   });
@@ -1065,16 +1107,18 @@ import Layout from "../layouts/Layout.astro";
 
     showPlayerView();
 
-    // Reset collapsible details to default hidden state for clean scannability
     isDetailsExpanded = false;
     collapsibleDetails?.classList.add("hidden");
     if (detailsBtnLabel) detailsBtnLabel.innerText = "Show Film Info";
     if (detailsBtnArrow) detailsBtnArrow.classList.remove("rotate-180");
 
+    document.getElementById("screen-entry-id")!.innerText =
+      currentMovie.entry_number;
     document.getElementById("screen-film-title")!.innerText =
       currentMovie.film_title;
     document.getElementById("screen-film-language-runtime")!.innerText =
       `${currentMovie.film_language} • ${currentMovie.duration_minutes} Mins • ${currentMovie.year_of_production || 2026}`;
+
     document.getElementById("screen-director")!.innerText =
       currentMovie.director_full_name || "—";
     document.getElementById("screen-producer")!.innerText =
@@ -1083,8 +1127,6 @@ import Layout from "../layouts/Layout.astro";
       currentMovie.dop_full_name || "—";
     document.getElementById("screen-genre")!.innerText =
       currentMovie.genre || "Short Film";
-    document.getElementById("screen-entry-id")!.innerText =
-      currentMovie.entry_number;
     document.getElementById("screen-synopsis")!.innerText =
       currentMovie.synopsis || "No synopsis recorded.";
 
@@ -1108,6 +1150,8 @@ import Layout from "../layouts/Layout.astro";
 
     if (screenerUrl) {
       let embedUrl = screenerUrl;
+
+      // Convert URL into Embeddable format including Google Drive Preview Fix
       if (screenerUrl.includes("vimeo.com")) {
         const idMatch = screenerUrl.match(/vimeo\.com\/(\d+)/);
         if (idMatch)
@@ -1120,11 +1164,31 @@ import Layout from "../layouts/Layout.astro";
           /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/,
         );
         if (ytMatch) embedUrl = `https://www.youtube.com/embed/${ytMatch[1]}`;
+      } else if (screenerUrl.includes("drive.google.com")) {
+        // Extract file ID from various Google Drive URL formats
+        const driveIdMatch =
+          screenerUrl.match(/\/d\/([a-zA-Z0-9_-]+)/) ||
+          screenerUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+
+        if (driveIdMatch && driveIdMatch[1]) {
+          const fileId = driveIdMatch[1];
+          // Use the /preview endpoint which allows iframe embedding for public files
+          embedUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+        } else {
+          // Fallback: try the original replace method
+          embedUrl = screenerUrl.replace(/\/view.*$/, "/preview");
+        }
       }
 
       videoFrame.src = embedUrl;
       videoFrame.classList.remove("hidden");
       playerPlaceholder?.classList.add("hidden");
+    } else {
+      videoFrame.src = "";
+      videoFrame.classList.add("hidden");
+      playerPlaceholder?.classList.remove("hidden");
+      const txt = playerPlaceholder?.querySelector("p");
+      if (txt) txt.innerText = "No screener link provided.";
     }
 
     await loadEvaluation(currentMovie.id);
@@ -1151,6 +1215,7 @@ import Layout from "../layouts/Layout.astro";
         ])
         .select()
         .single();
+
       evalData = newEval;
     }
 
@@ -1161,18 +1226,18 @@ import Layout from "../layouts/Layout.astro";
   const populateRubricForm = (evaluation: any) => {
     rubricForm.reset();
     const isLocked = evaluation.is_submitted;
-
     const statusPill = document.getElementById("eval-status-pill")!;
+
     if (isLocked) {
       statusPill.innerText = "Locked 🔒";
       statusPill.className =
-        "inline-block px-2.5 py-1 text-[10px] font-black uppercase rounded-md bg-emerald-950 text-emerald-400 border border-emerald-700";
+        "inline-block px-2.5 py-1 text-[10px] font-black uppercase rounded bg-emerald-100 text-emerald-900 border border-emerald-400";
       lockedNotice?.classList.remove("hidden");
       submitBlock?.classList.add("hidden");
     } else {
       statusPill.innerText = "Draft";
       statusPill.className =
-        "inline-block px-2.5 py-1 text-[10px] font-black uppercase rounded-md bg-amber-950 text-amber-400 border border-amber-700";
+        "inline-block px-2.5 py-1 text-[10px] font-black uppercase rounded bg-amber-100 text-amber-900 border border-amber-400";
       lockedNotice?.classList.add("hidden");
       submitBlock?.classList.remove("hidden");
     }
@@ -1183,6 +1248,9 @@ import Layout from "../layouts/Layout.astro";
       if (input) {
         input.value = val !== null && val !== undefined ? val.toString() : "";
         input.disabled = isLocked;
+        input.className = isLocked
+          ? "rubric-input w-16 bg-zinc-200 border-2 border-black rounded-lg p-2 text-center text-sm font-black text-zinc-500 cursor-not-allowed"
+          : "rubric-input w-16 bg-zinc-50 border-2 border-black rounded-lg p-2 text-center text-sm font-black text-[#18181B] focus:border-[#B31D12] focus:outline-none transition-colors";
       }
     });
 
@@ -1192,6 +1260,9 @@ import Layout from "../layouts/Layout.astro";
     if (generalFeedback) {
       generalFeedback.value = evaluation.general_feedback || "";
       generalFeedback.disabled = isLocked;
+      generalFeedback.className = isLocked
+        ? "w-full bg-zinc-200 border-2 border-black rounded-lg p-3 text-xs text-zinc-600 font-sans cursor-not-allowed"
+        : "w-full bg-white border-2 border-black rounded-lg p-3 text-xs text-[#18181B] focus:outline-none focus:border-[#B31D12] font-sans";
     }
 
     recalcScores();
@@ -1204,7 +1275,6 @@ import Layout from "../layouts/Layout.astro";
     CRITERIA.forEach(({ key, max }) => {
       const input = rubricForm.elements.namedItem(key) as HTMLInputElement;
       const rawVal = input?.value?.trim();
-
       if (rawVal !== "" && rawVal !== undefined) {
         let num = parseInt(rawVal, 10);
         if (isNaN(num)) num = 0;
@@ -1236,7 +1306,6 @@ import Layout from "../layouts/Layout.astro";
     }, 1200);
   };
 
-  // Safe draft save: Exclude total_score as it is an auto-computed database generated column
   const saveDraft = async () => {
     if (!currentEvaluation || currentEvaluation.is_submitted) return;
 
@@ -1263,9 +1332,8 @@ import Layout from "../layouts/Layout.astro";
       .from("evaluations")
       .update(payload)
       .eq("id", currentEvaluation.id);
-    if (!error) {
-      showToast("Draft autosaved");
-    }
+
+    if (!error) showToast("Draft autosaved");
   };
 
   rubricForm?.addEventListener("input", () => {
@@ -1273,10 +1341,8 @@ import Layout from "../layouts/Layout.astro";
     triggerAutosave();
   });
 
-  // Open Custom In-App Confirmation Modal (Replaces browser window alert/confirm)
   openConfirmModalBtn?.addEventListener("click", () => {
     const { total, scoredCount } = recalcScores();
-
     if (scoredCount < 12) {
       showToast(`Please score all 12 criteria (${scoredCount}/12 done)`, true);
       return;
@@ -1289,18 +1355,16 @@ import Layout from "../layouts/Layout.astro";
     customConfirmModal?.classList.remove("hidden");
   });
 
-  cancelConfirmModalBtn?.addEventListener("click", () => {
-    customConfirmModal?.classList.add("hidden");
-  });
+  cancelConfirmModalBtn?.addEventListener("click", () =>
+    customConfirmModal?.classList.add("hidden"),
+  );
 
-  // Confirm and Finalize Evaluation Lock
   confirmLockBtn?.addEventListener("click", async () => {
     confirmLockBtn.disabled = true;
     confirmLockBtn.innerText = "Locking...";
 
     await saveDraft();
 
-    // Do NOT include `total_score` in update payload; the database generated column computes it automatically
     const { error } = await supabase
       .from("evaluations")
       .update({
@@ -1311,7 +1375,7 @@ import Layout from "../layouts/Layout.astro";
       .eq("id", currentEvaluation.id);
 
     confirmLockBtn.disabled = false;
-    confirmLockBtn.innerText = "Confirm & Lock";
+    confirmLockBtn.innerText = "Confirm";
     customConfirmModal?.classList.add("hidden");
 
     if (error) {
