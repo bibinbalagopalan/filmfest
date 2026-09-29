@@ -1,0 +1,143 @@
+---
+// src/components/DeadlineModal.astro
+---
+
+<!-- ========================================== --><!-- DEADLINE EXTENSION MODAL                   --><!-- ========================================== -->
+<div
+  id="deadline-modal"
+  class="hidden fixed inset-0 z-50 flex items-center justify-center px-4"
+>
+  <!-- Backdrop -->
+  <div
+    id="deadline-modal-bg"
+    class="absolute inset-0 bg-black/70 backdrop-blur-sm cursor-pointer transition-opacity"
+  >
+  </div>
+
+  <!-- Modal Box -->
+  <div
+    class="relative w-full max-w-md bg-[#FDFCF7] border-2 border-black rounded-2xl p-6 sm:p-8 shadow-[8px_8px_0px_0px_#000000] text-[#18181B] animate-[slideUp_0.3s_ease-out]"
+  >
+    <!-- Close Button -->
+    <button
+      id="close-modal-btn"
+      class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-zinc-200 hover:bg-[#B31D12] hover:text-white border-2 border-black rounded-full transition-colors cursor-pointer"
+      aria-label="Close modal"
+    >
+      <svg
+        class="w-4 h-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <!-- Content -->
+    <div class="text-center space-y-5">
+      <div
+        class="w-16 h-16 bg-[#FDB813] border-2 border-black rounded-xl flex items-center justify-center mx-auto shadow-[4px_4px_0px_0px_#000000]"
+      >
+        <svg
+          class="w-8 h-8 text-[#B31D12]"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
+          ></path>
+        </svg>
+      </div>
+
+      <!-- Applied the font-noto class here to use Noto Serif -->
+      <div class="font-noto">
+        <h3
+          class="text-2xl sm:text-3xl font-black text-[#B31D12] tracking-tight mb-3"
+        >
+          Deadline Extended!
+        </h3>
+        <p class="text-sm font-bold text-zinc-700 leading-relaxed px-2">
+          ചലച്ചിത്ര പ്രവർത്തകരുടെ നിരന്തരമായ അഭ്യർത്ഥന മാനിച്ച്, എൻട്രികൾ
+          സമർപ്പിക്കാനുള്ള അവസാന തിയ്യതി നീട്ടിയിരിക്കുന്നു:
+        </p>
+        <div
+          class="inline-block bg-[#FDB813] border-2 border-black px-4 py-2 mt-5 shadow-[3px_3px_0px_0px_#000000] -rotate-1"
+        >
+          <strong class="text-lg text-[#18181B] font-black"
+            >20 ഒക്ടോബർ 2026</strong
+          >
+        </div>
+      </div>
+
+      <div class="pt-4 font-noto">
+        <a
+          href="http://psff.in/submit"
+          class="block w-full py-4 bg-[#B31D12] hover:bg-black text-white font-black tracking-widest text-sm border-2 border-black rounded-xl transition-colors cursor-pointer shadow-[4px_4px_0px_0px_#000000]"
+        >
+          Submit Your Film &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Import Noto Serif Malayalam from Google Fonts */
+  @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@400;700;900&display=swap");
+
+  .font-noto {
+    font-family: "Noto Serif Malayalam", serif;
+  }
+
+  /* Custom slide up animation for the modal */
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  // Setup modal logic on client side
+  document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("deadline-modal");
+    const closeBtn = document.getElementById("close-modal-btn");
+    const bg = document.getElementById("deadline-modal-bg");
+
+    if (modal) {
+      // Check session storage so it doesn't pop up on every single page load
+      const hasSeenModal = sessionStorage.getItem("psff_deadline_extension");
+
+      if (!hasSeenModal) {
+        // Small delay to let the page load before showing the modal
+        setTimeout(() => {
+          modal.classList.remove("hidden");
+        }, 600);
+      }
+
+      // Close handler
+      const closeModal = () => {
+        modal.classList.add("hidden");
+        sessionStorage.setItem("psff_deadline_extension", "true");
+      };
+
+      // Event listeners
+      closeBtn?.addEventListener("click", closeModal);
+      bg?.addEventListener("click", closeModal);
+    }
+  });
+</script>
