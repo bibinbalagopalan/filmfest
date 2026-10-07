@@ -2,7 +2,7 @@
 title: "Official Website Launched for Pazhassi Short Film Fest Season 03"
 publishDate: "2026-08-25"
 tag: "Announcement"
-order: 1
+order: 2
 image: "https://i.ibb.co/GvKbwCx0/Screenshot-2026-08-26-234117.jpg"
 summary: "The official digital platform for PSFF Season 03 is live, introducing a fully streamlined online submission portal and remote jury screening workflow."
 ---
