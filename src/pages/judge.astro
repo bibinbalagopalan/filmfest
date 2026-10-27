@@ -522,7 +522,7 @@ import Layout from "../layouts/Layout.astro";
               <span
                 id="rubric-progress-text"
                 class="text-[10px] font-black text-[#B31D12] uppercase tracking-wider"
-                >0 / 12 Scored</span
+                >0 / 11 Scored</span
               >
               <span class="ml-auto inline-flex items-baseline gap-1">
                 <span
@@ -530,7 +530,11 @@ import Layout from "../layouts/Layout.astro";
                   class="text-base font-black text-[#B31D12] leading-none"
                   >0</span
                 >
-                <span class="text-[9px] font-bold text-zinc-500">/ 100</span>
+                <span
+                  id="live-total-max"
+                  class="text-[9px] font-bold text-zinc-500"
+                  >/ 100</span
+                >
               </span>
               <button
                 type="button"
@@ -609,8 +613,10 @@ import Layout from "../layouts/Layout.astro";
               <h2 class="text-xs font-black uppercase text-[#18181B]">
                 Jury Evaluation Rubric
               </h2>
-              <span class="text-[9px] text-zinc-500 font-bold uppercase"
-                >12 Criteria</span
+              <span
+                id="criteria-count-label"
+                class="text-[9px] text-zinc-500 font-bold uppercase"
+                >11 Criteria</span
               >
             </div>
 
@@ -674,7 +680,10 @@ import Layout from "../layouts/Layout.astro";
                 id="bottom-live-score"
                 class="text-lg font-black leading-none">0</span
               >
-              <span class="text-[9px] text-zinc-400 font-bold">/ 100</span>
+              <span
+                id="bottom-total-max"
+                class="text-[9px] text-zinc-400 font-bold">/ 100</span
+              >
             </div>
           </div>
           <button
@@ -762,6 +771,7 @@ import Layout from "../layouts/Layout.astro";
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+  // 11 criteria — sums to exactly 100 (score_impact removed)
   const CRITERIA = [
     {
       key: "score_concept",
@@ -829,13 +839,10 @@ import Layout from "../layouts/Layout.astro";
       max: 5,
       desc: "Insight, relevance",
     },
-    {
-      key: "score_impact",
-      label: "12. Overall Impact",
-      max: 10,
-      desc: "Emotional resonance",
-    },
   ];
+
+  // Derived total = 100 (guard against drift)
+  const MAX_TOTAL = CRITERIA.reduce((sum, c) => sum + c.max, 0);
 
   let currentJuror: any = null;
   let competitionFilms: any[] = [];
@@ -871,6 +878,21 @@ import Layout from "../layouts/Layout.astro";
   const toggleDetailsBtn = $("toggle-details-btn");
   const collapsibleDetails = $("collapsible-film-details");
   const detailsBtnArrow = $("details-btn-arrow");
+
+  // ---------- Sync static UI labels to derived values ----------
+  const criteriaCountLabel = $("criteria-count-label");
+  if (criteriaCountLabel)
+    criteriaCountLabel.innerText = `${CRITERIA.length} Criteria`;
+
+  const liveTotalMax = $("live-total-max");
+  if (liveTotalMax) liveTotalMax.innerText = `/ ${MAX_TOTAL}`;
+
+  const bottomTotalMax = $("bottom-total-max");
+  if (bottomTotalMax) bottomTotalMax.innerText = `/ ${MAX_TOTAL}`;
+
+  const rubricProgressText = $("rubric-progress-text");
+  if (rubricProgressText)
+    rubricProgressText.innerText = `0 / ${CRITERIA.length} Scored`;
 
   // ---------- Toast ----------
   const showToast = (message: string, isError = false) => {
@@ -1107,7 +1129,7 @@ import Layout from "../layouts/Layout.astro";
           CRITERIA.forEach((c) => {
             computed += Number(ev[c.key] || 0);
           });
-          scoreLabel = `${computed}/100`;
+          scoreLabel = `${computed}/${MAX_TOTAL}`;
         }
 
         return `
@@ -1328,7 +1350,7 @@ import Layout from "../layouts/Layout.astro";
     if (live) live.innerText = total.toString();
     if (bottomLive) bottomLive.innerText = total.toString();
     ($("rubric-progress-text") as HTMLElement).innerText =
-      `${scoredCount} / 12 Scored`;
+      `${scoredCount} / ${CRITERIA.length} Scored`;
     return { total, scoredCount };
   };
 
@@ -1371,13 +1393,17 @@ import Layout from "../layouts/Layout.astro";
   // ---------- Confirm & Lock ----------
   const openConfirm = () => {
     const { total, scoredCount } = recalcScores();
-    if (scoredCount < 12) {
-      showToast(`Score all 12 criteria (${scoredCount}/12 done)`, true);
+    if (scoredCount < CRITERIA.length) {
+      showToast(
+        `Score all ${CRITERIA.length} criteria (${scoredCount}/${CRITERIA.length} done)`,
+        true,
+      );
       return;
     }
     ($("confirm-modal-film-title") as HTMLElement).innerText =
       currentMovie.film_title;
-    ($("confirm-modal-score") as HTMLElement).innerText = `${total} / 100`;
+    ($("confirm-modal-score") as HTMLElement).innerText =
+      `${total} / ${MAX_TOTAL}`;
     customConfirmModal?.classList.remove("hidden");
   };
 

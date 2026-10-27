@@ -748,6 +748,7 @@ import Layout from "../layouts/Layout.astro";
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+  // 11 criteria — sums to exactly 100 (score_impact removed)
   const CRITERIA = [
     { key: "score_concept", label: "Concept", max: 10 },
     { key: "score_originality", label: "Originality", max: 10 },
@@ -760,8 +761,31 @@ import Layout from "../layouts/Layout.astro";
     { key: "score_production_design", label: "Production Design", max: 4 },
     { key: "score_music", label: "Music", max: 3 },
     { key: "score_thematic_depth", label: "Thematic Depth", max: 5 },
-    { key: "score_impact", label: "Impact", max: 10 },
   ];
+
+  // Derived total = 100 (guard against drift)
+  const MAX_TOTAL = CRITERIA.reduce((sum, c) => sum + c.max, 0);
+
+  // Compute a submission's total from the raw criterion scores.
+  // This is the single source of truth — does NOT rely on the DB's
+  // total_score column (which may be stale or removed).
+  const computeTotal = (ev: any): number => {
+    if (!ev) return 0;
+    let sum = 0;
+    for (const c of CRITERIA) {
+      const v = Number(ev[c.key]);
+      if (!isNaN(v)) sum += v;
+    }
+    // Fallback: if every criterion is null AND a stored total exists,
+    // trust the DB (handles legacy rows).
+    const hasAnyCriterion = CRITERIA.some(
+      (c) => ev[c.key] !== null && ev[c.key] !== undefined,
+    );
+    if (!hasAnyCriterion && typeof ev.total_score === "number") {
+      return ev.total_score;
+    }
+    return sum;
+  };
 
   let currentSubmissions: any[] = [];
   let currentJuryMembers: any[] = [];
@@ -1601,9 +1625,10 @@ import Layout from "../layouts/Layout.astro";
 
             if (isCompleted) {
               completedCount++;
+              const total = computeTotal(ev);
               return `
             <td class="p-2.5 border-r border-zinc-200 text-center bg-emerald-50/60">
-              <div class="font-black text-xs text-emerald-950">${ev.total_score} / 100</div>
+              <div class="font-black text-xs text-emerald-950">${total} / ${MAX_TOTAL}</div>
               <div class="flex items-center justify-center gap-1 mt-1">
                 <span class="text-[9px] uppercase font-bold text-emerald-700">✓ Done</span>
                 <button type="button" data-eval-id="${ev.id}" class="reopen-eval-btn px-1.5 py-0.5 text-[8px] uppercase bg-zinc-200 hover:bg-[#B31D12] hover:text-white font-bold transition-colors cursor-pointer border rounded" title="Unlock score for juror">Reopen</button>
@@ -1611,8 +1636,8 @@ import Layout from "../layouts/Layout.astro";
             </td>`;
             }
             if (isInProgress) {
-              const draftScore =
-                ev.total_score !== undefined ? `${ev.total_score}/100` : "";
+              const draft = computeTotal(ev);
+              const draftScore = draft > 0 ? `${draft}/${MAX_TOTAL}` : "";
               return `
             <td class="p-2.5 border-r border-zinc-200 text-center bg-amber-50/60">
               <span class="px-1.5 py-0.5 text-[9px] font-black uppercase bg-amber-200 text-amber-950 border border-amber-400 rounded">Incomplete</span>
@@ -1726,18 +1751,18 @@ import Layout from "../layouts/Layout.astro";
                 }).join("")}
                 
                 <tr class="bg-zinc-300 text-[#000000] font-black border-t-2 border-black">
-                  <td class="p-2.5 border-r border-zinc-400 uppercase">TOTAL / 100</td>
+                  <td class="p-2.5 border-r border-zinc-400 uppercase">TOTAL / ${MAX_TOTAL}</td>
                   ${currentJuryMembers
                     .map((j) => {
                       const ev = evalMap.get(`${film.id}_${j.id}`);
-                      return `<td class="p-2.5 border-r border-zinc-400">${ev && ev.is_submitted && ev.total_score !== undefined ? `${ev.total_score}` : "—"}</td>`;
+                      return `<td class="p-2.5 border-r border-zinc-400">${ev && ev.is_submitted ? computeTotal(ev) : "—"}</td>`;
                     })
                     .join("")}
                   <td class="p-2.5 bg-[#B31D12] text-white">
                     ${(() => {
                       if (filmEvals.length === 0) return "—";
                       const totalSum = filmEvals.reduce(
-                        (acc, curr) => acc + (curr.total_score || 0),
+                        (acc, curr) => acc + computeTotal(curr),
                         0,
                       );
                       return (totalSum / filmEvals.length).toFixed(1);
@@ -1767,10 +1792,6 @@ import Layout from "../layouts/Layout.astro";
       return;
     }
 
-    const evalMap = new Map(
-      currentEvaluations.map((e) => [`${e.submission_id}_${e.jury_id}`, e]),
-    );
-
     const rankedFilms = acceptedFilms.map((film) => {
       const filmEvals = currentEvaluations.filter(
         (e) => e.submission_id === film.id && e.is_submitted,
@@ -1778,7 +1799,7 @@ import Layout from "../layouts/Layout.astro";
       let avg = 0;
       if (filmEvals.length > 0) {
         const sum = filmEvals.reduce(
-          (acc, curr) => acc + (curr.total_score || 0),
+          (acc, curr) => acc + computeTotal(curr),
           0,
         );
         avg = sum / filmEvals.length;
@@ -1844,7 +1865,7 @@ import Layout from "../layouts/Layout.astro";
         "Director",
         "Language",
         "Duration (Mins)",
-        ...currentJuryMembers.map((j) => `"${j.full_name} (Total / 100)"`),
+        ...currentJuryMembers.map((j) => `"${j.full_name} (Total / ${MAX_TOTAL})"`),
         "Average Score",
         "Completed Juries",
       ];
@@ -1854,14 +1875,12 @@ import Layout from "../layouts/Layout.astro";
         );
         const jurorScores = currentJuryMembers.map((j) => {
           const ev = evalMap.get(`${film.id}_${j.id}`);
-          return ev && ev.is_submitted && ev.total_score !== undefined
-            ? ev.total_score
-            : "Incomplete";
+          return ev && ev.is_submitted ? computeTotal(ev) : "Incomplete";
         });
         let avg = "";
         if (filmEvals.length > 0) {
           const totalSum = filmEvals.reduce(
-            (acc, curr) => acc + (curr.total_score || 0),
+            (acc, curr) => acc + computeTotal(curr),
             0,
           );
           avg = (totalSum / filmEvals.length).toFixed(2);
@@ -1904,7 +1923,7 @@ import Layout from "../layouts/Layout.astro";
         let avg = 0;
         if (filmEvals.length > 0) {
           const sum = filmEvals.reduce(
-            (acc, curr) => acc + (curr.total_score || 0),
+            (acc, curr) => acc + computeTotal(curr),
             0,
           );
           avg = sum / filmEvals.length;
@@ -1920,7 +1939,7 @@ import Layout from "../layouts/Layout.astro";
         "Director",
         "Language",
         "Runtime (Min)",
-        "Average Score (/100)",
+        `Average Score (/${MAX_TOTAL})`,
         "Completed Juries",
       ];
       const rows = rankedFilms.map((f, i) =>
